@@ -5,6 +5,7 @@ import battleLogic.Battle;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
 import powers.AbstractPower;
+import relicSetBonus.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public ElementType elementType;
     public ArrayList<AbstractPower> powerList;
     public AbstractLightcone lightcone;
+    public AbstractRelicSetBonus relicSetBonus;
+    public boolean useTechnique = true;
 
     public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue) {
         this.name = name;
@@ -128,8 +131,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public float getTotalSameElementDamageBonus() {
-        int totalSameElementDamageBonus = 0;
-        int totalGlobalElementDamageBonus = 0;
+        float totalSameElementDamageBonus = 0;
+        float totalGlobalElementDamageBonus = 0;
         for (AbstractPower power : powerList) {
             totalSameElementDamageBonus += power.bonusSameElementDamageBonus;
             totalGlobalElementDamageBonus += power.bonusDamageBonus;
@@ -138,7 +141,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public float getTotalOffElementDamageBonus() {
-        int totalGlobalElementDamageBonus = 0;
+        float totalGlobalElementDamageBonus = 0;
         for (AbstractPower power : powerList) {
             totalGlobalElementDamageBonus += power.bonusDamageBonus;
         }
@@ -173,6 +176,38 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void addPower(AbstractPower power) {
+        for (AbstractPower ownedPowers : powerList) {
+            if (ownedPowers.name.equals(power.name)) {
+                if (!ownedPowers.stackable) {
+                    return;
+                } else if (ownedPowers.stacks < ownedPowers.maxStacks) {
+                    ownedPowers.stacks++;
+                    ownedPowers.turnDuration = power.turnDuration;
+                    return;
+                } else {
+                    ownedPowers.turnDuration = power.turnDuration;
+                    return;
+                }
+            }
+        }
         powerList.add(power);
+    }
+
+    public void removePower(AbstractPower power) {
+        powerList.remove(power);
+    }
+
+    public void EquipLightcone(AbstractLightcone lightcone) {
+        this.lightcone = lightcone;
+        lightcone.onEquip();
+    }
+
+    public void EquipRelicSet(AbstractRelicSetBonus relicSetBonus) {
+        this.relicSetBonus = relicSetBonus;
+        relicSetBonus.onEquip();
+    }
+
+    public void useTechnique() {
+
     }
 }

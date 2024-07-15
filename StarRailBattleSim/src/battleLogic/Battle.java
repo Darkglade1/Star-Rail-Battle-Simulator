@@ -7,6 +7,7 @@ import enemies.AbstractEnemy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Battle {
     public static Battle battle;
@@ -17,6 +18,7 @@ public class Battle {
     public int numSkillPoints = INITIAL_SKILL_POINTS;
     public final int MAX_SKILL_POINTS = 5;
     public int totalPlayerDamage;
+    public String log;
 
     public HashMap<AbstractCharacter, Integer> damageContributionMap;
 
@@ -26,6 +28,11 @@ public class Battle {
 
     public void setEnemyTeam(ArrayList<AbstractEnemy> enemyTeam) {
         this.enemyTeam = enemyTeam;
+    }
+
+    public AbstractEnemy getRandomEnemy() {
+        Random rand = new Random();
+        return Battle.battle.enemyTeam.get(rand.nextInt(Battle.battle.enemyTeam.size()));
     }
 
     public void updateContribution(AbstractCharacter character, int damageContribution) {
@@ -45,30 +52,34 @@ public class Battle {
         numSkillPoints = INITIAL_SKILL_POINTS;
 
         HashMap<AbstractEntity, Float> actionValueMap = new HashMap<>();
-        for (AbstractCharacter character : playerTeam) {
-            actionValueMap.put(character, character.getBaseAV());
-        }
         for (AbstractEnemy enemy : enemyTeam) {
             actionValueMap.put(enemy, enemy.getBaseAV());
+        }
+        for (AbstractCharacter character : playerTeam) {
+            character.lightcone.onCombatStart();
+            actionValueMap.put(character, character.getBaseAV());
+            if (character.useTechnique) {
+                character.useTechnique();
+            }
         }
 
         Yunli yunli = getYunli();
 
         while (battleLength > 0) {
+            addToLog("AV until battle ends: " + battleLength);
             AbstractEntity nextUnit = findLowestAVUnit(actionValueMap);
             float nextAV = actionValueMap.get(nextUnit);
             if (nextAV > battleLength) {
                 break;
             }
-            System.out.println("AV until battle ends: " + battleLength);
+            if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.maxEnergy / 2) {
+                yunli.useUltimate();
+            }
             System.out.println("Next is " + nextUnit.name + " at " + nextAV + " action value");
             battleLength -= nextAV;
             for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                 float newAV = entry.getValue() - nextAV;
                 entry.setValue(newAV);
-            }
-            if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.maxEnergy / 2) {
-                yunli.useUltimate();
             }
             nextUnit.takeTurn();
             actionValueMap.put(nextUnit, nextUnit.getBaseAV());
@@ -98,5 +109,9 @@ public class Battle {
             }
         }
         return next;
+    }
+
+    public void addToLog(String addition) {
+        log += addition + "\n";
     }
 }

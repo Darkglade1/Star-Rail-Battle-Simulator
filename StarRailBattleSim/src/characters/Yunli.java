@@ -3,17 +3,44 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
+import powers.PermPower;
+import powers.TempPower;
+
+import java.util.Random;
 
 public class Yunli extends AbstractCharacter {
 
     public boolean isParrying;
+    TempPower cullPower;
+    TempPower trueSunderAtkBonus;
+    TempPower techniqueDamageBonus;
 
     public Yunli() {
         super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
+        cullPower = new TempPower();
+        cullPower.bonusCritDamage = 100.0f;
+        cullPower.name = "Cull Crit Damage Buff";
+
+        trueSunderAtkBonus = new TempPower();
+        trueSunderAtkBonus.bonusAtkPercent = 30;
+        trueSunderAtkBonus.turnDuration = 1;
+        trueSunderAtkBonus.name = "True Sunder Atk Bonus";
+
+        techniqueDamageBonus = new TempPower();
+        techniqueDamageBonus.bonusDamageBonus = 80;
+        techniqueDamageBonus.name = "Technique Damage Bonus";
+
+        PermPower tracesPower = new PermPower();
+        tracesPower.name = "Traces Stat Bonus";
+        tracesPower.bonusAtkPercent = 28;
+        tracesPower.bonusCritChance = 6.7f;
+        tracesPower.bonusHPPercent = 18;
+        this.addPower(tracesPower);
     }
 
     public void useSkill() {
         super.useSkill();
+        System.out.println(getFinalAttack());
         float baseDamage = (1.2f * getFinalAttack());
         float baseDamageSplash = (0.6f * getFinalAttack());
         DamageType type = DamageType.SKILL;
@@ -45,38 +72,18 @@ public class Yunli extends AbstractCharacter {
 
     public void useUltimate() {
         isParrying = true;
+        addPower(cullPower);
         super.useUltimate();
     }
 
     public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
-        System.out.println(name + " used Counter");
+        addPower(trueSunderAtkBonus);
         if (isParrying) {
-            int baseDamage = (int)(2.2f * getFinalAttack());
-            int baseDamageSplash = (int)(1.1f * getFinalAttack());
-            DamageType type = DamageType.FOLLOW_UP;
-
-            int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-            BattleHelpers.attackEnemy(this, enemy, baseDamage, type);
-            if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
-                BattleHelpers.attackEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), baseDamageSplash, type);
-            }
-            if (enemyIndex - 1 >= 0) {
-                BattleHelpers.attackEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, type);
-            }
-
-            int baseDamageBounce = (int)(0.72f * getFinalAttack());
-            int numBounces = 6;
-            int counter = 0;
-            while (numBounces > 0) {
-                BattleHelpers.attackEnemy(this, Battle.battle.enemyTeam.get(counter), baseDamageBounce, type);
-                numBounces--;
-                counter++;
-                if (counter >= Battle.battle.enemyTeam.size()) {
-                    counter = 0;
-                }
-            }
+            useCull(enemy);
+            removePower(cullPower);
             isParrying = false;
         } else {
+            System.out.println(name + " used Counter");
             int baseDamage = (int)(1.2f * getFinalAttack());
             int baseDamageSplash = (int)(0.6f * getFinalAttack());
             DamageType type = DamageType.FOLLOW_UP;
@@ -100,5 +107,39 @@ public class Yunli extends AbstractCharacter {
         } else {
             useBasicAttack();
         }
+    }
+
+    public String toString() {
+        return name + " " + getFinalAttack();
+    }
+
+    public void useCull(AbstractEnemy enemy) {
+        System.out.println(name + " used Cull");
+        int baseDamage = (int)(2.0f * getFinalAttack());
+        int baseDamageSplash = (int)(1.0f * getFinalAttack());
+        DamageType type = DamageType.FOLLOW_UP;
+
+        int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
+        BattleHelpers.attackEnemy(this, enemy, baseDamage, type);
+        if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
+            BattleHelpers.attackEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), baseDamageSplash, type);
+        }
+        if (enemyIndex - 1 >= 0) {
+            BattleHelpers.attackEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, type);
+        }
+
+        int baseDamageBounce = (int)(0.60f * getFinalAttack());
+        int numBounces = 6;
+        while (numBounces > 0) {
+            BattleHelpers.attackEnemy(this, Battle.battle.getRandomEnemy(), baseDamageBounce, type);
+            numBounces--;
+        }
+    }
+
+    public void useTechnique() {
+        addPower(trueSunderAtkBonus);
+        addPower(techniqueDamageBonus);
+        useCull(Battle.battle.getRandomEnemy());
+        removePower(techniqueDamageBonus);
     }
 }

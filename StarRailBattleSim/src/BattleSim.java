@@ -4,7 +4,9 @@ import characters.Yunli;
 import enemies.AbstractEnemy;
 import enemies.PhysWeakEnemy;
 import lightcones.Aeon;
-import powers.RelicStatsPower;
+import lightcones.BlueSkyFullUptime;
+import powers.PermPower;
+import relicSetBonus.FullMusketeer;
 
 import java.util.ArrayList;
 
@@ -14,13 +16,15 @@ public class BattleSim {
         Battle battle = new Battle();
 
         Yunli yunli = new Yunli();
-        yunli.lightcone = new Aeon();
-        RelicStatsPower yunliRelicBonus = new RelicStatsPower();
-        yunliRelicBonus.bonusCritChance = 55;
-        yunliRelicBonus.bonusCritDamage = 80;
-        yunliRelicBonus.bonusDamageBonus = 38.8f;
+        yunli.EquipLightcone(new BlueSkyFullUptime(yunli));
+        yunli.EquipRelicSet(new FullMusketeer(yunli));
+        PermPower yunliRelicBonus = new PermPower();
+        yunliRelicBonus.bonusCritChance = 100;
+        yunliRelicBonus.bonusCritDamage = 0;
+        yunliRelicBonus.bonusDamageBonus = 53.8f;
         yunliRelicBonus.bonusAtkPercent = 86.4f;
-        yunliRelicBonus.bonusFlatAtk = 352;
+        yunliRelicBonus.bonusFlatAtk = 432;
+        yunliRelicBonus.name = "Relic Stats Bonuses";
         yunli.addPower(yunliRelicBonus);
 
         ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
@@ -33,6 +37,6 @@ public class BattleSim {
         battle.setEnemyTeam(enemyTeam);
 
         Battle.battle = battle;
-        battle.Start(550);
+        battle.Start(200);
     }
 }

@@ -4,6 +4,7 @@ import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 
 public abstract class AbstractPower {
+    public String name;
 
     public int bonusFlatHP;
     public float bonusHPPercent;
@@ -24,6 +25,9 @@ public abstract class AbstractPower {
     public int turnDuration;
     public boolean durationBasedOnSelfTurns = true;
     public boolean lastsForever = false;
+    public boolean stackable = false;
+    public int maxStacks;
+    public int stacks;
 
     public float applyConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, AbstractCharacter.DamageType type, float calculatedDamage) {
         return calculatedDamage;
