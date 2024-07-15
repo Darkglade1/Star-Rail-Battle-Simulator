@@ -49,17 +49,17 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void useSkill() {
-        System.out.println(name + " used Skill");
+        Battle.battle.addToLog(name + " used Skill");
         Battle.battle.numSkillPoints--;
         increaseEnergy(30);
     }
     public void useBasicAttack() {
-        System.out.println(name + " used Basic");
+        Battle.battle.addToLog(name + " used Basic");
         Battle.battle.numSkillPoints++;
         increaseEnergy(20);
     }
     public void useUltimate() {
-        System.out.println(name + " used Ultimate");
+        Battle.battle.addToLog(name + " used Ultimate");
         currentEnergy = 5;
     }
 
@@ -162,7 +162,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
             totalEnergyRegenBonus += power.bonusEnergyRegen;
         }
         float energyGained = amount * (1 + totalEnergyRegenBonus / 100);
-        System.out.println(name + " gained " + energyGained + " Energy");
+        Battle.battle.addToLog(name + " gained " + energyGained + " Energy");
         currentEnergy += energyGained;
         if (currentEnergy > maxEnergy) {
             currentEnergy = maxEnergy;

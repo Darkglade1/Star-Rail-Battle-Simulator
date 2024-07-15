@@ -37,12 +37,7 @@ public class BattleHelpers {
             float critMultiplier = 100.0f + critDamage;
             critMultiplierFloat = critMultiplier / 100;
         }
-        System.out.println(baseDamage);
-        System.out.println(dmgMultiplierFloat);
-        System.out.println(defMultiplierFloat);
-        System.out.println(resMultiplierFloat);
-        System.out.println(toughnessMultiplier);
-        System.out.println(critMultiplierFloat);
+
         float calculatedDamage = baseDamage * dmgMultiplierFloat * defMultiplierFloat * resMultiplierFloat * toughnessMultiplier * critMultiplierFloat;
         for (AbstractPower power : source.powerList) {
             calculatedDamage = power.applyConditionalDamageBonus(source, target, type, calculatedDamage);
@@ -53,9 +48,11 @@ public class BattleHelpers {
 
         int result = (int)calculatedDamage;
         if (wasCrit) {
-            System.out.println(source.name + " CRITICALLY hit " + target.name + " for " + result);
+            Battle.battle.addToLog(String.format("%s critically hit %s for %d damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f",
+                    source.name, target.name, result, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, toughnessMultiplier, critMultiplierFloat));
         } else {
-            System.out.println(source.name + " hit " + target.name + " for " + result);
+            Battle.battle.addToLog(String.format("%s hit %s for %d damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Toughness Multiplier: %.3f",
+                    source.name, target.name, result, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, toughnessMultiplier));
         }
         return result;
     }
@@ -75,7 +72,7 @@ public class BattleHelpers {
     }
 
     public static void attackCharacter(AbstractEnemy source, AbstractCharacter target, int energyToGain) {
-        System.out.println(source.name + " attacked " + target.name);
+        Battle.battle.addToLog(source.name + " attacked " + target.name);
         target.onAttacked(source, energyToGain);
     }
 }

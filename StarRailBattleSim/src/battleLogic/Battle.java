@@ -18,7 +18,7 @@ public class Battle {
     public int numSkillPoints = INITIAL_SKILL_POINTS;
     public final int MAX_SKILL_POINTS = 5;
     public int totalPlayerDamage;
-    public String log;
+    public String log = "";
 
     public HashMap<AbstractCharacter, Integer> damageContributionMap;
 
@@ -48,6 +48,7 @@ public class Battle {
     public void Start(int battleLength) {
         int initialBattleLength = battleLength;
         totalPlayerDamage = 0;
+        log = "";
         damageContributionMap = new HashMap<>();
         numSkillPoints = INITIAL_SKILL_POINTS;
 
@@ -63,6 +64,7 @@ public class Battle {
             }
         }
 
+
         Yunli yunli = getYunli();
 
         while (battleLength > 0) {
@@ -75,7 +77,7 @@ public class Battle {
             if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.maxEnergy / 2) {
                 yunli.useUltimate();
             }
-            System.out.println("Next is " + nextUnit.name + " at " + nextAV + " action value");
+            addToLog("Next is " + nextUnit.name + " at " + nextAV + " action value");
             battleLength -= nextAV;
             for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                 float newAV = entry.getValue() - nextAV;
@@ -85,9 +87,10 @@ public class Battle {
             actionValueMap.put(nextUnit, nextUnit.getBaseAV());
         }
 
-        System.out.println("Total player team damage: " + totalPlayerDamage);
-        System.out.println("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
-        System.out.println(damageContributionMap);
+        addToLog("Total player team damage: " + totalPlayerDamage);
+        addToLog("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
+        addToLog(damageContributionMap.toString());
+        System.out.println(log);
     }
 
     private Yunli getYunli() {

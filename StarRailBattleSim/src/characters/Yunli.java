@@ -6,8 +6,6 @@ import enemies.AbstractEnemy;
 import powers.PermPower;
 import powers.TempPower;
 
-import java.util.Random;
-
 public class Yunli extends AbstractCharacter {
 
     public boolean isParrying;
@@ -40,7 +38,6 @@ public class Yunli extends AbstractCharacter {
 
     public void useSkill() {
         super.useSkill();
-        System.out.println(getFinalAttack());
         float baseDamage = (1.2f * getFinalAttack());
         float baseDamageSplash = (0.6f * getFinalAttack());
         DamageType type = DamageType.SKILL;
@@ -83,7 +80,7 @@ public class Yunli extends AbstractCharacter {
             removePower(cullPower);
             isParrying = false;
         } else {
-            System.out.println(name + " used Counter");
+            Battle.battle.addToLog(name + " used Counter");
             int baseDamage = (int)(1.2f * getFinalAttack());
             int baseDamageSplash = (int)(0.6f * getFinalAttack());
             DamageType type = DamageType.FOLLOW_UP;
@@ -110,11 +107,11 @@ public class Yunli extends AbstractCharacter {
     }
 
     public String toString() {
-        return name + " " + getFinalAttack();
+        return name;
     }
 
     public void useCull(AbstractEnemy enemy) {
-        System.out.println(name + " used Cull");
+        Battle.battle.addToLog(name + " used Cull");
         int baseDamage = (int)(2.0f * getFinalAttack());
         int baseDamageSplash = (int)(1.0f * getFinalAttack());
         DamageType type = DamageType.FOLLOW_UP;
