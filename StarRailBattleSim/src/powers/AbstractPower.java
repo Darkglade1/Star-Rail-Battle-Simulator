@@ -3,6 +3,8 @@ package powers;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 
+import java.util.ArrayList;
+
 public abstract class AbstractPower {
     public String name;
 
@@ -16,6 +18,7 @@ public abstract class AbstractPower {
     public float bonusSpeedPercent;
     public float bonusSameElementDamageBonus;
     public float bonusDamageBonus;
+    public float bonusDamageTaken;
     public float defenseReduction;
     public float defenseIgnore;
     public float resPen;
@@ -29,11 +32,15 @@ public abstract class AbstractPower {
     public int maxStacks;
     public int stacks;
 
-    public float applyConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, AbstractCharacter.DamageType type, float calculatedDamage) {
-        return calculatedDamage;
+    public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        return 0;
     }
 
-    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, AbstractCharacter.DamageType type, float calculatedDamage) {
+    public float getConditionalDamageTaken(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        return 0;
+    }
+
+    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, float calculatedDamage) {
 
     }
 }

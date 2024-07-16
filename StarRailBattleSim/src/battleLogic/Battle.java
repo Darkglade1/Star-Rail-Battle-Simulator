@@ -3,6 +3,7 @@ package battleLogic;
 import characters.AbstractCharacter;
 import characters.Yunli;
 import enemies.AbstractEnemy;
+import relicSetBonus.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,12 +59,14 @@ public class Battle {
         }
         for (AbstractCharacter character : playerTeam) {
             character.lightcone.onCombatStart();
+            for (AbstractRelicSetBonus relicSetBonus : character.relicSetBonus) {
+                relicSetBonus.onCombatStart();
+            }
             actionValueMap.put(character, character.getBaseAV());
             if (character.useTechnique) {
                 character.useTechnique();
             }
         }
-
 
         Yunli yunli = getYunli();
 

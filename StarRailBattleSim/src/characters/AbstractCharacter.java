@@ -31,7 +31,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public ElementType elementType;
     public ArrayList<AbstractPower> powerList;
     public AbstractLightcone lightcone;
-    public AbstractRelicSetBonus relicSetBonus;
+    public ArrayList<AbstractRelicSetBonus> relicSetBonus;
     public boolean useTechnique = true;
 
     public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue) {
@@ -46,6 +46,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         this.currentEnergy = maxEnergy / 2;
         this.tauntValue = tauntValue;
         powerList = new ArrayList<>();
+        relicSetBonus = new ArrayList<>();
     }
 
     public void useSkill() {
@@ -203,7 +204,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void EquipRelicSet(AbstractRelicSetBonus relicSetBonus) {
-        this.relicSetBonus = relicSetBonus;
+        this.relicSetBonus.add(relicSetBonus);
         relicSetBonus.onEquip();
     }
 

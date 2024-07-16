@@ -3,10 +3,10 @@ import characters.AbstractCharacter;
 import characters.Yunli;
 import enemies.AbstractEnemy;
 import enemies.PhysWeakEnemy;
-import lightcones.Aeon;
 import lightcones.BlueSkyFullUptime;
 import powers.PermPower;
-import relicSetBonus.FullMusketeer;
+import relicSetBonus.InertSalsotto;
+import relicSetBonus.Musketeer;
 
 import java.util.ArrayList;
 
@@ -17,11 +17,12 @@ public class BattleSim {
 
         Yunli yunli = new Yunli();
         yunli.EquipLightcone(new BlueSkyFullUptime(yunli));
-        yunli.EquipRelicSet(new FullMusketeer(yunli));
+        yunli.EquipRelicSet(new Musketeer(yunli));
+        yunli.EquipRelicSet(new InertSalsotto(yunli));
         PermPower yunliRelicBonus = new PermPower();
         yunliRelicBonus.bonusCritChance = 100;
         yunliRelicBonus.bonusCritDamage = 0;
-        yunliRelicBonus.bonusDamageBonus = 53.8f;
+        yunliRelicBonus.bonusDamageBonus = 38.8f;
         yunliRelicBonus.bonusAtkPercent = 86.4f;
         yunliRelicBonus.bonusFlatAtk = 432;
         yunliRelicBonus.name = "Relic Stats Bonuses";
