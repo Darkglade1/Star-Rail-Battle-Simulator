@@ -26,8 +26,10 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public int level;
     public ArrayList<AbstractPower> powerList;
     protected HashMap<AbstractCharacter.ElementType, Integer> resMap;
+    public ArrayList<AbstractCharacter.ElementType> weaknessMap;
     public final int DEFAULT_RES = 20;
-    public int toughness = 0;
+    public float toughness;
+    public float maxToughness;
     public boolean weaknessBroken = false;
 
     public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness) {
@@ -37,8 +39,10 @@ public abstract class AbstractEnemy extends AbstractEntity {
         this.baseDef = baseDef;
         this.baseSpeed = baseSpeed;
         this.level = level;
+        this.maxToughness = toughness;
         this.toughness = toughness;
         powerList = new ArrayList<>();
+        weaknessMap = new ArrayList<>();
         setUpDefaultRes();
     }
 
@@ -133,5 +137,30 @@ public abstract class AbstractEnemy extends AbstractEntity {
     @Override
     public float getBaseAV() {
         return (float)10000 / baseSpeed;
+    }
+
+    @Override
+    public void onTurnStart() {
+        if (this.weaknessBroken) {
+            this.weaknessBroken = false;
+            Battle.battle.addToLog(String.format("%s recovered from weakness break (%.3f -> %.3f)", name, toughness, maxToughness));
+            this.toughness = maxToughness;
+        }
+    }
+
+    public void reduceToughness(float amount) {
+        if (this.weaknessBroken) {
+            return;
+        }
+        float initialToughness = this.toughness;
+        this.toughness -= amount;
+        if (this.toughness <= 0) {
+            this.toughness = 0;
+            this.weaknessBroken = true;
+        }
+        Battle.battle.addToLog(String.format("%s's toughness reduced by %.3f (%.3f -> %.3f)", name, amount, initialToughness, toughness));
+        if (this.weaknessBroken) {
+            Battle.battle.DelayEntity(this, 25);
+        }
     }
 }

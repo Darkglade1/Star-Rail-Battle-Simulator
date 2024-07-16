@@ -51,14 +51,14 @@ public class Yunli extends AbstractCharacter {
 
         if (Battle.battle.enemyTeam.size() >= 3) {
             int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types);
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex + 1), baseDamageSplash, types);
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex - 1), baseDamageSplash, types);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types, 60);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex + 1), baseDamageSplash, types, 30);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex - 1), baseDamageSplash, types, 30);
         } else {
             AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types);
+            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 60);
             if (Battle.battle.enemyTeam.size() == 2) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(1), baseDamageSplash, types);
+                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(1), baseDamageSplash, types, 30);
             }
         }
         BattleHelpers.PostAttackLogic(this, types);
@@ -72,10 +72,10 @@ public class Yunli extends AbstractCharacter {
 
         if (Battle.battle.enemyTeam.size() >= 3) {
             int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types, 30);
         } else {
             AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types);
+            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 30);
         }
         BattleHelpers.PostAttackLogic(this, types);
     }
@@ -101,12 +101,12 @@ public class Yunli extends AbstractCharacter {
             BattleHelpers.PreAttackLogic(this, types);
 
             int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types);
+            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 30);
             if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), baseDamageSplash, types);
+                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), baseDamageSplash, types, 30);
             }
             if (enemyIndex - 1 >= 0) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, types);
+                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, types, 30);
             }
             BattleHelpers.PostAttackLogic(this, types);
         }
@@ -122,10 +122,6 @@ public class Yunli extends AbstractCharacter {
         }
     }
 
-    public String toString() {
-        return name;
-    }
-
     public void useCull(AbstractEnemy enemy) {
         Battle.battle.addToLog(name + " used Cull");
         int baseDamage = (int)(2.2f * getFinalAttack());
@@ -136,18 +132,18 @@ public class Yunli extends AbstractCharacter {
         BattleHelpers.PreAttackLogic(this, types);
 
         int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-        BattleHelpers.hitEnemy(this, enemy, baseDamage, types);
+        BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 60);
         if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), baseDamageSplash, types);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), baseDamageSplash, types, 30);
         }
         if (enemyIndex - 1 >= 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, types);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, types, 30);
         }
 
         int baseDamageBounce = (int)(0.72f * getFinalAttack());
         int numBounces = 6;
         while (numBounces > 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), baseDamageBounce, types);
+            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), baseDamageBounce, types, 15);
             numBounces--;
         }
         BattleHelpers.PostAttackLogic(this, types);

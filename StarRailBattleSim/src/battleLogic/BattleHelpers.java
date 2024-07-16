@@ -67,8 +67,11 @@ public class BattleHelpers {
         return calculatedDamage;
     }
 
-    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, boolean sameElement) {
+    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage, boolean sameElement) {
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, types, sameElement);
+        if (target.weaknessMap.contains(source.elementType)) {
+            target.reduceToughness(toughnessDamage);
+        }
         Battle.battle.totalPlayerDamage += calculatedDamage;
         Battle.battle.updateContribution(source, calculatedDamage);
         attackDamageTotal += calculatedDamage;
@@ -77,8 +80,8 @@ public class BattleHelpers {
         }
     }
 
-    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types) {
-        hitEnemy(source, target, baseDamage, types, true);
+    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage) {
+        hitEnemy(source, target, baseDamage, types, toughnessDamage, true);
     }
 
     public static void PreAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {

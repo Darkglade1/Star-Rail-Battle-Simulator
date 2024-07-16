@@ -45,10 +45,10 @@ public class Huohuo extends AbstractCharacter {
 
         if (Battle.battle.enemyTeam.size() >= 3) {
             int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types, 30);
         } else {
             AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types);
+            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 30);
         }
         BattleHelpers.PostAttackLogic(this, types);
     }

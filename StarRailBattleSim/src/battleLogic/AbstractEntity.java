@@ -41,4 +41,8 @@ public abstract class AbstractEntity {
     public void onTurnStart() {
 
     }
+
+    public String toString() {
+        return name;
+    }
 }

@@ -23,6 +23,7 @@ public class Battle {
     public String log = "";
 
     public HashMap<AbstractCharacter, Float> damageContributionMap;
+    public HashMap<AbstractEntity, Float> actionValueMap;
 
     public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
         this.playerTeam = playerTeam;
@@ -71,8 +72,8 @@ public class Battle {
         log = "";
         damageContributionMap = new HashMap<>();
         numSkillPoints = INITIAL_SKILL_POINTS;
+        actionValueMap = new HashMap<>();
 
-        HashMap<AbstractEntity, Float> actionValueMap = new HashMap<>();
         for (AbstractEnemy enemy : enemyTeam) {
             actionValueMap.put(enemy, enemy.getBaseAV());
         }
@@ -95,12 +96,16 @@ public class Battle {
             AbstractEntity nextUnit = findLowestAVUnit(actionValueMap);
             float nextAV = actionValueMap.get(nextUnit);
             if (nextAV > battleLength) {
+                for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
+                    float newAV = entry.getValue() - battleLength;
+                    entry.setValue(newAV);
+                }
                 break;
             }
             if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
                 yunli.useUltimate();
             }
-            addToLog("Next is " + nextUnit.name + " at " + nextAV + " action value");
+            addToLog("Next is " + nextUnit.name + " at " + nextAV + " action value " + actionValueMap);
             battleLength -= nextAV;
             for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                 float newAV = entry.getValue() - nextAV;
@@ -121,7 +126,8 @@ public class Battle {
             for (AbstractPower power : powersToRemove) {
                 nextUnit.removePower(power);
             }
-            actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+            float presentAV = actionValueMap.get(nextUnit); // this is so being weakness broken from a counter will delay the next action
+            actionValueMap.put(nextUnit, nextUnit.getBaseAV() + presentAV);
 
             for (AbstractCharacter character : playerTeam) {
                 if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
@@ -159,5 +165,18 @@ public class Battle {
 
     public void addToLog(String addition) {
         log += addition + "\n";
+    }
+
+    public void DelayEntity(AbstractEntity entity, int delayAmount) {
+        for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
+            if (entry.getKey() == entity) {
+                float baseAV = entity.getBaseAV();
+                float AVIncrease = baseAV * ((float)delayAmount / 100);
+                float originalAV = entry.getValue();
+                float newAV = originalAV + AVIncrease;
+                entry.setValue(newAV);
+                addToLog(String.format("%s delayed by %d%% (%.3f -> %.3f)", entry.getKey().name, delayAmount, originalAV, newAV));
+            }
+        }
     }
 }
