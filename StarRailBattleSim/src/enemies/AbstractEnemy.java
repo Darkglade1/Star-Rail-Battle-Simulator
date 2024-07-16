@@ -32,8 +32,10 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public float toughness;
     public float maxToughness;
     public boolean weaknessBroken = false;
+    public final int doubleActionCooldown;
+    public int doubleActionCounter;
 
-    public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness) {
+    public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness, int doubleActionCooldown) {
         this.name = name;
         this.baseHP = baseHP;
         this.baseAtk = baseAtk;
@@ -42,9 +44,15 @@ public abstract class AbstractEnemy extends AbstractEntity {
         this.level = level;
         this.maxToughness = toughness;
         this.toughness = toughness;
+        this.doubleActionCooldown = doubleActionCooldown;
+        this.doubleActionCounter = doubleActionCooldown;
         powerList = new ArrayList<>();
         weaknessMap = new ArrayList<>();
         setUpDefaultRes();
+    }
+
+    public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness) {
+        this(name, baseHP, baseAtk, baseDef, baseSpeed, level, toughness, -1);
     }
 
     public float getFinalAttack() {
@@ -87,6 +95,21 @@ public abstract class AbstractEnemy extends AbstractEntity {
     }
 
     public void takeTurn() {
+        attack();
+        if (doubleActionCounter == 0) {
+            Battle.battle.addToLog(name + " takes a second action");
+            attack();
+            doubleActionCounter = doubleActionCooldown;
+        } else {
+            doubleActionCounter--;
+        }
+    }
+
+    public void attack() {
+        if (this.weaknessBroken) {
+            Battle.battle.addToLog(name + " couldn't act due to being weakness broken");
+            return;
+        }
         EnemyAttackType attackType = rollAttackType();
         if (attackType == EnemyAttackType.AOE) {
             Battle.battle.addToLog(String.format("%s uses AoE attack", name));

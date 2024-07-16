@@ -50,9 +50,9 @@ public class BattleSim {
         battle.setPlayerTeam(playerTeam);
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-        enemyTeam.add(new PhysWeakEnemy(0));
-        enemyTeam.add(new PhysWeakEnemy(1));
-        enemyTeam.add(new PhysWeakEnemy(2));
+        enemyTeam.add(new PhysWeakEnemy(0, 2));
+        enemyTeam.add(new PhysWeakEnemy(1, 2));
+        enemyTeam.add(new PhysWeakEnemy(2, 2));
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(300);
