@@ -144,9 +144,13 @@ public class Battle {
             }
         }
 
-        addToLog("Total player team damage: " + totalPlayerDamage);
+        addToLog(String.format("Total player team damage: %d \nAction Value used: %d", totalPlayerDamage, initialBattleLength));
         addToLog("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
         addToLog(damageContributionMap.toString());
+        addToLog("Enemy Metrics:");
+        for (AbstractEnemy enemy : enemyTeam) {
+            addToLog(enemy.getMetrics());
+        }
         System.out.println(log);
     }
 

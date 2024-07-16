@@ -35,6 +35,13 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public final int doubleActionCooldown;
     public int doubleActionCounter;
 
+    private int numTurnsMetric = 0;
+    private int numAttacksMetric = 0;
+    private int numSingleTargetMetric = 0;
+    private int numBlastMetric = 0;
+    private int numAoEMetric = 0;
+    private int timesBrokenMetric = 0;
+
     public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness, int doubleActionCooldown) {
         this.name = name;
         this.baseHP = baseHP;
@@ -103,6 +110,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
         } else {
             doubleActionCounter--;
         }
+        numTurnsMetric++;
     }
 
     public void attack() {
@@ -112,6 +120,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
         }
         EnemyAttackType attackType = rollAttackType();
         if (attackType == EnemyAttackType.AOE) {
+            numAoEMetric++;
             Battle.battle.addToLog(String.format("%s uses AoE attack", name));
             for (AbstractCharacter character : Battle.battle.playerTeam) {
                 BattleHelpers.attackCharacter(this, character, 10);
@@ -142,9 +151,11 @@ public abstract class AbstractEnemy extends AbstractEntity {
             }
 
             if (attackType == EnemyAttackType.SINGLE) {
+                numSingleTargetMetric++;
                 Battle.battle.addToLog(String.format("%s uses single target attack against %s", name, target.name));
                 BattleHelpers.attackCharacter(this, target, 10);
             } else {
+                numBlastMetric++;
                 Battle.battle.addToLog(String.format("%s uses blast attack against %s", name, target.name));
                 BattleHelpers.attackCharacter(this, target, 10);
                 if (idx + 1 < Battle.battle.playerTeam.size()) {
@@ -155,6 +166,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
                 }
             }
         }
+        numAttacksMetric++;
     }
 
     public EnemyAttackType rollAttackType() {
@@ -196,7 +208,12 @@ public abstract class AbstractEnemy extends AbstractEntity {
         }
         Battle.battle.addToLog(String.format("%s's toughness reduced by %.3f (%.3f -> %.3f)", name, amount, initialToughness, toughness));
         if (this.weaknessBroken) {
+            timesBrokenMetric++;
             Battle.battle.DelayEntity(this, 25);
         }
+    }
+
+    public String getMetrics() {
+        return String.format("Metrics for %s with %d speed \nTurns taken: %d \nTotal attacks: %d \nSingle-target attacks: %d \nBlast attacks: %d \nAoE attacks: %d \nWeakness Broken: %d", name, baseSpeed, numTurnsMetric, numAttacksMetric, numSingleTargetMetric, numBlastMetric, numAoEMetric, timesBrokenMetric);
     }
 }

@@ -217,4 +217,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public void onCombatStart() {
 
     }
+
+    public String getMetrics() {
+        return "";
+    }
 }
