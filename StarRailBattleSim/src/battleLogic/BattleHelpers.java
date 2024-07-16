@@ -3,11 +3,14 @@ package battleLogic;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
+import relicSetBonus.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 
 public class BattleHelpers {
-    public static int calculateDamageAgainstEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, boolean sameElement) {
+    private static float attackDamageTotal = 0;
+    public static ArrayList<AbstractEnemy> enemiesHit = new ArrayList<>();
+    public static float calculateDamageAgainstEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, boolean sameElement) {
         float dmgMultiplier;
         if (sameElement) {
             dmgMultiplier = source.getTotalSameElementDamageBonus();
@@ -51,34 +54,56 @@ public class BattleHelpers {
         }
 
         float calculatedDamage = baseDamage * dmgMultiplierFloat * defMultiplierFloat * resMultiplierFloat * toughnessMultiplier * critMultiplierFloat;
-
-        int result = (int)calculatedDamage;
         if (wasCrit) {
-            Battle.battle.addToLog(String.format("%s critically hit %s for %d damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f",
-                    source.name, target.name, result, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier, critMultiplierFloat));
+            Battle.battle.addToLog(String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f",
+                    source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier, critMultiplierFloat));
         } else {
-            Battle.battle.addToLog(String.format("%s hit %s for %d damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f",
-                    source.name, target.name, result, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
+            Battle.battle.addToLog(String.format("%s hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f",
+                    source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
         }
-        return result;
+        return calculatedDamage;
     }
 
-    public static void attackEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, boolean sameElement) {
-        int calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, types, sameElement);
+    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, boolean sameElement) {
+        float calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, types, sameElement);
         Battle.battle.totalPlayerDamage += calculatedDamage;
         Battle.battle.updateContribution(source, calculatedDamage);
-
-        for (AbstractPower power : target.powerList) {
-            power.onAttacked(source, target, types, calculatedDamage);
+        attackDamageTotal += calculatedDamage;
+        if (!enemiesHit.contains(target)) {
+            enemiesHit.add(target);
         }
     }
 
-    public static void attackEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types) {
-        attackEnemy(source, target, baseDamage, types, true);
+    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types) {
+        hitEnemy(source, target, baseDamage, types, true);
+    }
+
+    public static void PreAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
+        attackDamageTotal = 0;
+        enemiesHit.clear();
+        for (AbstractPower power : character.powerList) {
+            power.onBeforeUseAttack(types);
+        }
+        for (AbstractRelicSetBonus relicSet : character.relicSetBonus) {
+            relicSet.onBeforeUseAttack(types);
+        }
+    }
+
+    public static void PostAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
+        for (AbstractEnemy enemy : enemiesHit) {
+            for (AbstractPower power : enemy.powerList) {
+                power.onAttacked(character, enemy, types);
+            }
+        }
+
+        int damageTotal = (int) attackDamageTotal;
+        Battle.battle.addToLog(String.format("Total Damage: %d", damageTotal));
     }
 
     public static void attackCharacter(AbstractEnemy source, AbstractCharacter target, int energyToGain) {
         Battle.battle.addToLog(source.name + " attacked " + target.name);
         target.onAttacked(source, energyToGain);
     }
+
+
 }

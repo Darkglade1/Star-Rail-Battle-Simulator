@@ -30,7 +30,6 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float ultCost;
     public int tauntValue;
     public ElementType elementType;
-    public ArrayList<AbstractPower> powerList;
     public AbstractLightcone lightcone;
     public ArrayList<AbstractRelicSetBonus> relicSetBonus;
     public boolean useTechnique = true;
@@ -185,28 +184,6 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getBaseAV() {
         float speed = getFinalSpeed();
         return 10000 / speed;
-    }
-
-    public void addPower(AbstractPower power) {
-        for (AbstractPower ownedPowers : powerList) {
-            if (ownedPowers.name.equals(power.name)) {
-                if (!ownedPowers.stackable) {
-                    return;
-                } else if (ownedPowers.stacks < ownedPowers.maxStacks) {
-                    ownedPowers.stacks++;
-                    ownedPowers.turnDuration = power.turnDuration;
-                    return;
-                } else {
-                    ownedPowers.turnDuration = power.turnDuration;
-                    return;
-                }
-            }
-        }
-        powerList.add(power);
-    }
-
-    public void removePower(AbstractPower power) {
-        powerList.remove(power);
     }
 
     public void EquipLightcone(AbstractLightcone lightcone) {

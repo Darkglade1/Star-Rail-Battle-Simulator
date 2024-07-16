@@ -4,8 +4,12 @@ import characters.AbstractCharacter;
 
 public class PhysWeakEnemy extends AbstractEnemy {
 
-    public PhysWeakEnemy() {
-        super("PhysWeakEnemy", 301193, 718, 1150, 132, 95, 300);
+    public PhysWeakEnemy(int index) {
+        super("PhysWeakEnemy" + index, 301193, 718, 1150, 132, 95, 300);
         setRes(AbstractCharacter.ElementType.PHYSICAL, 0);
+    }
+
+    public PhysWeakEnemy() {
+        this(0);
     }
 }

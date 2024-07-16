@@ -1,6 +1,9 @@
 package relicSetBonus;
 
 import characters.AbstractCharacter;
+import enemies.AbstractEnemy;
+
+import java.util.ArrayList;
 
 public abstract class AbstractRelicSetBonus {
     public AbstractCharacter owner;
@@ -20,6 +23,10 @@ public abstract class AbstractRelicSetBonus {
     }
 
     public void onCombatStart() {
+
+    }
+
+    public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
 
     }
 

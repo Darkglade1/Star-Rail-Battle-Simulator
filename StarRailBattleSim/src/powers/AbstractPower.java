@@ -40,7 +40,15 @@ public abstract class AbstractPower {
         return 0;
     }
 
-    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, float calculatedDamage) {
+    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
 
+    }
+    public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
+
+    }
+    public void onEndTurn() {
+        if (!lastsForever && durationBasedOnSelfTurns) {
+            turnDuration--;
+        }
     }
 }

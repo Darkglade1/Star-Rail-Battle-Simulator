@@ -133,8 +133,4 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public float getBaseAV() {
         return (float)10000 / baseSpeed;
     }
-
-    public void addPower(AbstractPower power) {
-        powerList.add(power);
-    }
 }

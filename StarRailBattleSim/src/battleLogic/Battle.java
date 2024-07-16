@@ -3,6 +3,7 @@ package battleLogic;
 import characters.AbstractCharacter;
 import characters.Yunli;
 import enemies.AbstractEnemy;
+import powers.AbstractPower;
 import relicSetBonus.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Battle {
     public int totalPlayerDamage;
     public String log = "";
 
-    public HashMap<AbstractCharacter, Integer> damageContributionMap;
+    public HashMap<AbstractCharacter, Float> damageContributionMap;
 
     public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
         this.playerTeam = playerTeam;
@@ -36,10 +37,10 @@ public class Battle {
         return Battle.battle.enemyTeam.get(rand.nextInt(Battle.battle.enemyTeam.size()));
     }
 
-    public void updateContribution(AbstractCharacter character, int damageContribution) {
+    public void updateContribution(AbstractCharacter character, float damageContribution) {
         if (damageContributionMap.containsKey(character)) {
-            int existingTotal = damageContributionMap.get(character);
-            int updatedTotal = existingTotal + damageContribution;
+            float existingTotal = damageContributionMap.get(character);
+            float updatedTotal = existingTotal + damageContribution;
             damageContributionMap.put(character, updatedTotal);
         } else {
             damageContributionMap.put(character, damageContribution);
@@ -105,6 +106,16 @@ public class Battle {
                 entry.setValue(newAV);
             }
             nextUnit.takeTurn();
+            ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
+            for (AbstractPower power : nextUnit.powerList) {
+                power.onEndTurn();
+                if (!power.lastsForever && power.turnDuration <= 0) {
+                    powersToRemove.add(power);
+                }
+            }
+            for (AbstractPower power : powersToRemove) {
+                nextUnit.removePower(power);
+            }
             actionValueMap.put(nextUnit, nextUnit.getBaseAV());
         }
 

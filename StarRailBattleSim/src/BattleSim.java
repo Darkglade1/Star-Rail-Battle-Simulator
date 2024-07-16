@@ -7,6 +7,7 @@ import lightcones.BlueSkyFullUptime;
 import powers.PermPower;
 import relicSetBonus.InertSalsotto;
 import relicSetBonus.Musketeer;
+import relicSetBonus.Valorous;
 
 import java.util.ArrayList;
 
@@ -14,10 +15,11 @@ public class BattleSim {
 
     public static void main(String[] args) {
         Battle battle = new Battle();
+        Battle.battle = battle;
 
         Yunli yunli = new Yunli();
         yunli.EquipLightcone(new BlueSkyFullUptime(yunli));
-        yunli.EquipRelicSet(new Musketeer(yunli));
+        yunli.EquipRelicSet(new Valorous(yunli));
         yunli.EquipRelicSet(new InertSalsotto(yunli));
         PermPower yunliRelicBonus = new PermPower();
         yunliRelicBonus.bonusCritChance = 100;
@@ -32,12 +34,12 @@ public class BattleSim {
         playerTeam.add(yunli);
         battle.setPlayerTeam(playerTeam);
 
-        PhysWeakEnemy enemy = new PhysWeakEnemy();
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-        enemyTeam.add(enemy);
+        enemyTeam.add(new PhysWeakEnemy());
+        enemyTeam.add(new PhysWeakEnemy(1));
+        enemyTeam.add(new PhysWeakEnemy(2));
         battle.setEnemyTeam(enemyTeam);
 
-        Battle.battle = battle;
         battle.Start(200);
     }
 }
