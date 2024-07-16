@@ -89,6 +89,9 @@ public class Huohuo extends AbstractCharacter {
                 character.removePower(talentPower);
             }
         }
+        if (currentEnergy >= ultCost) {
+            useUltimate();
+        }
     }
 
     private class HuohuoTalentPower extends AbstractPower {
@@ -99,6 +102,11 @@ public class Huohuo extends AbstractCharacter {
 
         @Override
         public void onTurnStart() {
+            Huohuo.this.increaseEnergy(1);
+        }
+
+        @Override
+        public void onUseUltimate() {
             Huohuo.this.increaseEnergy(1);
         }
     }

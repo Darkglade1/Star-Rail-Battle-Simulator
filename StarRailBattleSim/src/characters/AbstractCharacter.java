@@ -66,6 +66,9 @@ public abstract class AbstractCharacter extends AbstractEntity {
         Battle.battle.addToLog(String.format("%s used Ultimate (%.3f -> %.3f)", name, initialEnergy, currentEnergy));
         increaseEnergy(5);
         this.lightcone.onUseUltimate();
+        for (AbstractPower power : powerList) {
+            power.onUseUltimate();
+        }
     }
 
     public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {

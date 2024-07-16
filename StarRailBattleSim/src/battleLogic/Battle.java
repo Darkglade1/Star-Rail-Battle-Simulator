@@ -84,6 +84,9 @@ public class Battle {
                 relicSetBonus.onCombatStart();
             }
             actionValueMap.put(character, character.getBaseAV());
+        }
+
+        for (AbstractCharacter character : playerTeam) {
             if (character.useTechnique) {
                 character.useTechnique();
             }

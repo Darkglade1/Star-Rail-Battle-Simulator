@@ -59,4 +59,8 @@ public abstract class AbstractPower {
     public void onTurnStart() {
 
     }
+
+    public void onUseUltimate() {
+
+    }
 }

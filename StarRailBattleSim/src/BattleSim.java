@@ -8,10 +8,7 @@ import lightcones.BlueSkyFullUptime;
 import lightcones.DanceAtSunset;
 import lightcones.PostOp;
 import powers.PermPower;
-import relicSetBonus.Duran;
-import relicSetBonus.InertSalsotto;
-import relicSetBonus.Musketeer;
-import relicSetBonus.Valorous;
+import relicSetBonus.*;
 
 import java.util.ArrayList;
 
@@ -40,7 +37,7 @@ public class BattleSim {
         Huohuo huohuo = new Huohuo();
         huohuo.EquipLightcone(new PostOp(huohuo));
         huohuo.EquipRelicSet(new Musketeer(huohuo));
-        huohuo.EquipRelicSet(new InertSalsotto(huohuo));
+        huohuo.EquipRelicSet(new BrokenKeel(huohuo));
         PermPower huohuoRelicBonus = new PermPower();
         huohuoRelicBonus.bonusHPPercent = 120;
         huohuoRelicBonus.bonusFlatSpeed = 45;
