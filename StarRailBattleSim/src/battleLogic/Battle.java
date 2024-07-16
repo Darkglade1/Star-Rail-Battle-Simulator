@@ -25,6 +25,12 @@ public class Battle {
     public HashMap<AbstractCharacter, Float> damageContributionMap;
     public HashMap<AbstractEntity, Float> actionValueMap;
 
+    long seed = 154172837382L;
+    public Random enemyMoveRng = new Random(seed);
+    public Random enemyTargetRng = new Random(seed);
+    public Random critChanceRng = new Random(seed);
+    public Random getRandomEnemyRng = new Random(seed);
+
     public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
         this.playerTeam = playerTeam;
     }
@@ -34,8 +40,7 @@ public class Battle {
     }
 
     public AbstractEnemy getRandomEnemy() {
-        Random rand = new Random();
-        return Battle.battle.enemyTeam.get(rand.nextInt(Battle.battle.enemyTeam.size()));
+        return Battle.battle.enemyTeam.get(getRandomEnemyRng.nextInt(Battle.battle.enemyTeam.size()));
     }
 
     public void updateContribution(AbstractCharacter character, float damageContribution) {

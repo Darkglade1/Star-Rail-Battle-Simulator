@@ -42,7 +42,7 @@ public class BattleHelpers {
         }
 
         float critChance = source.getTotalCritChance();
-        double roll = Math.random() * 100 + 1;
+        double roll = Battle.battle.critChanceRng.nextDouble() * 100 + 1;
         float critMultiplierFloat = 1.0f;
 
         boolean wasCrit = false;

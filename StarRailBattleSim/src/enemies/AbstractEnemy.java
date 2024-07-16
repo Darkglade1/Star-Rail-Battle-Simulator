@@ -99,7 +99,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
                 totalWeight += character.getFinalTauntValue();
             }
             int idx = 0;
-            for (double r = Math.random() * totalWeight; idx < Battle.battle.playerTeam.size() - 1; ++idx) {
+            for (double r = Battle.battle.enemyTargetRng.nextDouble() * totalWeight; idx < Battle.battle.playerTeam.size() - 1; ++idx) {
                 r -= Battle.battle.playerTeam.get(idx).getFinalTauntValue();
                 if (r <= 0.0) break;
             }
@@ -127,7 +127,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
             totalWeight += type.weight;
         }
         int idx = 0;
-        for (double r = Math.random() * totalWeight; idx < EnemyAttackType.values().length - 1; ++idx) {
+        for (double r = Battle.battle.enemyMoveRng.nextDouble() * totalWeight; idx < EnemyAttackType.values().length - 1; ++idx) {
             r -= EnemyAttackType.values()[idx].weight;
             if (r <= 0.0) break;
         }
