@@ -46,6 +46,24 @@ public class Battle {
         }
     }
 
+    public void useSkillPoint(AbstractCharacter character, int amount) {
+        int initialSkillPoints = numSkillPoints;
+        numSkillPoints -= amount;
+        addToLog(String.format("%s used %d Skill Point(s) (%d -> %d)", character.name, amount, initialSkillPoints, numSkillPoints));
+        if (numSkillPoints < 0) {
+            addToLog("ERROR - SKILL POINTS WENT NEGATIVE");
+        }
+    }
+
+    public void generateSkillPoint(AbstractCharacter character, int amount) {
+        int initialSkillPoints = numSkillPoints;
+        numSkillPoints += amount;
+        if (numSkillPoints > MAX_SKILL_POINTS) {
+            numSkillPoints = MAX_SKILL_POINTS;
+        }
+        addToLog(String.format("%s generated %d Skill Point(s) (%d -> %d)", character.name, amount, initialSkillPoints, numSkillPoints));
+    }
+
     public void Start(int battleLength) {
         int initialBattleLength = battleLength;
         totalPlayerDamage = 0;

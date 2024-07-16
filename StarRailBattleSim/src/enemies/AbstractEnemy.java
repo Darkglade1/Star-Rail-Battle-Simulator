@@ -84,6 +84,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public void takeTurn() {
         EnemyAttackType attackType = rollAttackType();
         if (attackType == EnemyAttackType.AOE) {
+            Battle.battle.addToLog(String.format("%s uses AoE attack", name));
             for (AbstractCharacter character : Battle.battle.playerTeam) {
                 BattleHelpers.attackCharacter(this, character, 10);
             }
@@ -100,8 +101,10 @@ public abstract class AbstractEnemy extends AbstractEntity {
             AbstractCharacter target = Battle.battle.playerTeam.get(idx);
 
             if (attackType == EnemyAttackType.SINGLE) {
+                Battle.battle.addToLog(String.format("%s uses single target attack against %s", name, target.name));
                 BattleHelpers.attackCharacter(this, target, 10);
             } else {
+                Battle.battle.addToLog(String.format("%s uses blast attack against %s", name, target.name));
                 BattleHelpers.attackCharacter(this, target, 10);
                 if (idx + 1 < Battle.battle.playerTeam.size()) {
                     BattleHelpers.attackCharacter(this, Battle.battle.playerTeam.get(idx + 1), 5);

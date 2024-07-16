@@ -17,6 +17,8 @@ public class Yunli extends AbstractCharacter {
 
     public Yunli() {
         super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
+        this.ultCost = 120;
+
         cullPower = new TempPower();
         cullPower.bonusCritDamage = 100.0f;
         cullPower.name = "Cull Crit Damage Buff";
@@ -145,5 +147,6 @@ public class Yunli extends AbstractCharacter {
         addPower(techniqueDamageBonus);
         useCull(Battle.battle.getRandomEnemy());
         removePower(techniqueDamageBonus);
+        increaseEnergy(10);
     }
 }

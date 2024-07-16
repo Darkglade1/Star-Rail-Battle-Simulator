@@ -27,6 +27,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float baseCritDamage = 50.0f;
     public float maxEnergy;
     public float currentEnergy;
+    public float ultCost;
     public int tauntValue;
     public ElementType elementType;
     public ArrayList<AbstractPower> powerList;
@@ -43,6 +44,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         this.level = level;
         this.elementType = elementType;
         this.maxEnergy = maxEnergy;
+        this.ultCost = maxEnergy;
         this.currentEnergy = maxEnergy / 2;
         this.tauntValue = tauntValue;
         powerList = new ArrayList<>();
@@ -51,17 +53,18 @@ public abstract class AbstractCharacter extends AbstractEntity {
 
     public void useSkill() {
         Battle.battle.addToLog(name + " used Skill");
-        Battle.battle.numSkillPoints--;
+        Battle.battle.useSkillPoint(this, 1);
         increaseEnergy(30);
     }
     public void useBasicAttack() {
         Battle.battle.addToLog(name + " used Basic");
-        Battle.battle.numSkillPoints++;
+        Battle.battle.generateSkillPoint(this, 1);
         increaseEnergy(20);
     }
     public void useUltimate() {
         Battle.battle.addToLog(name + " used Ultimate");
-        currentEnergy = 5;
+        currentEnergy -= ultCost;
+        increaseEnergy(5);
     }
 
     public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
@@ -157,17 +160,25 @@ public abstract class AbstractCharacter extends AbstractEntity {
         return totalResPen;
     }
 
-    public void increaseEnergy(int amount) {
+    public void increaseEnergy(int amount, boolean ERRAffected) {
+        float initialEnergy = currentEnergy;
         float totalEnergyRegenBonus = 0;
         for (AbstractPower power : powerList) {
             totalEnergyRegenBonus += power.bonusEnergyRegen;
         }
-        float energyGained = amount * (1 + totalEnergyRegenBonus / 100);
-        Battle.battle.addToLog(name + " gained " + energyGained + " Energy");
+        float energyGained = amount;
+        if (ERRAffected) {
+            energyGained = amount * (1 + totalEnergyRegenBonus / 100);
+        }
         currentEnergy += energyGained;
         if (currentEnergy > maxEnergy) {
             currentEnergy = maxEnergy;
         }
+        Battle.battle.addToLog(String.format("%s gained %.3f Energy (%.3f -> %.3f)", name, energyGained, initialEnergy, currentEnergy));
+    }
+
+    public void increaseEnergy(int amount) {
+        increaseEnergy(amount, true);
     }
 
     @Override
