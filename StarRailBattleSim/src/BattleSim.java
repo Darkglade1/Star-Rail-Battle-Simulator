@@ -6,6 +6,7 @@ import enemies.PhysWeakEnemy;
 import lightcones.BlueSkyFullUptime;
 import lightcones.DanceAtSunset;
 import powers.PermPower;
+import relicSetBonus.Duran;
 import relicSetBonus.InertSalsotto;
 import relicSetBonus.Musketeer;
 import relicSetBonus.Valorous;
@@ -21,7 +22,7 @@ public class BattleSim {
         Yunli yunli = new Yunli();
         yunli.EquipLightcone(new DanceAtSunset(yunli));
         yunli.EquipRelicSet(new Valorous(yunli));
-        yunli.EquipRelicSet(new InertSalsotto(yunli));
+        yunli.EquipRelicSet(new Duran(yunli));
         PermPower yunliRelicBonus = new PermPower();
         yunliRelicBonus.bonusCritChance = 100;
         yunliRelicBonus.bonusCritDamage = 0;

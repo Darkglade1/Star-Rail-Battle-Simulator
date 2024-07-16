@@ -16,13 +16,15 @@ public abstract class AbstractEntity {
     public void addPower(AbstractPower power) {
         for (AbstractPower ownedPowers : powerList) {
             if (ownedPowers.name.equals(power.name)) {
-                if (ownedPowers.stackable && ownedPowers.stacks < ownedPowers.maxStacks) {
+                if (ownedPowers.maxStacks > 0 && ownedPowers.stacks < ownedPowers.maxStacks) {
                     ownedPowers.stacks++;
                     ownedPowers.turnDuration = power.turnDuration;
                     Battle.battle.addToLog("Stacked " + power.name + " to " + ownedPowers.stacks);
                 } else {
-                    ownedPowers.turnDuration = power.turnDuration;
-                    Battle.battle.addToLog("Refreshed " + power.name);
+                    if (!ownedPowers.lastsForever) {
+                        ownedPowers.turnDuration = power.turnDuration;
+                        Battle.battle.addToLog("Refreshed " + power.name);
+                    }
                 }
                 return;
             }

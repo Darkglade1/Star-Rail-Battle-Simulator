@@ -49,6 +49,9 @@ public class BattleHelpers {
         if (roll < (double)critChance) {
             wasCrit = true;
             float critDamage = source.getTotalCritDamage();
+            for (AbstractPower power : source.powerList) {
+                critDamage += power.getConditionalCritDamage(source, target, types);
+            }
             float critMultiplier = 100.0f + critDamage;
             critMultiplierFloat = critMultiplier / 100;
         }

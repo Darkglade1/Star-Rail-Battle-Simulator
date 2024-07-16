@@ -29,8 +29,7 @@ public abstract class AbstractPower {
     public int turnDuration;
     public boolean durationBasedOnSelfTurns = true;
     public boolean lastsForever = false;
-    public boolean stackable = false;
-    public int maxStacks;
+    public int maxStacks = 0;
     public int stacks = 1;
 
     public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
@@ -38,6 +37,10 @@ public abstract class AbstractPower {
     }
 
     public float getConditionalDamageTaken(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        return 0;
+    }
+
+    public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
 

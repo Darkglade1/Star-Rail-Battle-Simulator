@@ -30,7 +30,6 @@ public class DanceAtSunset extends AbstractLightcone {
         public DanceAtSunsetDamagePower() {
             this.name = this.getClass().getSimpleName();
             this.turnDuration = 2;
-            this.stackable = true;
             this.maxStacks = 2;
         }
         @Override
