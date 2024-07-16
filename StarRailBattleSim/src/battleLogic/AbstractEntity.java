@@ -8,6 +8,7 @@ public abstract class AbstractEntity {
     public String name;
     public int baseSpeed;
     public ArrayList<AbstractPower> powerList = new ArrayList<>();
+    public int speedPriority = 99;
 
     public abstract float getBaseAV();
 

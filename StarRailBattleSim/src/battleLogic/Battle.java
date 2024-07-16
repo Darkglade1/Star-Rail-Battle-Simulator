@@ -162,10 +162,23 @@ public class Battle {
     private AbstractEntity findLowestAVUnit(HashMap<AbstractEntity, Float> actionValueMap) {
         AbstractEntity next = null;
         float nextAV = 999.0f;
+        ArrayList<AbstractEntity> speedTieList = new ArrayList<>();
         for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
             if (entry.getValue() < nextAV) {
                 next = entry.getKey();
                 nextAV = entry.getValue();
+                speedTieList.clear();
+            } else if (entry.getValue() == nextAV) {
+                speedTieList.add(entry.getKey());
+            }
+        }
+        if (speedTieList.size() != 0) {
+            int lowestSpeedTie = next.speedPriority;
+            for (AbstractEntity entity : speedTieList) {
+                if (entity.speedPriority < lowestSpeedTie) {
+                    next = entity;
+                    lowestSpeedTie = entity.speedPriority;
+                }
             }
         }
         return next;
