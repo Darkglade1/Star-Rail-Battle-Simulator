@@ -89,6 +89,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
                 BattleHelpers.attackCharacter(this, character, 10);
             }
         } else {
+            // TODO implement yunli's taunt
             double totalWeight= 0.0;
             for (AbstractCharacter character : Battle.battle.playerTeam) {
                 totalWeight += character.getFinalTauntValue();

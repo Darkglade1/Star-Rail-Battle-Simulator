@@ -61,8 +61,9 @@ public abstract class AbstractCharacter extends AbstractEntity {
         increaseEnergy(20);
     }
     public void useUltimate() {
-        Battle.battle.addToLog(name + " used Ultimate");
+        float initialEnergy = currentEnergy;
         currentEnergy -= ultCost;
+        Battle.battle.addToLog(String.format("%s used Ultimate (%.3f -> %.3f)", name, initialEnergy, currentEnergy));
         increaseEnergy(5);
         this.lightcone.onUseUltimate();
     }
@@ -169,7 +170,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         return (baseTauntValue * (1 + totalBonusTauntValue / 100));
     }
 
-    public void increaseEnergy(int amount, boolean ERRAffected) {
+    public void increaseEnergy(float amount, boolean ERRAffected) {
         float initialEnergy = currentEnergy;
         float totalEnergyRegenBonus = 0;
         for (AbstractPower power : powerList) {
@@ -186,7 +187,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         Battle.battle.addToLog(String.format("%s gained %.3f Energy (%.3f -> %.3f)", name, energyGained, initialEnergy, currentEnergy));
     }
 
-    public void increaseEnergy(int amount) {
+    public void increaseEnergy(float amount) {
         increaseEnergy(amount, true);
     }
 
@@ -207,6 +208,10 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void useTechnique() {
+
+    }
+
+    public void onCombatStart() {
 
     }
 }

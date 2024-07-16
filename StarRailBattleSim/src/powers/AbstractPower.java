@@ -55,4 +55,8 @@ public abstract class AbstractPower {
             turnDuration--;
         }
     }
+
+    public void onTurnStart() {
+
+    }
 }

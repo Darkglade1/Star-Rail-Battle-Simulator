@@ -30,11 +30,15 @@ public abstract class AbstractEntity {
             }
         }
         powerList.add(power);
-        Battle.battle.addToLog("Gained " + power.name);
+        Battle.battle.addToLog(name + " gained " + power.name);
     }
 
     public void removePower(AbstractPower power) {
         powerList.remove(power);
-        Battle.battle.addToLog("Removed " + power.name);
+        Battle.battle.addToLog(name + " lost " + power.name);
+    }
+
+    public void onTurnStart() {
+
     }
 }

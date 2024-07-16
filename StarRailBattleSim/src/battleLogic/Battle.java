@@ -78,6 +78,7 @@ public class Battle {
         }
         for (AbstractCharacter character : playerTeam) {
             character.lightcone.onCombatStart();
+            character.onCombatStart();
             for (AbstractRelicSetBonus relicSetBonus : character.relicSetBonus) {
                 relicSetBonus.onCombatStart();
             }
@@ -96,7 +97,7 @@ public class Battle {
             if (nextAV > battleLength) {
                 break;
             }
-            if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.maxEnergy / 2) {
+            if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
                 yunli.useUltimate();
             }
             addToLog("Next is " + nextUnit.name + " at " + nextAV + " action value");
@@ -105,6 +106,10 @@ public class Battle {
                 float newAV = entry.getValue() - nextAV;
                 entry.setValue(newAV);
             }
+            for (AbstractPower power : nextUnit.powerList) {
+                power.onTurnStart();
+            }
+            nextUnit.onTurnStart();
             nextUnit.takeTurn();
             ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
             for (AbstractPower power : nextUnit.powerList) {
@@ -117,6 +122,12 @@ public class Battle {
                 nextUnit.removePower(power);
             }
             actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+
+            for (AbstractCharacter character : playerTeam) {
+                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
+                    character.useUltimate();
+                }
+            }
         }
 
         addToLog("Total player team damage: " + totalPlayerDamage);
