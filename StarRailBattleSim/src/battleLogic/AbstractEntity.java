@@ -38,6 +38,24 @@ public abstract class AbstractEntity {
         Battle.battle.addToLog(name + " lost " + power.name);
     }
 
+    public boolean hasPower(String powerName) {
+        for (AbstractPower power : powerList) {
+            if (power.name.equals(powerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public AbstractPower getPower(String powerName) {
+        for (AbstractPower power : powerList) {
+            if (power.name.equals(powerName)) {
+                return power;
+            }
+        }
+        return null;
+    }
+
     public void onTurnStart() {
 
     }

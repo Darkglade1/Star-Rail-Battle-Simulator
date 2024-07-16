@@ -4,6 +4,7 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.PermPower;
+import powers.TauntPower;
 import powers.TempPower;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Yunli extends AbstractCharacter {
     TempPower cullPower;
     TempPower trueSunderAtkBonus;
     TempPower techniqueDamageBonus;
+    TauntPower tauntPower = new TauntPower(this);
 
     public Yunli() {
         super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
@@ -84,6 +86,11 @@ public class Yunli extends AbstractCharacter {
         super.useUltimate();
         isParrying = true;
         addPower(cullPower);
+
+        tauntPower.lastsForever = true; // used so I can manually remove later
+        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
+            enemy.addPower(tauntPower);
+        }
     }
 
     public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
@@ -92,6 +99,9 @@ public class Yunli extends AbstractCharacter {
             useCull(enemy);
             removePower(cullPower);
             isParrying = false;
+            for (AbstractEnemy e : Battle.battle.enemyTeam) {
+                e.removePower(tauntPower);
+            }
         } else {
             Battle.battle.addToLog(name + " used Counter");
             int baseDamage = (int)(1.2f * getFinalAttack());

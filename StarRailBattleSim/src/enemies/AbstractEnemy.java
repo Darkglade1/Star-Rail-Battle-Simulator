@@ -5,6 +5,7 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;
 import powers.AbstractPower;
+import powers.TauntPower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,17 +94,29 @@ public abstract class AbstractEnemy extends AbstractEntity {
                 BattleHelpers.attackCharacter(this, character, 10);
             }
         } else {
-            // TODO implement yunli's taunt
-            double totalWeight= 0.0;
-            for (AbstractCharacter character : Battle.battle.playerTeam) {
-                totalWeight += character.getFinalTauntValue();
+            AbstractCharacter target;
+            AbstractPower taunt = getPower(TauntPower.class.getSimpleName());
+            int idx = -99;
+            if (taunt instanceof TauntPower) {
+                target = ((TauntPower) taunt).taunter;
+                for (int i = 0; i < Battle.battle.playerTeam.size(); i++) {
+                    if (Battle.battle.playerTeam.get(i) == target) {
+                        idx = i;
+                        break;
+                    }
+                }
+            } else {
+                double totalWeight= 0.0;
+                for (AbstractCharacter character : Battle.battle.playerTeam) {
+                    totalWeight += character.getFinalTauntValue();
+                }
+                idx = 0;
+                for (double r = Battle.battle.enemyTargetRng.nextDouble() * totalWeight; idx < Battle.battle.playerTeam.size() - 1; ++idx) {
+                    r -= Battle.battle.playerTeam.get(idx).getFinalTauntValue();
+                    if (r <= 0.0) break;
+                }
+                target = Battle.battle.playerTeam.get(idx);
             }
-            int idx = 0;
-            for (double r = Battle.battle.enemyTargetRng.nextDouble() * totalWeight; idx < Battle.battle.playerTeam.size() - 1; ++idx) {
-                r -= Battle.battle.playerTeam.get(idx).getFinalTauntValue();
-                if (r <= 0.0) break;
-            }
-            AbstractCharacter target = Battle.battle.playerTeam.get(idx);
 
             if (attackType == EnemyAttackType.SINGLE) {
                 Battle.battle.addToLog(String.format("%s uses single target attack against %s", name, target.name));
