@@ -25,12 +25,13 @@ public abstract class AbstractPower {
     public float bonusCritChance;
     public float bonusCritDamage;
     public float bonusEnergyRegen;
+    public float bonusTauntValue;
     public int turnDuration;
     public boolean durationBasedOnSelfTurns = true;
     public boolean lastsForever = false;
     public boolean stackable = false;
     public int maxStacks;
-    public int stacks;
+    public int stacks = 1;
 
     public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;

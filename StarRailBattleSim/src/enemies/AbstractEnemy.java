@@ -91,11 +91,11 @@ public abstract class AbstractEnemy extends AbstractEntity {
         } else {
             double totalWeight= 0.0;
             for (AbstractCharacter character : Battle.battle.playerTeam) {
-                totalWeight += character.tauntValue;
+                totalWeight += character.getFinalTauntValue();
             }
             int idx = 0;
             for (double r = Math.random() * totalWeight; idx < Battle.battle.playerTeam.size() - 1; ++idx) {
-                r -= Battle.battle.playerTeam.get(idx).tauntValue;
+                r -= Battle.battle.playerTeam.get(idx).getFinalTauntValue();
                 if (r <= 0.0) break;
             }
             AbstractCharacter target = Battle.battle.playerTeam.get(idx);

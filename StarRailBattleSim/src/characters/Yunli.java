@@ -128,8 +128,8 @@ public class Yunli extends AbstractCharacter {
 
     public void useCull(AbstractEnemy enemy) {
         Battle.battle.addToLog(name + " used Cull");
-        int baseDamage = (int)(2.0f * getFinalAttack());
-        int baseDamageSplash = (int)(1.0f * getFinalAttack());
+        int baseDamage = (int)(2.2f * getFinalAttack());
+        int baseDamageSplash = (int)(1.1f * getFinalAttack());
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
         types.add(DamageType.ULTIMATE);
@@ -144,7 +144,7 @@ public class Yunli extends AbstractCharacter {
             BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, types);
         }
 
-        int baseDamageBounce = (int)(0.60f * getFinalAttack());
+        int baseDamageBounce = (int)(0.72f * getFinalAttack());
         int numBounces = 6;
         while (numBounces > 0) {
             BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), baseDamageBounce, types);
