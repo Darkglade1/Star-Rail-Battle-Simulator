@@ -230,6 +230,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     @Override
     public void takeTurn() {
         numTurnsMetric++;
+        speedPriority = 999; //reset speed priority if it was changed
     }
     public String getMetrics() {
         return statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d ", numTurnsMetric, numBasicsMetric, numSkillsMetric, numUltsMetric);

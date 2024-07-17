@@ -1,12 +1,14 @@
 import battleLogic.Battle;
 import characters.AbstractCharacter;
 import characters.Huohuo;
+import characters.Robin;
 import characters.Yunli;
 import enemies.AbstractEnemy;
 import enemies.PhysWeakEnemy;
 import lightcones.BlueSkyFullUptime;
 import lightcones.DanceAtSunset;
 import lightcones.PostOp;
+import lightcones.TomorrowJourney;
 import powers.PermPower;
 import relicSetBonus.*;
 
@@ -19,6 +21,20 @@ public class BattleSim {
         Battle.battle = battle;
 
         ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+
+        Robin robin = new Robin();
+        robin.EquipLightcone(new TomorrowJourney(robin));
+        robin.EquipRelicSet(new Musketeer(robin, false));
+        robin.EquipRelicSet(new Valorous(robin, false));
+        robin.EquipRelicSet(new BrokenKeel(robin));
+        PermPower robinRelicBonus = new PermPower();
+        robinRelicBonus.bonusAtkPercent = 160;
+        robinRelicBonus.bonusFlatSpeed = 25;
+        robinRelicBonus.bonusFlatAtk = 80;
+        robinRelicBonus.bonusEnergyRegen = 19.4f;
+        robinRelicBonus.name = "Relic Stats Bonuses";
+        robin.addPower(robinRelicBonus);
+        playerTeam.add(robin);
 
         Yunli yunli = new Yunli();
         yunli.EquipLightcone(new DanceAtSunset(yunli));
@@ -50,9 +66,9 @@ public class BattleSim {
         battle.setPlayerTeam(playerTeam);
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-        enemyTeam.add(new PhysWeakEnemy(0, 2));
-        enemyTeam.add(new PhysWeakEnemy(1, 2));
-        enemyTeam.add(new PhysWeakEnemy(2, 2));
+        enemyTeam.add(new PhysWeakEnemy(0, 0));
+        //enemyTeam.add(new PhysWeakEnemy(1, 2));
+        //enemyTeam.add(new PhysWeakEnemy(2, 2));
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(300);

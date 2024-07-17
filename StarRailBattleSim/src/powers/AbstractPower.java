@@ -47,6 +47,10 @@ public abstract class AbstractPower {
     public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
 
     }
+
+    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+
+    }
     public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
 
     }

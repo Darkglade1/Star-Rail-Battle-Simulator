@@ -84,14 +84,17 @@ public class Battle {
         }
         for (AbstractCharacter character : playerTeam) {
             character.generateStatsString();
+        }
+        for (AbstractCharacter character : playerTeam) {
+            actionValueMap.put(character, character.getBaseAV());
             character.lightcone.onCombatStart();
             character.onCombatStart();
             for (AbstractRelicSetBonus relicSetBonus : character.relicSetBonus) {
                 relicSetBonus.onCombatStart();
             }
-            actionValueMap.put(character, character.getBaseAV());
         }
 
+        addToLog("Triggering Techniques");
         for (AbstractCharacter character : playerTeam) {
             if (character.useTechnique) {
                 character.useTechnique();
@@ -120,6 +123,12 @@ public class Battle {
             for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                 float newAV = entry.getValue() - nextAV;
                 entry.setValue(newAV);
+            }
+            if (nextUnit instanceof Concerto) {
+                addToLog("Concerto ends, it's now Robin's turn");
+                actionValueMap.remove(nextUnit);
+                ((Concerto) nextUnit).owner.onConcertoEnd();
+                nextUnit = ((Concerto) nextUnit).owner;
             }
             for (AbstractPower power : nextUnit.powerList) {
                 power.onTurnStart();
@@ -200,6 +209,22 @@ public class Battle {
 
     public void addToLog(String addition) {
         log += addition + "\n";
+    }
+
+    public void AdvanceEntity(AbstractEntity entity, int advanceAmount) {
+        for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
+            if (entry.getKey() == entity) {
+                float baseAV = entity.getBaseAV();
+                float AVDecrease = baseAV * ((float)advanceAmount / 100);
+                float originalAV = entry.getValue();
+                float newAV = originalAV - AVDecrease;
+                if (newAV < 0) {
+                    newAV = 0;
+                }
+                entry.setValue(newAV);
+                addToLog(String.format("%s advanced by %d%% (%.3f -> %.3f)", entry.getKey().name, advanceAmount, originalAV, newAV));
+            }
+        }
     }
 
     public void DelayEntity(AbstractEntity entity, int delayAmount) {

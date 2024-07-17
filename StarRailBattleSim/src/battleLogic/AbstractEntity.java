@@ -12,7 +12,7 @@ public abstract class AbstractEntity {
     protected int numTurnsMetric = 0;
 
     public float getBaseAV() {
-        return 0;
+        return (float)10000 / baseSpeed;
     }
 
     public void takeTurn() {
@@ -25,11 +25,11 @@ public abstract class AbstractEntity {
                 if (ownedPowers.maxStacks > 0 && ownedPowers.stacks < ownedPowers.maxStacks) {
                     ownedPowers.stacks++;
                     ownedPowers.turnDuration = power.turnDuration;
-                    Battle.battle.addToLog("Stacked " + power.name + " to " + ownedPowers.stacks);
+                    Battle.battle.addToLog(name + " stacked " + power.name + " to " + ownedPowers.stacks);
                 } else {
                     if (!ownedPowers.lastsForever) {
                         ownedPowers.turnDuration = power.turnDuration;
-                        Battle.battle.addToLog("Refreshed " + power.name);
+                        Battle.battle.addToLog(name + " refreshed " + power.name);
                     }
                 }
                 return;

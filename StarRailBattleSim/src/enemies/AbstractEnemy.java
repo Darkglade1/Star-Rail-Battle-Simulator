@@ -182,11 +182,6 @@ public abstract class AbstractEnemy extends AbstractEntity {
     }
 
     @Override
-    public float getBaseAV() {
-        return (float)10000 / baseSpeed;
-    }
-
-    @Override
     public void onTurnStart() {
         if (this.weaknessBroken) {
             this.weaknessBroken = false;

@@ -96,6 +96,9 @@ public class BattleHelpers {
     }
 
     public static void PostAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
+        for (AbstractPower power : character.powerList) {
+            power.onAttack(character, enemiesHit, types);
+        }
         for (AbstractEnemy enemy : enemiesHit) {
             for (AbstractPower power : enemy.powerList) {
                 power.onAttacked(character, enemy, types);
@@ -109,6 +112,57 @@ public class BattleHelpers {
     public static void attackCharacter(AbstractEnemy source, AbstractCharacter target, int energyToGain) {
         Battle.battle.addToLog(source.name + " attacked " + target.name);
         target.onAttacked(source, energyToGain);
+    }
+
+    public static float calculateDamageAgainstEnemyFixedCrit(AbstractCharacter source, AbstractEnemy target, float baseDamage, float fixedCritChance, float fixedCritDamage) {
+        float dmgMultiplier;
+        dmgMultiplier = source.getTotalSameElementDamageBonus();
+        float dmgMultiplierFloat = 1 + dmgMultiplier / 100;
+
+        float enemyDefPercent = target.getFinalDefense();
+        float defMultiplierFloat = (source.level + 20) / ((target.level + 20) * (1 + enemyDefPercent / 100) + (source.level + 20));
+
+        float resPen = source.getTotalResPen();
+        float resMultiplier = 100 - (target.getRes(source.elementType) - resPen);
+        float resMultiplierFloat = resMultiplier / 100;
+
+        float damageTaken = 0;
+        for (AbstractPower power : target.powerList) {
+            damageTaken += power.bonusDamageTaken;
+        }
+        float damageTakenMultiplier = 1 + damageTaken / 100;
+
+        float toughnessMultiplier = 0.9f;
+        if (target.weaknessBroken) {
+            toughnessMultiplier = 1.0f;
+        }
+
+        double roll = Battle.battle.critChanceRng.nextDouble() * 100 + 1;
+        float critMultiplierFloat = 1.0f;
+
+        boolean wasCrit = false;
+        if (roll < (double) fixedCritChance) {
+            wasCrit = true;
+            float critMultiplier = 100.0f + fixedCritDamage;
+            critMultiplierFloat = critMultiplier / 100;
+        }
+
+        float calculatedDamage = baseDamage * dmgMultiplierFloat * defMultiplierFloat * resMultiplierFloat * toughnessMultiplier * critMultiplierFloat;
+        if (wasCrit) {
+            Battle.battle.addToLog(String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f",
+                    source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier, critMultiplierFloat));
+        } else {
+            Battle.battle.addToLog(String.format("%s hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f",
+                    source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
+        }
+        return calculatedDamage;
+    }
+
+    public static void robinHitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, float fixedCritChance, float fixedCritDamage) {
+        float calculatedDamage = calculateDamageAgainstEnemyFixedCrit(source, target, baseDamage, fixedCritChance, fixedCritDamage);
+        Battle.battle.totalPlayerDamage += calculatedDamage;
+        Battle.battle.updateContribution(source, calculatedDamage);
+        attackDamageTotal += calculatedDamage;
     }
 
 
