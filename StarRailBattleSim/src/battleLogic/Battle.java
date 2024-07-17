@@ -134,7 +134,9 @@ public class Battle {
                 power.onTurnStart();
             }
             nextUnit.onTurnStart();
-            actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+            if (nextUnit instanceof AbstractCharacter || nextUnit instanceof AbstractEnemy) {
+                actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+            }
             nextUnit.takeTurn();
             ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
             for (AbstractPower power : nextUnit.powerList) {
@@ -152,6 +154,14 @@ public class Battle {
                     character.useUltimate();
                 }
             }
+            // check again in case of energy regen ultimates
+            for (AbstractCharacter character : playerTeam) {
+                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
+                    character.useUltimate();
+                }
+            }
+
+            //reset numby's AV here
         }
 
         addToLog("");

@@ -18,6 +18,7 @@ public class Robin extends AbstractCharacter {
 
     public Robin() {
         super("Robin", 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100);
+        this.skillEnergyGain = 35;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 28;
@@ -38,11 +39,10 @@ public class Robin extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.addPower(skillPower);
         }
-        increaseEnergy(5);
     }
     public void useBasicAttack() {
         super.useBasicAttack();
-        float baseDamage = (0.5f * getFinalHP());
+        float baseDamage = (1.0f * getFinalAttack());
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
         BattleHelpers.PreAttackLogic(this, types);
