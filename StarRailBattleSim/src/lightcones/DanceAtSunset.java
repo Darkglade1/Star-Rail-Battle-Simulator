@@ -26,6 +26,10 @@ public class DanceAtSunset extends AbstractLightcone {
         owner.addPower(new DanceAtSunsetDamagePower());
     }
 
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
     private static class DanceAtSunsetDamagePower extends AbstractPower {
         public DanceAtSunsetDamagePower() {
             this.name = this.getClass().getSimpleName();

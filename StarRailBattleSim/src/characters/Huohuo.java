@@ -64,6 +64,7 @@ public class Huohuo extends AbstractCharacter {
     }
 
     public void takeTurn() {
+        super.takeTurn();
         if (Battle.battle.numSkillPoints > 0 && talentCounter <= 0) {
             useSkill();
         } else {

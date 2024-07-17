@@ -8,4 +8,8 @@ public class Aeon extends AbstractLightcone {
         super(1058, 529, 397, owner);
     }
 
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
 }

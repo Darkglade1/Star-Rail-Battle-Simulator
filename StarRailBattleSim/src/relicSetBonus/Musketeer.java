@@ -29,6 +29,14 @@ public class Musketeer extends AbstractRelicSetBonus {
         owner.addPower(new MusketeerDamagePower());
     }
 
+    public String toString() {
+        if (isFullSet) {
+            return "4 PC Musketeer";
+        } else {
+            return "2 PC Musketeer";
+        }
+    }
+
     private static class MusketeerDamagePower extends AbstractPower {
         public MusketeerDamagePower() {
             this.name = this.getClass().getSimpleName();

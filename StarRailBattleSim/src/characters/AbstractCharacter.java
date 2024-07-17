@@ -34,6 +34,12 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public ArrayList<AbstractRelicSetBonus> relicSetBonus;
     public boolean useTechnique = true;
 
+    public int numTurnsMetric;
+    public int numSkillsMetric;
+    public int numBasicsMetric;
+    public int numUltsMetric;
+    public String statsString;
+
     public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue) {
         this.name = name;
         this.baseHP = baseHP;
@@ -51,16 +57,19 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void useSkill() {
+        numSkillsMetric++;
         Battle.battle.addToLog(name + " used Skill");
         Battle.battle.useSkillPoint(this, 1);
         increaseEnergy(30);
     }
     public void useBasicAttack() {
+        numBasicsMetric++;
         Battle.battle.addToLog(name + " used Basic");
         Battle.battle.generateSkillPoint(this, 1);
         increaseEnergy(20);
     }
     public void useUltimate() {
+        numUltsMetric++;
         float initialEnergy = currentEnergy;
         currentEnergy -= ultCost;
         Battle.battle.addToLog(String.format("%s used Ultimate (%.3f -> %.3f)", name, initialEnergy, currentEnergy));
@@ -218,7 +227,17 @@ public abstract class AbstractCharacter extends AbstractEntity {
 
     }
 
+    @Override
+    public void takeTurn() {
+        numTurnsMetric++;
+    }
     public String getMetrics() {
-        return "";
+        return statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d ", numTurnsMetric, numBasicsMetric, numSkillsMetric, numUltsMetric);
+    }
+
+    public void generateStatsString() {
+        String gearString = String.format("Metrics for %s \nLightcone: %s \nRelic Set Bonuses: ", name, lightcone);
+        gearString += relicSetBonus;
+        statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f \nCrit Damage: %.3f", getFinalAttack(), getFinalDefense(), getFinalHP(), getFinalSpeed(), getTotalSameElementDamageBonus(), getTotalCritChance(), getTotalCritDamage());
     }
 }

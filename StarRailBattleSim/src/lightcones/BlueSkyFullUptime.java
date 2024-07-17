@@ -24,4 +24,8 @@ public class BlueSkyFullUptime extends AbstractLightcone {
         critBonus.bonusCritChance = 24;
         owner.addPower(critBonus);
     }
+
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

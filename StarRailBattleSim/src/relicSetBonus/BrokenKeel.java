@@ -19,4 +19,8 @@ public class BrokenKeel extends AbstractRelicSetBonus {
         }
     }
 
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
 }

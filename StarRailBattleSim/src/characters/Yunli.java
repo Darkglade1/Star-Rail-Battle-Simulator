@@ -17,6 +17,10 @@ public class Yunli extends AbstractCharacter {
     TempPower techniqueDamageBonus;
     TauntPower tauntPower = new TauntPower(this);
 
+    private int numNormalCounters = 0;
+    private int numCulls = 0;
+    private int numSlashes = 0;
+
     public Yunli() {
         super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
         this.ultCost = 120;
@@ -103,6 +107,7 @@ public class Yunli extends AbstractCharacter {
                 e.removePower(tauntPower);
             }
         } else {
+            numNormalCounters++;
             Battle.battle.addToLog(name + " used Counter");
             int baseDamage = (int)(1.2f * getFinalAttack());
             int baseDamageSplash = (int)(0.6f * getFinalAttack());
@@ -125,6 +130,7 @@ public class Yunli extends AbstractCharacter {
     }
 
     public void takeTurn() {
+        super.takeTurn();
         if (Battle.battle.numSkillPoints > 0) {
             useSkill();
         } else {
@@ -133,6 +139,7 @@ public class Yunli extends AbstractCharacter {
     }
 
     public void useCull(AbstractEnemy enemy) {
+        numCulls++;
         Battle.battle.addToLog(name + " used Cull");
         int baseDamage = (int)(2.2f * getFinalAttack());
         int baseDamageSplash = (int)(1.1f * getFinalAttack());
@@ -165,5 +172,11 @@ public class Yunli extends AbstractCharacter {
         useCull(Battle.battle.getRandomEnemy());
         removePower(techniqueDamageBonus);
         increaseEnergy(10);
+    }
+
+    public String getMetrics() {
+        String metrics = super.getMetrics();
+        String charSpecificMetrics = String.format("\nNormal Counters: %d \nCulls: %d \nSlashes: %d", numNormalCounters, numCulls, numSlashes);
+        return metrics + charSpecificMetrics;
     }
 }

@@ -32,6 +32,14 @@ public class Valorous extends AbstractRelicSetBonus {
         }
     }
 
+    public String toString() {
+        if (isFullSet) {
+            return "4 PC Wind Soaring Valorous";
+        } else {
+            return "2 PC Wind Soaring Valorous";
+        }
+    }
+
     private static class ValorousDamagePower extends AbstractPower {
         public ValorousDamagePower() {
             this.name = this.getClass().getSimpleName();

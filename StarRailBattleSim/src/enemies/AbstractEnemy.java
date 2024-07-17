@@ -34,8 +34,6 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public boolean weaknessBroken = false;
     public final int doubleActionCooldown;
     public int doubleActionCounter;
-
-    private int numTurnsMetric = 0;
     private int numAttacksMetric = 0;
     private int numSingleTargetMetric = 0;
     private int numBlastMetric = 0;
@@ -131,6 +129,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
             int idx = -99;
             if (taunt instanceof TauntPower) {
                 target = ((TauntPower) taunt).taunter;
+                Battle.battle.addToLog(name + " forced to attack " + target.name);
                 for (int i = 0; i < Battle.battle.playerTeam.size(); i++) {
                     if (Battle.battle.playerTeam.get(i) == target) {
                         idx = i;

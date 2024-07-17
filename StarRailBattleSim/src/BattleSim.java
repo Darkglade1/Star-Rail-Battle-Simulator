@@ -55,6 +55,6 @@ public class BattleSim {
         enemyTeam.add(new PhysWeakEnemy(2, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(200);
+        battle.Start(300);
     }
 }

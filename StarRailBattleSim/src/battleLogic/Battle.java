@@ -83,6 +83,7 @@ public class Battle {
             actionValueMap.put(enemy, enemy.getBaseAV());
         }
         for (AbstractCharacter character : playerTeam) {
+            character.generateStatsString();
             character.lightcone.onCombatStart();
             character.onCombatStart();
             for (AbstractRelicSetBonus relicSetBonus : character.relicSetBonus) {
@@ -108,6 +109,7 @@ public class Battle {
                     float newAV = entry.getValue() - battleLength;
                     entry.setValue(newAV);
                 }
+                addToLog("Battle ended, leftover AV: " + actionValueMap);
                 break;
             }
             if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
@@ -123,6 +125,7 @@ public class Battle {
                 power.onTurnStart();
             }
             nextUnit.onTurnStart();
+            actionValueMap.put(nextUnit, nextUnit.getBaseAV());
             nextUnit.takeTurn();
             ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
             for (AbstractPower power : nextUnit.powerList) {
@@ -134,8 +137,6 @@ public class Battle {
             for (AbstractPower power : powersToRemove) {
                 nextUnit.removePower(power);
             }
-            float presentAV = actionValueMap.get(nextUnit); // this is so being weakness broken from a counter will delay the next action
-            actionValueMap.put(nextUnit, nextUnit.getBaseAV() + presentAV);
 
             for (AbstractCharacter character : playerTeam) {
                 if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
@@ -144,12 +145,21 @@ public class Battle {
             }
         }
 
+        addToLog("");
         addToLog(String.format("Total player team damage: %d \nAction Value used: %d", totalPlayerDamage, initialBattleLength));
         addToLog("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
-        addToLog(damageContributionMap.toString());
+        addToLog("Damage Contribution: " + damageContributionMap.toString());
+        addToLog("");
+        addToLog("Player Metrics:");
+        for (AbstractCharacter character : playerTeam) {
+            addToLog(character.getMetrics());
+            addToLog("");
+        }
+        addToLog("");
         addToLog("Enemy Metrics:");
         for (AbstractEnemy enemy : enemyTeam) {
             addToLog(enemy.getMetrics());
+            addToLog("");
         }
         System.out.println(log);
     }

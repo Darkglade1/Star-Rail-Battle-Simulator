@@ -28,6 +28,10 @@ public class Duran extends AbstractRelicSetBonus {
         }
     }
 
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
     private static class DuranStackPower extends AbstractPower {
         public DuranStackPower() {
             this.name = this.getClass().getSimpleName();

@@ -16,4 +16,8 @@ public class PostOp extends AbstractLightcone {
         statBonus.bonusEnergyRegen = 16;
         owner.addPower(statBonus);
     }
+
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

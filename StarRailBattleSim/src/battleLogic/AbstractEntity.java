@@ -9,10 +9,15 @@ public abstract class AbstractEntity {
     public int baseSpeed;
     public ArrayList<AbstractPower> powerList = new ArrayList<>();
     public int speedPriority = 99;
+    protected int numTurnsMetric = 0;
 
-    public abstract float getBaseAV();
+    public float getBaseAV() {
+        return 0;
+    }
 
-    public abstract void takeTurn();
+    public void takeTurn() {
+
+    }
 
     public void addPower(AbstractPower power) {
         for (AbstractPower ownedPowers : powerList) {
