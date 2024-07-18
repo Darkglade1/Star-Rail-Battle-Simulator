@@ -15,6 +15,7 @@ public class Robin extends AbstractCharacter {
     PermPower skillPower;
     RobinUltPower ultPower;
     private int skillCounter = 0;
+    private int allyAttacksMetric = 0;
 
     public Robin() {
         super("Robin", 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100);
@@ -153,6 +154,12 @@ public class Robin extends AbstractCharacter {
         }
     }
 
+    public String getMetrics() {
+        String metrics = super.getMetrics();
+        String charSpecificMetrics = String.format("\nAlly attacks %d", allyAttacksMetric);
+        return metrics + charSpecificMetrics;
+    }
+
     private class RobinTalentPower extends AbstractPower {
         public RobinTalentPower() {
             this.name = this.getClass().getSimpleName();
@@ -163,6 +170,7 @@ public class Robin extends AbstractCharacter {
         @Override
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             Robin.this.increaseEnergy(2);
+            Robin.this.allyAttacksMetric++;
         }
     }
 

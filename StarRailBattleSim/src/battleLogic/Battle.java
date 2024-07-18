@@ -181,9 +181,17 @@ public class Battle {
         }
         addToLog(String.format("Total player team damage: %d \nAction Value used: %d", totalPlayerDamage, initialBattleLength));
         addToLog("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
-        addToLog("Damage Contribution: " + damageContributionMap.toString());
-        addToLog("");
+        addToLog("Damage Contribution: | " + calcPercentContributionString());
         System.out.println(log);
+    }
+
+    public String calcPercentContributionString() {
+        StringBuilder log = new StringBuilder();
+        for (Map.Entry<AbstractCharacter,Float> entry : damageContributionMap.entrySet()) {
+            float percent = entry.getValue() / totalPlayerDamage * 100;
+            log.append(String.format("%s: %.3f (%.3f%%) | ", entry.getKey().name, entry.getValue(), percent));
+        }
+        return log.toString();
     }
 
     private Yunli getYunli() {
