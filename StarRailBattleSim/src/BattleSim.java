@@ -39,9 +39,9 @@ public class BattleSim {
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new BrokenKeel(character));
         PermPower relicBonus = new PermPower();
-        relicBonus.bonusAtkPercent = 117.6f;
-        relicBonus.bonusFlatSpeed = 37;
-        relicBonus.bonusFlatAtk = 432;
+        relicBonus.bonusAtkPercent = 90f;
+        relicBonus.bonusFlatSpeed = 46;
+        relicBonus.bonusFlatAtk = 502;
         relicBonus.bonusEnergyRegen = 19.4f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
@@ -85,11 +85,12 @@ public class BattleSim {
         character.EquipRelicSet(new Valorous(character));
         character.EquipRelicSet(new Duran(character));
         PermPower relicBonus = new PermPower();
-        relicBonus.bonusCritChance = 100;
-        relicBonus.bonusCritDamage = 0;
+        relicBonus.bonusCritChance = 70.2f;
+        relicBonus.bonusCritDamage = 64.1f;
         relicBonus.bonusSameElementDamageBonus = 38.8f;
         relicBonus.bonusAtkPercent = 86.4f;
-        relicBonus.bonusFlatAtk = 432;
+        relicBonus.bonusFlatAtk = 367;
+        relicBonus.bonusFlatSpeed = 4.6f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
         return character;

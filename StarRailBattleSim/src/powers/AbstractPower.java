@@ -14,7 +14,7 @@ public abstract class AbstractPower {
     public float bonusAtkPercent;
     public int bonusFlatDef;
     public float bonusDefPercent;
-    public int bonusFlatSpeed;
+    public float bonusFlatSpeed;
     public float bonusSpeedPercent;
     public float bonusSameElementDamageBonus;
     public float bonusDamageBonus;

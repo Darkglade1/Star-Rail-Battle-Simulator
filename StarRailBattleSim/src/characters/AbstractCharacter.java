@@ -125,7 +125,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getFinalSpeed() {
         int totalBaseSpeed = baseSpeed;
         float totalBonusSpeedPercent = 0;
-        int totalBonusFlatSpeed = 0;
+        float totalBonusFlatSpeed = 0;
         for (AbstractPower power : powerList) {
             totalBonusSpeedPercent += power.bonusSpeedPercent;
             totalBonusFlatSpeed += power.bonusFlatSpeed;
