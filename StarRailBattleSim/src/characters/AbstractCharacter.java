@@ -19,6 +19,10 @@ public abstract class AbstractCharacter extends AbstractEntity {
         SKILL, BASIC, ULTIMATE, FOLLOW_UP, DOT, BREAK
     }
 
+    public enum MoveType {
+        SKILL, BASIC, ULTIMATE
+    }
+
     protected int baseHP;
     protected int baseAtk;
     protected int baseDef;
@@ -43,6 +47,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public int numBasicsMetric;
     public int numUltsMetric;
     public String statsString;
+    protected boolean firstMove = true;
+    protected ArrayList<MoveType> moveHistory;
 
     public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue) {
         this.name = name;
@@ -58,21 +64,25 @@ public abstract class AbstractCharacter extends AbstractEntity {
         this.tauntValue = tauntValue;
         powerList = new ArrayList<>();
         relicSetBonus = new ArrayList<>();
+        moveHistory = new ArrayList<>();
     }
 
     public void useSkill() {
+        moveHistory.add(MoveType.SKILL);
         numSkillsMetric++;
         Battle.battle.addToLog(name + " used Skill");
         Battle.battle.useSkillPoint(this, 1);
         increaseEnergy(skillEnergyGain);
     }
     public void useBasicAttack() {
+        moveHistory.add(MoveType.BASIC);
         numBasicsMetric++;
         Battle.battle.addToLog(name + " used Basic");
         Battle.battle.generateSkillPoint(this, 1);
         increaseEnergy(basicEnergyGain);
     }
     public void useUltimate() {
+        moveHistory.add(MoveType.ULTIMATE);
         numUltsMetric++;
         float initialEnergy = currentEnergy;
         currentEnergy -= ultCost;
@@ -224,6 +234,35 @@ public abstract class AbstractCharacter extends AbstractEntity {
         relicSetBonus.onEquip();
     }
 
+    public boolean lastMove(MoveType move) {
+        for (int i = moveHistory.size() - 1; i > 0; i--) {
+            MoveType previousMove = moveHistory.get(i);
+            if (previousMove == MoveType.ULTIMATE) {
+                continue;
+            } else {
+                return previousMove == move;
+            }
+        }
+        return false;
+    }
+
+    public boolean lastMoveBefore(MoveType move) {
+        boolean skippedYet = false;
+        for (int i = moveHistory.size() - 1; i > 0; i--) {
+            MoveType previousMove = moveHistory.get(i);
+            if (previousMove == MoveType.ULTIMATE) {
+                continue;
+            } else {
+                if (!skippedYet) {
+                    skippedYet = true;
+                } else {
+                    return previousMove == move;
+                }
+            }
+        }
+        return false;
+    }
+
     public void useTechnique() {
 
     }
@@ -238,7 +277,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         speedPriority = 999; //reset speed priority if it was changed
     }
     public String getMetrics() {
-        return statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d ", numTurnsMetric, numBasicsMetric, numSkillsMetric, numUltsMetric);
+        return statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d \nRotation: %s", numTurnsMetric, numBasicsMetric, numSkillsMetric, numUltsMetric, moveHistory);
     }
 
     public void generateStatsString() {
