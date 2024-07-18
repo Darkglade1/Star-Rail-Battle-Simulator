@@ -25,12 +25,12 @@ public class BattleSim {
         battle.setPlayerTeam(playerTeam);
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-        enemyTeam.add(new PhysWeakEnemy(0, 0));
-        //enemyTeam.add(new PhysWeakEnemy(1, 2));
-        //enemyTeam.add(new PhysWeakEnemy(2, 2));
+        enemyTeam.add(new PhysWeakEnemy(0, 2));
+        enemyTeam.add(new PhysWeakEnemy(1, 2));
+        enemyTeam.add(new PhysWeakEnemy(2, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(300);
+        battle.Start(550);
     }
 
     public static AbstractCharacter getPrebuiltTingyun() {
@@ -67,7 +67,7 @@ public class BattleSim {
     public static AbstractCharacter getPrebuiltHuohuo() {
         AbstractCharacter character = new Huohuo();
         character.EquipLightcone(new PostOp(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new Passerby(character));
         character.EquipRelicSet(new BrokenKeel(character));
         PermPower relicBonus = new PermPower();
         relicBonus.bonusHPPercent = 117.6f;

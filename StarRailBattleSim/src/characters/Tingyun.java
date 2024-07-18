@@ -10,7 +10,6 @@ import powers.TempPower;
 import java.util.ArrayList;
 
 public class Tingyun extends AbstractCharacter {
-    TingyunSkillPower skillPower = new TingyunSkillPower();
     private AbstractCharacter benefactor;
 
     public Tingyun() {
@@ -26,6 +25,7 @@ public class Tingyun extends AbstractCharacter {
 
     public void useSkill() {
         super.useSkill();
+        TingyunSkillPower skillPower = new TingyunSkillPower();
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             if (character.isDPS) {
                 benefactor = character;

@@ -29,6 +29,9 @@ public abstract class AbstractEntity {
                 } else {
                     if (!ownedPowers.lastsForever) {
                         ownedPowers.turnDuration = power.turnDuration;
+                        if (power.justApplied) {
+                            ownedPowers.justApplied = true;
+                        }
                         Battle.battle.addToLog(name + " refreshed " + power.name + " (" + power.turnDuration + " turn(s))");
                     }
                 }

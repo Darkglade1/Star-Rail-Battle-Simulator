@@ -39,7 +39,6 @@ public abstract class AbstractEnemy extends AbstractEntity {
     private int numBlastMetric = 0;
     private int numAoEMetric = 0;
     private int timesBrokenMetric = 0;
-    private int interruptedAttacksMetric = 0;
 
     public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness, int doubleActionCooldown) {
         this.name = name;
@@ -113,11 +112,6 @@ public abstract class AbstractEnemy extends AbstractEntity {
     }
 
     public void attack() {
-        if (this.weaknessBroken) {
-            interruptedAttacksMetric++;
-            Battle.battle.addToLog(name + " couldn't act due to being weakness broken");
-            return;
-        }
         EnemyAttackType attackType = rollAttackType();
         if (attackType == EnemyAttackType.AOE) {
             numAoEMetric++;
@@ -210,6 +204,6 @@ public abstract class AbstractEnemy extends AbstractEntity {
     }
 
     public String getMetrics() {
-        return String.format("Metrics for %s with %d speed \nTurns taken: %d \nTotal attacks: %d \nSingle-target attacks: %d \nBlast attacks: %d \nAoE attacks: %d \nWeakness Broken: %d \nInterrupted attacks: %d", name, baseSpeed, numTurnsMetric, numAttacksMetric, numSingleTargetMetric, numBlastMetric, numAoEMetric, timesBrokenMetric, interruptedAttacksMetric);
+        return String.format("Metrics for %s with %d speed \nTurns taken: %d \nTotal attacks: %d \nSingle-target attacks: %d \nBlast attacks: %d \nAoE attacks: %d \nWeakness Broken: %d", name, baseSpeed, numTurnsMetric, numAttacksMetric, numSingleTargetMetric, numBlastMetric, numAoEMetric, timesBrokenMetric);
     }
 }

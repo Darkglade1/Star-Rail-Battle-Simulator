@@ -169,21 +169,20 @@ public class Battle {
         }
 
         addToLog("");
-        addToLog(String.format("Total player team damage: %d \nAction Value used: %d", totalPlayerDamage, initialBattleLength));
-        addToLog("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
-        addToLog("Damage Contribution: " + damageContributionMap.toString());
-        addToLog("");
         addToLog("Player Metrics:");
         for (AbstractCharacter character : playerTeam) {
             addToLog(character.getMetrics());
             addToLog("");
         }
-        addToLog("");
         addToLog("Enemy Metrics:");
         for (AbstractEnemy enemy : enemyTeam) {
             addToLog(enemy.getMetrics());
             addToLog("");
         }
+        addToLog(String.format("Total player team damage: %d \nAction Value used: %d", totalPlayerDamage, initialBattleLength));
+        addToLog("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
+        addToLog("Damage Contribution: " + damageContributionMap.toString());
+        addToLog("");
         System.out.println(log);
     }
 
