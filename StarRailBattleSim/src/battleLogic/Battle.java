@@ -74,7 +74,7 @@ public class Battle {
     public void Start(int battleLength) {
         int initialBattleLength = battleLength;
         totalPlayerDamage = 0;
-        log = "";
+        log = "Combat Start\n";
         damageContributionMap = new HashMap<>();
         numSkillPoints = INITIAL_SKILL_POINTS;
         actionValueMap = new HashMap<>();
