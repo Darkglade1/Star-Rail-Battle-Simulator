@@ -1,14 +1,8 @@
 import battleLogic.Battle;
-import characters.AbstractCharacter;
-import characters.Huohuo;
-import characters.Robin;
-import characters.Yunli;
+import characters.*;
 import enemies.AbstractEnemy;
 import enemies.PhysWeakEnemy;
-import lightcones.BlueSkyFullUptime;
-import lightcones.DanceAtSunset;
-import lightcones.PostOp;
-import lightcones.TomorrowJourney;
+import lightcones.*;
 import powers.PermPower;
 import relicSetBonus.*;
 
@@ -22,46 +16,11 @@ public class BattleSim {
 
         ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
 
-        Robin robin = new Robin();
-        robin.EquipLightcone(new TomorrowJourney(robin));
-        robin.EquipRelicSet(new Musketeer(robin, false));
-        robin.EquipRelicSet(new Valorous(robin, false));
-        robin.EquipRelicSet(new BrokenKeel(robin));
-        PermPower robinRelicBonus = new PermPower();
-        robinRelicBonus.bonusAtkPercent = 160;
-        robinRelicBonus.bonusFlatSpeed = 25;
-        robinRelicBonus.bonusFlatAtk = 80;
-        robinRelicBonus.bonusEnergyRegen = 19.4f;
-        robinRelicBonus.name = "Relic Stats Bonuses";
-        robin.addPower(robinRelicBonus);
-        playerTeam.add(robin);
 
-        Yunli yunli = new Yunli();
-        yunli.EquipLightcone(new DanceAtSunset(yunli));
-        yunli.EquipRelicSet(new Valorous(yunli));
-        yunli.EquipRelicSet(new Duran(yunli));
-        PermPower yunliRelicBonus = new PermPower();
-        yunliRelicBonus.bonusCritChance = 100;
-        yunliRelicBonus.bonusCritDamage = 0;
-        yunliRelicBonus.bonusDamageBonus = 38.8f;
-        yunliRelicBonus.bonusAtkPercent = 86.4f;
-        yunliRelicBonus.bonusFlatAtk = 432;
-        yunliRelicBonus.name = "Relic Stats Bonuses";
-        yunli.addPower(yunliRelicBonus);
-        playerTeam.add(yunli);
-
-        Huohuo huohuo = new Huohuo();
-        huohuo.EquipLightcone(new PostOp(huohuo));
-        huohuo.EquipRelicSet(new Musketeer(huohuo));
-        huohuo.EquipRelicSet(new BrokenKeel(huohuo));
-        PermPower huohuoRelicBonus = new PermPower();
-        huohuoRelicBonus.bonusHPPercent = 120;
-        huohuoRelicBonus.bonusFlatSpeed = 45;
-        huohuoRelicBonus.bonusFlatHP = 80;
-        huohuoRelicBonus.bonusEnergyRegen = 19.4f;
-        huohuoRelicBonus.name = "Relic Stats Bonuses";
-        huohuo.addPower(huohuoRelicBonus);
-        playerTeam.add(huohuo);
+        playerTeam.add(getPrebuiltTingyun());
+        playerTeam.add(getPrebuiltYunli());
+        playerTeam.add(getPrebuiltRobin());
+        playerTeam.add(getPrebuiltHuohuo());
 
         battle.setPlayerTeam(playerTeam);
 
@@ -72,5 +31,67 @@ public class BattleSim {
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(300);
+    }
+
+    public static AbstractCharacter getPrebuiltTingyun() {
+        AbstractCharacter character = new Tingyun();
+        character.EquipLightcone(new Memories(character));
+        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        PermPower relicBonus = new PermPower();
+        relicBonus.bonusAtkPercent = 117.6f;
+        relicBonus.bonusFlatSpeed = 37;
+        relicBonus.bonusFlatAtk = 432;
+        relicBonus.bonusEnergyRegen = 19.4f;
+        relicBonus.name = "Relic Stats Bonuses";
+        character.addPower(relicBonus);
+        return character;
+    }
+
+    public static AbstractCharacter getPrebuiltRobin() {
+        AbstractCharacter character = new Robin();
+        character.EquipLightcone(new TomorrowJourney(character));
+        character.EquipRelicSet(new Musketeer(character, false));
+        character.EquipRelicSet(new Valorous(character, false));
+        character.EquipRelicSet(new BrokenKeel(character));
+        PermPower relicBonus = new PermPower();
+        relicBonus.bonusAtkPercent = 160.8f;
+        relicBonus.bonusFlatSpeed = 20;
+        relicBonus.bonusFlatAtk = 432;
+        relicBonus.bonusEnergyRegen = 19.4f;
+        relicBonus.name = "Relic Stats Bonuses";
+        character.addPower(relicBonus);
+        return character;
+    }
+
+    public static AbstractCharacter getPrebuiltHuohuo() {
+        AbstractCharacter character = new Huohuo();
+        character.EquipLightcone(new PostOp(character));
+        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        PermPower relicBonus = new PermPower();
+        relicBonus.bonusHPPercent = 117.6f;
+        relicBonus.bonusFlatSpeed = 37;
+        relicBonus.bonusFlatHP = 432;
+        relicBonus.bonusEnergyRegen = 19.4f;
+        relicBonus.name = "Relic Stats Bonuses";
+        character.addPower(relicBonus);
+        return character;
+    }
+
+    public static AbstractCharacter getPrebuiltYunli() {
+        AbstractCharacter character = new Yunli();
+        character.EquipLightcone(new DanceAtSunset(character));
+        character.EquipRelicSet(new Valorous(character));
+        character.EquipRelicSet(new Duran(character));
+        PermPower relicBonus = new PermPower();
+        relicBonus.bonusCritChance = 100;
+        relicBonus.bonusCritDamage = 0;
+        relicBonus.bonusSameElementDamageBonus = 38.8f;
+        relicBonus.bonusAtkPercent = 86.4f;
+        relicBonus.bonusFlatAtk = 432;
+        relicBonus.name = "Relic Stats Bonuses";
+        character.addPower(relicBonus);
+        return character;
     }
 }

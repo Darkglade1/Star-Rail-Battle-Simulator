@@ -29,7 +29,7 @@ public abstract class AbstractEntity {
                 } else {
                     if (!ownedPowers.lastsForever) {
                         ownedPowers.turnDuration = power.turnDuration;
-                        Battle.battle.addToLog(name + " refreshed " + power.name);
+                        Battle.battle.addToLog(name + " refreshed " + power.name + " (" + power.turnDuration + " turn(s))");
                     }
                 }
                 return;
@@ -40,6 +40,7 @@ public abstract class AbstractEntity {
     }
 
     public void removePower(AbstractPower power) {
+        power.onRemove();
         powerList.remove(power);
         Battle.battle.addToLog(name + " lost " + power.name);
     }

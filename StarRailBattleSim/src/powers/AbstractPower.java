@@ -29,6 +29,7 @@ public abstract class AbstractPower {
     public int turnDuration;
     public boolean durationBasedOnSelfTurns = true;
     public boolean lastsForever = false;
+    public boolean justApplied = false;
     public int maxStacks = 0;
     public int stacks = 1;
 
@@ -56,7 +57,11 @@ public abstract class AbstractPower {
     }
     public void onEndTurn() {
         if (!lastsForever && durationBasedOnSelfTurns) {
-            turnDuration--;
+            if (justApplied) {
+                justApplied = false;
+            } else {
+                turnDuration--;
+            }
         }
     }
 
@@ -65,6 +70,10 @@ public abstract class AbstractPower {
     }
 
     public void onUseUltimate() {
+
+    }
+
+    public void onRemove() {
 
     }
 }

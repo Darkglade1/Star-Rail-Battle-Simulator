@@ -3,6 +3,7 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
+import powers.AbstractPower;
 import powers.PermPower;
 import powers.TauntPower;
 import powers.TempPower;
@@ -12,10 +13,9 @@ import java.util.ArrayList;
 public class Yunli extends AbstractCharacter {
 
     public boolean isParrying;
-    TempPower cullPower;
-    TempPower trueSunderAtkBonus;
-    TempPower techniqueDamageBonus;
-    TauntPower tauntPower = new TauntPower(this);
+    AbstractPower cullPower;
+    AbstractPower techniqueDamageBonus;
+    AbstractPower tauntPower = new TauntPower(this);
 
     private int numNormalCounters = 0;
     private int numCulls = 0;
@@ -24,17 +24,11 @@ public class Yunli extends AbstractCharacter {
     public Yunli() {
         super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
         this.ultCost = 120;
+        this.isDPS = true;
 
-        cullPower = new TempPower();
-        cullPower.bonusCritDamage = 100.0f;
-        cullPower.name = "Cull Crit Damage Buff";
+        cullPower = new CullCritDamageBuff();
 
-        trueSunderAtkBonus = new TempPower();
-        trueSunderAtkBonus.bonusAtkPercent = 30;
-        trueSunderAtkBonus.turnDuration = 1;
-        trueSunderAtkBonus.name = "True Sunder Atk Bonus";
-
-        techniqueDamageBonus = new TempPower();
+        techniqueDamageBonus = new PermPower();
         techniqueDamageBonus.bonusDamageBonus = 80;
         techniqueDamageBonus.name = "Technique Damage Bonus";
 
@@ -98,7 +92,7 @@ public class Yunli extends AbstractCharacter {
     }
 
     public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
-        addPower(trueSunderAtkBonus);
+        addPower(getTrueSunderPower());
         if (isParrying) {
             useCull(enemy);
             removePower(cullPower);
@@ -167,16 +161,41 @@ public class Yunli extends AbstractCharacter {
     }
 
     public void useTechnique() {
-        addPower(trueSunderAtkBonus);
+        addPower(getTrueSunderPower());
         addPower(techniqueDamageBonus);
         useCull(Battle.battle.getRandomEnemy());
         removePower(techniqueDamageBonus);
         increaseEnergy(10);
     }
 
+    public AbstractPower getTrueSunderPower() {
+        TempPower trueSunderAtkBonus = new TempPower();
+        trueSunderAtkBonus.bonusAtkPercent = 30;
+        trueSunderAtkBonus.turnDuration = 1;
+        trueSunderAtkBonus.name = "True Sunder Atk Bonus";
+        return trueSunderAtkBonus;
+    }
+
     public String getMetrics() {
         String metrics = super.getMetrics();
         String charSpecificMetrics = String.format("\nNormal Counters: %d \nCulls: %d \nSlashes: %d", numNormalCounters, numCulls, numSlashes);
         return metrics + charSpecificMetrics;
+    }
+
+    private static class CullCritDamageBuff extends AbstractPower {
+        public CullCritDamageBuff() {
+            this.name = this.getClass().getSimpleName();
+            this.lastsForever = true;
+        }
+
+        @Override
+        public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+            for (AbstractCharacter.DamageType type : damageTypes) {
+                if (type == AbstractCharacter.DamageType.FOLLOW_UP) {
+                    return 100;
+                }
+            }
+            return 0;
+        }
     }
 }

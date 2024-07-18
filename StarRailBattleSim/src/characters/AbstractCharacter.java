@@ -36,6 +36,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     protected int basicEnergyGain = 20;
     protected int skillEnergyGain = 30;
     protected int ultEnergyGain = 5;
+    public boolean isDPS = false;
 
     public int numTurnsMetric;
     public int numSkillsMetric;
@@ -78,7 +79,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         Battle.battle.addToLog(String.format("%s used Ultimate (%.3f -> %.3f)", name, initialEnergy, currentEnergy));
         increaseEnergy(ultEnergyGain);
         this.lightcone.onUseUltimate();
-        for (AbstractPower power : powerList) {
+        ArrayList<AbstractPower> powersToTrigger = new ArrayList<>(powerList); // jank way to dodge comod exception lol
+        for (AbstractPower power : powersToTrigger) {
             power.onUseUltimate();
         }
     }

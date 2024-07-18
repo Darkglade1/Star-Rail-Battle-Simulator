@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class BattleHelpers {
     private static float attackDamageTotal = 0;
     public static ArrayList<AbstractEnemy> enemiesHit = new ArrayList<>();
-    public static float calculateDamageAgainstEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, boolean sameElement) {
+    public static float calculateDamageAgainstEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, AbstractCharacter.ElementType damageElement) {
         float dmgMultiplier;
-        if (sameElement) {
+        if (damageElement == source.elementType) {
             dmgMultiplier = source.getTotalSameElementDamageBonus();
         } else {
             dmgMultiplier = source.getTotalOffElementDamageBonus();
@@ -26,7 +26,7 @@ public class BattleHelpers {
         float defMultiplierFloat = (source.level + 20) / ((target.level + 20) * (1 + enemyDefPercent / 100) + (source.level + 20));
 
         float resPen = source.getTotalResPen();
-        float resMultiplier = 100 - (target.getRes(source.elementType) - resPen);
+        float resMultiplier = 100 - (target.getRes(damageElement) - resPen);
         float resMultiplierFloat = resMultiplier / 100;
 
         float damageTaken = 0;
@@ -67,9 +67,9 @@ public class BattleHelpers {
         return calculatedDamage;
     }
 
-    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage, boolean sameElement) {
-        float calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, types, sameElement);
-        if (target.weaknessMap.contains(source.elementType)) {
+    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage, AbstractCharacter.ElementType damageElement) {
+        float calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, types, damageElement);
+        if (target.weaknessMap.contains(damageElement)) {
             target.reduceToughness(toughnessDamage);
         }
         Battle.battle.totalPlayerDamage += calculatedDamage;
@@ -81,7 +81,7 @@ public class BattleHelpers {
     }
 
     public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage) {
-        hitEnemy(source, target, baseDamage, types, toughnessDamage, true);
+        hitEnemy(source, target, baseDamage, types, toughnessDamage, source.elementType);
     }
 
     public static void PreAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
@@ -96,6 +96,7 @@ public class BattleHelpers {
     }
 
     public static void PostAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
+        character.lightcone.onAttack(character, enemiesHit, types);
         for (AbstractPower power : character.powerList) {
             power.onAttack(character, enemiesHit, types);
         }
@@ -160,6 +161,13 @@ public class BattleHelpers {
 
     public static void robinHitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, float fixedCritChance, float fixedCritDamage) {
         float calculatedDamage = calculateDamageAgainstEnemyFixedCrit(source, target, baseDamage, fixedCritChance, fixedCritDamage);
+        Battle.battle.totalPlayerDamage += calculatedDamage;
+        Battle.battle.updateContribution(source, calculatedDamage);
+        attackDamageTotal += calculatedDamage;
+    }
+
+    public static void tingyunSkillHitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage) {
+        float calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, new ArrayList<>(),  AbstractCharacter.ElementType.LIGHTNING);
         Battle.battle.totalPlayerDamage += calculatedDamage;
         Battle.battle.updateContribution(source, calculatedDamage);
         attackDamageTotal += calculatedDamage;

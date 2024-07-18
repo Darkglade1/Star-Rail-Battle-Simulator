@@ -10,17 +10,11 @@ import powers.TempPower;
 import java.util.ArrayList;
 
 public class Huohuo extends AbstractCharacter {
-    TempPower tailAtkBonus;
     HuohuoTalentPower talentPower = new HuohuoTalentPower();
     private int talentCounter = 0;
 
     public Huohuo() {
         super("Huohuo", 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100);
-
-        tailAtkBonus = new TempPower();
-        tailAtkBonus.bonusAtkPercent = 40;
-        tailAtkBonus.turnDuration = 2;
-        tailAtkBonus.name = "Tail Atk Bonus";
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
@@ -58,6 +52,10 @@ public class Huohuo extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             if (character != this) {
                 character.increaseEnergy(character.maxEnergy * 0.2f, false);
+                TempPower tailAtkBonus = new TempPower();
+                tailAtkBonus.bonusAtkPercent = 40;
+                tailAtkBonus.turnDuration = 2;
+                tailAtkBonus.name = "Tail Atk Bonus";
                 character.addPower(tailAtkBonus);
             }
         }

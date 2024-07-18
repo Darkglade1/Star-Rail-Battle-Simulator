@@ -1,6 +1,9 @@
 package lightcones;
 
 import characters.AbstractCharacter;
+import enemies.AbstractEnemy;
+
+import java.util.ArrayList;
 
 public abstract class AbstractLightcone {
 
@@ -25,6 +28,10 @@ public abstract class AbstractLightcone {
     }
 
     public void onUseUltimate() {
+
+    }
+
+    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
 
     }
 

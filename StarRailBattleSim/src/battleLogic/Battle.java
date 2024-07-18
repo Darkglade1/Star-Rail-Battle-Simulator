@@ -134,7 +134,7 @@ public class Battle {
                 power.onTurnStart();
             }
             nextUnit.onTurnStart();
-            if (nextUnit instanceof AbstractCharacter || nextUnit instanceof AbstractEnemy) {
+            if (nextUnit instanceof AbstractEnemy || nextUnit instanceof AbstractCharacter) {
                 actionValueMap.put(nextUnit, nextUnit.getBaseAV());
             }
             nextUnit.takeTurn();
@@ -146,7 +146,11 @@ public class Battle {
                 }
             }
             for (AbstractPower power : powersToRemove) {
-                nextUnit.removePower(power);
+                if (power.bonusSpeedPercent > 0 || power.bonusFlatSpeed > 0) {
+                    DecreaseSpeed(nextUnit, power);
+                } else {
+                    nextUnit.removePower(power);
+                }
             }
 
             for (AbstractCharacter character : playerTeam) {
@@ -248,5 +252,31 @@ public class Battle {
                 addToLog(String.format("%s delayed by %d%% (%.3f -> %.3f)", entry.getKey().name, delayAmount, originalAV, newAV));
             }
         }
+    }
+
+    public void IncreaseSpeed(AbstractEntity entity, AbstractPower speedPower) {
+        float baseAV = entity.getBaseAV();
+        float currAV = actionValueMap.get(entity);
+        float percentToNextAction = (baseAV - currAV) / baseAV;
+
+        entity.addPower(speedPower);
+        float newBaseAV = entity.getBaseAV();
+        float newCurrAV = newBaseAV - (percentToNextAction * newBaseAV);
+        actionValueMap.put(entity, newCurrAV);
+
+        addToLog(String.format("%s advanced by speed increase (%.3f -> %.3f)", entity.name, currAV, newCurrAV));
+    }
+
+    public void DecreaseSpeed(AbstractEntity entity, AbstractPower speedPower) {
+        float baseAV = entity.getBaseAV();
+        float currAV = actionValueMap.get(entity);
+        float percentToNextAction = (baseAV - currAV) / baseAV;
+
+        entity.removePower(speedPower);
+        float newBaseAV = entity.getBaseAV();
+        float newCurrAV = newBaseAV - (percentToNextAction * newBaseAV);
+        actionValueMap.put(entity, newCurrAV);
+
+        addToLog(String.format("%s delayed by speed decrease (%.3f -> %.3f)", entity.name, currAV, newCurrAV));
     }
 }
