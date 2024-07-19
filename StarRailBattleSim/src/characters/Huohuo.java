@@ -32,17 +32,16 @@ public class Huohuo extends AbstractCharacter {
     }
     public void useBasicAttack() {
         super.useBasicAttack();
-        float baseDamage = (0.5f * getFinalHP());
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
         BattleHelpers.PreAttackLogic(this, types);
 
         if (Battle.battle.enemyTeam.size() >= 3) {
             int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types, 30);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 0.5f, BattleHelpers.MultiplierStat.HP, types, 30);
         } else {
             AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 30);
+            BattleHelpers.hitEnemy(this, enemy, 0.5f, BattleHelpers.MultiplierStat.HP, types, 30);
         }
         BattleHelpers.PostAttackLogic(this, types);
     }

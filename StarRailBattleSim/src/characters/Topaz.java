@@ -66,7 +66,6 @@ public class Topaz extends AbstractCharacter {
     }
     public void useBasicAttack() {
         super.useBasicAttack();
-        float baseDamage = (1.0f * getFinalAttack());
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
         types.add(DamageType.FOLLOW_UP);
@@ -79,7 +78,7 @@ public class Topaz extends AbstractCharacter {
                 break;
             }
         }
-        BattleHelpers.hitEnemy(this, target, baseDamage, types, 30);
+        BattleHelpers.hitEnemy(this, target, 1.0f, BattleHelpers.MultiplierStat.ATK, types, 30);
 
         BattleHelpers.PostAttackLogic(this, types);
     }
@@ -119,7 +118,6 @@ public class Topaz extends AbstractCharacter {
 
     public void numbyAttack(ArrayList<DamageType> types) {
         float multiplier;
-        float baseDamage;
         float toughnessDamage;
         if (ultCounter > 0) {
             multiplier = 2.1f;
@@ -128,8 +126,6 @@ public class Topaz extends AbstractCharacter {
             multiplier = 1.5f;
             toughnessDamage = 60.0f / 7;
         }
-        baseDamage = multiplier * getFinalAttack() / 7;
-        float ultFinalHitBaseDamage = 0.9f * getFinalAttack();
         types.add(DamageType.FOLLOW_UP);
         BattleHelpers.PreAttackLogic(this, types);
 
@@ -142,10 +138,10 @@ public class Topaz extends AbstractCharacter {
         }
 
         for (int i = 0; i < 7; i++) {
-            BattleHelpers.hitEnemy(this, target, baseDamage, types, toughnessDamage);
+            BattleHelpers.hitEnemy(this, target, multiplier / 7, BattleHelpers.MultiplierStat.ATK, types, toughnessDamage);
         }
         if (ultCounter > 0) {
-            BattleHelpers.hitEnemy(this, target, ultFinalHitBaseDamage, types, toughnessDamage);
+            BattleHelpers.hitEnemy(this, target, 0.9f, BattleHelpers.MultiplierStat.ATK, types, toughnessDamage);
             increaseEnergy(10);
             ultCounter--;
             if (ultCounter <= 0) {

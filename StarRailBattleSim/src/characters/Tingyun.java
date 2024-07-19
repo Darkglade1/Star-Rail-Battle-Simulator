@@ -42,7 +42,6 @@ public class Tingyun extends AbstractCharacter {
     }
     public void useBasicAttack() {
         super.useBasicAttack();
-        float baseDamage = (1.1f * getFinalAttack());
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
         BattleHelpers.PreAttackLogic(this, types);
@@ -51,14 +50,12 @@ public class Tingyun extends AbstractCharacter {
         if (Battle.battle.enemyTeam.size() >= 3) {
             int middleIndex = Battle.battle.enemyTeam.size() / 2;
             enemy = Battle.battle.enemyTeam.get(middleIndex);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 30);
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 30);
         }
+        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
         if (benefactor != null) {
-            float bonusBaseDamage = 0.66f * benefactor.getFinalAttack();
-            BattleHelpers.tingyunSkillHitEnemy(benefactor, enemy, bonusBaseDamage);
+            BattleHelpers.tingyunSkillHitEnemy(benefactor, enemy, 0.66f, BattleHelpers.MultiplierStat.ATK);
         }
 
         BattleHelpers.PostAttackLogic(this, types);
@@ -115,8 +112,7 @@ public class Tingyun extends AbstractCharacter {
 
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             AbstractEnemy target = enemiesHit.get(Battle.battle.getRandomEnemyRng.nextInt(enemiesHit.size()));
-            float baseDamage = 0.44f * character.getFinalAttack();
-            BattleHelpers.tingyunSkillHitEnemy(character, target, baseDamage);
+            BattleHelpers.tingyunSkillHitEnemy(character, target, 0.44f, BattleHelpers.MultiplierStat.ATK);
         }
 
         public void onUseUltimate() {

@@ -8,9 +8,21 @@ import relicSetBonus.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class BattleHelpers {
+    public enum MultiplierStat {
+        ATK, HP, DEF
+    }
     private static float attackDamageTotal = 0;
     public static ArrayList<AbstractEnemy> enemiesHit = new ArrayList<>();
-    public static float calculateDamageAgainstEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, AbstractCharacter.ElementType damageElement) {
+    public static float calculateDamageAgainstEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat, ArrayList<AbstractCharacter.DamageType> types, AbstractCharacter.ElementType damageElement) {
+        float statToUse;
+        if (stat == MultiplierStat.ATK) {
+            statToUse = source.getFinalAttack();
+        } else if (stat == MultiplierStat.HP) {
+            statToUse = source.getFinalHP();
+        } else {
+            statToUse = source.getFinalDefense();
+        }
+        float baseDamage = multiplier * statToUse;
         float dmgMultiplier;
         if (damageElement == source.elementType) {
             dmgMultiplier = source.getTotalSameElementDamageBonus();
@@ -67,11 +79,11 @@ public class BattleHelpers {
         return calculatedDamage;
     }
 
-    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage, AbstractCharacter.ElementType damageElement) {
+    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage, AbstractCharacter.ElementType damageElement) {
         for (AbstractRelicSetBonus relicSetBonus : source.relicSetBonus) {
             relicSetBonus.onBeforeHitEnemy(source, target, types);
         }
-        float calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, types, damageElement);
+        float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, types, damageElement);
         if (target.weaknessMap.contains(damageElement)) {
             target.reduceToughness(toughnessDamage);
         }
@@ -83,8 +95,8 @@ public class BattleHelpers {
         }
     }
 
-    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage) {
-        hitEnemy(source, target, baseDamage, types, toughnessDamage, source.elementType);
+    public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage) {
+        hitEnemy(source, target, multiplier, stat, types, toughnessDamage, source.elementType);
     }
 
     public static void PreAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
@@ -169,8 +181,8 @@ public class BattleHelpers {
         attackDamageTotal += calculatedDamage;
     }
 
-    public static void tingyunSkillHitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage) {
-        float calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, new ArrayList<>(),  AbstractCharacter.ElementType.LIGHTNING);
+    public static void tingyunSkillHitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat) {
+        float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, new ArrayList<>(),  AbstractCharacter.ElementType.LIGHTNING);
         Battle.battle.totalPlayerDamage += calculatedDamage;
         Battle.battle.updateContribution(source, calculatedDamage);
         attackDamageTotal += calculatedDamage;

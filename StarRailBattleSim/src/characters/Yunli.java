@@ -42,40 +42,36 @@ public class Yunli extends AbstractCharacter {
 
     public void useSkill() {
         super.useSkill();
-        float baseDamage = (1.2f * getFinalAttack());
-        float baseDamageSplash = (0.6f * getFinalAttack());
-
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
         BattleHelpers.PreAttackLogic(this, types);
 
         if (Battle.battle.enemyTeam.size() >= 3) {
             int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types, 60);
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex + 1), baseDamageSplash, types, 30);
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex - 1), baseDamageSplash, types, 30);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 1.2f, BattleHelpers.MultiplierStat.ATK, types, 60);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex + 1), 0.6f, BattleHelpers.MultiplierStat.ATK,types, 30);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex - 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, 30);
         } else {
             AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 60);
+            BattleHelpers.hitEnemy(this, enemy, 1.2f, BattleHelpers.MultiplierStat.ATK, types, 60);
             if (Battle.battle.enemyTeam.size() == 2) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(1), baseDamageSplash, types, 30);
+                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, 30);
             }
         }
         BattleHelpers.PostAttackLogic(this, types);
     }
     public void useBasicAttack() {
         super.useBasicAttack();
-        float baseDamage = (1.0f * getFinalAttack());
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
         BattleHelpers.PreAttackLogic(this, types);
 
         if (Battle.battle.enemyTeam.size() >= 3) {
             int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), baseDamage, types, 30);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 1.0f, BattleHelpers.MultiplierStat.ATK, types, 30);
         } else {
             AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 30);
+            BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, 30);
         }
         BattleHelpers.PostAttackLogic(this, types);
     }
@@ -103,19 +99,17 @@ public class Yunli extends AbstractCharacter {
         } else {
             numNormalCounters++;
             Battle.battle.addToLog(name + " used Counter");
-            float baseDamage = (1.2f * getFinalAttack());
-            float baseDamageSplash = (0.6f * getFinalAttack());
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.FOLLOW_UP);
             BattleHelpers.PreAttackLogic(this, types);
 
             int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-            BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 30);
+            BattleHelpers.hitEnemy(this, enemy, 1.2f, BattleHelpers.MultiplierStat.ATK, types, 30);
             if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), baseDamageSplash, types, 30);
+                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, 30);
             }
             if (enemyIndex - 1 >= 0) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, types, 30);
+                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, 30);
             }
             BattleHelpers.PostAttackLogic(this, types);
         }
@@ -135,26 +129,23 @@ public class Yunli extends AbstractCharacter {
     public void useCull(AbstractEnemy enemy) {
         numCulls++;
         Battle.battle.addToLog(name + " used Cull");
-        float baseDamage = (2.2f * getFinalAttack());
-        float baseDamageSplash = (1.1f * getFinalAttack());
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
         types.add(DamageType.ULTIMATE);
         BattleHelpers.PreAttackLogic(this, types);
 
         int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-        BattleHelpers.hitEnemy(this, enemy, baseDamage, types, 60);
+        BattleHelpers.hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, 60);
         if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), baseDamageSplash, types, 30);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
         }
         if (enemyIndex - 1 >= 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, types, 30);
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
         }
 
-        float baseDamageBounce = (0.72f * getFinalAttack());
         int numBounces = 6;
         while (numBounces > 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), baseDamageBounce, types, 15);
+            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.72f, BattleHelpers.MultiplierStat.ATK, types, 15);
             numBounces--;
         }
         BattleHelpers.PostAttackLogic(this, types);

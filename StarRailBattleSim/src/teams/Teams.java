@@ -31,8 +31,8 @@ public class Teams {
         character.EquipRelicSet(new Duke(character));
         character.EquipRelicSet(new Duran(character));
         PermPower relicBonus = new PermPower();
-        relicBonus.bonusCritChance = 50.2f;
-        relicBonus.bonusCritDamage = 104.1f;
+        relicBonus.bonusCritChance = 60.2f;
+        relicBonus.bonusCritDamage = 84.1f;
         relicBonus.bonusSameElementDamageBonus = 38.8f;
         relicBonus.bonusAtkPercent = 51f;
         relicBonus.bonusFlatAtk = 367;
