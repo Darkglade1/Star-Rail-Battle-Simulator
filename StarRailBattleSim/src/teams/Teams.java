@@ -27,16 +27,17 @@ public class Teams {
     }
     public static AbstractCharacter getPrebuiltTopaz() {
         AbstractCharacter character = new Topaz();
-        character.EquipLightcone(new Cruising(character));
+        character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new Duke(character));
         character.EquipRelicSet(new Duran(character));
         PermPower relicBonus = new PermPower();
-        relicBonus.bonusCritChance = 60.2f;
-        relicBonus.bonusCritDamage = 84.1f;
+        relicBonus.bonusCritChance = 70.2f;
+        relicBonus.bonusCritDamage = 64.1f;
         relicBonus.bonusSameElementDamageBonus = 38.8f;
-        relicBonus.bonusAtkPercent = 51f;
+        relicBonus.bonusAtkPercent = 94.2f;
+        //relicBonus.bonusAtkPercent = 51f;
         relicBonus.bonusFlatAtk = 367;
-        relicBonus.bonusFlatSpeed = 25f;
+        //relicBonus.bonusFlatSpeed = 25f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
         return character;

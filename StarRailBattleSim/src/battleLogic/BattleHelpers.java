@@ -83,6 +83,7 @@ public class BattleHelpers {
         for (AbstractRelicSetBonus relicSetBonus : source.relicSetBonus) {
             relicSetBonus.onBeforeHitEnemy(source, target, types);
         }
+        source.lightcone.onBeforeHitEnemy(source, target, types);
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, types, damageElement);
         if (target.weaknessMap.contains(damageElement)) {
             target.reduceToughness(toughnessDamage);

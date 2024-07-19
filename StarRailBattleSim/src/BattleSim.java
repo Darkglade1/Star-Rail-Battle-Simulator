@@ -14,15 +14,15 @@ public class BattleSim {
         Battle.battle = battle;
 
         battle.setPlayerTeam(TingyunYunliRobinHuohuo());
-        //battle.setPlayerTeam(TopazYunliRobinHuohuo());
+        battle.setPlayerTeam(TopazYunliRobinHuohuo());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new PhysWeakEnemy(0, 2));
         enemyTeam.add(new PhysWeakEnemy(1, 2));
-        enemyTeam.add(new PhysWeakEnemy(2, 2));
+        //enemyTeam.add(new PhysWeakEnemy(2, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(550);
+        battle.Start(3050);
     }
 
 
