@@ -22,8 +22,6 @@ public class Topaz extends AbstractCharacter {
 
     public Topaz() {
         super("Topaz", 931, 621, 412, 110, 80, ElementType.FIRE, 130, 75);
-
-        this.isDPS = true;
         proofOfDebt = new ProofOfDebt();
 
         PermPower tracesPower = new PermPower();
@@ -145,6 +143,9 @@ public class Topaz extends AbstractCharacter {
             increaseEnergy(10);
             ultCounter--;
             if (ultCounter <= 0) {
+                if (types.contains(DamageType.SKILL)) {
+                    numby.AdvanceForward(); //manually advance numby when topaz skills with last charge of ult
+                }
                 removePower(stonksPower);
             }
         }

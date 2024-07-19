@@ -13,8 +13,8 @@ public class BattleSim {
         Battle battle = new Battle();
         Battle.battle = battle;
 
-        //battle.setPlayerTeam(TingyunYunliRobinHuohuo());
-        battle.setPlayerTeam(TopazYunliRobinHuohuo());
+        battle.setPlayerTeam(TingyunYunliRobinHuohuo());
+        //battle.setPlayerTeam(TopazYunliRobinHuohuo());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new PhysWeakEnemy(0, 2));
