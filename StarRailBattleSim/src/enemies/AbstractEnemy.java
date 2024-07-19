@@ -25,7 +25,6 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public int baseAtk;
     public int baseDef;
     public int level;
-    public ArrayList<AbstractPower> powerList;
     protected HashMap<AbstractCharacter.ElementType, Integer> resMap;
     public ArrayList<AbstractCharacter.ElementType> weaknessMap;
     public final int DEFAULT_RES = 20;

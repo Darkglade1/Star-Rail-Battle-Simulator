@@ -6,6 +6,11 @@ import enemies.AbstractEnemy;
 import java.util.ArrayList;
 
 public abstract class AbstractPower {
+
+    public enum PowerType {
+        BUFF, DEBUFF
+    }
+
     public String name;
 
     public int bonusFlatHP;
@@ -27,11 +32,16 @@ public abstract class AbstractPower {
     public float bonusEnergyRegen;
     public float bonusTauntValue;
     public int turnDuration;
+    public PowerType type = PowerType.BUFF;
     public boolean durationBasedOnSelfTurns = true;
     public boolean lastsForever = false;
     public boolean justApplied = false;
     public int maxStacks = 0;
     public int stacks = 1;
+
+    public float getConditionalAtkBonus(AbstractCharacter character) {
+        return 0;
+    }
 
     public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;

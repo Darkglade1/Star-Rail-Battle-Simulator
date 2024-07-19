@@ -56,7 +56,7 @@ public class BattleHelpers {
             critMultiplierFloat = critMultiplier / 100;
         }
 
-        float calculatedDamage = baseDamage * dmgMultiplierFloat * defMultiplierFloat * resMultiplierFloat * toughnessMultiplier * critMultiplierFloat;
+        float calculatedDamage = baseDamage * dmgMultiplierFloat * defMultiplierFloat * resMultiplierFloat * damageTakenMultiplier * toughnessMultiplier * critMultiplierFloat;
         if (wasCrit) {
             Battle.battle.addToLog(String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f",
                     source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier, critMultiplierFloat));
@@ -68,6 +68,9 @@ public class BattleHelpers {
     }
 
     public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float baseDamage, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage, AbstractCharacter.ElementType damageElement) {
+        for (AbstractRelicSetBonus relicSetBonus : source.relicSetBonus) {
+            relicSetBonus.onBeforeHitEnemy(source, target, types);
+        }
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, baseDamage, types, damageElement);
         if (target.weaknessMap.contains(damageElement)) {
             target.reduceToughness(toughnessDamage);

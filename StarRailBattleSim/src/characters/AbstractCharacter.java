@@ -105,6 +105,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         int totalBonusFlatAtk = 0;
         for (AbstractPower power : powerList) {
             totalBonusAtkPercent += power.bonusAtkPercent;
+            totalBonusAtkPercent += power.getConditionalAtkBonus(this);
             totalBonusFlatAtk += power.bonusFlatAtk;
         }
         return (totalBaseAtk * (1 + totalBonusAtkPercent / 100) + totalBonusFlatAtk);

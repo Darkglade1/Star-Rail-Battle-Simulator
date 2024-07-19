@@ -30,4 +30,8 @@ public abstract class AbstractRelicSetBonus {
 
     }
 
+    public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+
+    }
+
 }

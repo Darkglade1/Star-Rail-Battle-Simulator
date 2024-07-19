@@ -165,7 +165,9 @@ public class Battle {
                 }
             }
 
-            //reset numby's AV here
+            if (nextUnit instanceof Numby) {
+                actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+            }
         }
 
         addToLog("");

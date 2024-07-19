@@ -103,8 +103,8 @@ public class Yunli extends AbstractCharacter {
         } else {
             numNormalCounters++;
             Battle.battle.addToLog(name + " used Counter");
-            int baseDamage = (int)(1.2f * getFinalAttack());
-            int baseDamageSplash = (int)(0.6f * getFinalAttack());
+            float baseDamage = (1.2f * getFinalAttack());
+            float baseDamageSplash = (0.6f * getFinalAttack());
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.FOLLOW_UP);
             BattleHelpers.PreAttackLogic(this, types);
@@ -135,8 +135,8 @@ public class Yunli extends AbstractCharacter {
     public void useCull(AbstractEnemy enemy) {
         numCulls++;
         Battle.battle.addToLog(name + " used Cull");
-        int baseDamage = (int)(2.2f * getFinalAttack());
-        int baseDamageSplash = (int)(1.1f * getFinalAttack());
+        float baseDamage = (2.2f * getFinalAttack());
+        float baseDamageSplash = (1.1f * getFinalAttack());
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
         types.add(DamageType.ULTIMATE);
@@ -151,7 +151,7 @@ public class Yunli extends AbstractCharacter {
             BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), baseDamageSplash, types, 30);
         }
 
-        int baseDamageBounce = (int)(0.72f * getFinalAttack());
+        float baseDamageBounce = (0.72f * getFinalAttack());
         int numBounces = 6;
         while (numBounces > 0) {
             BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), baseDamageBounce, types, 15);
