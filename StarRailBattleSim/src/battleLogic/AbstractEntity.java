@@ -39,6 +39,7 @@ public abstract class AbstractEntity {
             }
         }
         powerList.add(power);
+        power.owner = this;
         Battle.battle.addToLog(name + " gained " + power.name);
     }
 

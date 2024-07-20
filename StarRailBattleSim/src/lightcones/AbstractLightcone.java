@@ -39,4 +39,8 @@ public abstract class AbstractLightcone {
 
     }
 
+    public void onSpecificTrigger(AbstractCharacter character, AbstractEnemy enemy) {
+
+    }
+
 }

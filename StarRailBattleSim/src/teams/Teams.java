@@ -9,6 +9,14 @@ import java.util.ArrayList;
 
 public class Teams {
 
+    public static ArrayList<AbstractCharacter> SparkleYunliRobinHuohuo() {
+        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        playerTeam.add(getPrebuiltSparkle());
+        playerTeam.add(getPrebuiltYunli());
+        playerTeam.add(getPrebuiltRobin());
+        playerTeam.add(getPrebuiltHuohuo());
+        return playerTeam;
+    }
     public static ArrayList<AbstractCharacter> MarchYunliRobinHuohuo() {
         ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
         playerTeam.add(getPrebuiltSwordMarch());
@@ -32,6 +40,21 @@ public class Teams {
         playerTeam.add(getPrebuiltRobin());
         playerTeam.add(getPrebuiltHuohuo());
         return playerTeam;
+    }
+
+    public static AbstractCharacter getPrebuiltSparkle() {
+        AbstractCharacter character = new Sparkle();
+        character.EquipLightcone(new PastAndFuture(character));
+        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        PermPower relicBonus = new PermPower();
+        relicBonus.bonusCritDamage = 80f;
+        relicBonus.bonusFlatSpeed = 54;
+        relicBonus.bonusFlatAtk = 502;
+        relicBonus.bonusEnergyRegen = 19.4f;
+        relicBonus.name = "Relic Stats Bonuses";
+        character.addPower(relicBonus);
+        return character;
     }
 
     public static AbstractCharacter getPrebuiltSwordMarch() {

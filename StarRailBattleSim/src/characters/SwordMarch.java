@@ -231,6 +231,7 @@ public class SwordMarch extends AbstractCharacter {
             }
         }
 
+        @Override
         public void onUseUltimate() {
             SwordMarch.this.gainCharge(1);
         }

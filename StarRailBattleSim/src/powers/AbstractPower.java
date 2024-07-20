@@ -1,5 +1,6 @@
 package powers;
 
+import battleLogic.AbstractEntity;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 
@@ -38,6 +39,7 @@ public abstract class AbstractPower {
     public boolean justApplied = false;
     public int maxStacks = 0;
     public int stacks = 1;
+    public AbstractEntity owner;
 
     public float getConditionalAtkBonus(AbstractCharacter character) {
         return 0;

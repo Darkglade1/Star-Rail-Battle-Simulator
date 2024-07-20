@@ -19,7 +19,7 @@ public class Battle {
 
     public final int INITIAL_SKILL_POINTS = 3;
     public int numSkillPoints = INITIAL_SKILL_POINTS;
-    public final int MAX_SKILL_POINTS = 5;
+    public int MAX_SKILL_POINTS = 5;
     public int totalPlayerDamage;
     public String log = "";
 
@@ -137,7 +137,8 @@ public class Battle {
                 ((Concerto) nextUnit).owner.onConcertoEnd();
                 nextUnit = ((Concerto) nextUnit).owner;
             }
-            for (AbstractPower power : nextUnit.powerList) {
+            ArrayList<AbstractPower> powersToTrgger = new ArrayList<>(nextUnit.powerList);
+            for (AbstractPower power : powersToTrgger) {
                 power.onTurnStart();
             }
             nextUnit.onTurnStart();

@@ -73,6 +73,18 @@ public abstract class AbstractCharacter extends AbstractEntity {
         Battle.battle.addToLog(name + " used Skill");
         Battle.battle.useSkillPoint(this, 1);
         increaseEnergy(skillEnergyGain);
+        boolean hasSparkle = false;
+        for (AbstractCharacter character : Battle.battle.playerTeam) {
+            if (character instanceof Sparkle) {
+                hasSparkle = true;
+                break;
+            }
+        }
+        if (hasSparkle) {
+            for (AbstractCharacter character : Battle.battle.playerTeam) {
+                character.addPower(new Sparkle.SparkleTalentPower());
+            }
+        }
     }
     public void useBasicAttack() {
         moveHistory.add(MoveType.BASIC);
