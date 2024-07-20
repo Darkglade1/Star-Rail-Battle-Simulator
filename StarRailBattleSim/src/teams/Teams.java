@@ -9,6 +9,14 @@ import java.util.ArrayList;
 
 public class Teams {
 
+    public static ArrayList<AbstractCharacter> MarchYunliRobinHuohuo() {
+        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        playerTeam.add(getPrebuiltSwordMarch());
+        playerTeam.add(getPrebuiltYunli());
+        playerTeam.add(getPrebuiltRobin());
+        playerTeam.add(getPrebuiltHuohuo());
+        return playerTeam;
+    }
     public static ArrayList<AbstractCharacter> TopazYunliRobinHuohuo() {
         ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
         playerTeam.add(getPrebuiltTopaz());
@@ -24,6 +32,23 @@ public class Teams {
         playerTeam.add(getPrebuiltRobin());
         playerTeam.add(getPrebuiltHuohuo());
         return playerTeam;
+    }
+
+    public static AbstractCharacter getPrebuiltSwordMarch() {
+        AbstractCharacter character = new SwordMarch();
+        character.EquipLightcone(new Cruising(character));
+        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new RutilentArena(character));
+        PermPower relicBonus = new PermPower();
+        relicBonus.bonusCritChance = 60.2f;
+        relicBonus.bonusCritDamage = 84.1f;
+        relicBonus.bonusSameElementDamageBonus = 38.8f;
+        relicBonus.bonusAtkPercent = 51f;
+        relicBonus.bonusFlatAtk = 367;
+        relicBonus.bonusFlatSpeed = 25f;
+        relicBonus.name = "Relic Stats Bonuses";
+        character.addPower(relicBonus);
+        return character;
     }
     public static AbstractCharacter getPrebuiltTopaz() {
         AbstractCharacter character = new Topaz();

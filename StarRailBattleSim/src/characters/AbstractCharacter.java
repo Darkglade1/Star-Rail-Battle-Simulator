@@ -20,7 +20,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public enum MoveType {
-        SKILL, BASIC, ULTIMATE
+        SKILL, BASIC, ENHANCED_BASIC, ULTIMATE, FOLLOW_UP
     }
 
     protected int baseHP;

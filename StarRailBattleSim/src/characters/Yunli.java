@@ -19,7 +19,7 @@ public class Yunli extends AbstractCharacter {
 
     private int numNormalCounters = 0;
     private int numCulls = 0;
-    private int numSlashes = 0;
+    public int numSlashes = 0;
 
     public Yunli() {
         super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
@@ -148,6 +148,32 @@ public class Yunli extends AbstractCharacter {
             BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.72f, BattleHelpers.MultiplierStat.ATK, types, 15);
             numBounces--;
         }
+        BattleHelpers.PostAttackLogic(this, types);
+    }
+
+    public void useSlash(AbstractEnemy enemy) {
+        numSlashes++;
+        Battle.battle.addToLog(name + " used Slash");
+        ArrayList<DamageType> types = new ArrayList<>();
+        types.add(DamageType.FOLLOW_UP);
+        types.add(DamageType.ULTIMATE);
+        BattleHelpers.PreAttackLogic(this, types);
+
+        int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
+        BattleHelpers.hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, 60);
+        if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
+        }
+        if (enemyIndex - 1 >= 0) {
+            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
+        }
+
+        removePower(cullPower);
+        isParrying = false;
+        for (AbstractEnemy e : Battle.battle.enemyTeam) {
+            e.removePower(tauntPower);
+        }
+
         BattleHelpers.PostAttackLogic(this, types);
     }
 

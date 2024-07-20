@@ -1,6 +1,7 @@
 package battleLogic;
 
 import characters.AbstractCharacter;
+import characters.SwordMarch;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import relicSetBonus.AbstractRelicSetBonus;
@@ -87,6 +88,12 @@ public class BattleHelpers {
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, types, damageElement);
         if (target.weaknessMap.contains(damageElement)) {
             target.reduceToughness(toughnessDamage);
+        } else {
+            if (source instanceof SwordMarch) {
+                if (damageElement == source.elementType && target.weaknessMap.contains(((SwordMarch) source).master.elementType)) {
+                    target.reduceToughness(toughnessDamage);
+                }
+            }
         }
         Battle.battle.totalPlayerDamage += calculatedDamage;
         Battle.battle.updateContribution(source, calculatedDamage);

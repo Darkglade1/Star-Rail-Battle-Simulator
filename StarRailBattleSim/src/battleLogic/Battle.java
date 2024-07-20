@@ -1,6 +1,7 @@
 package battleLogic;
 
 import characters.AbstractCharacter;
+import characters.SwordMarch;
 import characters.Yunli;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -30,6 +31,7 @@ public class Battle {
     public Random enemyTargetRng = new Random(seed);
     public Random critChanceRng = new Random(seed);
     public Random getRandomEnemyRng = new Random(seed);
+    public Random procChanceRng = new Random(seed);
 
     public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
         this.playerTeam = playerTeam;
@@ -71,8 +73,8 @@ public class Battle {
         addToLog(String.format("%s generated %d Skill Point(s) (%d -> %d)", character.name, amount, initialSkillPoints, numSkillPoints));
     }
 
-    public void Start(int battleLength) {
-        int initialBattleLength = battleLength;
+    public void Start(float battleLength) {
+        float initialBattleLength = battleLength;
         totalPlayerDamage = 0;
         log = "Combat Start\n";
         damageContributionMap = new HashMap<>();
@@ -102,6 +104,7 @@ public class Battle {
         }
 
         Yunli yunli = getYunli();
+        SwordMarch march = getSwordMarch();
 
         while (battleLength > 0) {
             addToLog("AV until battle ends: " + battleLength);
@@ -117,6 +120,10 @@ public class Battle {
             }
             if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
                 yunli.useUltimate();
+                if (march != null && march.chargeCount >= march.chargeThreshold) {
+                    nextUnit = march;
+                    nextAV = actionValueMap.get(nextUnit);
+                }
             }
             addToLog("Next is " + nextUnit.name + " at " + nextAV + " action value " + actionValueMap);
             battleLength -= nextAV;
@@ -153,6 +160,10 @@ public class Battle {
                 }
             }
 
+            if (yunli != null && yunli.isParrying) {
+                yunli.useSlash(getRandomEnemy());
+            }
+
             for (AbstractCharacter character : playerTeam) {
                 if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
                     character.useUltimate();
@@ -181,7 +192,7 @@ public class Battle {
             addToLog(enemy.getMetrics());
             addToLog("");
         }
-        addToLog(String.format("Total player team damage: %d \nAction Value used: %d", totalPlayerDamage, initialBattleLength));
+        addToLog(String.format("Total player team damage: %d \nAction Value used: %.1f", totalPlayerDamage, initialBattleLength));
         addToLog("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
         addToLog("Damage Contribution: | " + calcPercentContributionString());
         System.out.println(log);
@@ -200,6 +211,15 @@ public class Battle {
         for (AbstractCharacter character : playerTeam) {
             if (character instanceof Yunli) {
                 return (Yunli) character;
+            }
+        }
+        return null;
+    }
+
+    private SwordMarch getSwordMarch() {
+        for (AbstractCharacter character : playerTeam) {
+            if (character instanceof SwordMarch) {
+                return (SwordMarch) character;
             }
         }
         return null;

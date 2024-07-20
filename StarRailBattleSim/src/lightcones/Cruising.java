@@ -19,6 +19,6 @@ public class Cruising extends AbstractLightcone {
     }
 
     public String toString() {
-        return this.getClass().getSimpleName();
+        return "Cruising (50% Uptime)";
     }
 }
