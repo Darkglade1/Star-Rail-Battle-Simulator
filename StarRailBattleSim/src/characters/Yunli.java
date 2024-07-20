@@ -121,7 +121,10 @@ public class Yunli extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 1) {
+        if (firstMove && Battle.battle.numSkillPoints > 0) {
+            useSkill();
+            firstMove = false;
+        } else if (Battle.battle.numSkillPoints > 1) {
             useSkill();
         } else {
             useBasicAttack();

@@ -26,7 +26,7 @@ public class BattleSim {
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(5050);
-        
+
         //Public calcs doc for Yunli: https://docs.google.com/document/d/1cCSiRX7-lfWp-fzhsaiUyhJuax0J9Dp2oU2t0CuVBDg/edit
     }
 
