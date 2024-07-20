@@ -16,6 +16,8 @@ public class BattleSim {
         //battle.setPlayerTeam(TopazYunliRobinHuohuo());
         battle.setPlayerTeam(MarchYunliRobinHuohuo());
         battle.setPlayerTeam(SparkleYunliRobinHuohuo());
+        battle.setPlayerTeam(SparkleYunliTingyunHuohuo());
+        battle.setPlayerTeam(PelaYunliTingyunHuohuo());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new PhysWeakEnemy(0, 2));

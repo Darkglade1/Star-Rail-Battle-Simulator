@@ -9,6 +9,24 @@ import java.util.ArrayList;
 
 public class Teams {
 
+    public static ArrayList<AbstractCharacter> PelaYunliTingyunHuohuo() {
+        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        playerTeam.add(getPrebuiltPela());
+        playerTeam.add(getPrebuiltYunli());
+        playerTeam.add(getPrebuiltTingyun());
+        playerTeam.add(getPrebuiltHuohuo());
+        return playerTeam;
+    }
+
+    public static ArrayList<AbstractCharacter> SparkleYunliTingyunHuohuo() {
+        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        playerTeam.add(getPrebuiltSparkle());
+        playerTeam.add(getPrebuiltYunli());
+        playerTeam.add(getPrebuiltTingyun());
+        playerTeam.add(getPrebuiltHuohuo());
+        return playerTeam;
+    }
+
     public static ArrayList<AbstractCharacter> SparkleYunliRobinHuohuo() {
         ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
         playerTeam.add(getPrebuiltSparkle());
@@ -40,6 +58,21 @@ public class Teams {
         playerTeam.add(getPrebuiltRobin());
         playerTeam.add(getPrebuiltHuohuo());
         return playerTeam;
+    }
+
+    public static AbstractCharacter getPrebuiltPela() {
+        AbstractCharacter character = new Pela();
+        character.EquipLightcone(new Resolution(character));
+        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        PermPower relicBonus = new PermPower();
+        relicBonus.bonusAtkPercent = 20f;
+        relicBonus.bonusFlatSpeed = 40;
+        relicBonus.bonusFlatAtk = 502;
+        relicBonus.bonusEnergyRegen = 19.4f;
+        relicBonus.name = "Relic Stats Bonuses";
+        character.addPower(relicBonus);
+        return character;
     }
 
     public static AbstractCharacter getPrebuiltSparkle() {
