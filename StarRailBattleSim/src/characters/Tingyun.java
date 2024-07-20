@@ -77,7 +77,7 @@ public class Tingyun extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0 && benefactor == null) {
+        if (Battle.battle.numSkillPoints > 0 && (benefactor == null || (lastMove(MoveType.BASIC) && lastMoveBefore(MoveType.BASIC)))) {
             useSkill();
         } else {
             useBasicAttack();

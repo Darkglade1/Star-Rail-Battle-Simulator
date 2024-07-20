@@ -60,7 +60,7 @@ public class Battle {
         numSkillPoints -= amount;
         addToLog(String.format("%s used %d Skill Point(s) (%d -> %d)", character.name, amount, initialSkillPoints, numSkillPoints));
         if (numSkillPoints < 0) {
-            addToLog("ERROR - SKILL POINTS WENT NEGATIVE");
+            throw new RuntimeException("ERROR - SKILL POINTS WENT NEGATIVE");
         }
     }
 

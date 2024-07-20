@@ -104,7 +104,7 @@ public class Topaz extends AbstractCharacter {
             if (firstMove) {
                 useSkill();
                 firstMove = false;
-            } else if (lastMove(MoveType.SKILL) || ultCounter > 0) {
+            } else if (Battle.battle.numSkillPoints <= 3 || ultCounter > 0) {
                 useBasicAttack();
             } else {
                 useSkill();
