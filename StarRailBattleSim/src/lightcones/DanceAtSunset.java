@@ -30,7 +30,7 @@ public class DanceAtSunset extends AbstractLightcone {
         return this.getClass().getSimpleName();
     }
 
-    private static class DanceAtSunsetDamagePower extends AbstractPower {
+    public static class DanceAtSunsetDamagePower extends AbstractPower {
         public DanceAtSunsetDamagePower() {
             this.name = this.getClass().getSimpleName();
             this.turnDuration = 2;

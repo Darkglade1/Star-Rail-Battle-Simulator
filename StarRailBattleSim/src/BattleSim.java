@@ -17,7 +17,7 @@ public class BattleSim {
         battle.setPlayerTeam(MarchYunliRobinHuohuo());
         battle.setPlayerTeam(SparkleYunliRobinHuohuo());
         battle.setPlayerTeam(SparkleYunliTingyunHuohuo());
-        battle.setPlayerTeam(PelaYunliTingyunHuohuo());
+        //battle.setPlayerTeam(PelaYunliTingyunHuohuo());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new PhysWeakEnemy(0, 2));
@@ -25,7 +25,7 @@ public class BattleSim {
         //enemyTeam.add(new PhysWeakEnemy(2, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(250);
+        battle.Start(5050);
     }
 
 

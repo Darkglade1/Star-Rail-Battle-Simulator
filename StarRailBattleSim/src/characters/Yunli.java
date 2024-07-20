@@ -3,6 +3,7 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
+import lightcones.DanceAtSunset;
 import powers.AbstractPower;
 import powers.PermPower;
 import powers.TauntPower;
@@ -18,7 +19,8 @@ public class Yunli extends AbstractCharacter {
     AbstractPower tauntPower = new TauntPower(this);
 
     private int numNormalCounters = 0;
-    private int numCulls = 0;
+    private int num1StackCulls = 0;
+    private int num2StackCulls = 0;
     public int numSlashes = 0;
 
     public Yunli() {
@@ -127,7 +129,13 @@ public class Yunli extends AbstractCharacter {
     }
 
     public void useCull(AbstractEnemy enemy) {
-        numCulls++;
+        AbstractPower power = new DanceAtSunset.DanceAtSunsetDamagePower();
+        AbstractPower sunsetPower = getPower(power.name);
+        if (sunsetPower != null && sunsetPower.stacks == 2) {
+            num2StackCulls++;
+        } else {
+            num1StackCulls++;
+        }
         Battle.battle.addToLog(name + " used Cull");
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
@@ -195,7 +203,7 @@ public class Yunli extends AbstractCharacter {
 
     public String getMetrics() {
         String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nNormal Counters: %d \nCulls: %d \nSlashes: %d", numNormalCounters, numCulls, numSlashes);
+        String charSpecificMetrics = String.format("\nNormal Counters: %d \n1 stack Culls: %d \n2 stack Culls: %d \nSlashes: %d", numNormalCounters, num1StackCulls, num2StackCulls, numSlashes);
         return metrics + charSpecificMetrics;
     }
 
