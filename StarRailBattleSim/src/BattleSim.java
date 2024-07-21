@@ -13,8 +13,8 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        //debugTeam();
-        generateReportYunli();
+        debugTeam();
+        //generateReportYunli();
     }
     
     public static void debugTeam() {
@@ -35,8 +35,6 @@ public class BattleSim {
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(5050);
-
-        //Public calcs doc for Yunli: https://docs.google.com/document/d/1cCSiRX7-lfWp-fzhsaiUyhJuax0J9Dp2oU2t0CuVBDg/edit
     }
 
     public static void generateReportYunli() {
