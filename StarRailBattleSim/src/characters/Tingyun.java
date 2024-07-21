@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class Tingyun extends AbstractCharacter {
     private AbstractCharacter benefactor;
+    public int skillProcs = 0;
+    public int talentProcs = 0;
 
     public Tingyun() {
         super("Tingyun", 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100);
@@ -55,6 +57,7 @@ public class Tingyun extends AbstractCharacter {
         }
         BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
         if (benefactor != null) {
+            talentProcs++;
             BattleHelpers.tingyunSkillHitEnemy(benefactor, enemy, 0.66f, BattleHelpers.MultiplierStat.ATK);
         }
 
@@ -103,6 +106,12 @@ public class Tingyun extends AbstractCharacter {
         addPower(new TingyunBonusBasicDamagePower());
     }
 
+    public String getMetrics() {
+        String metrics = super.getMetrics();
+        String charSpecificMetrics = String.format("\nSkill procs: %d \nTalent procs: %d", skillProcs, talentProcs);
+        return metrics + charSpecificMetrics;
+    }
+
     private class TingyunSkillPower extends AbstractPower {
         public TingyunSkillPower() {
             this.name = this.getClass().getSimpleName();
@@ -111,6 +120,7 @@ public class Tingyun extends AbstractCharacter {
         }
 
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+            skillProcs++;
             AbstractEnemy target = enemiesHit.get(Battle.battle.getRandomEnemyRng.nextInt(enemiesHit.size()));
             BattleHelpers.tingyunSkillHitEnemy(character, target, 0.44f, BattleHelpers.MultiplierStat.ATK);
         }

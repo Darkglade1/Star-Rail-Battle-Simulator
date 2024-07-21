@@ -16,6 +16,7 @@ public class Robin extends AbstractCharacter {
     RobinUltPower ultPower;
     private int skillCounter = 0;
     private int allyAttacksMetric = 0;
+    private int concertoProcs = 0;
 
     public Robin() {
         super("Robin", 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100);
@@ -155,7 +156,7 @@ public class Robin extends AbstractCharacter {
 
     public String getMetrics() {
         String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nAlly attacks %d", allyAttacksMetric);
+        String charSpecificMetrics = String.format("\nAlly attacks: %d \nConcerto hits: %d", allyAttacksMetric, concertoProcs);
         return metrics + charSpecificMetrics;
     }
 
@@ -202,6 +203,7 @@ public class Robin extends AbstractCharacter {
             AbstractEnemy target = enemiesHit.get(Battle.battle.getRandomEnemyRng.nextInt(enemiesHit.size()));
             float baseDamage = 1.2f * Robin.this.getFinalAttack();
             BattleHelpers.robinHitEnemy(Robin.this, target, baseDamage, 100, 150);
+            concertoProcs++;
         }
 
         @Override
