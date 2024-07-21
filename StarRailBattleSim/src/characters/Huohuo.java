@@ -122,11 +122,13 @@ public class Huohuo extends AbstractCharacter {
         @Override
         public void onTurnStart() {
             Huohuo.this.increaseEnergy(1);
+            numTalentProcs++;
         }
 
         @Override
         public void onUseUltimate() {
             Huohuo.this.increaseEnergy(1);
+            numTalentProcs++;
         }
     }
 }

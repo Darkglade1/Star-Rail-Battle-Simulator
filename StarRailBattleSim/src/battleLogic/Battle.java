@@ -23,6 +23,7 @@ public class Battle {
     public int totalPlayerDamage;
     public float finalDPAV;
     public String log = "";
+    public float initialBattleLength;
 
     public HashMap<AbstractCharacter, Float> damageContributionMap;
     public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
@@ -76,7 +77,7 @@ public class Battle {
     }
 
     public void Start(float battleLength) {
-        float initialBattleLength = battleLength;
+        initialBattleLength = battleLength;
         totalPlayerDamage = 0;
         log = "Combat Start\n";
         damageContributionMap = new HashMap<>();
@@ -199,6 +200,11 @@ public class Battle {
         addToLog(String.format("Total player team damage: %d \nAction Value used: %.1f", totalPlayerDamage, initialBattleLength));
         finalDPAV = (float)totalPlayerDamage / initialBattleLength;
         addToLog("DPAV: " + finalDPAV);
+        for (AbstractCharacter character : playerTeam) {
+            if (!damageContributionMap.containsKey(character)) {
+                damageContributionMap.put(character, 0.0f);
+            }
+        }
         addToLog("Damage Contribution: | " + calcPercentContributionString());
         System.out.println(log);
     }

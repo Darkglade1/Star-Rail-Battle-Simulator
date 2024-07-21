@@ -32,6 +32,7 @@ public class Report {
         for (EnemyTeam enemyTeam : enemyTeams) {
             HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap = new HashMap<>();
             HashMap<String, ArrayList<String>> characterTeamList = new HashMap<>();
+            HashMap<String, ArrayList<String>> damageContributionMap = new HashMap<>();
             HashMap<String, ArrayList<String>> characterMetricOrderList = new HashMap<>();
 
             ArrayList<AbstractCharacter> baseline = baselineTeam.getTeam();
@@ -47,7 +48,7 @@ public class Report {
             baselineDPAV = battle.finalDPAV;
             DPAVtracker.put(baselineDPAV, baselineTeam);
             diffTracker.put(baselineTeam, 100.0f);
-            updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, baseline, baselineTeam);
+            updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, baseline, baselineTeam);
 
             for (PlayerTeam playerTeam : otherTeams) {
                 ArrayList<AbstractCharacter> otherTeam = playerTeam.getTeam();
@@ -61,7 +62,7 @@ public class Report {
                 DPAVtracker.put(otherTeamDPAV, playerTeam);
                 float diff = otherTeamDPAV / baselineDPAV * 100;
                 diffTracker.put(playerTeam, diff);
-                updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, otherTeam, playerTeam);
+                updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, otherTeam, playerTeam);
             }
 
             CSV.append(enemyTeam).append("\n");
@@ -99,7 +100,12 @@ public class Report {
                     }
                     characterCSV.append("\n");
                 }
-                characterCSV.append("\n").append("\n").append("\n");
+                ArrayList<String> damageContribution = damageContributionMap.get(entry.getKey());
+                characterCSV.append("Damage Contribution").append(",");
+                for (String damage : damageContribution) {
+                    characterCSV.append(damage).append(",");
+                }
+                characterCSV.append("\n").append("\n").append("\n").append("\n");
                 characterCSVs.put(entry.getKey(), characterCSV.toString());
             }
         }
@@ -120,7 +126,7 @@ public class Report {
         }
     }
 
-    public void updateCharacterCSVs(HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap, HashMap<String, ArrayList<String>> characterTeamList, HashMap<String, ArrayList<String>> characterMetricOrderList, ArrayList<AbstractCharacter> team, PlayerTeam playerTeam) {
+    public void updateCharacterCSVs(HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap, HashMap<String, ArrayList<String>> characterTeamList, HashMap<String, ArrayList<String>> characterMetricOrderList, HashMap<String, ArrayList<String>> damageContributionMap, ArrayList<AbstractCharacter> team, PlayerTeam playerTeam) {
         for (AbstractCharacter character : team) {
             if (!characterMetricsMap.containsKey(character.name)) {
                 HashMap<String, ArrayList<String>> map = new HashMap<>();
@@ -143,6 +149,16 @@ public class Report {
             }
             ArrayList<String> list = characterTeamList.get(character.name);
             list.add(playerTeam.toString());
+
+            if (!damageContributionMap.containsKey(character.name)) {
+                ArrayList<String> damageContributionList = new ArrayList<>();
+                damageContributionMap.put(character.name, damageContributionList);
+            }
+            ArrayList<String> damageList = damageContributionMap.get(character.name);
+            float damagePercent = Battle.battle.damageContributionMapPercent.get(character);
+            float rawDamage = Battle.battle.damageContributionMap.get(character);
+            float DPAV = rawDamage / Battle.battle.initialBattleLength;
+            damageList.add(String.format("%.2f DPAV (%.1f%% of total)", DPAV, damagePercent));
 
             characterMetricOrderList.put(character.name, character.getOrderedCharacterSpecificMetricsKeys());
         }

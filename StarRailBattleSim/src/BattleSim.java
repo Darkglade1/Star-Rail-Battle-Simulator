@@ -51,7 +51,7 @@ public class BattleSim {
         enemyTeams.add(new PhysWeakTargets2());
         enemyTeams.add(new PhysWeakTargets1());
 
-        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 550);
+        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 5050);
         report.generateCSV();
     }
 
