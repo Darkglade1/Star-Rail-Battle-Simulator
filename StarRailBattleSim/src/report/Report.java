@@ -61,7 +61,7 @@ public class Report {
                 DPAVList.add(entry.getKey());
             }
             Collections.sort(DPAVList);
-            for (int i = DPAVList.size() - 1; i > 0; i--) {
+            for (int i = DPAVList.size() - 1; i >= 0; i--) {
                 float DPAV = DPAVList.get(i);
                 PlayerTeam t = DPAVtracker.get(DPAV);
                 CSV.append(String.format("%s,%.3f,%.2f%%\n", t.toString(), DPAV, diffTracker.get(t)));
