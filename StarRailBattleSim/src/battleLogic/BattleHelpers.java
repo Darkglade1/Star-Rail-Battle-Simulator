@@ -141,6 +141,9 @@ public class BattleHelpers {
     public static float calculateDamageAgainstEnemyFixedCrit(AbstractCharacter source, AbstractEnemy target, float baseDamage, float fixedCritChance, float fixedCritDamage) {
         float dmgMultiplier;
         dmgMultiplier = source.getTotalSameElementDamageBonus();
+        for (AbstractPower power : source.powerList) {
+            dmgMultiplier += power.getConditionalDamageBonus(source, target, new ArrayList<>());
+        }
         float dmgMultiplierFloat = 1 + dmgMultiplier / 100;
 
         float enemyDefPercent = target.getFinalDefense();
