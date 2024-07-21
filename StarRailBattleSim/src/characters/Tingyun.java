@@ -73,7 +73,7 @@ public class Tingyun extends AbstractCharacter {
             if (character.isDPS && character.currentEnergy < character.maxEnergy) {
                 character.increaseEnergy(60, false);
                 TempPower ultDamageBonus = new TempPower();
-                ultDamageBonus.bonusDamageBonus = 76;
+                ultDamageBonus.bonusDamageBonus = 56;
                 ultDamageBonus.turnDuration = 2;
                 ultDamageBonus.name = "Tingyun Ult Damage Bonus";
                 character.addPower(ultDamageBonus);
@@ -139,7 +139,7 @@ public class Tingyun extends AbstractCharacter {
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             skillProcs++;
             AbstractEnemy target = enemiesHit.get(Battle.battle.getRandomEnemyRng.nextInt(enemiesHit.size()));
-            BattleHelpers.tingyunSkillHitEnemy(character, target, 0.44f, BattleHelpers.MultiplierStat.ATK);
+            BattleHelpers.tingyunSkillHitEnemy(character, target, 0.64f, BattleHelpers.MultiplierStat.ATK);
         }
 
         public void onUseUltimate() {
