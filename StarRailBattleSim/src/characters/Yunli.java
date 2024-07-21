@@ -10,6 +10,7 @@ import powers.TauntPower;
 import powers.TempPower;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Yunli extends AbstractCharacter {
 
@@ -22,6 +23,10 @@ public class Yunli extends AbstractCharacter {
     private int num1StackCulls = 0;
     private int num2StackCulls = 0;
     public int numSlashes = 0;
+    private String numNormalCountersMetricName = "Normal Counters";
+    private String num1StackCullsMetricName = "Number of Culls (1 S1 stack)";
+    private String num2StackCullsMetricName = "Number of Culls (2 S1 stacks)";
+    private String numSlashesMetricName = "Number of Slashes";
 
     public Yunli() {
         super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
@@ -208,6 +213,24 @@ public class Yunli extends AbstractCharacter {
         String metrics = super.getMetrics();
         String charSpecificMetrics = String.format("\nNormal Counters: %d \n1 stack Culls: %d \n2 stack Culls: %d \nSlashes: %d", numNormalCounters, num1StackCulls, num2StackCulls, numSlashes);
         return metrics + charSpecificMetrics;
+    }
+
+    public HashMap<String, String> getCharacterSpecificMetricMap() {
+        HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(numNormalCountersMetricName, String.valueOf(numNormalCounters));
+        map.put(num1StackCullsMetricName, String.valueOf(num1StackCulls));
+        map.put(num2StackCullsMetricName, String.valueOf(num2StackCulls));
+        map.put(numSlashesMetricName, String.valueOf(numSlashes));
+        return map;
+    }
+
+    public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
+        ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(numNormalCountersMetricName);
+        list.add(num1StackCullsMetricName);
+        list.add(num2StackCullsMetricName);
+        list.add(numSlashesMetricName);
+        return list;
     }
 
     private static class CullCritDamageBuff extends AbstractPower {

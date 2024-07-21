@@ -8,10 +8,13 @@ import powers.PermPower;
 import powers.TempPower;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Huohuo extends AbstractCharacter {
     HuohuoTalentPower talentPower = new HuohuoTalentPower();
     private int talentCounter = 0;
+    private int numTalentProcs = 0;
+    private String numTalentProcsMetricName = "Number of Talent Procs";
 
     public Huohuo() {
         super("Huohuo", 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100);
@@ -90,6 +93,24 @@ public class Huohuo extends AbstractCharacter {
         if (currentEnergy >= ultCost) {
             useUltimate();
         }
+    }
+
+    public String getMetrics() {
+        String metrics = super.getMetrics();
+        String charSpecificMetrics = String.format("\nTalent Procs: %d", numTalentProcs);
+        return metrics + charSpecificMetrics;
+    }
+
+    public HashMap<String, String> getCharacterSpecificMetricMap() {
+        HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(numTalentProcsMetricName, String.valueOf(numTalentProcs));
+        return map;
+    }
+
+    public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
+        ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(numTalentProcsMetricName);
+        return list;
     }
 
     private class HuohuoTalentPower extends AbstractPower {

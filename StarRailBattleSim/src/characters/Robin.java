@@ -9,6 +9,7 @@ import powers.AbstractPower;
 import powers.PermPower;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Robin extends AbstractCharacter {
@@ -17,6 +18,8 @@ public class Robin extends AbstractCharacter {
     private int skillCounter = 0;
     private int allyAttacksMetric = 0;
     private int concertoProcs = 0;
+    private String allyAttacksMetricName = "Number of Ally Attacks";
+    private String concertoProcsMetricName = "Number of Concerto Hits";
 
     public Robin() {
         super("Robin", 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100);
@@ -158,6 +161,20 @@ public class Robin extends AbstractCharacter {
         String metrics = super.getMetrics();
         String charSpecificMetrics = String.format("\nAlly attacks: %d \nConcerto hits: %d", allyAttacksMetric, concertoProcs);
         return metrics + charSpecificMetrics;
+    }
+
+    public HashMap<String, String> getCharacterSpecificMetricMap() {
+        HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(allyAttacksMetricName, String.valueOf(allyAttacksMetric));
+        map.put(concertoProcsMetricName, String.valueOf(concertoProcs));
+        return map;
+    }
+
+    public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
+        ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(allyAttacksMetricName);
+        list.add(concertoProcsMetricName);
+        return list;
     }
 
     private class RobinTalentPower extends AbstractPower {

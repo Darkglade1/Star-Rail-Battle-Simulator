@@ -8,11 +8,14 @@ import powers.PermPower;
 import powers.TempPower;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Tingyun extends AbstractCharacter {
     private AbstractCharacter benefactor;
     public int skillProcs = 0;
     public int talentProcs = 0;
+    private String skillProcsMetricName = "Skill Extra Damage Procs";
+    private String talentProcsMetricName = "Talent Extra Damage Procs";
 
     public Tingyun() {
         super("Tingyun", 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100);
@@ -110,6 +113,20 @@ public class Tingyun extends AbstractCharacter {
         String metrics = super.getMetrics();
         String charSpecificMetrics = String.format("\nSkill procs: %d \nTalent procs: %d", skillProcs, talentProcs);
         return metrics + charSpecificMetrics;
+    }
+
+    public HashMap<String, String> getCharacterSpecificMetricMap() {
+        HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(skillProcsMetricName, String.valueOf(skillProcs));
+        map.put(talentProcsMetricName, String.valueOf(talentProcs));
+        return map;
+    }
+
+    public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
+        ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(skillProcsMetricName);
+        list.add(talentProcsMetricName);
+        return list;
     }
 
     private class TingyunSkillPower extends AbstractPower {

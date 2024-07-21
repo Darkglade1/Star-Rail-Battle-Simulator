@@ -9,6 +9,7 @@ import powers.TauntPower;
 import powers.TempPower;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SwordMarch extends AbstractCharacter {
 
@@ -17,6 +18,9 @@ public class SwordMarch extends AbstractCharacter {
     private int numEBA = 0;
     private int numFUAs = 0;
     private int numUltEnhancedEBA;
+    private String numEBAMetricName = "Enhanced Basic Attacks used";
+    private String numFUAsMetricName = "Follow up Attacks used";
+    private String numUltEnhancedEBAUsed = "Ult Boosted Enhanced Basic Attacks used";
     public int chargeCount = 0;
     public final int chargeThreshold = 7;
     private boolean isEnhanced;
@@ -24,7 +28,7 @@ public class SwordMarch extends AbstractCharacter {
     private boolean FUAReady = true;
 
     public SwordMarch() {
-        super("SwordMarch", 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75);
+        super("Sword March", 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75);
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 28f;
@@ -129,23 +133,25 @@ public class SwordMarch extends AbstractCharacter {
     }
 
     public void useFollowUp(ArrayList<AbstractEnemy> enemiesHit) {
-        int middleIndex = enemiesHit.size() / 2;
-        AbstractEnemy enemy = enemiesHit.get(middleIndex);
-        FUAReady = false;
-        moveHistory.add(MoveType.FOLLOW_UP);
-        numFUAs++;
-        Battle.battle.addToLog(name + " used Follow Up");
-        increaseEnergy(5);
+        if (FUAReady) {
+            int middleIndex = enemiesHit.size() / 2;
+            AbstractEnemy enemy = enemiesHit.get(middleIndex);
+            FUAReady = false;
+            moveHistory.add(MoveType.FOLLOW_UP);
+            numFUAs++;
+            Battle.battle.addToLog(name + " used Follow Up");
+            increaseEnergy(5);
 
-        ArrayList<DamageType> types = new ArrayList<>();
-        types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+            ArrayList<DamageType> types = new ArrayList<>();
+            types.add(DamageType.FOLLOW_UP);
+            BattleHelpers.PreAttackLogic(this, types);
 
-        BattleHelpers.hitEnemy(this, enemy, 0.6f, BattleHelpers.MultiplierStat.ATK, types, 30);
-        BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
-        gainCharge(1);
+            BattleHelpers.hitEnemy(this, enemy, 0.6f, BattleHelpers.MultiplierStat.ATK, types, 30);
+            BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
+            gainCharge(1);
 
-        BattleHelpers.PostAttackLogic(this, types);
+            BattleHelpers.PostAttackLogic(this, types);
+        }
     }
 
     public void useUltimate() {
@@ -214,6 +220,22 @@ public class SwordMarch extends AbstractCharacter {
         String metrics = super.getMetrics();
         String charSpecificMetrics = String.format("\nFollow Ups: %d \nEBAs: %d \nUlt Boosted EBAs: %d", numFUAs, numEBA, numUltEnhancedEBA);
         return metrics + charSpecificMetrics;
+    }
+
+    public HashMap<String, String> getCharacterSpecificMetricMap() {
+        HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(numFUAsMetricName, String.valueOf(numFUAs));
+        map.put(numEBAMetricName, String.valueOf(numEBA));
+        map.put(numUltEnhancedEBAUsed, String.valueOf(numUltEnhancedEBA));
+        return map;
+    }
+
+    public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
+        ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(numFUAsMetricName);
+        list.add(numEBAMetricName);
+        list.add(numUltEnhancedEBAUsed);
+        return list;
     }
 
     private class MarchMasterPower extends AbstractPower {
