@@ -21,9 +21,11 @@ public class Battle {
     public int numSkillPoints = INITIAL_SKILL_POINTS;
     public int MAX_SKILL_POINTS = 5;
     public int totalPlayerDamage;
+    public float finalDPAV;
     public String log = "";
 
     public HashMap<AbstractCharacter, Float> damageContributionMap;
+    public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
     public HashMap<AbstractEntity, Float> actionValueMap;
 
     long seed = 154172837382L;
@@ -78,6 +80,7 @@ public class Battle {
         totalPlayerDamage = 0;
         log = "Combat Start\n";
         damageContributionMap = new HashMap<>();
+        damageContributionMapPercent = new HashMap<>();
         numSkillPoints = INITIAL_SKILL_POINTS;
         actionValueMap = new HashMap<>();
 
@@ -194,7 +197,8 @@ public class Battle {
             addToLog("");
         }
         addToLog(String.format("Total player team damage: %d \nAction Value used: %.1f", totalPlayerDamage, initialBattleLength));
-        addToLog("DPAV: " + (float)totalPlayerDamage / initialBattleLength);
+        finalDPAV = (float)totalPlayerDamage / initialBattleLength;
+        addToLog("DPAV: " + finalDPAV);
         addToLog("Damage Contribution: | " + calcPercentContributionString());
         System.out.println(log);
     }
@@ -203,6 +207,7 @@ public class Battle {
         StringBuilder log = new StringBuilder();
         for (Map.Entry<AbstractCharacter,Float> entry : damageContributionMap.entrySet()) {
             float percent = entry.getValue() / totalPlayerDamage * 100;
+            damageContributionMapPercent.put(entry.getKey(), percent);
             log.append(String.format("%s: %.3f (%.3f%%) | ", entry.getKey().name, entry.getValue(), percent));
         }
         return log.toString();

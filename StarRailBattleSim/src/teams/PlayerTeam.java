@@ -7,57 +7,93 @@ import relicSetBonus.*;
 
 import java.util.ArrayList;
 
-public class Teams {
+public class PlayerTeam {
 
-    public static ArrayList<AbstractCharacter> PelaYunliTingyunHuohuo() {
-        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-        playerTeam.add(getPrebuiltPela());
-        playerTeam.add(getPrebuiltYunli());
-        playerTeam.add(getPrebuiltTingyun());
-        playerTeam.add(getPrebuiltHuohuo());
-        return playerTeam;
+    public ArrayList<AbstractCharacter> getTeam() {
+        return null;
     }
-
-    public static ArrayList<AbstractCharacter> SparkleYunliTingyunHuohuo() {
-        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-        playerTeam.add(getPrebuiltSparkle());
-        playerTeam.add(getPrebuiltYunli());
-        playerTeam.add(getPrebuiltTingyun());
-        playerTeam.add(getPrebuiltHuohuo());
-        return playerTeam;
+    public String toString() {
+        ArrayList<AbstractCharacter> team = getTeam();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < team.size(); i++) {
+            result.append(team.get(i).name);
+            if (i < team.size() - 1) {
+                result.append("/");
+            }
+        }
+        return result.toString();
     }
 
-    public static ArrayList<AbstractCharacter> SparkleYunliRobinHuohuo() {
-        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-        playerTeam.add(getPrebuiltSparkle());
-        playerTeam.add(getPrebuiltYunli());
-        playerTeam.add(getPrebuiltRobin());
-        playerTeam.add(getPrebuiltHuohuo());
-        return playerTeam;
+    public static class PelaYunliTingyunHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltTingyun());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
     }
-    public static ArrayList<AbstractCharacter> MarchYunliRobinHuohuo() {
-        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-        playerTeam.add(getPrebuiltSwordMarch());
-        playerTeam.add(getPrebuiltYunli());
-        playerTeam.add(getPrebuiltRobin());
-        playerTeam.add(getPrebuiltHuohuo());
-        return playerTeam;
+
+    public static class SparkleYunliTingyunHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltSparkle());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltTingyun());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
     }
-    public static ArrayList<AbstractCharacter> TopazYunliRobinHuohuo() {
-        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-        playerTeam.add(getPrebuiltTopaz());
-        playerTeam.add(getPrebuiltYunli());
-        playerTeam.add(getPrebuiltRobin());
-        playerTeam.add(getPrebuiltHuohuo());
-        return playerTeam;
+
+    public static class SparkleYunliRobinHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltSparkle());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
     }
-    public static ArrayList<AbstractCharacter> TingyunYunliRobinHuohuo() {
-        ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-        playerTeam.add(getPrebuiltTingyun());
-        playerTeam.add(getPrebuiltYunli());
-        playerTeam.add(getPrebuiltRobin());
-        playerTeam.add(getPrebuiltHuohuo());
-        return playerTeam;
+
+    public static class MarchYunliRobinHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
+    }
+
+    public static class TopazYunliRobinHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltTopaz());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
+    }
+
+    public static class TingyunYunliRobinHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltTingyun());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
     }
 
     public static AbstractCharacter getPrebuiltPela() {
