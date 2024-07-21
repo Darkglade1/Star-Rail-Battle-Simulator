@@ -13,8 +13,8 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
-        //generateReportYunli();
+        //debugTeam();
+        generateReportYunli();
     }
     
     public static void debugTeam() {
@@ -25,13 +25,13 @@ public class BattleSim {
         //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new MarchYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new SparkleYunliRobinHuohuoTeam().getTeam());
-        battle.setPlayerTeam(new SparkleYunliTingyunHuohuoTeam().getTeam());
-        //battle.setPlayerTeam(new PelaYunliTingyunHuohuoTeam().getTeam());
+        //battle.setPlayerTeam(new SparkleYunliTingyunHuohuoTeam().getTeam());
+        battle.setPlayerTeam(new PelaYunliTingyunHuohuoTeam().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new PhysWeakEnemy(0, 2));
         enemyTeam.add(new PhysWeakEnemy(1, 2));
-        //enemyTeam.add(new PhysWeakEnemy(2, 2));
+        enemyTeam.add(new PhysWeakEnemy(2, 2));
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(5050);
@@ -51,7 +51,7 @@ public class BattleSim {
         enemyTeams.add(new PhysWeakTargets2());
         enemyTeams.add(new PhysWeakTargets1());
 
-        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 5050);
+        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 550);
         report.generateCSV();
     }
 

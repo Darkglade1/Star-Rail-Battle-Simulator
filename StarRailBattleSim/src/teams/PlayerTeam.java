@@ -18,7 +18,7 @@ public class PlayerTeam {
         for (int i = 0; i < team.size(); i++) {
             result.append(team.get(i).name);
             if (i < team.size() - 1) {
-                result.append("/");
+                result.append(" | ");
             }
         }
         return result.toString();

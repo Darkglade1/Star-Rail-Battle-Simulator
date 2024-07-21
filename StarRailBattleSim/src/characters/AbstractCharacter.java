@@ -8,6 +8,7 @@ import powers.AbstractPower;
 import relicSetBonus.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class AbstractCharacter extends AbstractEntity {
 
@@ -47,6 +48,10 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public int numBasicsMetric;
     public int numUltsMetric;
     public String statsString;
+    public String numTurnsMetricName = "Turns taken";
+    public String numSkillsMetricName = "Skills Used";
+    public String numBasicsMetricName = "Basic Attacks Used";
+    public String numUltsMetricName = "Ultimates Used";
     protected boolean firstMove = true;
     protected ArrayList<MoveType> moveHistory;
 
@@ -296,6 +301,24 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public void generateStatsString() {
         String gearString = String.format("Metrics for %s \nLightcone: %s \nRelic Set Bonuses: ", name, lightcone);
         gearString += relicSetBonus;
-        statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f \nCrit Damage: %.3f", getFinalAttack(), getFinalDefense(), getFinalHP(), getFinalSpeed(), getTotalSameElementDamageBonus(), getTotalCritChance(), getTotalCritDamage());
+        statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%%", getFinalAttack(), getFinalDefense(), getFinalHP(), getFinalSpeed(), getTotalSameElementDamageBonus(), getTotalCritChance(), getTotalCritDamage());
+    }
+
+    public HashMap<String, String> getCharacterSpecificMetricMap() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(numTurnsMetricName, String.valueOf(numTurnsMetric));
+        map.put(numSkillsMetricName, String.valueOf(numSkillsMetric));
+        map.put(numBasicsMetricName, String.valueOf(numBasicsMetric));
+        map.put(numUltsMetricName, String.valueOf(numUltsMetric));
+        return map;
+    }
+
+    public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(numTurnsMetricName);
+        list.add(numSkillsMetricName);
+        list.add(numBasicsMetricName);
+        list.add(numUltsMetricName);
+        return list;
     }
 }
