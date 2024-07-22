@@ -13,8 +13,8 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
-        //generateReportYunli();
+        //debugTeam();
+        generateReportYunli();
     }
     
     public static void debugTeam() {

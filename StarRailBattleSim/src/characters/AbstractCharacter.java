@@ -54,6 +54,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public String numUltsMetricName = "Ultimates Used";
     protected boolean firstMove = true;
     protected ArrayList<MoveType> moveHistory;
+    public HashMap<String, String> statsMap = new HashMap<>();
+    public ArrayList<String> statsOrder = new ArrayList<>();
 
     public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue) {
         this.name = name;
@@ -215,12 +217,17 @@ public abstract class AbstractCharacter extends AbstractEntity {
         return (baseTauntValue * (1 + totalBonusTauntValue / 100));
     }
 
-    public void increaseEnergy(float amount, boolean ERRAffected) {
-        float initialEnergy = currentEnergy;
+    public float getTotalERR() {
         float totalEnergyRegenBonus = 0;
         for (AbstractPower power : powerList) {
             totalEnergyRegenBonus += power.bonusEnergyRegen;
         }
+        return totalEnergyRegenBonus;
+    }
+
+    public void increaseEnergy(float amount, boolean ERRAffected) {
+        float initialEnergy = currentEnergy;
+        float totalEnergyRegenBonus = getTotalERR();
         float energyGained = amount;
         if (ERRAffected) {
             energyGained = amount * (1 + totalEnergyRegenBonus / 100);
@@ -302,6 +309,41 @@ public abstract class AbstractCharacter extends AbstractEntity {
         String gearString = String.format("Metrics for %s \nLightcone: %s \nRelic Set Bonuses: ", name, lightcone);
         gearString += relicSetBonus;
         statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%%", getFinalAttack(), getFinalDefense(), getFinalHP(), getFinalSpeed(), getTotalSameElementDamageBonus(), getTotalCritChance(), getTotalCritDamage());
+    }
+
+    public void generateStatsReport() {
+        String lightcone = "Lightcone: ";
+        String relicSets = "Relic Set Bonuses: ";
+        String hp = "HP: ";
+        String atk = "ATK: ";
+        String def = "DEF: ";
+        String spd = "SPD: ";
+        String cr = "CRIT RATE: ";
+        String cd = "CRIT DMG: ";
+        String element = "ELEMENT DMG: ";
+        String err = "ERR: ";
+
+        statsOrder.add(lightcone);
+        statsOrder.add(relicSets);
+        statsOrder.add(hp);
+        statsOrder.add(atk);
+        statsOrder.add(def);
+        statsOrder.add(spd);
+        statsOrder.add(cr);
+        statsOrder.add(cd);
+        statsOrder.add(element);
+        statsOrder.add(err);
+
+        statsMap.put(lightcone, this.lightcone.toString());
+        statsMap.put(relicSets, this.relicSetBonus.toString());
+        statsMap.put(hp, String.valueOf(getFinalHP()));
+        statsMap.put(atk, String.valueOf(getFinalAttack()));
+        statsMap.put(def, String.valueOf(getFinalDefense()));
+        statsMap.put(spd, String.valueOf(getFinalSpeed()));
+        statsMap.put(cr, getTotalCritChance() + "%");
+        statsMap.put(cd, getTotalCritDamage() + "%");
+        statsMap.put(element, getTotalSameElementDamageBonus() + "%");
+        statsMap.put(err, getTotalERR() + "%");
     }
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {

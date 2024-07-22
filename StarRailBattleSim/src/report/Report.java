@@ -31,6 +31,7 @@ public class Report {
     public void generateCSV() {
         StringBuilder CSV = new StringBuilder();
         HashMap<String, String> characterCSVs = new HashMap<>();
+        HashMap<String, String> characterStatsMap = new HashMap<>();
         for (EnemyTeam enemyTeam : enemyTeams) {
             HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap = new HashMap<>();
             HashMap<String, ArrayList<String>> characterTeamList = new HashMap<>();
@@ -50,7 +51,7 @@ public class Report {
             baselineDPAV = battle.finalDPAV;
             DPAVtracker.put(baselineDPAV, baselineTeam);
             diffTracker.put(baselineTeam, 100.0f);
-            updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, baseline, baselineTeam);
+            updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, characterStatsMap, baseline, baselineTeam);
 
             for (PlayerTeam playerTeam : otherTeams) {
                 ArrayList<AbstractCharacter> otherTeam = playerTeam.getTeam();
@@ -64,7 +65,7 @@ public class Report {
                 DPAVtracker.put(otherTeamDPAV, playerTeam);
                 float diff = otherTeamDPAV / baselineDPAV * 100;
                 diffTracker.put(playerTeam, diff);
-                updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, otherTeam, playerTeam);
+                updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, characterStatsMap, otherTeam, playerTeam);
             }
             CSV.append(notes).append("\nYou can check the builds and metrics of specific characters in subsequent sheets\n\n\n");
             CSV.append(enemyTeam).append("\n");
@@ -86,7 +87,7 @@ public class Report {
                 if (characterCSVs.containsKey(entry.getKey())) {
                     characterCSV = new StringBuilder(characterCSVs.get(entry.getKey()));
                 }
-                characterCSV.append(enemyTeam).append("\n").append(entry.getKey() + " Metrics,");
+                characterCSV.append(enemyTeam).append("\n").append(entry.getKey()).append(" Metrics,");
                 ArrayList<String> teamRow = characterTeamList.get(entry.getKey());
                 for (String team : teamRow) {
                     characterCSV.append(team).append(",");
@@ -107,11 +108,16 @@ public class Report {
                 for (String damage : damageContribution) {
                     characterCSV.append(damage).append(",");
                 }
-                characterCSV.append("\n").append("\n").append("\n").append("\n");
+                characterCSV.append("\n").append("\n");
                 characterCSVs.put(entry.getKey(), characterCSV.toString());
             }
         }
-        File csvOutputFile = new File("summary.csv");
+        for (Map.Entry<String, String> entry : characterStatsMap.entrySet()) {
+            String characterCSV = characterCSVs.get(entry.getKey());
+            String builder = characterCSV + "\n\n\n" + entry.getValue();
+            characterCSVs.put(entry.getKey(), builder);
+        }
+        File csvOutputFile = new File("csv/summary.csv");
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             pw.println(CSV);
         } catch (FileNotFoundException e) {
@@ -119,7 +125,7 @@ public class Report {
         }
 
         for (Map.Entry<String, String> entry : characterCSVs.entrySet()) {
-            File characterCSV = new File(entry.getKey() + "Metrics.csv");
+            File characterCSV = new File("csv/" + entry.getKey() + "Metrics.csv");
             try (PrintWriter pw = new PrintWriter(characterCSV)) {
                 pw.println(entry.getValue());
             } catch (FileNotFoundException e) {
@@ -128,7 +134,7 @@ public class Report {
         }
     }
 
-    public void updateCharacterCSVs(HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap, HashMap<String, ArrayList<String>> characterTeamList, HashMap<String, ArrayList<String>> characterMetricOrderList, HashMap<String, ArrayList<String>> damageContributionMap, ArrayList<AbstractCharacter> team, PlayerTeam playerTeam) {
+    public void updateCharacterCSVs(HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap, HashMap<String, ArrayList<String>> characterTeamList, HashMap<String, ArrayList<String>> characterMetricOrderList, HashMap<String, ArrayList<String>> damageContributionMap, HashMap<String, String> characterStatsMap, ArrayList<AbstractCharacter> team, PlayerTeam playerTeam) {
         for (AbstractCharacter character : team) {
             if (!characterMetricsMap.containsKey(character.name)) {
                 HashMap<String, ArrayList<String>> map = new HashMap<>();
@@ -163,6 +169,13 @@ public class Report {
             damageList.add(String.format("%.2f DPAV (%.1f%% of total)", DPAV, damagePercent));
 
             characterMetricOrderList.put(character.name, character.getOrderedCharacterSpecificMetricsKeys());
+
+            StringBuilder statsCSV = new StringBuilder("Out of combat stats\n");
+            for (String stat : character.statsOrder) {
+                String statValue = character.statsMap.get(stat);
+                statsCSV.append(stat).append(",").append(statValue).append("\n");
+            }
+            characterStatsMap.put(character.name, statsCSV.toString());
         }
     }
 }

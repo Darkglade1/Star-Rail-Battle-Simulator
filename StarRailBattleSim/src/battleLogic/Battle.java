@@ -90,6 +90,7 @@ public class Battle {
         }
         for (AbstractCharacter character : playerTeam) {
             character.generateStatsString();
+            character.generateStatsReport();
         }
         for (AbstractCharacter character : playerTeam) {
             actionValueMap.put(character, character.getBaseAV());
