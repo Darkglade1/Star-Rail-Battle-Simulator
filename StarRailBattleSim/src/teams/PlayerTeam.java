@@ -24,6 +24,18 @@ public class PlayerTeam {
         return result.toString();
     }
 
+    public static class TopazYunliRobinAventurineTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltTopaz());
+            playerTeam.add(getPrebuiltAventurine());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltRobin());
+            return playerTeam;
+        }
+    }
+
     public static class PelaYunliTingyunHuohuoTeam extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
@@ -96,6 +108,24 @@ public class PlayerTeam {
         }
     }
 
+    public static AbstractCharacter getPrebuiltAventurine() {
+        AbstractCharacter character = new Aventurine();
+        character.EquipLightcone(new ConcertForTwo(character));
+        character.EquipRelicSet(new Knight(character, false));
+        character.EquipRelicSet(new Duke(character, false));
+        character.EquipRelicSet(new BrokenKeel(character));
+        PermPower relicBonus = new PermPower();
+        relicBonus.bonusFlatSpeed = 31.9f;
+        relicBonus.bonusFlatAtk = 502;
+        relicBonus.bonusFlatHP = 705;
+        relicBonus.bonusDefPercent = 187f;
+        relicBonus.bonusCritChance = 37.8f;
+        relicBonus.bonusCritDamage = 40.8f;
+        relicBonus.name = "Relic Stats Bonuses";
+        character.addPower(relicBonus);
+        return character;
+    }
+
     public static AbstractCharacter getPrebuiltPela() {
         AbstractCharacter character = new Pela();
         character.EquipLightcone(new Resolution(character));
@@ -105,6 +135,7 @@ public class PlayerTeam {
         relicBonus.bonusAtkPercent = 20f;
         relicBonus.bonusFlatSpeed = 40;
         relicBonus.bonusFlatAtk = 502;
+        relicBonus.bonusFlatHP = 705;
         relicBonus.bonusEnergyRegen = 19.4f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
@@ -120,6 +151,7 @@ public class PlayerTeam {
         relicBonus.bonusCritDamage = 80f;
         relicBonus.bonusFlatSpeed = 54;
         relicBonus.bonusFlatAtk = 502;
+        relicBonus.bonusFlatHP = 705;
         relicBonus.bonusEnergyRegen = 19.4f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
@@ -137,6 +169,7 @@ public class PlayerTeam {
         relicBonus.bonusSameElementDamageBonus = 38.8f;
         relicBonus.bonusAtkPercent = 51f;
         relicBonus.bonusFlatAtk = 367;
+        relicBonus.bonusFlatHP = 705;
         relicBonus.bonusFlatSpeed = 25f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
@@ -154,6 +187,7 @@ public class PlayerTeam {
         relicBonus.bonusAtkPercent = 94.2f;
         //relicBonus.bonusAtkPercent = 51f;
         relicBonus.bonusFlatAtk = 367;
+        relicBonus.bonusFlatHP = 705;
         //relicBonus.bonusFlatSpeed = 25f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
@@ -168,6 +202,7 @@ public class PlayerTeam {
         relicBonus.bonusAtkPercent = 90f;
         relicBonus.bonusFlatSpeed = 46;
         relicBonus.bonusFlatAtk = 502;
+        relicBonus.bonusFlatHP = 705;
         relicBonus.bonusEnergyRegen = 19.4f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
@@ -184,6 +219,7 @@ public class PlayerTeam {
         relicBonus.bonusAtkPercent = 160.8f;
         relicBonus.bonusFlatSpeed = 20;
         relicBonus.bonusFlatAtk = 432;
+        relicBonus.bonusFlatHP = 705;
         relicBonus.bonusEnergyRegen = 19.4f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
@@ -198,7 +234,8 @@ public class PlayerTeam {
         PermPower relicBonus = new PermPower();
         relicBonus.bonusHPPercent = 117.6f;
         relicBonus.bonusFlatSpeed = 37;
-        relicBonus.bonusFlatHP = 432;
+        relicBonus.bonusFlatAtk = 352;
+        relicBonus.bonusFlatHP = 705;
         relicBonus.bonusEnergyRegen = 19.4f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
@@ -216,6 +253,7 @@ public class PlayerTeam {
         relicBonus.bonusSameElementDamageBonus = 38.8f;
         relicBonus.bonusAtkPercent = 86.4f;
         relicBonus.bonusFlatAtk = 367;
+        relicBonus.bonusFlatHP = 705;
         relicBonus.bonusFlatSpeed = 4.6f;
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);

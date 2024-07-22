@@ -21,7 +21,7 @@ public class Duke extends AbstractRelicSetBonus {
     }
     @Override
     public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
-        if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP) && atkBonus != null) {
+        if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP) && atkBonus != null && isFullSet) {
             owner.removePower(atkBonus.name);
         }
     }
@@ -29,7 +29,7 @@ public class Duke extends AbstractRelicSetBonus {
     @Override
     public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         atkBonus = new DukeAtkBonus();
-        if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
+        if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP) && isFullSet) {
             owner.addPower(atkBonus);
         }
     }

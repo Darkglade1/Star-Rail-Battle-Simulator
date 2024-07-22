@@ -35,6 +35,7 @@ public class Battle {
     public Random critChanceRng = new Random(seed);
     public Random getRandomEnemyRng = new Random(seed);
     public Random procChanceRng = new Random(seed);
+    public Random gambleChanceRng = new Random(seed);
 
     public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
         this.playerTeam = playerTeam;

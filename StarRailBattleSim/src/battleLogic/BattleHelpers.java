@@ -68,6 +68,9 @@ public class BattleHelpers {
             for (AbstractPower power : source.powerList) {
                 critDamage += power.getConditionalCritDamage(source, target, types);
             }
+            for (AbstractPower power : target.powerList) {
+                critDamage += power.receiveConditionalCritDamage(source, target, types);
+            }
             for (AbstractPower power : source.powerList) {
                 critDamage = power.setFixedCritDmg(source, target, types, critDamage);
             }
@@ -142,6 +145,10 @@ public class BattleHelpers {
     public static void attackCharacter(AbstractEnemy source, AbstractCharacter target, int energyToGain) {
         Battle.battle.addToLog(source.name + " attacked " + target.name);
         target.onAttacked(source, energyToGain);
+        ArrayList<AbstractPower> powersToTrigger = new ArrayList<>(target.powerList);
+        for (AbstractPower power : powersToTrigger) {
+            power.onAttacked(target, source, new ArrayList<>());
+        }
     }
 
     public static void robinHitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat) {
