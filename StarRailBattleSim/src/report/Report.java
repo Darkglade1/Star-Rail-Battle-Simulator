@@ -18,12 +18,14 @@ public class Report {
     private ArrayList<PlayerTeam> otherTeams;
     private ArrayList<EnemyTeam> enemyTeams;
     private int AVLength;
+    private String notes;
 
-    public Report(PlayerTeam baselineTeam, ArrayList<PlayerTeam> otherTeams, ArrayList<EnemyTeam> enemyTeams, int AVLength) {
+    public Report(PlayerTeam baselineTeam, ArrayList<PlayerTeam> otherTeams, ArrayList<EnemyTeam> enemyTeams, int AVLength, String notes) {
         this.baselineTeam = baselineTeam;
         this.otherTeams = otherTeams;
         this.enemyTeams = enemyTeams;
         this.AVLength = AVLength;
+        this.notes = notes;
     }
 
     public void generateCSV() {
@@ -64,7 +66,7 @@ public class Report {
                 diffTracker.put(playerTeam, diff);
                 updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, otherTeam, playerTeam);
             }
-
+            CSV.append(notes).append("\nYou can check the builds and metrics of specific characters in subsequent sheets\n\n\n");
             CSV.append(enemyTeam).append("\n");
             CSV.append("Team,DPAV,%DIFF\n");
             ArrayList<Float> DPAVList = new ArrayList<>();

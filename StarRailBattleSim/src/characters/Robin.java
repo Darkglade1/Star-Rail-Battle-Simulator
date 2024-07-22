@@ -15,6 +15,7 @@ import java.util.Map;
 public class Robin extends AbstractCharacter {
     PermPower skillPower;
     RobinUltPower ultPower;
+    RobinFixedCritPower fixedCritPower;
     private int skillCounter = 0;
     private int allyAttacksMetric = 0;
     private int concertoProcs = 0;
@@ -36,6 +37,7 @@ public class Robin extends AbstractCharacter {
         skillPower.name = "Robin Skill Power";
 
         ultPower = new RobinUltPower();
+        fixedCritPower = new RobinFixedCritPower();
     }
 
     public void useSkill() {
@@ -104,6 +106,7 @@ public class Robin extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.addPower(ultPower);
         }
+        this.addPower(fixedCritPower);
         Battle.battle.actionValueMap.remove(this);
         Concerto concerto = new Concerto(this);
         Battle.battle.actionValueMap.put(concerto, concerto.getBaseAV());
@@ -155,6 +158,7 @@ public class Robin extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.removePower(ultPower);
         }
+        this.removePower(fixedCritPower);
     }
 
     public String getMetrics() {
@@ -218,8 +222,7 @@ public class Robin extends AbstractCharacter {
         @Override
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             AbstractEnemy target = enemiesHit.get(Battle.battle.getRandomEnemyRng.nextInt(enemiesHit.size()));
-            float baseDamage = 1.2f * Robin.this.getFinalAttack();
-            BattleHelpers.robinHitEnemy(Robin.this, target, baseDamage, 100, 150);
+            BattleHelpers.robinHitEnemy(Robin.this, target, 1.2f, BattleHelpers.MultiplierStat.ATK);
             concertoProcs++;
         }
 
@@ -229,6 +232,21 @@ public class Robin extends AbstractCharacter {
                 return 25;
             }
             return 0;
+        }
+    }
+
+    private class RobinFixedCritPower extends AbstractPower {
+        public RobinFixedCritPower() {
+            this.name = this.getClass().getSimpleName();
+            lastsForever = true;
+        }
+
+        public float setFixedCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes, float currentCrit) {
+            return 100;
+        }
+
+        public float setFixedCritDmg(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes, float currentCritDmg) {
+            return 150;
         }
     }
 }
