@@ -216,12 +216,6 @@ public class SwordMarch extends AbstractCharacter {
         }
     }
 
-    public String getMetrics() {
-        String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nFollow Ups: %d \nEBAs: %d \nUlt Boosted EBAs: %d", numFUAs, numEBA, numUltEnhancedEBA);
-        return metrics + charSpecificMetrics;
-    }
-
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
         map.put(numFUAsMetricName, String.valueOf(numFUAs));

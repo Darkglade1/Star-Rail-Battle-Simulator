@@ -302,7 +302,12 @@ public abstract class AbstractCharacter extends AbstractEntity {
         speedPriority = 999; //reset speed priority if it was changed
     }
     public String getMetrics() {
-        return statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d \nRotation: %s", numTurnsMetric, numBasicsMetric, numSkillsMetric, numUltsMetric, moveHistory);
+        StringBuilder metrics = new StringBuilder(statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d \nRotation: %s", numTurnsMetric, numBasicsMetric, numSkillsMetric, numUltsMetric, moveHistory));
+        HashMap<String, String> metricsMap = getCharacterSpecificMetricMap();
+        for (String metric : getOrderedCharacterSpecificMetricsKeys()) {
+            metrics.append("\n").append(metric).append(": ").append(metricsMap.get(metric));
+        }
+        return metrics.toString();
     }
 
     public void generateStatsString() {

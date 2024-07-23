@@ -95,12 +95,6 @@ public class Huohuo extends AbstractCharacter {
         }
     }
 
-    public String getMetrics() {
-        String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nTalent Procs: %d", numTalentProcs);
-        return metrics + charSpecificMetrics;
-    }
-
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
         map.put(numTalentProcsMetricName, String.valueOf(numTalentProcs));

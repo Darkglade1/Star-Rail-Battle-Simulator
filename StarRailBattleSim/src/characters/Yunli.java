@@ -209,12 +209,6 @@ public class Yunli extends AbstractCharacter {
         return trueSunderAtkBonus;
     }
 
-    public String getMetrics() {
-        String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nNormal Counters: %d \n1 stack Culls: %d \n2 stack Culls: %d \nSlashes: %d", numNormalCounters, num1StackCulls, num2StackCulls, numSlashes);
-        return metrics + charSpecificMetrics;
-    }
-
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
         map.put(numNormalCountersMetricName, String.valueOf(numNormalCounters));

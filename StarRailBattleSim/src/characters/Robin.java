@@ -161,12 +161,6 @@ public class Robin extends AbstractCharacter {
         this.removePower(fixedCritPower);
     }
 
-    public String getMetrics() {
-        String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nAlly attacks: %d \nConcerto hits: %d", allyAttacksMetric, concertoProcs);
-        return metrics + charSpecificMetrics;
-    }
-
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
         map.put(allyAttacksMetricName, String.valueOf(allyAttacksMetric));

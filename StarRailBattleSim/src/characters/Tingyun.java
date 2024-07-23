@@ -109,12 +109,6 @@ public class Tingyun extends AbstractCharacter {
         addPower(new TingyunBonusBasicDamagePower());
     }
 
-    public String getMetrics() {
-        String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nSkill procs: %d \nTalent procs: %d", skillProcs, talentProcs);
-        return metrics + charSpecificMetrics;
-    }
-
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
         map.put(skillProcsMetricName, String.valueOf(skillProcs));

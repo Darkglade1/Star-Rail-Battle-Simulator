@@ -26,6 +26,8 @@ public class Numby extends AbstractEntity {
             owner.numbyAdvancedTimesMetrics++;
             Battle.battle.AdvanceEntity(this, 50);
             owner.actualNumbyAdvanceMetric += Math.abs(initialAV - Battle.battle.actionValueMap.get(this));
+        } else {
+            owner.wastedNumbyAdvances++;
         }
     }
 }

@@ -20,9 +20,11 @@ public class Topaz extends AbstractCharacter {
     public int numbyAttacksMetrics = 0;
     public int numbyAdvancedTimesMetrics = 0;
     public int actualNumbyAdvanceMetric = 0;
+    public int wastedNumbyAdvances = 0;
     private String numbyAttacksMetricName = "Numby Attacks";
-    private String numbyAdvancedTimesMetricName = "Number of Numby Advances";
+    private String numbyAdvancedTimesMetricName = "Number of Useful Numby Advances";
     private String actualNumbyAdvanceMetricName = "Amount of AV Advanced by Numby";
+    private String wastedNumbyAdvancesMetricName = "Number of Wasted Numby Advances";
 
     public Topaz() {
         super("Topaz", 931, 621, 412, 110, 80, ElementType.FIRE, 130, 75);
@@ -166,17 +168,12 @@ public class Topaz extends AbstractCharacter {
         techniqueActive = true;
     }
 
-    public String getMetrics() {
-        String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nNumby Attacks: %d \nNumby Advanced times: %d \nNumby Advanced AV: %d", numbyAttacksMetrics, numbyAdvancedTimesMetrics, actualNumbyAdvanceMetric);
-        return metrics + charSpecificMetrics;
-    }
-
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
         map.put(numbyAttacksMetricName, String.valueOf(numbyAttacksMetrics));
         map.put(numbyAdvancedTimesMetricName, String.valueOf(numbyAdvancedTimesMetrics));
         map.put(actualNumbyAdvanceMetricName, String.valueOf(actualNumbyAdvanceMetric));
+        map.put(wastedNumbyAdvancesMetricName, String.valueOf(wastedNumbyAdvances));
         return map;
     }
 
@@ -185,6 +182,7 @@ public class Topaz extends AbstractCharacter {
         list.add(numbyAttacksMetricName);
         list.add(numbyAdvancedTimesMetricName);
         list.add(actualNumbyAdvanceMetricName);
+        list.add(wastedNumbyAdvancesMetricName);
         return list;
     }
 

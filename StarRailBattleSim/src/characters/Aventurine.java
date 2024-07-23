@@ -14,6 +14,7 @@ public class Aventurine extends AbstractCharacter {
     AventurineTalentPower talentPower = new AventurineTalentPower();
     private int numFollowUps = 0;
     private int numBlindBetGained = 0;
+    private int numBlindBetGainedFUA = 0;
     private int blindBetCounter = 0;
     private final int BLIND_BET_THRESHOLD = 7;
     private final int BLIND_BET_CAP = 10;
@@ -21,6 +22,7 @@ public class Aventurine extends AbstractCharacter {
     private int blindBetFollowUpCounter = blindBetFollowUpPerTurn;
     private String numFollowUpsMetricName = "Follow up Attacks used";
     private String numBlindBetGainedMetricName = "Blind Bet gained";
+    private String numBlindBetFromFUAMetricName = "Blind Bet gained from Ally FUA";
 
     public Aventurine() {
         super("Aventurine", 1203, 446, 655, 106, 80, ElementType.IMAGINARY, 110, 150);
@@ -133,16 +135,11 @@ public class Aventurine extends AbstractCharacter {
         }
     }
 
-    public String getMetrics() {
-        String metrics = super.getMetrics();
-        String charSpecificMetrics = String.format("\nFollow Ups: %d \nBLind Bet gained: %d", numFollowUps, numBlindBetGained);
-        return metrics + charSpecificMetrics;
-    }
-
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
         map.put(numFollowUpsMetricName, String.valueOf(numFollowUps));
         map.put(numBlindBetGainedMetricName, String.valueOf(numBlindBetGained));
+        map.put(numBlindBetFromFUAMetricName, String.valueOf(numBlindBetGainedFUA));
         return map;
     }
 
@@ -150,6 +147,7 @@ public class Aventurine extends AbstractCharacter {
         ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
         list.add(numFollowUpsMetricName);
         list.add(numBlindBetGainedMetricName);
+        list.add(numBlindBetFromFUAMetricName);
         return list;
     }
 
@@ -184,6 +182,7 @@ public class Aventurine extends AbstractCharacter {
             if (character != Aventurine.this && types.contains(DamageType.FOLLOW_UP) && blindBetFollowUpCounter > 0) {
                 increaseBlindBet(1);
                 blindBetFollowUpCounter--;
+                numBlindBetGainedFUA++;
             }
         }
     }
