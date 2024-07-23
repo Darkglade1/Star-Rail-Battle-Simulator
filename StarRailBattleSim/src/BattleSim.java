@@ -13,8 +13,8 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
-        //generateReportYunli();
+        //debugTeam();
+        generateReportYunli();
     }
     
     public static void debugTeam() {
@@ -27,15 +27,15 @@ public class BattleSim {
         //battle.setPlayerTeam(new SparkleYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new SparkleYunliTingyunHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new PelaYunliTingyunHuohuoTeam().getTeam());
-        battle.setPlayerTeam(new TopazYunliRobinAventurineTeam().getTeam());
+        //battle.setPlayerTeam(new TopazYunliRobinAventurineTeam().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new PhysWeakEnemy(0, 2));
         enemyTeam.add(new PhysWeakEnemy(1, 2));
-        enemyTeam.add(new PhysWeakEnemy(2, 2));
+        //enemyTeam.add(new PhysWeakEnemy(2, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(550);
+        battle.Start(5050);
     }
 
     public static void generateReportYunli() {
@@ -46,6 +46,11 @@ public class BattleSim {
         otherTeams.add(new MarchYunliRobinHuohuoTeam());
         otherTeams.add(new SparkleYunliRobinHuohuoTeam());
         otherTeams.add(new SparkleYunliTingyunHuohuoTeam());
+        otherTeams.add(new TopazYunliRobinAventurineTeam());
+        otherTeams.add(new MarchYunliRobinAventurineTeam());
+        otherTeams.add(new TingyunYunliRobinAventurineTeam());
+        otherTeams.add(new TopazYunliTingyunHuohuoTeam());
+        otherTeams.add(new MarchYunliTingyunHuohuoTeam());
 
         ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
         enemyTeams.add(new PhysWeakTargets3());

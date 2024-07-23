@@ -24,6 +24,54 @@ public class PlayerTeam {
         return result.toString();
     }
 
+    public static class MarchYunliTingyunHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltTingyun());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
+    }
+
+    public static class TopazYunliTingyunHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltTopaz());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltTingyun());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
+    }
+
+    public static class TingyunYunliRobinAventurineTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltTingyun());
+            playerTeam.add(getPrebuiltAventurine());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltRobin());
+            return playerTeam;
+        }
+    }
+
+    public static class MarchYunliRobinAventurineTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltAventurine());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltRobin());
+            return playerTeam;
+        }
+    }
+
     public static class TopazYunliRobinAventurineTeam extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {

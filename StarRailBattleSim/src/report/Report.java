@@ -32,6 +32,7 @@ public class Report {
         StringBuilder CSV = new StringBuilder();
         HashMap<String, String> characterCSVs = new HashMap<>();
         HashMap<String, String> characterStatsMap = new HashMap<>();
+        CSV.append(notes).append("\nYou can check the builds and metrics of specific characters in subsequent sheets\n\n\n");
         for (EnemyTeam enemyTeam : enemyTeams) {
             HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap = new HashMap<>();
             HashMap<String, ArrayList<String>> characterTeamList = new HashMap<>();
@@ -67,7 +68,6 @@ public class Report {
                 diffTracker.put(playerTeam, diff);
                 updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, characterStatsMap, otherTeam, playerTeam);
             }
-            CSV.append(notes).append("\nYou can check the builds and metrics of specific characters in subsequent sheets\n\n\n");
             CSV.append(enemyTeam).append("\n");
             CSV.append("Team,DPAV,%DIFF\n");
             ArrayList<Float> DPAVList = new ArrayList<>();

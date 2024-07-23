@@ -335,7 +335,11 @@ public abstract class AbstractCharacter extends AbstractEntity {
         statsOrder.add(err);
 
         statsMap.put(lightcone, this.lightcone.toString());
-        statsMap.put(relicSets, this.relicSetBonus.toString());
+        StringBuilder relicSetBonus = new StringBuilder("|");
+        for (AbstractRelicSetBonus relic : this.relicSetBonus) {
+            relicSetBonus.append(relic.toString()).append("|");
+        }
+        statsMap.put(relicSets, relicSetBonus.toString());
         statsMap.put(hp, String.valueOf(getFinalHP()));
         statsMap.put(atk, String.valueOf(getFinalAttack()));
         statsMap.put(def, String.valueOf(getFinalDefense()));
