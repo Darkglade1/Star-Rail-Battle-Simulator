@@ -24,6 +24,30 @@ public class PlayerTeam {
         return result.toString();
     }
 
+    public static class PelaYunliRobinHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
+    }
+
+    public static class PelaYunliSparkleHuohuoTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltYunli());
+            playerTeam.add(getPrebuiltSparkle());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
+    }
+
     public static class MarchYunliTingyunHuohuoTeam extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
