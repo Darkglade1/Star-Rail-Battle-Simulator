@@ -186,15 +186,12 @@ public class PlayerTeam {
         character.EquipRelicSet(new Knight(character, false));
         character.EquipRelicSet(new Duke(character, false));
         character.EquipRelicSet(new BrokenKeel(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusFlatSpeed = 31.9f;
-        relicBonus.bonusFlatAtk = 502;
-        relicBonus.bonusFlatHP = 705;
-        relicBonus.bonusDefPercent = 187f;
-        relicBonus.bonusCritChance = 37.8f;
-        relicBonus.bonusCritDamage = 40.8f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.DEF_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.DEF_PER, 3).
+                addSubStat(RelicStats.Stats.CRIT_DAMAGE, 8);
+        relicStats.equipTo(character);
         return character;
     }
 
@@ -203,14 +200,12 @@ public class PlayerTeam {
         character.EquipLightcone(new Resolution(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new BrokenKeel(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusAtkPercent = 20f;
-        relicBonus.bonusFlatSpeed = 40;
-        relicBonus.bonusFlatAtk = 502;
-        relicBonus.bonusFlatHP = 705;
-        relicBonus.bonusEnergyRegen = 19.4f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.EFFECT_HIT).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.EFFECT_HIT, 5).addSubStat(RelicStats.Stats.SPEED, 9).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.equipTo(character);
         return character;
     }
 
@@ -219,14 +214,12 @@ public class PlayerTeam {
         character.EquipLightcone(new PastAndFuture(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new BrokenKeel(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusCritDamage = 80f;
-        relicBonus.bonusFlatSpeed = 54;
-        relicBonus.bonusFlatAtk = 502;
-        relicBonus.bonusFlatHP = 705;
-        relicBonus.bonusEnergyRegen = 19.4f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 1).addSubStat(RelicStats.Stats.SPEED, 13).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.equipTo(character);
         return character;
     }
 
@@ -235,16 +228,11 @@ public class PlayerTeam {
         character.EquipLightcone(new Cruising(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new RutilentArena(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusCritChance = 60.2f;
-        relicBonus.bonusCritDamage = 84.1f;
-        relicBonus.bonusSameElementDamageBonus = 38.8f;
-        relicBonus.bonusAtkPercent = 51f;
-        relicBonus.bonusFlatAtk = 367;
-        relicBonus.bonusFlatHP = 705;
-        relicBonus.bonusFlatSpeed = 25f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 10).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 14);
+        relicStats.equipTo(character);
         return character;
     }
     public static AbstractCharacter getPrebuiltTopaz() {
@@ -252,17 +240,11 @@ public class PlayerTeam {
         character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new Duke(character));
         character.EquipRelicSet(new Duran(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusCritChance = 70.2f;
-        relicBonus.bonusCritDamage = 64.1f;
-        relicBonus.bonusSameElementDamageBonus = 38.8f;
-        relicBonus.bonusAtkPercent = 94.2f;
-        //relicBonus.bonusAtkPercent = 51f;
-        relicBonus.bonusFlatAtk = 367;
-        relicBonus.bonusFlatHP = 705;
-        //relicBonus.bonusFlatSpeed = 25f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11);
+        relicStats.equipTo(character);
         return character;
     }
     public static AbstractCharacter getPrebuiltTingyun() {
@@ -270,14 +252,12 @@ public class PlayerTeam {
         character.EquipLightcone(new Memories(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new BrokenKeel(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusAtkPercent = 90f;
-        relicBonus.bonusFlatSpeed = 46;
-        relicBonus.bonusFlatAtk = 502;
-        relicBonus.bonusFlatHP = 705;
-        relicBonus.bonusEnergyRegen = 19.4f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.ATK_PER, 7).addSubStat(RelicStats.Stats.SPEED, 9).
+                addSubStat(RelicStats.Stats.ATK_FLAT, 2).addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.equipTo(character);
         return character;
     }
 
@@ -287,14 +267,12 @@ public class PlayerTeam {
         character.EquipRelicSet(new Musketeer(character, false));
         character.EquipRelicSet(new Valorous(character, false));
         character.EquipRelicSet(new BrokenKeel(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusAtkPercent = 160.8f;
-        relicBonus.bonusFlatSpeed = 20;
-        relicBonus.bonusFlatAtk = 432;
-        relicBonus.bonusFlatHP = 705;
-        relicBonus.bonusEnergyRegen = 19.4f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ATK_PER).
+                addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.ATK_PER, 7).addSubStat(RelicStats.Stats.SPEED, 8).
+                addSubStat(RelicStats.Stats.ATK_FLAT, 3).addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.equipTo(character);
         return character;
     }
 
@@ -303,14 +281,12 @@ public class PlayerTeam {
         character.EquipLightcone(new PostOp(character));
         character.EquipRelicSet(new Passerby(character));
         character.EquipRelicSet(new BrokenKeel(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusHPPercent = 117.6f;
-        relicBonus.bonusFlatSpeed = 37;
-        relicBonus.bonusFlatAtk = 352;
-        relicBonus.bonusFlatHP = 705;
-        relicBonus.bonusEnergyRegen = 19.4f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.HP_PER, 10).addSubStat(RelicStats.Stats.SPEED, 5).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 1).addSubStat(RelicStats.Stats.HP_FLAT, 8);
+        relicStats.equipTo(character);
         return character;
     }
 
@@ -322,8 +298,7 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11).
-                addSubStat(RelicStats.Stats.SPEED, 2).addSubStat(RelicStats.Stats.ATK_FLAT, 1);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11);
         relicStats.equipTo(character);
         return character;
     }
