@@ -3,7 +3,7 @@ package teams;
 import characters.*;
 import lightcones.*;
 import powers.PermPower;
-import relicSetBonus.*;
+import relics.*;
 
 import java.util.ArrayList;
 
@@ -319,16 +319,12 @@ public class PlayerTeam {
         character.EquipLightcone(new DanceAtSunset(character));
         character.EquipRelicSet(new Valorous(character));
         character.EquipRelicSet(new Duran(character));
-        PermPower relicBonus = new PermPower();
-        relicBonus.bonusCritChance = 70.2f;
-        relicBonus.bonusCritDamage = 64.1f;
-        relicBonus.bonusSameElementDamageBonus = 38.8f;
-        relicBonus.bonusAtkPercent = 86.4f;
-        relicBonus.bonusFlatAtk = 367;
-        relicBonus.bonusFlatHP = 705;
-        relicBonus.bonusFlatSpeed = 4.6f;
-        relicBonus.name = "Relic Stats Bonuses";
-        character.addPower(relicBonus);
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11).
+                addSubStat(RelicStats.Stats.SPEED, 2).addSubStat(RelicStats.Stats.ATK_FLAT, 1);
+        relicStats.equipTo(character);
         return character;
     }
 }

@@ -1,4 +1,4 @@
-package relicSetBonus;
+package relics;
 
 import battleLogic.Battle;
 import characters.AbstractCharacter;

@@ -13,8 +13,8 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        //debugTeam();
-        generateReportYunli();
+        debugTeam();
+        //generateReportYunli();
     }
     
     public static void debugTeam() {
@@ -27,7 +27,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new SparkleYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new SparkleYunliTingyunHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new PelaYunliTingyunHuohuoTeam().getTeam());
-        battle.setPlayerTeam(new TopazYunliRobinAventurineTeam().getTeam());
+        //battle.setPlayerTeam(new TopazYunliRobinAventurineTeam().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new PhysWeakEnemy(0, 2));

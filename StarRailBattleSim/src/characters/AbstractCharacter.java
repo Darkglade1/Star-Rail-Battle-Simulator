@@ -5,7 +5,7 @@ import battleLogic.Battle;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
 import powers.AbstractPower;
-import relicSetBonus.AbstractRelicSetBonus;
+import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 import java.util.HashMap;

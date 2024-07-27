@@ -4,7 +4,7 @@ import characters.AbstractCharacter;
 import characters.SwordMarch;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import relicSetBonus.AbstractRelicSetBonus;
+import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 

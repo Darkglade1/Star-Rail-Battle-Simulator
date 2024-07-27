@@ -14,15 +14,19 @@ public abstract class AbstractPower {
 
     public String name;
 
-    public int bonusFlatHP;
+    public float bonusFlatHP;
     public float bonusHPPercent;
-    public int bonusFlatAtk;
+    public float bonusFlatAtk;
     public float bonusAtkPercent;
-    public int bonusFlatDef;
+    public float bonusFlatDef;
     public float bonusDefPercent;
     public float bonusFlatSpeed;
     public float bonusSpeedPercent;
     public float bonusSameElementDamageBonus;
+    public float bonusEffectHit;
+    public float bonusEffectRes;
+    public float bonusBreakEffect;
+    public float bonusHealing;
     public float bonusDamageBonus;
     public float bonusDamageTaken;
     public float defenseReduction;

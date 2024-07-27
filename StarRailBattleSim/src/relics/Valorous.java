@@ -1,4 +1,4 @@
-package relicSetBonus;
+package relics;
 
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
@@ -7,48 +7,49 @@ import powers.PermPower;
 
 import java.util.ArrayList;
 
-public class Musketeer extends AbstractRelicSetBonus {
-    public Musketeer(AbstractCharacter owner) {
+public class Valorous extends AbstractRelicSetBonus {
+    public Valorous(AbstractCharacter owner) {
         super(owner);
     }
-    public Musketeer(AbstractCharacter owner, boolean isFullSet) {
+    public Valorous(AbstractCharacter owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 
     public void onEquip() {
         PermPower statBonus = new PermPower();
-        statBonus.name = "Musketeer Stat Bonus";
+        statBonus.name = "Valorous Stat Bonus";
         statBonus.bonusAtkPercent = 12;
         if (this.isFullSet) {
-            statBonus.bonusSpeedPercent = 6;
+            statBonus.bonusCritChance = 6;
         }
         owner.addPower(statBonus);
     }
 
-    public void onCombatStart() {
-        if (this.isFullSet) {
-            owner.addPower(new MusketeerDamagePower());
+    @Override
+    public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
+            owner.addPower(new ValorousDamagePower());
         }
     }
 
     public String toString() {
         if (isFullSet) {
-            return "4 PC Musketeer";
+            return "4 PC Wind Soaring Valorous";
         } else {
-            return "2 PC Musketeer";
+            return "2 PC Wind Soaring Valorous";
         }
     }
 
-    private static class MusketeerDamagePower extends AbstractPower {
-        public MusketeerDamagePower() {
+    private static class ValorousDamagePower extends AbstractPower {
+        public ValorousDamagePower() {
             this.name = this.getClass().getSimpleName();
-            this.lastsForever = true;
+            this.turnDuration = 1;
         }
         @Override
         public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             for (AbstractCharacter.DamageType type : damageTypes) {
-                if (type == AbstractCharacter.DamageType.BASIC) {
-                    return 10;
+                if (type == AbstractCharacter.DamageType.ULTIMATE) {
+                    return 36;
                 }
             }
             return 0;

@@ -5,7 +5,7 @@ import characters.SwordMarch;
 import characters.Yunli;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import relicSetBonus.AbstractRelicSetBonus;
+import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 import java.util.HashMap;

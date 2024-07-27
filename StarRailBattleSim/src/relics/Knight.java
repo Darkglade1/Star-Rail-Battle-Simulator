@@ -1,4 +1,4 @@
-package relicSetBonus;
+package relics;
 
 import characters.AbstractCharacter;
 import powers.PermPower;
