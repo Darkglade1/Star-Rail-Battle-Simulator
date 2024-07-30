@@ -129,7 +129,8 @@ public class BattleHelpers {
 
     public static void PostAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
         character.lightcone.onAttack(character, enemiesHit, types);
-        for (AbstractPower power : character.powerList) {
+        ArrayList<AbstractPower> powersToTrigger = new ArrayList<>(character.powerList); // jank way to dodge comod exception lol
+        for (AbstractPower power : powersToTrigger) {
             power.onAttack(character, enemiesHit, types);
         }
         for (AbstractEnemy enemy : enemiesHit) {

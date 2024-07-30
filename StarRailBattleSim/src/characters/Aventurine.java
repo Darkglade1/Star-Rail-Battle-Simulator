@@ -20,17 +20,23 @@ public class Aventurine extends AbstractCharacter {
     private final int BLIND_BET_CAP = 10;
     private int blindBetFollowUpPerTurn = 3;
     private int blindBetFollowUpCounter = blindBetFollowUpPerTurn;
+    private boolean SPNeutral;
     private String numFollowUpsMetricName = "Follow up Attacks used";
     private String numBlindBetGainedMetricName = "Blind Bet gained";
     private String numBlindBetFromFUAMetricName = "Blind Bet gained from Ally FUA";
 
-    public Aventurine() {
+    public Aventurine(boolean SPNeutral) {
         super("Aventurine", 1203, 446, 655, 106, 80, ElementType.IMAGINARY, 110, 150);
+        this.SPNeutral = SPNeutral;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusDefPercent = 35;
         tracesPower.bonusSameElementDamageBonus = 14.4f;
         this.addPower(tracesPower);
+    }
+
+    public Aventurine() {
+        this(true);
     }
 
     public void useBasicAttack() {
@@ -92,10 +98,14 @@ public class Aventurine extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0) {
-            if (lastMove(MoveType.BASIC) || firstMove) {
-                useSkill();
-                firstMove = false;
+        if (SPNeutral) {
+            if (Battle.battle.numSkillPoints > 0) {
+                if (lastMove(MoveType.BASIC) || firstMove) {
+                    useSkill();
+                    firstMove = false;
+                } else {
+                    useBasicAttack();
+                }
             } else {
                 useBasicAttack();
             }

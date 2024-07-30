@@ -1,6 +1,7 @@
 import battleLogic.Battle;
 import enemies.AbstractEnemy;
 import enemies.PhysWeakEnemy;
+import enemies.WindWeakEnemy;
 import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
@@ -22,20 +23,26 @@ public class BattleSim {
         Battle.battle = battle;
 
         //battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
-        battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
+       // battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new MarchYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new SparkleYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new SparkleYunliTingyunHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new PelaYunliTingyunHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new TopazYunliRobinAventurineTeam().getTeam());
 
+//        ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
+//        enemyTeam.add(new PhysWeakEnemy(0, 2));
+//        enemyTeam.add(new PhysWeakEnemy(1, 2));
+//        enemyTeam.add(new PhysWeakEnemy(2, 2));
+//        battle.setEnemyTeam(enemyTeam);
+
+        battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
+
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-        enemyTeam.add(new PhysWeakEnemy(0, 2));
-        enemyTeam.add(new PhysWeakEnemy(1, 2));
-        enemyTeam.add(new PhysWeakEnemy(2, 2));
+        enemyTeam.add(new WindWeakEnemy(0, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(5050);
+        battle.Start(250);
     }
 
     public static void generateReportYunli() {

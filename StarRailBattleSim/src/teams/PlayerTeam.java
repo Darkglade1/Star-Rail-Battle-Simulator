@@ -180,6 +180,59 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoRobinAventurineTopaz extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltTopazSpeed());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter getPrebuiltFeixiao() {
+        AbstractCharacter character = new Feixiao();
+        character.EquipLightcone(new Swordplay(character));
+        character.EquipRelicSet(new Valorous(character));
+        character.EquipRelicSet(new Duran(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 11).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter getPrebuiltTopazSpeed() {
+        AbstractCharacter character = new Topaz();
+        character.EquipLightcone(new Swordplay(character));
+        character.EquipRelicSet(new Duke(character));
+        character.EquipRelicSet(new Duran(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter getPrebuiltAventurineSpeed() {
+        AbstractCharacter character = new Aventurine(false);
+        character.EquipLightcone(new ConcertForTwo(character));
+        character.EquipRelicSet(new Knight(character, false));
+        character.EquipRelicSet(new Duke(character, false));
+        character.EquipRelicSet(new BrokenKeel(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.DEF_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.DEF_PER, 3).
+                addSubStat(RelicStats.Stats.CRIT_DAMAGE, 5).addSubStat(RelicStats.Stats.SPEED, 3);
+        relicStats.equipTo(character);
+        return character;
+    }
+
     public static AbstractCharacter getPrebuiltAventurine() {
         AbstractCharacter character = new Aventurine();
         character.EquipLightcone(new ConcertForTwo(character));
