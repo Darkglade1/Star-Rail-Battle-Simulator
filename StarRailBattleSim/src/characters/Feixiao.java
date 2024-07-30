@@ -30,6 +30,7 @@ public class Feixiao extends AbstractCharacter {
         tracesPower.bonusCritChance = 12f;
         tracesPower.bonusFlatSpeed = 5;
         this.addPower(tracesPower);
+        this.isDPS = true;
     }
 
     // override normal energy gain to do nothing
@@ -38,6 +39,7 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void increaseStack(int amount) {
+        numStacks += amount;
         int initialStack = stackCount;
         stackCount += amount;
         Battle.battle.addToLog(String.format("%s gained %d Stack (%d -> %d)", name, amount, initialStack, stackCount));

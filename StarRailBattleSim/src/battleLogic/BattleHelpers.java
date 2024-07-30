@@ -99,7 +99,7 @@ public class BattleHelpers {
             target.reduceToughness(toughnessDamage);
         } else {
             if (source instanceof SwordMarch) {
-                if (damageElement == source.elementType && target.weaknessMap.contains(((SwordMarch) source).master.elementType)) {
+                if (damageElement == source.elementType && ((SwordMarch) source).master != null && target.weaknessMap.contains(((SwordMarch) source).master.elementType)) {
                     target.reduceToughness(toughnessDamage);
                 }
             }

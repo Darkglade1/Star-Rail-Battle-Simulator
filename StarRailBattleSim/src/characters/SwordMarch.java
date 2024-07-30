@@ -66,7 +66,9 @@ public class SwordMarch extends AbstractCharacter {
             enemy = Battle.battle.enemyTeam.get(0);
         }
         BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
+        if (master != null) {
+            BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
+        }
         gainCharge(1);
 
         BattleHelpers.PostAttackLogic(this, types);

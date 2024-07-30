@@ -192,6 +192,56 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoRobinAventurineMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoSparkleAventurineTopaz extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltSparkleFei());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltTopazSpeed());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoSparkleAventurineMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltSparkleFei());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter getPrebuiltSparkleFei() {
+        AbstractCharacter character = new Sparkle();
+        character.EquipLightcone(new PastAndFuture(character));
+        character.EquipRelicSet(new Passerby(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 14).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.equipTo(character);
+        return character;
+    }
+
     public static AbstractCharacter getPrebuiltFeixiao() {
         AbstractCharacter character = new Feixiao();
         character.EquipLightcone(new Swordplay(character));
