@@ -65,7 +65,7 @@ public class SwordMarch extends AbstractCharacter {
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
         }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
+        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
         gainCharge(1);
 
@@ -113,7 +113,7 @@ public class SwordMarch extends AbstractCharacter {
         }
         Battle.battle.addToLog(String.format("%s rolled %d extra hits", name, numExtraHits));
         for (int i = 0; i < initialHits + numExtraHits; i++) {
-            BattleHelpers.hitEnemy(this, enemy, 0.88f, BattleHelpers.MultiplierStat.ATK, types, 15);
+            BattleHelpers.hitEnemy(this, enemy, 0.88f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
             BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
         }
         if (hasUltEnhancement) {
@@ -146,7 +146,7 @@ public class SwordMarch extends AbstractCharacter {
             types.add(DamageType.FOLLOW_UP);
             BattleHelpers.PreAttackLogic(this, types);
 
-            BattleHelpers.hitEnemy(this, enemy, 0.6f, BattleHelpers.MultiplierStat.ATK, types, 30);
+            BattleHelpers.hitEnemy(this, enemy, 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
             BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
             gainCharge(1);
 
@@ -167,7 +167,7 @@ public class SwordMarch extends AbstractCharacter {
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
         }
-        BattleHelpers.hitEnemy(this, enemy, 2.59f, BattleHelpers.MultiplierStat.ATK, types, 90);
+        BattleHelpers.hitEnemy(this, enemy, 2.59f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_THREE_UNITs);
         hasUltEnhancement = true;
 
         BattleHelpers.PostAttackLogic(this, types);

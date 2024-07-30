@@ -22,12 +22,12 @@ public class BattleSim {
         Battle.battle = battle;
 
         //battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
-        //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
+        battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new MarchYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new SparkleYunliRobinHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new SparkleYunliTingyunHuohuoTeam().getTeam());
         //battle.setPlayerTeam(new PelaYunliTingyunHuohuoTeam().getTeam());
-        battle.setPlayerTeam(new TopazYunliRobinAventurineTeam().getTeam());
+        //battle.setPlayerTeam(new TopazYunliRobinAventurineTeam().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new PhysWeakEnemy(0, 2));

@@ -56,6 +56,10 @@ public abstract class AbstractCharacter extends AbstractEntity {
     protected ArrayList<MoveType> moveHistory;
     public HashMap<String, String> statsMap = new HashMap<>();
     public ArrayList<String> statsOrder = new ArrayList<>();
+    protected float TOUGHNESS_DAMAGE_HALF_UNIT = 5;
+    protected float TOUGHNESS_DAMAGE_SINGLE_UNIT = 10;
+    protected float TOUGHNESS_DAMAGE_TWO_UNITS = 20;
+    protected float TOUGHNESS_DAMAGE_THREE_UNITs = 30;
 
     public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue) {
         this.name = name;

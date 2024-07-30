@@ -58,7 +58,7 @@ public class Tingyun extends AbstractCharacter {
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
         }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
+        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         if (benefactor != null) {
             talentProcs++;
             BattleHelpers.tingyunSkillHitEnemy(benefactor, enemy, 0.66f, BattleHelpers.MultiplierStat.ATK);

@@ -46,7 +46,7 @@ public class Aventurine extends AbstractCharacter {
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
         }
-        BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.DEF, types, 30);
+        BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.DEF, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         BattleHelpers.PostAttackLogic(this, types);
     }
 
@@ -64,7 +64,7 @@ public class Aventurine extends AbstractCharacter {
             enemy = Battle.battle.enemyTeam.get(0);
         }
         enemy.addPower(new AventurineUltDebuff());
-        BattleHelpers.hitEnemy(this, enemy, 2.7f, BattleHelpers.MultiplierStat.DEF, types, 90);
+        BattleHelpers.hitEnemy(this, enemy, 2.7f, BattleHelpers.MultiplierStat.DEF, types, TOUGHNESS_DAMAGE_THREE_UNITs);
         BattleHelpers.PostAttackLogic(this, types);
 
         int blindBetGain = Battle.battle.gambleChanceRng.nextInt(7) + 1;
@@ -84,7 +84,7 @@ public class Aventurine extends AbstractCharacter {
 
         int numBounces = 7;
         while (numBounces > 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.25f, BattleHelpers.MultiplierStat.DEF, types, 10);
+            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.25f, BattleHelpers.MultiplierStat.DEF, types, 3.3333333333333335f);
             numBounces--;
         }
         BattleHelpers.PostAttackLogic(this, types);

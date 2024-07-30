@@ -82,7 +82,7 @@ public class Topaz extends AbstractCharacter {
                 break;
             }
         }
-        BattleHelpers.hitEnemy(this, target, 1.0f, BattleHelpers.MultiplierStat.ATK, types, 30);
+        BattleHelpers.hitEnemy(this, target, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
         BattleHelpers.PostAttackLogic(this, types);
     }
@@ -125,10 +125,10 @@ public class Topaz extends AbstractCharacter {
         float toughnessDamage;
         if (ultCounter > 0) {
             multiplier = 2.1f;
-            toughnessDamage = 60.0f / 8;
+            toughnessDamage = TOUGHNESS_DAMAGE_TWO_UNITS / 8;
         } else {
             multiplier = 1.5f;
-            toughnessDamage = 60.0f / 7;
+            toughnessDamage = TOUGHNESS_DAMAGE_TWO_UNITS / 7;
         }
         types.add(DamageType.FOLLOW_UP);
         BattleHelpers.PreAttackLogic(this, types);

@@ -34,7 +34,7 @@ public class Pela extends AbstractCharacter {
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
         }
-        BattleHelpers.hitEnemy(this, enemy, 2.31f, BattleHelpers.MultiplierStat.ATK, types, 60);
+        BattleHelpers.hitEnemy(this, enemy, 2.31f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
 
         BattleHelpers.PostAttackLogic(this, types);
     }
@@ -51,7 +51,7 @@ public class Pela extends AbstractCharacter {
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
         }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, 30);
+        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
         BattleHelpers.PostAttackLogic(this, types);
     }
@@ -63,7 +63,7 @@ public class Pela extends AbstractCharacter {
         BattleHelpers.PreAttackLogic(this, types);
 
         for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, 60);
+            BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
             TempPower exposed = new TempPower();
             exposed.turnDuration = 2;
             exposed.defenseReduction = 40;
