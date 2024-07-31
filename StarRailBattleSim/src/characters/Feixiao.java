@@ -52,6 +52,9 @@ public class Feixiao extends AbstractCharacter {
     public void gainStackEnergy(int energyGain) {
         float initialEnergy = currentEnergy;
         currentEnergy += energyGain;
+        if (currentEnergy > maxEnergy) {
+            currentEnergy = maxEnergy;
+        }
         stackCount = stackCount % stackThreshold;
         Battle.battle.addToLog(String.format("%s gained %d Energy (%.1f -> %.1f)", name, energyGain, initialEnergy, currentEnergy));
     }
@@ -134,14 +137,14 @@ public class Feixiao extends AbstractCharacter {
         BattleHelpers.PreAttackLogic(this, types);
 
         for (int i = 0; i < numHits; i++) {
-            BattleHelpers.hitEnemy(this, enemy, 1.15f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            BattleHelpers.hitEnemy(this, enemy, 1.15f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT * 2);
         }
         float finalHitMultiplier = 0.1f;
         if (enemy.weaknessBroken) {
             finalHitMultiplier += 0.15;
         }
         finalHitMultiplier *= numHits;
-        BattleHelpers.hitEnemy(this, enemy, finalHitMultiplier, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+        BattleHelpers.hitEnemy(this, enemy, finalHitMultiplier, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT * 2);
 
         BattleHelpers.PostAttackLogic(this, types);
         ultCost = REAL_ULT_COST;
@@ -151,7 +154,7 @@ public class Feixiao extends AbstractCharacter {
         if (enemy.weaknessBroken) {
             return true;
         }
-        if (enemy.toughness <= currentEnergy * TOUGHNESS_DAMAGE_HALF_UNIT) {
+        if (enemy.toughness <= currentEnergy * TOUGHNESS_DAMAGE_HALF_UNIT * 2) {
             return true;
         }
         return false;

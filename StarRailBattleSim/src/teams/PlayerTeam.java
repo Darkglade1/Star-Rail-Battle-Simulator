@@ -236,7 +236,7 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 14).
+        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13).addSubStat(RelicStats.Stats.SPEED, 1).
                 addSubStat(RelicStats.Stats.EFFECT_RES, 6);
         relicStats.equipTo(character);
         return character;

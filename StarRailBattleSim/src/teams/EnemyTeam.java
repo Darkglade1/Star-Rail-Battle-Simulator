@@ -1,8 +1,6 @@
 package teams;
 
-import enemies.AbstractEnemy;
-import enemies.PhysFireWeakEnemy;
-import enemies.PhysWeakEnemy;
+import enemies.*;
 
 import java.util.ArrayList;
 
@@ -15,6 +13,30 @@ public class EnemyTeam {
 
     public String toString() {
         return description;
+    }
+
+    public static class FireWindImgWeakTarget1 extends EnemyTeam {
+        public FireWindImgWeakTarget1() {
+            description = "1 Fire and Wind and Imaginary Weak Enemy with 150 Speed (Performs 2 attacks per turn)";
+        }
+        @Override
+        public ArrayList<AbstractEnemy> getTeam() {
+            ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
+            enemyTeam.add(new FireWindImgWeakEnemy(0, 0));
+            return enemyTeam;
+        }
+    }
+
+    public static class WindWeakTarget1 extends EnemyTeam {
+        public WindWeakTarget1() {
+            description = "1 Wind Weak Enemy with 150 Speed (Performs 2 attacks per turn)";
+        }
+        @Override
+        public ArrayList<AbstractEnemy> getTeam() {
+            ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
+            enemyTeam.add(new WindWeakEnemy(0, 0));
+            return enemyTeam;
+        }
     }
 
     public static class PhysFireWeakTargets3 extends EnemyTeam {
