@@ -142,6 +142,7 @@ public class Battle {
                 actionValueMap.remove(nextUnit);
                 ((Concerto) nextUnit).owner.onConcertoEnd();
                 nextUnit = ((Concerto) nextUnit).owner;
+                actionValueMap.put(nextUnit, 0.0f);
             }
             ArrayList<AbstractPower> powersToTrgger = new ArrayList<>(nextUnit.powerList);
             for (AbstractPower power : powersToTrgger) {
