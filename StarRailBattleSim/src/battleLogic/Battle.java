@@ -149,7 +149,9 @@ public class Battle {
             }
             nextUnit.onTurnStart();
             if (nextUnit instanceof AbstractEnemy || nextUnit instanceof AbstractCharacter) {
-                actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+                if (actionValueMap.get(nextUnit) <= 0) {
+                    actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+                }
             }
             nextUnit.takeTurn();
             ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
