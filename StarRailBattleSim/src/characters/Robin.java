@@ -21,9 +21,11 @@ public class Robin extends AbstractCharacter {
     private int concertoProcs = 0;
     private String allyAttacksMetricName = "Number of Ally Attacks";
     private String concertoProcsMetricName = "Number of Concerto Hits";
+    public static final String NAME = "Robin";
+    public static final String ULT_POWER_NAME = "RobinUltPower";
 
     public Robin() {
-        super("Robin", 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100);
+        super(NAME, 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100);
         this.skillEnergyGain = 35;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
@@ -191,7 +193,7 @@ public class Robin extends AbstractCharacter {
 
     private class RobinUltPower extends AbstractPower {
         public RobinUltPower() {
-            this.name = this.getClass().getSimpleName();
+            this.name = ULT_POWER_NAME;
             lastsForever = true;
         }
 

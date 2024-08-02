@@ -10,8 +10,12 @@ import java.util.ArrayList;
 
 public class Sparkle extends AbstractCharacter {
 
+    public static final String NAME = "Sparkle";
+    public static final String SKILL_POWER_NAME = "SparkleSkillPower";
+    public static final String ULT_POWER_NAME = "SparkleUltPower";
+
     public Sparkle() {
-        super("Sparkle", 1397, 524, 485, 101, 80, ElementType.QUANTUM, 110, 100);
+        super(NAME, 1397, 524, 485, 101, 80, ElementType.QUANTUM, 110, 100);
         this.basicEnergyGain = 30;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
@@ -106,7 +110,7 @@ public class Sparkle extends AbstractCharacter {
 
     private class SparkleSkillPower extends AbstractPower {
         public SparkleSkillPower() {
-            this.name = this.getClass().getSimpleName();
+            this.name = SKILL_POWER_NAME;
             this.lastsForever = true;
             this.justApplied = true;
             this.bonusCritDamage = (getTotalCritDamage() * 0.24f) + 45;
@@ -142,7 +146,7 @@ public class Sparkle extends AbstractCharacter {
 
     private static class SparkleUltPower extends AbstractPower {
         public SparkleUltPower() {
-            this.name = this.getClass().getSimpleName();
+            this.name = ULT_POWER_NAME;
             this.turnDuration = 2;
         }
     }

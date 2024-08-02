@@ -13,8 +13,10 @@ public class Feixiao extends AbstractCharacter {
 
     private int numFUAs = 0;
     private int numStacks;
+    private int wastedStacks;
     private String numFUAsMetricName = "Follow up Attacks used";
     private String numStacksMetricName = "Amount of Talent Stacks gained";
+    private String wastedStacksMetricName = "Amount of overcapped Stacks";
     public int stackCount = 0;
     public final int stackThreshold = 2;
     private boolean FUAReady = true;
@@ -39,7 +41,6 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void increaseStack(int amount) {
-        numStacks += amount;
         int initialStack = stackCount;
         stackCount += amount;
         Battle.battle.addToLog(String.format("%s gained %d Stack (%d -> %d)", name, amount, initialStack, stackCount));
@@ -50,10 +51,12 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void gainStackEnergy(int energyGain) {
+        numStacks += energyGain;
         float initialEnergy = currentEnergy;
         currentEnergy += energyGain;
         if (currentEnergy > maxEnergy) {
             currentEnergy = maxEnergy;
+            wastedStacks += energyGain;
         }
         stackCount = stackCount % stackThreshold;
         Battle.battle.addToLog(String.format("%s gained %d Energy (%.1f -> %.1f)", name, energyGain, initialEnergy, currentEnergy));
@@ -128,6 +131,18 @@ public class Feixiao extends AbstractCharacter {
             return;
         }
 
+        if (Battle.battle.hasCharacter(Robin.NAME)) {
+            if (!this.hasPower(Robin.ULT_POWER_NAME)) {
+                return;
+            }
+        }
+
+        if (Battle.battle.hasCharacter(Sparkle.NAME)) {
+            if (!this.hasPower(Sparkle.SKILL_POWER_NAME) || !this.hasPower(Sparkle.ULT_POWER_NAME)) {
+                return;
+            }
+        }
+
         int numHits = (int) currentEnergy;
         ultCost = currentEnergy;
         super.useUltimate();
@@ -173,6 +188,9 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        if (currentEnergy >= ultCost) {
+            useUltimate(); // check for ultimate activation at start of turn as well
+        }
         FUAReady = true;
     }
 
@@ -201,6 +219,7 @@ public class Feixiao extends AbstractCharacter {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
         map.put(numFUAsMetricName, String.valueOf(numFUAs));
         map.put(numStacksMetricName, String.valueOf(numStacks));
+        map.put(wastedStacksMetricName, String.valueOf(wastedStacks));
         return map;
     }
 
@@ -208,6 +227,7 @@ public class Feixiao extends AbstractCharacter {
         ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
         list.add(numFUAsMetricName);
         list.add(numStacksMetricName);
+        list.add(wastedStacksMetricName);
         return list;
     }
 

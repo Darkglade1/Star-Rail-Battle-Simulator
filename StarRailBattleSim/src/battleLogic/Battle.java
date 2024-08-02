@@ -238,6 +238,14 @@ public class Battle {
         }
         return null;
     }
+    public boolean hasCharacter(String name) {
+        for (AbstractCharacter character : playerTeam) {
+            if (character.name.equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private AbstractEntity findLowestAVUnit(HashMap<AbstractEntity, Float> actionValueMap) {
         AbstractEntity next = null;
