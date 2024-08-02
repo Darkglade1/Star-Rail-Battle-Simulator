@@ -119,8 +119,9 @@ public class Yunli extends AbstractCharacter {
                 BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
             }
             BattleHelpers.PostAttackLogic(this, types);
+            increaseEnergy(5);
         }
-        increaseEnergy(25);
+        increaseEnergy(15);
         super.onAttacked(enemy, energyFromAttacked);
     }
 
@@ -137,6 +138,7 @@ public class Yunli extends AbstractCharacter {
     }
 
     public void useCull(AbstractEnemy enemy) {
+        increaseEnergy(10);
         AbstractPower power = new DanceAtSunset.DanceAtSunsetDamagePower();
         AbstractPower sunsetPower = getPower(power.name);
         if (sunsetPower != null && sunsetPower.stacks == 2) {
@@ -168,6 +170,7 @@ public class Yunli extends AbstractCharacter {
     }
 
     public void useSlash(AbstractEnemy enemy) {
+        increaseEnergy(10);
         numSlashes++;
         Battle.battle.addToLog(name + " used Slash");
         ArrayList<DamageType> types = new ArrayList<>();
@@ -198,7 +201,6 @@ public class Yunli extends AbstractCharacter {
         addPower(techniqueDamageBonus);
         useCull(Battle.battle.getRandomEnemy());
         removePower(techniqueDamageBonus);
-        increaseEnergy(10);
     }
 
     public AbstractPower getTrueSunderPower() {
