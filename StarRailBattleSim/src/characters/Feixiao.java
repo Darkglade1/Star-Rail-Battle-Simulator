@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class Feixiao extends AbstractCharacter {
 
+    PermPower ultBreakEffBuff;
     private int numFUAs = 0;
     private int numStacks;
     private int wastedStacks;
@@ -33,6 +34,10 @@ public class Feixiao extends AbstractCharacter {
         tracesPower.bonusFlatSpeed = 5;
         this.addPower(tracesPower);
         this.isDPS = true;
+
+        ultBreakEffBuff = new PermPower();
+        ultBreakEffBuff.bonusWeaknessBreakEff = 100;
+        ultBreakEffBuff.name = "Fei Ult Break Eff Buff";
     }
 
     // override normal energy gain to do nothing
@@ -143,6 +148,14 @@ public class Feixiao extends AbstractCharacter {
             }
         }
 
+        if (Battle.battle.hasCharacter(RuanMei.NAME)) {
+            if (!this.hasPower(RuanMei.ULT_POWER_NAME)) {
+                return;
+            }
+        }
+
+        addPower(ultBreakEffBuff);
+
         int numHits = (int) currentEnergy;
         ultCost = currentEnergy;
         super.useUltimate();
@@ -152,26 +165,30 @@ public class Feixiao extends AbstractCharacter {
         BattleHelpers.PreAttackLogic(this, types);
 
         for (int i = 0; i < numHits; i++) {
-            BattleHelpers.hitEnemy(this, enemy, 1.15f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT * 2);
+            BattleHelpers.hitEnemy(this, enemy, 1.15f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
         }
         float finalHitMultiplier = 0.1f;
         if (enemy.weaknessBroken) {
             finalHitMultiplier += 0.15;
         }
         finalHitMultiplier *= numHits;
-        BattleHelpers.hitEnemy(this, enemy, finalHitMultiplier, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT * 2);
+        BattleHelpers.hitEnemy(this, enemy, finalHitMultiplier, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
 
         BattleHelpers.PostAttackLogic(this, types);
         ultCost = REAL_ULT_COST;
+        removePower(ultBreakEffBuff);
     }
 
     private boolean canBreakEnemy(AbstractEnemy enemy) {
         if (enemy.weaknessBroken) {
             return true;
         }
-        if (enemy.toughness <= currentEnergy * TOUGHNESS_DAMAGE_HALF_UNIT * 2) {
+        powerList.add(ultBreakEffBuff);
+        if (enemy.toughness <= currentEnergy * BattleHelpers.calculateToughenssDamage(this, TOUGHNESS_DAMAGE_HALF_UNIT)) {
+            powerList.remove(ultBreakEffBuff);
             return true;
         }
+        powerList.remove(ultBreakEffBuff);
         return false;
     }
 
@@ -239,7 +256,9 @@ public class Feixiao extends AbstractCharacter {
 
         @Override
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<DamageType> types) {
-            Feixiao.this.increaseStack(1);
+            if (!Feixiao.this.hasPower(ultBreakEffBuff.name)) {
+                Feixiao.this.increaseStack(1);
+            }
             if (!(character instanceof Feixiao)) {
                 Feixiao.this.useFollowUp(enemiesHit);
             }

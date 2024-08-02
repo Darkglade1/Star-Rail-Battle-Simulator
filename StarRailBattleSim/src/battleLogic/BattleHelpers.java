@@ -89,12 +89,61 @@ public class BattleHelpers {
         return calculatedDamage;
     }
 
+    public static float calculateBreakDamageAgainstEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, AbstractCharacter.ElementType damageElement) {
+        float maxToughnessMultiplier = 0.5f + (target.maxToughness / 40);
+        float elementMultipler;
+        if (damageElement == AbstractCharacter.ElementType.ICE || damageElement == AbstractCharacter.ElementType.LIGHTNING) {
+            elementMultipler = 1;
+        } else if (damageElement == AbstractCharacter.ElementType.PHYSICAL || damageElement == AbstractCharacter.ElementType.FIRE) {
+            elementMultipler = 2;
+        } else if (damageElement == AbstractCharacter.ElementType.QUANTUM || damageElement == AbstractCharacter.ElementType.IMAGINARY) {
+            elementMultipler = 0.5f;
+        } else {
+            elementMultipler = 1.5f;
+        }
+        float baseDamage = multiplier * elementMultipler * 3767.5533f * maxToughnessMultiplier;
+        float breakEffectMultiplier = source.getTotalBreakEffect();
+        float breakEffectMultiplierFloat = 1 + breakEffectMultiplier / 100;
+
+        float enemyDefPercent = target.getFinalDefense();
+        float defMultiplierFloat = (source.level + 20) / ((target.level + 20) * (1 + enemyDefPercent / 100) + (source.level + 20));
+
+        float resPen = source.getTotalResPen();
+        float resMultiplier = 100 - (target.getRes(damageElement) - resPen);
+        float resMultiplierFloat = resMultiplier / 100;
+
+        ArrayList<AbstractCharacter.DamageType> types = new ArrayList<>();
+        float damageTaken = 0;
+        for (AbstractPower power : target.powerList) {
+            damageTaken += power.bonusDamageTaken;
+            damageTaken += power.getConditionalDamageTaken(source, target, types);
+        }
+        float damageTakenMultiplier = 1 + damageTaken / 100;
+
+        float toughnessMultiplier = 0.9f;
+        if (target.weaknessBroken) {
+            toughnessMultiplier = 1.0f;
+        }
+
+        float calculatedDamage = baseDamage * breakEffectMultiplierFloat * defMultiplierFloat * resMultiplierFloat * damageTakenMultiplier * toughnessMultiplier;
+        Battle.battle.addToLog(String.format("%s hit %s for %.3f Break damage - Base Damage: %.3f, Break Effect Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f",
+                source.name, target.name, calculatedDamage, baseDamage, breakEffectMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
+        return calculatedDamage;
+    }
+
+    public static float calculateToughenssDamage(AbstractCharacter character, float toughnssDamage) {
+        float weaknessBreakEff = character.getTotalWeaknessBreakEff();
+        return toughnssDamage * (1 + weaknessBreakEff / 100);
+    }
+
     public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage, AbstractCharacter.ElementType damageElement) {
         for (AbstractRelicSetBonus relicSetBonus : source.relicSetBonus) {
             relicSetBonus.onBeforeHitEnemy(source, target, types);
         }
         source.lightcone.onBeforeHitEnemy(source, target, types);
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, types, damageElement);
+
+        toughnessDamage = calculateToughenssDamage(source, toughnessDamage);
         if (target.weaknessMap.contains(damageElement)) {
             target.reduceToughness(toughnessDamage);
         } else {
@@ -165,6 +214,10 @@ public class BattleHelpers {
         Battle.battle.updateContribution(source, calculatedDamage);
         attackDamageTotal += calculatedDamage;
     }
-
-
+    public static void breakDamageHitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier) {
+        float calculatedDamage = calculateBreakDamageAgainstEnemy(source, target, multiplier, source.elementType);
+        Battle.battle.totalPlayerDamage += calculatedDamage;
+        Battle.battle.updateContribution(source, calculatedDamage);
+        attackDamageTotal += calculatedDamage;
+    }
 }

@@ -276,31 +276,31 @@ public class Battle {
         log += addition + "\n";
     }
 
-    public void AdvanceEntity(AbstractEntity entity, int advanceAmount) {
+    public void AdvanceEntity(AbstractEntity entity, float advanceAmount) {
         for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
             if (entry.getKey() == entity) {
                 float baseAV = entity.getBaseAV();
-                float AVDecrease = baseAV * ((float)advanceAmount / 100);
+                float AVDecrease = baseAV * (advanceAmount / 100);
                 float originalAV = entry.getValue();
                 float newAV = originalAV - AVDecrease;
                 if (newAV < 0) {
                     newAV = 0;
                 }
                 entry.setValue(newAV);
-                addToLog(String.format("%s advanced by %d%% (%.3f -> %.3f)", entry.getKey().name, advanceAmount, originalAV, newAV));
+                addToLog(String.format("%s advanced by %.1f%% (%.3f -> %.3f)", entry.getKey().name, advanceAmount, originalAV, newAV));
             }
         }
     }
 
-    public void DelayEntity(AbstractEntity entity, int delayAmount) {
+    public void DelayEntity(AbstractEntity entity, float delayAmount) {
         for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
             if (entry.getKey() == entity) {
                 float baseAV = entity.getBaseAV();
-                float AVIncrease = baseAV * ((float)delayAmount / 100);
+                float AVIncrease = baseAV * (delayAmount / 100);
                 float originalAV = entry.getValue();
                 float newAV = originalAV + AVIncrease;
                 entry.setValue(newAV);
-                addToLog(String.format("%s delayed by %d%% (%.3f -> %.3f)", entry.getKey().name, delayAmount, originalAV, newAV));
+                addToLog(String.format("%s delayed by %.1f%% (%.3f -> %.3f)", entry.getKey().name, delayAmount, originalAV, newAV));
             }
         }
     }

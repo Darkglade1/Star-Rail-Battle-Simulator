@@ -229,6 +229,38 @@ public abstract class AbstractCharacter extends AbstractEntity {
         return totalEnergyRegenBonus;
     }
 
+    public float getTotalEHR() {
+        float totalEHR = 0;
+        for (AbstractPower power : powerList) {
+            totalEHR += power.bonusEffectHit;
+        }
+        return totalEHR;
+    }
+
+    public float getTotalEffectRes() {
+        float totalEffectRes = 0;
+        for (AbstractPower power : powerList) {
+            totalEffectRes += power.bonusEffectRes;
+        }
+        return totalEffectRes;
+    }
+
+    public float getTotalBreakEffect() {
+        float totalBreakEffect = 0;
+        for (AbstractPower power : powerList) {
+            totalBreakEffect += power.bonusBreakEffect;
+        }
+        return totalBreakEffect;
+    }
+
+    public float getTotalWeaknessBreakEff() {
+        float totalWeaknessBreakEff = 0;
+        for (AbstractPower power : powerList) {
+            totalWeaknessBreakEff += power.bonusWeaknessBreakEff;
+        }
+        return totalWeaknessBreakEff;
+    }
+
     public void increaseEnergy(float amount, boolean ERRAffected) {
         float initialEnergy = currentEnergy;
         float totalEnergyRegenBonus = getTotalERR();
@@ -305,6 +337,11 @@ public abstract class AbstractCharacter extends AbstractEntity {
         numTurnsMetric++;
         speedPriority = 999; //reset speed priority if it was changed
     }
+
+    public void onWeaknessBreak(AbstractEnemy enemy) {
+
+    }
+
     public String getMetrics() {
         StringBuilder metrics = new StringBuilder(statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d \nRotation: %s", numTurnsMetric, numBasicsMetric, numSkillsMetric, numUltsMetric, moveHistory));
         HashMap<String, String> metricsMap = getCharacterSpecificMetricMap();
@@ -317,7 +354,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public void generateStatsString() {
         String gearString = String.format("Metrics for %s \nLightcone: %s \nRelic Set Bonuses: ", name, lightcone);
         gearString += relicSetBonus;
-        statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%%", getFinalAttack(), getFinalDefense(), getFinalHP(), getFinalSpeed(), getTotalSameElementDamageBonus(), getTotalCritChance(), getTotalCritDamage());
+        statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%% \nBreak Effect: %.3f%%", getFinalAttack(), getFinalDefense(), getFinalHP(), getFinalSpeed(), getTotalSameElementDamageBonus(), getTotalCritChance(), getTotalCritDamage(), getTotalBreakEffect());
     }
 
     public void generateStatsReport() {
@@ -329,6 +366,9 @@ public abstract class AbstractCharacter extends AbstractEntity {
         String spd = "SPD: ";
         String cr = "CRIT RATE: ";
         String cd = "CRIT DMG: ";
+        String ehr = "Effect Hit Rate: ";
+        String effectRes = "Effect RES: ";
+        String breakEffect = "Break Effect: ";
         String element = "ELEMENT DMG: ";
         String err = "ERR: ";
 
@@ -340,6 +380,9 @@ public abstract class AbstractCharacter extends AbstractEntity {
         statsOrder.add(spd);
         statsOrder.add(cr);
         statsOrder.add(cd);
+        statsOrder.add(ehr);
+        statsOrder.add(effectRes);
+        statsOrder.add(breakEffect);
         statsOrder.add(element);
         statsOrder.add(err);
 
@@ -355,6 +398,9 @@ public abstract class AbstractCharacter extends AbstractEntity {
         statsMap.put(spd, String.valueOf(getFinalSpeed()));
         statsMap.put(cr, getTotalCritChance() + "%");
         statsMap.put(cd, getTotalCritDamage() + "%");
+        statsMap.put(ehr, getTotalEHR() + "%");
+        statsMap.put(effectRes, getTotalEffectRes() + "%");
+        statsMap.put(breakEffect, getTotalBreakEffect() + "%");
         statsMap.put(element, getTotalSameElementDamageBonus() + "%");
         statsMap.put(err, getTotalERR() + "%");
     }

@@ -228,6 +228,44 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoRuanMeiAventurineTopaz extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRuanMeiCritSupport());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltTopazSpeed());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRuanMeiAventurineMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRuanMeiCritSupport());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter getPrebuiltRuanMeiCritSupport() {
+        AbstractCharacter character = new RuanMei();
+        character.EquipLightcone(new Memories(character));
+        character.EquipRelicSet(new Thief(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.BREAK_EFFECT, 10).addSubStat(RelicStats.Stats.SPEED, 7).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.equipTo(character);
+        return character;
+    }
+
     public static AbstractCharacter getPrebuiltSparkleFei() {
         AbstractCharacter character = new Sparkle();
         character.EquipLightcone(new PastAndFuture(character));
@@ -236,8 +274,8 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13).addSubStat(RelicStats.Stats.SPEED, 1).
-                addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 16).addSubStat(RelicStats.Stats.SPEED, 1).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 3);
         relicStats.equipTo(character);
         return character;
     }
@@ -320,8 +358,8 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 1).addSubStat(RelicStats.Stats.SPEED, 13).
-                addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 4).addSubStat(RelicStats.Stats.SPEED, 13).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 3);
         relicStats.equipTo(character);
         return character;
     }

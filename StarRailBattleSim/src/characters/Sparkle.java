@@ -21,6 +21,7 @@ public class Sparkle extends AbstractCharacter {
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusCritDamage = 24;
         tracesPower.bonusHPPercent = 28;
+        tracesPower.bonusEffectRes = 10;
         this.addPower(tracesPower);
     }
 

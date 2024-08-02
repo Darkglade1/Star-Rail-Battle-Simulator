@@ -36,6 +36,7 @@ public abstract class AbstractPower {
     public float bonusCritDamage;
     public float bonusEnergyRegen;
     public float bonusTauntValue;
+    public float bonusWeaknessBreakEff;
     public int turnDuration;
     public PowerType type = PowerType.BUFF;
     public boolean durationBasedOnSelfTurns = true;

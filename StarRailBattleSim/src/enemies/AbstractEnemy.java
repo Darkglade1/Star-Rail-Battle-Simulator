@@ -4,6 +4,7 @@ import battleLogic.AbstractEntity;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;
+import characters.RuanMei;
 import powers.AbstractPower;
 import powers.TauntPower;
 
@@ -99,6 +100,9 @@ public abstract class AbstractEnemy extends AbstractEntity {
     }
 
     public void takeTurn() {
+        if (weaknessBroken) {
+            return;
+        }
         attack();
         if (doubleActionCounter == 0) {
             Battle.battle.addToLog(name + " takes a second action");
@@ -179,9 +183,21 @@ public abstract class AbstractEnemy extends AbstractEntity {
     @Override
     public void onTurnStart() {
         if (this.weaknessBroken) {
-            this.weaknessBroken = false;
-            Battle.battle.addToLog(String.format("%s recovered from weakness break (%.3f -> %.3f)", name, toughness, maxToughness));
-            this.toughness = maxToughness;
+            RuanMei.RuanMeiUltDebuff ruanMeiDebuff = (RuanMei.RuanMeiUltDebuff) this.getPower(RuanMei.ULT_DEBUFF_NAME);
+            if (ruanMeiDebuff != null && !ruanMeiDebuff.triggered) {
+                Battle.battle.addToLog("Ruan Mei Ult Delay Triggered");
+                float delay = ruanMeiDebuff.owner.getTotalBreakEffect() * 0.2f + 10;
+                Battle.battle.DelayEntity(this, delay);
+                ruanMeiDebuff.triggered = true;
+                BattleHelpers.breakDamageHitEnemy(ruanMeiDebuff.owner, this, 0.5f);
+            } else {
+                if (this.hasPower(RuanMei.ULT_DEBUFF_NAME)) {
+                    this.removePower(RuanMei.ULT_DEBUFF_NAME);
+                }
+                this.weaknessBroken = false;
+                Battle.battle.addToLog(String.format("%s recovered from weakness break (%.3f -> %.3f)", name, toughness, maxToughness));
+                this.toughness = maxToughness;
+            }
         }
     }
 
@@ -199,6 +215,9 @@ public abstract class AbstractEnemy extends AbstractEntity {
         if (this.weaknessBroken) {
             timesBrokenMetric++;
             Battle.battle.DelayEntity(this, 25);
+            for (AbstractCharacter character : Battle.battle.playerTeam) {
+                character.onWeaknessBreak(this);
+            }
         }
     }
 
