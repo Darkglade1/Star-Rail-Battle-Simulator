@@ -23,6 +23,7 @@ public class Huohuo extends AbstractCharacter {
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 28;
         tracesPower.bonusFlatSpeed = 5;
+        tracesPower.bonusEffectRes = 18;
         this.addPower(tracesPower);
     }
 

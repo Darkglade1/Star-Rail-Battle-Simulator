@@ -4,12 +4,20 @@ import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
+import powers.PermPower;
 
 import java.util.ArrayList;
 
 public class BrokenKeel extends AbstractRelicSetBonus {
     public BrokenKeel(AbstractCharacter owner) {
         super(owner);
+    }
+
+    public void onEquip() {
+        PermPower statBonus = new PermPower();
+        statBonus.name = "Broken Keel Stat Bonus";
+        statBonus.bonusEffectRes = 10;
+        owner.addPower(statBonus);
     }
 
     public void onCombatStart() {

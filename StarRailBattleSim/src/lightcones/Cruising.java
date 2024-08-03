@@ -13,8 +13,15 @@ public class Cruising extends AbstractLightcone {
     public void onEquip() {
         PermPower statBonus = new PermPower();
         statBonus.name = "Cruising Stat Bonus";
-        statBonus.bonusAtkPercent = 20;
         statBonus.bonusCritChance = 16;
+        owner.addPower(statBonus);
+    }
+
+    @Override
+    public void onCombatStart() {
+        PermPower statBonus = new PermPower();
+        statBonus.name = "Cruising Attack Bonus";
+        statBonus.bonusAtkPercent = 20;
         owner.addPower(statBonus);
     }
 

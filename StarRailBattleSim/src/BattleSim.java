@@ -15,9 +15,9 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
+        //debugTeam();
         //generateReportYunli();
-        //generateReportFeixiao();
+        generateReportFeixiao();
     }
     
     public static void debugTeam() {
@@ -46,6 +46,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinAventurinePela().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new WindWeakEnemy(0, 2));
@@ -53,6 +54,27 @@ public class BattleSim {
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(5050);
+    }
+
+    public static void generateReportFeixiao() {
+        PlayerTeam baselineTeam = new FeixiaoRobinAventurineMarch();
+        ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
+        otherTeams.add(new FeixiaoRobinAventurineTopaz());
+        otherTeams.add(new FeixiaoSparkleAventurineTopaz());
+        otherTeams.add(new FeixiaoSparkleAventurineMarch());
+        otherTeams.add(new FeixiaoRuanMeiAventurineTopaz());
+        otherTeams.add(new FeixiaoRuanMeiAventurineMarch());
+        otherTeams.add(new FeixiaoPelaAventurineTopaz());
+        otherTeams.add(new FeixiaoPelaAventurineMarch());
+        otherTeams.add(new FeixiaoRobinAventurinePela());
+
+        ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
+        enemyTeams.add(new WindWeakTarget1());
+        enemyTeams.add(new FireWindImgWeakTarget1());
+
+        String notes = "E0S0 other 5 stars. E6 4 stars. Maxed out traces and levels. Enemies are level 95. Relics are +15 with relatively relatable rolls. Simulations run for 50 cycles to reduce the impact of RNG and leftover AV/Energy at the end of combat. \n Feixiao will wait until she can break the enemy or the enemy is broken and the team's buffs or debuffs are present before using Ultimate. This results in wasting some stacks but waiting to maximize each ultimate's damage is more damage in the long term.";
+        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 5050, notes);
+        report.generateCSV();
     }
 
     public static void generateReportYunli() {
@@ -81,22 +103,6 @@ public class BattleSim {
         //enemyTeams.add(new PhysFireWeakTargets1());
 
         String notes = "Notes: E0S1 Yunli, E0S0 other 5 stars. E6 4 stars. Maxed out traces and levels. Enemies are level 95. Relics are +15 with relatively relatable rolls. Simulations run for 50 cycles to reduce the impact of RNG and leftover AV/Energy at the end of combat.";
-        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 5050, notes);
-        report.generateCSV();
-    }
-
-    public static void generateReportFeixiao() {
-        PlayerTeam baselineTeam = new FeixiaoRobinAventurineMarch();
-        ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
-        otherTeams.add(new FeixiaoRobinAventurineTopaz());
-        otherTeams.add(new FeixiaoSparkleAventurineTopaz());
-        otherTeams.add(new FeixiaoSparkleAventurineMarch());
-
-        ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
-        enemyTeams.add(new WindWeakTarget1());
-        enemyTeams.add(new FireWindImgWeakTarget1());
-
-        String notes = "Notes: E0S0 Feixiao, E0S0 other 5 stars. E6 4 stars. Maxed out traces and levels. Enemies are level 95. Relics are +15 with relatively relatable rolls. Simulations run for 50 cycles to reduce the impact of RNG and leftover AV/Energy at the end of combat. \n Note on the rotation: in this simulation, Feixiao will wait until she can break the enemy/the enemy is broken and the team's buffs/debuffs are present before using Ultimate. This results in wasting some stacks, but waiting to maximize each ultimate's damage is more damage in the long term.";
         Report report = new Report(baselineTeam, otherTeams, enemyTeams, 5050, notes);
         report.generateCSV();
     }

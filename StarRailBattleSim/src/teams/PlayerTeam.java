@@ -276,6 +276,18 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoRobinAventurinePela extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltPela());
+            return playerTeam;
+        }
+    }
+
     public static AbstractCharacter getPrebuiltRuanMeiCritSupport() {
         AbstractCharacter character = new RuanMei();
         character.EquipLightcone(new Memories(character));

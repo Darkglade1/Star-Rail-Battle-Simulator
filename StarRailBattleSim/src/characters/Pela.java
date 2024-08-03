@@ -21,6 +21,7 @@ public class Pela extends AbstractCharacter {
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 18;
         tracesPower.bonusSameElementDamageBonus = 22.4f;
+        tracesPower.bonusEffectHit = 10;
         this.addPower(tracesPower);
     }
 
