@@ -50,7 +50,7 @@ public class BattleSim {
         //enemyTeam.add(new FireWindImgWeakEnemy(0, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(5050);
+        battle.Start(250);
     }
 
     public static void generateReportYunli() {

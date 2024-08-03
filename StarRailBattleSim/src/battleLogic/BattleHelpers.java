@@ -36,6 +36,12 @@ public class BattleHelpers {
         float dmgMultiplierFloat = 1 + dmgMultiplier / 100;
 
         float enemyDefPercent = target.getFinalDefense();
+        for (AbstractPower power : source.powerList) {
+            enemyDefPercent -= power.getConditionDefenseIgnore(source, target, types);
+        }
+        if (enemyDefPercent < -100) {
+            enemyDefPercent = -100;
+        }
         float defMultiplierFloat = (source.level + 20) / ((target.level + 20) * (1 + enemyDefPercent / 100) + (source.level + 20));
 
         float resPen = source.getTotalResPen();
