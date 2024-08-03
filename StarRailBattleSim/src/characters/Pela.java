@@ -11,8 +11,11 @@ import java.util.ArrayList;
 
 public class Pela extends AbstractCharacter {
 
+    public static final String NAME = "Pela";
+    public static final String ULT_DEBUFF_NAME = "Pela Ult Def Reduction";
+
     public Pela() {
-        super("Pela", 988, 547, 463, 105, 80, ElementType.ICE, 110, 100);
+        super(NAME, 988, 547, 463, 105, 80, ElementType.ICE, 110, 100);
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
@@ -63,11 +66,11 @@ public class Pela extends AbstractCharacter {
         BattleHelpers.PreAttackLogic(this, types);
 
         for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+            BattleHelpers.hitEnemy(this, enemy, 1.08f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
             TempPower exposed = new TempPower();
             exposed.turnDuration = 2;
-            exposed.defenseReduction = 40;
-            exposed.name = "Pela Ult Def Reduction";
+            exposed.defenseReduction = 42;
+            exposed.name = ULT_DEBUFF_NAME;
             exposed.type = AbstractPower.PowerType.DEBUFF;
             enemy.addPower(exposed);
         }

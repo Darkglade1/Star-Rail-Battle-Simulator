@@ -44,13 +44,15 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoPelaAventurineTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new WindWeakEnemy(0, 2));
         //enemyTeam.add(new FireWindImgWeakEnemy(0, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(250);
+        battle.Start(5050);
     }
 
     public static void generateReportYunli() {

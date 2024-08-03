@@ -154,6 +154,12 @@ public class Feixiao extends AbstractCharacter {
             }
         }
 
+        if (Battle.battle.hasCharacter(Pela.NAME)) {
+            if (!enemy.hasPower(Pela.ULT_DEBUFF_NAME)) {
+                return;
+            }
+        }
+
         addPower(ultBreakEffBuff);
 
         int numHits = (int) currentEnergy;
