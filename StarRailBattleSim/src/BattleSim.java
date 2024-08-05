@@ -49,14 +49,16 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRobinAventurinePela().getTeam());
         //battle.setPlayerTeam(new FeixiaoTopazAventurineMarch().getTeam());
         battle.setPlayerTeam(new FeixiaoHanyaAventurineTopaz().getTeam());
-        //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoHanyaAventurineMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoRuanMeiGallagherTopaz().getTeam());
+        battle.setPlayerTeam(new FeixiaoRuanMeiGallagherMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new WindWeakEnemy(0, 2));
         //enemyTeam.add(new FireWindImgWeakEnemy(0, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(5050);
+        battle.Start(250);
     }
 
     public static void generateReportFeixiao() {
@@ -67,6 +69,8 @@ public class BattleSim {
         otherTeams.add(new FeixiaoSparkleAventurineMarch());
         otherTeams.add(new FeixiaoRuanMeiAventurineTopaz());
         otherTeams.add(new FeixiaoRuanMeiAventurineMarch());
+        otherTeams.add(new FeixiaoHanyaAventurineTopaz());
+        otherTeams.add(new FeixiaoHanyaAventurineMarch());
         otherTeams.add(new FeixiaoPelaAventurineTopaz());
         otherTeams.add(new FeixiaoPelaAventurineMarch());
         otherTeams.add(new FeixiaoRobinAventurinePela());

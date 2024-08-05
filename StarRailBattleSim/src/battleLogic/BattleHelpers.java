@@ -119,6 +119,7 @@ public class BattleHelpers {
         float resMultiplierFloat = resMultiplier / 100;
 
         ArrayList<AbstractCharacter.DamageType> types = new ArrayList<>();
+        types.add(AbstractCharacter.DamageType.BREAK);
         float damageTaken = 0;
         for (AbstractPower power : target.powerList) {
             damageTaken += power.bonusDamageTaken;

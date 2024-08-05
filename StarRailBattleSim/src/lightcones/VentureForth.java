@@ -26,7 +26,7 @@ public class VentureForth extends AbstractLightcone {
     }
 
     public String toString() {
-        return this.getClass().getSimpleName();
+        return "I Venture Forth to Hunt";
     }
 
     public static class VentureForthPower extends AbstractPower {

@@ -324,6 +324,43 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoRuanMeiGallagherTopaz extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRuanMeiCritSupport());
+            playerTeam.add(getPrebuiltGallagher());
+            playerTeam.add(getPrebuiltTopazSpeed());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRuanMeiGallagherMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRuanMeiCritSupport());
+            playerTeam.add(getPrebuiltGallagher());
+            playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter getPrebuiltGallagher() {
+        AbstractCharacter character = new Gallagher();
+        character.EquipLightcone(new Multiplication(character));
+        character.EquipRelicSet(new Thief(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.BREAK_EFFECT, 6).addSubStat(RelicStats.Stats.SPEED, 14);
+        relicStats.equipTo(character);
+        return character;
+    }
+
     public static AbstractCharacter getPrebuiltHanya() {
         AbstractCharacter character = new Hanya();
         character.EquipLightcone(new Memories(character));
