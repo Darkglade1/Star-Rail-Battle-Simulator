@@ -15,9 +15,9 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
+        //debugTeam();
         //generateReportYunli();
-        //generateReportFeixiao();
+        generateReportFeixiao();
     }
     
     public static void debugTeam() {
@@ -48,32 +48,38 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurinePela().getTeam());
         //battle.setPlayerTeam(new FeixiaoTopazAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoHanyaAventurineTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoHanyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoRuanMeiGallagherTopaz().getTeam());
-        battle.setPlayerTeam(new FeixiaoRuanMeiGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRuanMeiGallagherTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRuanMeiGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinGallagherTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinGallagherMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new WindWeakEnemy(0, 2));
         //enemyTeam.add(new FireWindImgWeakEnemy(0, 2));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(250);
+        battle.Start(5050);
     }
 
     public static void generateReportFeixiao() {
-        PlayerTeam baselineTeam = new FeixiaoRobinAventurineMarch();
+        PlayerTeam baselineTeam = new FeixiaoHanyaGallagherMarch();
         ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
         otherTeams.add(new FeixiaoRobinAventurineTopaz());
-        otherTeams.add(new FeixiaoSparkleAventurineTopaz());
-        otherTeams.add(new FeixiaoSparkleAventurineMarch());
+        otherTeams.add(new FeixiaoRobinAventurineMarch());
+        otherTeams.add(new FeixiaoRobinGallagherTopaz());
+        otherTeams.add(new FeixiaoRobinGallagherMarch());
         otherTeams.add(new FeixiaoRuanMeiAventurineTopaz());
         otherTeams.add(new FeixiaoRuanMeiAventurineMarch());
+        otherTeams.add(new FeixiaoRuanMeiGallagherTopaz());
+        otherTeams.add(new FeixiaoRuanMeiGallagherMarch());
+        otherTeams.add(new FeixiaoSparkleAventurineTopaz());
+        otherTeams.add(new FeixiaoSparkleAventurineMarch());
         otherTeams.add(new FeixiaoHanyaAventurineTopaz());
         otherTeams.add(new FeixiaoHanyaAventurineMarch());
         otherTeams.add(new FeixiaoPelaAventurineTopaz());
         otherTeams.add(new FeixiaoPelaAventurineMarch());
-        otherTeams.add(new FeixiaoRobinAventurinePela());
         otherTeams.add(new FeixiaoTopazAventurineMarch());
 
         ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
