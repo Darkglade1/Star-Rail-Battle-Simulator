@@ -147,6 +147,9 @@ public class BattleHelpers {
             relicSetBonus.onBeforeHitEnemy(source, target, types);
         }
         source.lightcone.onBeforeHitEnemy(source, target, types);
+        for (AbstractPower power : target.powerList) {
+            power.onBeforeHitEnemy(source, target, types);
+        }
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, types, damageElement);
 
         toughnessDamage = calculateToughenssDamage(source, toughnessDamage);
@@ -189,7 +192,8 @@ public class BattleHelpers {
             power.onAttack(character, enemiesHit, types);
         }
         for (AbstractEnemy enemy : enemiesHit) {
-            for (AbstractPower power : enemy.powerList) {
+            ArrayList<AbstractPower> enemyPowersToTrigger = new ArrayList<>(enemy.powerList);
+            for (AbstractPower power : enemyPowersToTrigger) {
                 power.onAttacked(character, enemy, types);
             }
         }

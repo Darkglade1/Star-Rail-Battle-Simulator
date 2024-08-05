@@ -123,10 +123,6 @@ public class Robin extends AbstractCharacter {
         }
     }
 
-    public String toString() {
-        return name;
-    }
-
     public void onCombatStart() {
         Battle.battle.AdvanceEntity(this, 25);
         for (AbstractCharacter character : Battle.battle.playerTeam) {

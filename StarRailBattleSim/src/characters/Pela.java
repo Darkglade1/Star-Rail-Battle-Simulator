@@ -91,10 +91,6 @@ public class Pela extends AbstractCharacter {
         }
     }
 
-    public String toString() {
-        return name;
-    }
-
     public void useTechnique() {
         ArrayList<DamageType> types = new ArrayList<>();
         BattleHelpers.PreAttackLogic(this, types);

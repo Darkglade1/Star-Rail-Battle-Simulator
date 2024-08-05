@@ -15,9 +15,9 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        //debugTeam();
+        debugTeam();
         //generateReportYunli();
-        generateReportFeixiao();
+        //generateReportFeixiao();
     }
     
     public static void debugTeam() {
@@ -46,7 +46,10 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoRobinAventurinePela().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinAventurinePela().getTeam());
+        //battle.setPlayerTeam(new FeixiaoTopazAventurineMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoHanyaAventurineTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new WindWeakEnemy(0, 2));
@@ -67,6 +70,7 @@ public class BattleSim {
         otherTeams.add(new FeixiaoPelaAventurineTopaz());
         otherTeams.add(new FeixiaoPelaAventurineMarch());
         otherTeams.add(new FeixiaoRobinAventurinePela());
+        otherTeams.add(new FeixiaoTopazAventurineMarch());
 
         ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
         enemyTeams.add(new WindWeakTarget1());

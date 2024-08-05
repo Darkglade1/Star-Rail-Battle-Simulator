@@ -73,10 +73,6 @@ public class Huohuo extends AbstractCharacter {
         }
     }
 
-    public String toString() {
-        return name;
-    }
-
     public void onCombatStart() {
         talentCounter = 1;
         for (AbstractCharacter character : Battle.battle.playerTeam) {

@@ -24,6 +24,7 @@ public class Battle {
     public float finalDPAV;
     public String log = "";
     public float initialBattleLength;
+    public AbstractEntity nextUnit;
 
     public HashMap<AbstractCharacter, Float> damageContributionMap;
     public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
@@ -114,7 +115,7 @@ public class Battle {
 
         while (battleLength > 0) {
             addToLog("AV until battle ends: " + battleLength);
-            AbstractEntity nextUnit = findLowestAVUnit(actionValueMap);
+            nextUnit = findLowestAVUnit(actionValueMap);
             float nextAV = actionValueMap.get(nextUnit);
             if (nextAV > battleLength) {
                 for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {

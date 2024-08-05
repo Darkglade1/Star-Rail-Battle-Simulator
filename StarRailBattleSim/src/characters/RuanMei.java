@@ -95,10 +95,6 @@ public class RuanMei extends AbstractCharacter {
         }
     }
 
-    public String toString() {
-        return name;
-    }
-
     public void onCombatStart() {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             PermPower breakBuff = new PermPower();

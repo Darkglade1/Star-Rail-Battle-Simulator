@@ -87,6 +87,10 @@ public abstract class AbstractPower {
     public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
 
     }
+
+    public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+
+    }
     public void onEndTurn() {
         if (!lastsForever && durationBasedOnSelfTurns) {
             if (justApplied) {

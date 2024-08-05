@@ -77,6 +77,7 @@ public class Tingyun extends AbstractCharacter {
                 ultDamageBonus.turnDuration = 2;
                 ultDamageBonus.name = "Tingyun Ult Damage Bonus";
                 character.addPower(ultDamageBonus);
+                break;
             }
         }
     }
@@ -88,10 +89,6 @@ public class Tingyun extends AbstractCharacter {
         } else {
             useBasicAttack();
         }
-    }
-
-    public String toString() {
-        return name;
     }
 
     public void onTurnStart() {

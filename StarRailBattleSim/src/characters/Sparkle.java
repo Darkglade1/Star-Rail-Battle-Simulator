@@ -71,10 +71,6 @@ public class Sparkle extends AbstractCharacter {
         }
     }
 
-    public String toString() {
-        return name;
-    }
-
     public void onCombatStart() {
         Battle.battle.MAX_SKILL_POINTS += 2;
         int numQuantumAllies = 0;

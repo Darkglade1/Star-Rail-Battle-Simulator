@@ -115,10 +115,6 @@ public class Aventurine extends AbstractCharacter {
         }
     }
 
-    public String toString() {
-        return name;
-    }
-
     public void onCombatStart() {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.addPower(talentPower);

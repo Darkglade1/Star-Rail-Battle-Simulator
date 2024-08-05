@@ -160,6 +160,12 @@ public class Feixiao extends AbstractCharacter {
             }
         }
 
+        if (Battle.battle.hasCharacter(Hanya.NAME)) {
+            if (!this.hasPower(Hanya.ULT_BUFF_NAME)) {
+                return;
+            }
+        }
+
         addPower(ultBreakEffBuff);
 
         int numHits = (int) currentEnergy;
