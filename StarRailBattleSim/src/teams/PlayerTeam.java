@@ -276,18 +276,6 @@ public class PlayerTeam {
         }
     }
 
-    public static class FeixiaoRobinAventurinePela extends PlayerTeam {
-        @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-            playerTeam.add(getPrebuiltFeixiao());
-            playerTeam.add(getPrebuiltRobin());
-            playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltPela());
-            return playerTeam;
-        }
-    }
-
     public static class FeixiaoTopazAventurineMarch extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
@@ -382,6 +370,44 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltSwordMarch());
             return playerTeam;
         }
+    }
+
+    public static class FeixiaoRobinTopazFuXuan extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltTopazSpeed());
+            playerTeam.add(getPrebuiltFuXuan());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRobinMarchFuXuan extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltFuXuan());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter getPrebuiltFuXuan() {
+        AbstractCharacter character = new FuXuan();
+        character.EquipLightcone(new Day1(character));
+        character.EquipRelicSet(new Knight(character, false));
+        character.EquipRelicSet(new Longevous(character, false));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.HP_PER);
+        relicStats.addSubStat(RelicStats.Stats.HP_PER, 8).addSubStat(RelicStats.Stats.SPEED, 8).
+                addSubStat(RelicStats.Stats.DEF_PER, 8);
+        relicStats.equipTo(character);
+        return character;
     }
 
     public static AbstractCharacter getPrebuiltGallagher() {

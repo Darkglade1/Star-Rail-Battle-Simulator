@@ -206,10 +206,7 @@ public class Feixiao extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (firstMove && Battle.battle.numSkillPoints > 0) {
-            useSkill();
-            firstMove = false;
-        } else if (Battle.battle.numSkillPoints > 1) {
+        if (Battle.battle.numSkillPoints > 1) {
             useSkill();
         } else {
             useBasicAttack();
