@@ -34,6 +34,7 @@ public class Feixiao extends AbstractCharacter {
         tracesPower.bonusFlatSpeed = 5;
         this.addPower(tracesPower);
         this.isDPS = true;
+        this.hasAttackingUltimate = true;
 
         ultBreakEffBuff = new PermPower();
         ultBreakEffBuff.bonusWeaknessBreakEff = 100;

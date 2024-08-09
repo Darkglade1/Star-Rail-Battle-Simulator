@@ -53,6 +53,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public String numBasicsMetricName = "Basic Attacks Used";
     public String numUltsMetricName = "Ultimates Used";
     protected boolean firstMove = true;
+    public boolean hasAttackingUltimate;
     protected ArrayList<MoveType> moveHistory;
     public HashMap<String, String> statsMap = new HashMap<>();
     public ArrayList<String> statsOrder = new ArrayList<>();

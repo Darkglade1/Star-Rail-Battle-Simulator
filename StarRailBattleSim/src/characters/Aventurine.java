@@ -34,6 +34,7 @@ public class Aventurine extends AbstractCharacter {
         tracesPower.bonusSameElementDamageBonus = 14.4f;
         tracesPower.bonusEffectRes = 10;
         this.addPower(tracesPower);
+        this.hasAttackingUltimate = true;
     }
 
     public Aventurine() {

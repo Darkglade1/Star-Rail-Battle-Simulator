@@ -15,9 +15,9 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
+        //debugTeam();
         //generateReportYunli();
-        //generateReportFeixiao();
+        generateReportFeixiao();
     }
     
     public static void debugTeam() {
@@ -26,7 +26,7 @@ public class BattleSim {
 
 //        battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
 //        battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
-//       // battle.setPlayerTeam(new MarchYunliRobinHuohuoTeam().getTeam());
+//        battle.setPlayerTeam(new MarchYunliRobinHuohuoTeam().getTeam());
 ////        battle.setPlayerTeam(new SparkleYunliRobinHuohuoTeam().getTeam());
 ////        battle.setPlayerTeam(new SparkleYunliTingyunHuohuoTeam().getTeam());
 ////        battle.setPlayerTeam(new PelaYunliTingyunHuohuoTeam().getTeam());
@@ -39,7 +39,7 @@ public class BattleSim {
 //        battle.setEnemyTeam(enemyTeam);
 
         battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
-        //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());
@@ -54,12 +54,12 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRuanMeiGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoRobinTopazFuXuan().getTeam());
-        battle.setPlayerTeam(new FeixiaoRobinMarchFuXuan().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinTopazFuXuan().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinMarchFuXuan().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-        enemyTeam.add(new WindWeakEnemy(0, 2));
-        //enemyTeam.add(new FireWindImgWeakEnemy(0, 2));
+        //enemyTeam.add(new WindWeakEnemy(0, 2));
+        enemyTeam.add(new FireWindImgWeakEnemy(0, 2));
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(5050);

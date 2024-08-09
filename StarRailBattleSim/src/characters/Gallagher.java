@@ -14,13 +14,13 @@ public class Gallagher extends AbstractCharacter {
 
     public Gallagher() {
         super("Gallagher", 1305, 529, 441, 98, 80, ElementType.FIRE, 110, 100);
-
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 18;
         tracesPower.bonusBreakEffect = 13.3f;
         tracesPower.bonusEffectRes = 28;
         this.addPower(tracesPower);
+        this.hasAttackingUltimate = true;
     }
 
     public void useBasicAttack() {

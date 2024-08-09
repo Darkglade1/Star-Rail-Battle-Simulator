@@ -15,13 +15,13 @@ public class FuXuan extends AbstractCharacter {
 
     public FuXuan() {
         super("Fu Xuan", 1475, 466, 606, 100, 80, ElementType.QUANTUM, 135, 150);
-
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 18;
         tracesPower.bonusCritChance = 18.7f;
         tracesPower.bonusEffectRes = 10;
         this.addPower(tracesPower);
+        this.hasAttackingUltimate = true;
     }
 
     public void useSkill() {

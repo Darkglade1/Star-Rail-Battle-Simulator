@@ -35,6 +35,7 @@ public class SwordMarch extends AbstractCharacter {
         tracesPower.bonusCritDamage = 24f;
         tracesPower.bonusDefPercent = 12.5f;
         this.addPower(tracesPower);
+        this.hasAttackingUltimate = true;
     }
 
     public void useSkill() {
@@ -251,7 +252,9 @@ public class SwordMarch extends AbstractCharacter {
 
         @Override
         public void onUseUltimate() {
-            SwordMarch.this.gainCharge(1);
+            if (!master.hasAttackingUltimate) {
+                SwordMarch.this.gainCharge(1);
+            }
         }
     }
 }
