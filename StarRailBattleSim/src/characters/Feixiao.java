@@ -223,6 +223,9 @@ public class Feixiao extends AbstractCharacter {
         if (currentEnergy >= ultCost) {
             useUltimate(); // check for ultimate activation at start of turn as well
         }
+        if (FUAReady) {
+            gainStackEnergy(1);
+        }
         FUAReady = true;
     }
 
