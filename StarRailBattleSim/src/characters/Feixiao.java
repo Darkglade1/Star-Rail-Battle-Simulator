@@ -149,6 +149,12 @@ public class Feixiao extends AbstractCharacter {
             }
         }
 
+        if (Battle.battle.hasCharacter(Bronya.NAME)) {
+            if (!this.hasPower(Bronya.SKILL_POWER_NAME) || !this.hasPower(Bronya.ULT_POWER_NAME)) {
+                return;
+            }
+        }
+
         if (Battle.battle.hasCharacter(RuanMei.NAME)) {
             if (!this.hasPower(RuanMei.ULT_POWER_NAME)) {
                 return;
@@ -207,10 +213,22 @@ public class Feixiao extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 1) {
-            useSkill();
+        if (Battle.battle.hasCharacter(Bronya.NAME)) {
+            if (!this.hasPower(Bronya.SKILL_POWER_NAME)) {
+                useBasicAttack();
+            } else {
+                if (Battle.battle.numSkillPoints > 1) {
+                    useSkill();
+                } else {
+                    useBasicAttack();
+                }
+            }
         } else {
-            useBasicAttack();
+            if (Battle.battle.numSkillPoints > 1) {
+                useSkill();
+            } else {
+                useBasicAttack();
+            }
         }
     }
 
