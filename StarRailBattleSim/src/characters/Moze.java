@@ -206,8 +206,12 @@ public class Moze extends AbstractCharacter {
         @Override
         public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
             boolean trigger = true;
-            if (character instanceof Moze && (types.contains(DamageType.SKILL) || types.contains(DamageType.FOLLOW_UP))) {
-                trigger = false;
+            if (character instanceof Moze) {
+                if (types.contains(DamageType.ULTIMATE)) {
+                    trigger = true;
+                } else if ((types.contains(DamageType.SKILL) || types.contains(DamageType.FOLLOW_UP))) {
+                    trigger = false;
+                }
             }
             if (trigger) {
                 talentProcs++;

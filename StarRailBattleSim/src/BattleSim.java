@@ -74,8 +74,10 @@ public class BattleSim {
         ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
         otherTeams.add(new FeixiaoRobinAventurineTopaz());
         otherTeams.add(new FeixiaoRobinAventurineMarch());
+        otherTeams.add(new FeixiaoRobinAventurineMoze());
         otherTeams.add(new FeixiaoRobinGallagherTopaz());
         otherTeams.add(new FeixiaoRobinGallagherMarch());
+        otherTeams.add(new FeixiaoRobinGallagherMoze());
         otherTeams.add(new FeixiaoRobinTopazFuXuan());
         otherTeams.add(new FeixiaoRobinMarchFuXuan());
         otherTeams.add(new FeixiaoRuanMeiAventurineTopaz());
