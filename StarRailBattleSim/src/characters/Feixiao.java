@@ -5,6 +5,7 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.TempPower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,17 +22,16 @@ public class Feixiao extends AbstractCharacter {
     public int stackCount = 0;
     public final int stackThreshold = 2;
     private boolean FUAReady = true;
-    private static final int REAL_ULT_COST = 6;
 
     public Feixiao() {
-        super("Feixiao", 1048, 602, 388, 125, 80, ElementType.WIND, 12, 75);
+        super("Feixiao", 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75);
         this.currentEnergy = 0;
-        this.ultCost = REAL_ULT_COST;
+        this.ultCost = 6;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 28f;
         tracesPower.bonusCritChance = 12f;
-        tracesPower.bonusFlatSpeed = 5;
+        tracesPower.bonusDefPercent = 12.5f;
         this.addPower(tracesPower);
         this.isDPS = true;
         this.hasAttackingUltimate = true;
@@ -74,6 +74,12 @@ public class Feixiao extends AbstractCharacter {
         types.add(DamageType.SKILL);
         BattleHelpers.PreAttackLogic(this, types);
 
+        TempPower atkBonus = new TempPower();
+        atkBonus.bonusAtkPercent = 48;
+        atkBonus.turnDuration = 3;
+        atkBonus.name = "Fei Atk Bonus";
+        addPower(atkBonus);
+
         AbstractEnemy enemy;
         if (Battle.battle.enemyTeam.size() >= 3) {
             int middleIndex = Battle.battle.enemyTeam.size() / 2;
@@ -81,11 +87,13 @@ public class Feixiao extends AbstractCharacter {
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
         }
-        BattleHelpers.hitEnemy(this, enemy, 2.4f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
-        Battle.battle.AdvanceEntity(this, 10);
+        BattleHelpers.hitEnemy(this, enemy, 2.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
 
         BattleHelpers.PostAttackLogic(this, types);
 
+        ArrayList<AbstractEnemy> enemiesHit = new ArrayList<>();
+        enemiesHit.add(enemy);
+        useFollowUp(enemiesHit);
     }
     public void useBasicAttack() {
         super.useBasicAttack();
@@ -106,22 +114,25 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void useFollowUp(ArrayList<AbstractEnemy> enemiesHit) {
-        if (FUAReady) {
-            int middleIndex = enemiesHit.size() / 2;
-            AbstractEnemy enemy = enemiesHit.get(middleIndex);
-            FUAReady = false;
-            moveHistory.add(MoveType.FOLLOW_UP);
-            numFUAs++;
-            Battle.battle.addToLog(name + " used Follow Up");
+        int middleIndex = enemiesHit.size() / 2;
+        AbstractEnemy enemy = enemiesHit.get(middleIndex);
+        moveHistory.add(MoveType.FOLLOW_UP);
+        numFUAs++;
+        Battle.battle.addToLog(name + " used Follow Up");
 
-            ArrayList<DamageType> types = new ArrayList<>();
-            types.add(DamageType.FOLLOW_UP);
-            BattleHelpers.PreAttackLogic(this, types);
+        TempPower dmgBonus = new TempPower();
+        dmgBonus.bonusDamageBonus = 60;
+        dmgBonus.turnDuration = 2;
+        dmgBonus.name = "Fei Damage Bonus";
+        addPower(dmgBonus);
 
-            BattleHelpers.hitEnemy(this, enemy, 2.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+        ArrayList<DamageType> types = new ArrayList<>();
+        types.add(DamageType.FOLLOW_UP);
+        BattleHelpers.PreAttackLogic(this, types);
 
-            BattleHelpers.PostAttackLogic(this, types);
-        }
+        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+
+        BattleHelpers.PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
@@ -131,10 +142,6 @@ public class Feixiao extends AbstractCharacter {
             enemy = Battle.battle.enemyTeam.get(middleIndex);
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
-        }
-
-        if (!canBreakEnemy(enemy)) {
-            return;
         }
 
         if (Battle.battle.hasCharacter(Robin.NAME)) {
@@ -175,8 +182,7 @@ public class Feixiao extends AbstractCharacter {
 
         addPower(ultBreakEffBuff);
 
-        int numHits = (int) currentEnergy;
-        ultCost = currentEnergy;
+        int numHits = 6;
         super.useUltimate();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.ULTIMATE);
@@ -184,31 +190,12 @@ public class Feixiao extends AbstractCharacter {
         BattleHelpers.PreAttackLogic(this, types);
 
         for (int i = 0; i < numHits; i++) {
-            BattleHelpers.hitEnemy(this, enemy, 1.15f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            BattleHelpers.hitEnemy(this, enemy, 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
         }
-        float finalHitMultiplier = 0.1f;
-        if (enemy.weaknessBroken) {
-            finalHitMultiplier += 0.15;
-        }
-        finalHitMultiplier *= numHits;
-        BattleHelpers.hitEnemy(this, enemy, finalHitMultiplier, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+        BattleHelpers.hitEnemy(this, enemy, 1.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
 
         BattleHelpers.PostAttackLogic(this, types);
-        ultCost = REAL_ULT_COST;
         removePower(ultBreakEffBuff);
-    }
-
-    private boolean canBreakEnemy(AbstractEnemy enemy) {
-        if (enemy.weaknessBroken) {
-            return true;
-        }
-        powerList.add(ultBreakEffBuff);
-        if (enemy.toughness <= currentEnergy * BattleHelpers.calculateToughenssDamage(this, TOUGHNESS_DAMAGE_HALF_UNIT)) {
-            powerList.remove(ultBreakEffBuff);
-            return true;
-        }
-        powerList.remove(ultBreakEffBuff);
-        return false;
     }
 
     public void takeTurn() {
@@ -240,7 +227,7 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void onCombatStart() {
-        gainStackEnergy(4);
+        gainStackEnergy(3);
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             AbstractPower feiPower = new FeiTalentPower();
             character.addPower(feiPower);
@@ -293,7 +280,10 @@ public class Feixiao extends AbstractCharacter {
                 Feixiao.this.increaseStack(1);
             }
             if (!(character instanceof Feixiao)) {
-                Feixiao.this.useFollowUp(enemiesHit);
+                if (FUAReady) {
+                    Feixiao.this.useFollowUp(enemiesHit);
+                    FUAReady = false;
+                }
             }
         }
     }
@@ -308,7 +298,7 @@ public class Feixiao extends AbstractCharacter {
         public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             for (AbstractCharacter.DamageType type : damageTypes) {
                 if (type == AbstractCharacter.DamageType.FOLLOW_UP) {
-                    return 60;
+                    return 36;
                 }
             }
             return 0;

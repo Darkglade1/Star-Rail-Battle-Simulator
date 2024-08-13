@@ -464,7 +464,7 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 17).
+        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 15).addSubStat(RelicStats.Stats.SPEED, 2).
                 addSubStat(RelicStats.Stats.EFFECT_RES, 3);
         relicStats.equipTo(character);
         return character;
@@ -547,7 +547,7 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 16).addSubStat(RelicStats.Stats.SPEED, 1).
+        relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13).addSubStat(RelicStats.Stats.SPEED, 4).
                 addSubStat(RelicStats.Stats.EFFECT_RES, 3);
         relicStats.equipTo(character);
         return character;
@@ -572,7 +572,7 @@ public class PlayerTeam {
         character.EquipRelicSet(new Valorous(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
-        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
         relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 11).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13);
         relicStats.equipTo(character);

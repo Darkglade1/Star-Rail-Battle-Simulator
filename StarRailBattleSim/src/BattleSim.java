@@ -15,9 +15,9 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
+        //debugTeam();
         //generateReportYunli();
-        //generateReportFeixiao();
+        generateReportFeixiao();
     }
     
     public static void debugTeam() {
@@ -39,8 +39,8 @@ public class BattleSim {
 //        battle.setEnemyTeam(enemyTeam);
 
         battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
-        //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
-        //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
@@ -58,8 +58,8 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRobinMarchFuXuan().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
-        //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
-        battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         //enemyTeam.add(new WindWeakEnemy(0, 2));
