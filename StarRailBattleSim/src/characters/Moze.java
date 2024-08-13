@@ -24,13 +24,14 @@ public class Moze extends AbstractCharacter {
     public boolean isDeparted = false;
 
     public Moze() {
-        super("Moze", 811, 547, 353, 114, 80, ElementType.LIGHTNING, 130, 75);
+        super("Moze", 811, 547, 353, 114, 80, ElementType.LIGHTNING, 120, 75);
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 18;
         tracesPower.bonusCritDamage = 37.3f;
         tracesPower.bonusHPPercent = 10;
         this.addPower(tracesPower);
+        this.hasAttackingUltimate = true;
 
         preyPower = new MozePreyPower();
     }
