@@ -226,6 +226,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         float totalEnergyRegenBonus = 0;
         for (AbstractPower power : powerList) {
             totalEnergyRegenBonus += power.bonusEnergyRegen;
+            totalEnergyRegenBonus += power.getConditionalERR(this);
         }
         return totalEnergyRegenBonus;
     }

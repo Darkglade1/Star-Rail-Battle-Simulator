@@ -396,6 +396,56 @@ public class PlayerTeam {
         }
     }
 
+    public static class AstaFeixiaoAventurineTopaz extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltAsta());
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltTopazSpeed());
+            return playerTeam;
+        }
+    }
+
+    public static class AstaFeixiaoAventurineMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltAsta());
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static class AstaFeixiaoGallagherMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltAsta());
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltGallagher());
+            playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter getPrebuiltAsta() {
+        AbstractCharacter character = new Asta();
+        character.EquipLightcone(new Memories(character));
+        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.ATK_PER, 8).addSubStat(RelicStats.Stats.SPEED, 8).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.equipTo(character);
+        return character;
+    }
+
     public static AbstractCharacter getPrebuiltFuXuan() {
         AbstractCharacter character = new FuXuan();
         character.EquipLightcone(new Day1(character));

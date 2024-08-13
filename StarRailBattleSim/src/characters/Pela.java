@@ -92,10 +92,15 @@ public class Pela extends AbstractCharacter {
     }
 
     public void useTechnique() {
+        if (Battle.battle.usedEntryTechnique) {
+            return;
+        } else {
+            Battle.battle.usedEntryTechnique = true;
+        }
         ArrayList<DamageType> types = new ArrayList<>();
         BattleHelpers.PreAttackLogic(this, types);
 
-        BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.8f, BattleHelpers.MultiplierStat.ATK, types, 60);
+        BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.8f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
 
         for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
             TempPower techniqueExposed = new TempPower();

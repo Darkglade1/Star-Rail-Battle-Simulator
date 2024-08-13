@@ -25,6 +25,7 @@ public class Battle {
     public String log = "";
     public float initialBattleLength;
     public AbstractEntity nextUnit;
+    public boolean usedEntryTechnique = false;
 
     public HashMap<AbstractCharacter, Float> damageContributionMap;
     public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
@@ -86,6 +87,7 @@ public class Battle {
         damageContributionMapPercent = new HashMap<>();
         numSkillPoints = INITIAL_SKILL_POINTS;
         actionValueMap = new HashMap<>();
+        usedEntryTechnique = false;
 
         for (AbstractEnemy enemy : enemyTeam) {
             actionValueMap.put(enemy, enemy.getBaseAV());

@@ -231,6 +231,11 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void useTechnique() {
+        if (Battle.battle.usedEntryTechnique) {
+            return;
+        } else {
+            Battle.battle.usedEntryTechnique = true;
+        }
         ArrayList<DamageType> types = new ArrayList<>();
         BattleHelpers.PreAttackLogic(this, types);
 

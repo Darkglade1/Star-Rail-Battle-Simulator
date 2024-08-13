@@ -50,6 +50,10 @@ public abstract class AbstractPower {
         return 0;
     }
 
+    public float getConditionalERR(AbstractCharacter character) {
+        return 0;
+    }
+
     public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
