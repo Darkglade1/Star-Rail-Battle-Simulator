@@ -1,6 +1,7 @@
 package battleLogic;
 
 import characters.AbstractCharacter;
+import characters.Moze;
 import characters.SwordMarch;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -204,6 +205,11 @@ public class BattleHelpers {
     }
 
     public static void attackCharacter(AbstractEnemy source, AbstractCharacter target, int energyToGain) {
+        if (target instanceof Moze) {
+            if (((Moze) target).isDeparted) {
+                return;
+            }
+        }
         Battle.battle.addToLog(source.name + " attacked " + target.name);
         target.onAttacked(source, energyToGain);
         ArrayList<AbstractPower> powersToTrigger = new ArrayList<>(target.powerList);
@@ -212,7 +218,7 @@ public class BattleHelpers {
         }
     }
 
-    public static void robinHitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat) {
+    public static void additionalDamageHitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat) {
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, new ArrayList<>(), source.elementType);
         Battle.battle.totalPlayerDamage += calculatedDamage;
         Battle.battle.updateContribution(source, calculatedDamage);

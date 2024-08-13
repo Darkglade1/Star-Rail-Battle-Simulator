@@ -214,7 +214,7 @@ public class Robin extends AbstractCharacter {
         @Override
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             AbstractEnemy target = enemiesHit.get(Battle.battle.getRandomEnemyRng.nextInt(enemiesHit.size()));
-            BattleHelpers.robinHitEnemy(Robin.this, target, 1.2f, BattleHelpers.MultiplierStat.ATK);
+            BattleHelpers.additionalDamageHitEnemy(Robin.this, target, 1.2f, BattleHelpers.MultiplierStat.ATK);
             concertoProcs++;
         }
 

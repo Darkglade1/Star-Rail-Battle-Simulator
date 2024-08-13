@@ -456,6 +456,32 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoRobinAventurineMoze extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltMoze());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter getPrebuiltMoze() {
+        AbstractCharacter character = new Moze();
+        character.EquipLightcone(new Cruising(character));
+        character.EquipRelicSet(new Duke(character, false));
+        character.EquipRelicSet(new Valorous(character, false));
+        character.EquipRelicSet(new Duran(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 12).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 12);
+        relicStats.equipTo(character);
+        return character;
+    }
+
     public static AbstractCharacter getPrebuiltBronyaFei() {
         AbstractCharacter character = new Bronya();
         character.EquipLightcone(new PastAndFuture(character));

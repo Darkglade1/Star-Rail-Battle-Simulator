@@ -1,8 +1,6 @@
 import battleLogic.Battle;
 import enemies.AbstractEnemy;
-import enemies.FireWindImgWeakEnemy;
-import enemies.PhysWeakEnemy;
-import enemies.WindWeakEnemy;
+import enemies.FireWindImgLightningWeakEnemy;
 import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
@@ -61,10 +59,11 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
         battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         //enemyTeam.add(new WindWeakEnemy(0, 0));
-        enemyTeam.add(new FireWindImgWeakEnemy(0, 0));
+        enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(5050);

@@ -22,7 +22,7 @@ public class EnemyTeam {
         @Override
         public ArrayList<AbstractEnemy> getTeam() {
             ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-            enemyTeam.add(new FireWindImgWeakEnemy(0, 0));
+            enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
             return enemyTeam;
         }
     }

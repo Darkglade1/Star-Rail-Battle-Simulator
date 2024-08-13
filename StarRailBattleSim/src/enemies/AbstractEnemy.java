@@ -4,6 +4,7 @@ import battleLogic.AbstractEntity;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;
+import characters.Moze;
 import characters.RuanMei;
 import powers.AbstractPower;
 import powers.TauntPower;
@@ -137,15 +138,25 @@ public abstract class AbstractEnemy extends AbstractEntity {
                 }
             } else {
                 double totalWeight= 0.0;
+                ArrayList<AbstractCharacter> validTargets = new ArrayList<>();
                 for (AbstractCharacter character : Battle.battle.playerTeam) {
+                    if (character instanceof Moze) {
+                        if (!((Moze) character).isDeparted) {
+                            validTargets.add(character);
+                        }
+                    } else {
+                        validTargets.add(character);
+                    }
+                }
+                for (AbstractCharacter character : validTargets) {
                     totalWeight += character.getFinalTauntValue();
                 }
                 idx = 0;
-                for (double r = Battle.battle.enemyTargetRng.nextDouble() * totalWeight; idx < Battle.battle.playerTeam.size() - 1; ++idx) {
-                    r -= Battle.battle.playerTeam.get(idx).getFinalTauntValue();
+                for (double r = Battle.battle.enemyTargetRng.nextDouble() * totalWeight; idx < validTargets.size() - 1; ++idx) {
+                    r -= validTargets.get(idx).getFinalTauntValue();
                     if (r <= 0.0) break;
                 }
-                target = Battle.battle.playerTeam.get(idx);
+                target = validTargets.get(idx);
             }
 
             if (attackType == EnemyAttackType.SINGLE) {

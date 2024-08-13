@@ -27,7 +27,7 @@ public class Valorous extends AbstractRelicSetBonus {
 
     @Override
     public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
-        if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
+        if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP) && isFullSet) {
             owner.addPower(new ValorousDamagePower());
         }
     }
