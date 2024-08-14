@@ -199,7 +199,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -223,7 +223,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltSparkleFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -259,7 +259,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -295,7 +295,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltPela());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -307,7 +307,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltTopazSpeed());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -319,7 +319,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltMoze());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -343,7 +343,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltHanya());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -379,7 +379,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltGallagher());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -403,7 +403,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltGallagher());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -415,7 +415,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltHanya());
             playerTeam.add(getPrebuiltGallagher());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -438,7 +438,7 @@ public class PlayerTeam {
             ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             playerTeam.add(getPrebuiltFuXuan());
             return playerTeam;
         }
@@ -463,7 +463,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltAsta());
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -475,7 +475,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltAsta());
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltGallagher());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -499,7 +499,7 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltBronyaFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
-            playerTeam.add(getPrebuiltSwordMarch());
+            playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
@@ -744,6 +744,19 @@ public class PlayerTeam {
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
         relicStats.addSubStat(RelicStats.Stats.CRIT_DAMAGE, 4).addSubStat(RelicStats.Stats.SPEED, 13).
                 addSubStat(RelicStats.Stats.EFFECT_RES, 3);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter getPrebuiltSwordMarchFei() {
+        AbstractCharacter character = new SwordMarch();
+        character.EquipLightcone(new Cruising(character));
+        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new RutilentArena(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 10).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11).addSubStat(RelicStats.Stats.SPEED, 3);
         relicStats.equipTo(character);
         return character;
     }
