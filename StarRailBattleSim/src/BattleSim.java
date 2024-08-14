@@ -36,7 +36,7 @@ public class BattleSim {
 //        enemyTeam.add(new PhysWeakEnemy(2, 2));
 //        battle.setEnemyTeam(enemyTeam);
 
-        //battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
         battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());

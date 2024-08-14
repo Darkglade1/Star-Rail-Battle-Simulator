@@ -18,9 +18,11 @@ public class SwordMarch extends AbstractCharacter {
     private int numEBA = 0;
     private int numFUAs = 0;
     private int numUltEnhancedEBA;
+    private int totalNumExtraHits;
     private String numEBAMetricName = "Enhanced Basic Attacks used";
     private String numFUAsMetricName = "Follow up Attacks used";
     private String numUltEnhancedEBAUsed = "Ult Boosted Enhanced Basic Attacks used";
+    private String numExtraHitsMetricName = "Number of extra hits with EBA";
     public int chargeCount = 0;
     public final int chargeThreshold = 7;
     private boolean isEnhanced;
@@ -112,8 +114,11 @@ public class SwordMarch extends AbstractCharacter {
             double roll = Battle.battle.procChanceRng.nextDouble() * 100 + 1;
             if (roll < procChance) {
                 numExtraHits++;
+            } else {
+                break;
             }
         }
+        totalNumExtraHits += numExtraHits;
         Battle.battle.addToLog(String.format("%s rolled %d extra hits", name, numExtraHits));
         for (int i = 0; i < initialHits + numExtraHits; i++) {
             BattleHelpers.hitEnemy(this, enemy, 0.88f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
@@ -224,6 +229,7 @@ public class SwordMarch extends AbstractCharacter {
         map.put(numFUAsMetricName, String.valueOf(numFUAs));
         map.put(numEBAMetricName, String.valueOf(numEBA));
         map.put(numUltEnhancedEBAUsed, String.valueOf(numUltEnhancedEBA));
+        map.put(numExtraHitsMetricName, String.valueOf(totalNumExtraHits));
         return map;
     }
 
@@ -232,6 +238,7 @@ public class SwordMarch extends AbstractCharacter {
         list.add(numFUAsMetricName);
         list.add(numEBAMetricName);
         list.add(numUltEnhancedEBAUsed);
+        list.add(numExtraHitsMetricName);
         return list;
     }
 
