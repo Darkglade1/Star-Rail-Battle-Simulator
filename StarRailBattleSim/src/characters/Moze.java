@@ -152,16 +152,18 @@ public class Moze extends AbstractCharacter {
     }
 
     public void decreaseCharge(int amount) {
-        int initalStack = chargeCount;
-        chargeCount -= amount;
-        chargeLost += amount;
-        if (chargeCount < 0) {
-            chargeCount = 0;
-        }
-        Battle.battle.addToLog(String.format("Moze decremented %d Charge (%d -> %d)", amount, initalStack, chargeCount));
-        if (chargeLost >= CHARGE_ATTACK_THRESHOLD) {
-            chargeLost -= CHARGE_ATTACK_THRESHOLD;
-            useFollowUp();
+        if (chargeCount >= 1) {
+            int initalStack = chargeCount;
+            chargeCount -= amount;
+            chargeLost += amount;
+            if (chargeCount < 0) {
+                chargeCount = 0;
+            }
+            Battle.battle.addToLog(String.format("Moze decremented %d Charge (%d -> %d)", amount, initalStack, chargeCount));
+            if (chargeLost >= CHARGE_ATTACK_THRESHOLD) {
+                chargeLost -= CHARGE_ATTACK_THRESHOLD;
+                useFollowUp();
+            }
         }
     }
 

@@ -82,10 +82,12 @@ public class BattleSim {
         otherTeams.add(new FeixiaoRobinMarchFuXuan());
         otherTeams.add(new FeixiaoRuanMeiAventurineTopaz());
         otherTeams.add(new FeixiaoRuanMeiAventurineMarch());
+        //otherTeams.add(new FeixiaoRuanMeiAventurineMoze());
         otherTeams.add(new FeixiaoRuanMeiGallagherTopaz());
         otherTeams.add(new FeixiaoRuanMeiGallagherMarch());
         otherTeams.add(new FeixiaoSparkleAventurineTopaz());
         otherTeams.add(new FeixiaoSparkleAventurineMarch());
+        //otherTeams.add(new FeixiaoSparkleAventurineMoze());
         otherTeams.add(new FeixiaoBronyaAventurineTopaz());
         otherTeams.add(new FeixiaoBronyaAventurineMarch());
         otherTeams.add(new FeixiaoHanyaAventurineTopaz());
