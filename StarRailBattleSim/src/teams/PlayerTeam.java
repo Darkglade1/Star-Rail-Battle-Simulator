@@ -228,6 +228,18 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoSparkleAventurineMoze extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltSparkleFei());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltMoze());
+            return playerTeam;
+        }
+    }
+
     public static class FeixiaoRuanMeiAventurineTopaz extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
@@ -248,6 +260,18 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltAventurineSpeed());
             playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRuanMeiAventurineMoze extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRuanMeiCritSupport());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltMoze());
             return playerTeam;
         }
     }
@@ -288,6 +312,18 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoMozeAventurineMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltMoze());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
     public static class FeixiaoHanyaAventurineTopaz extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
@@ -308,6 +344,18 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltHanya());
             playerTeam.add(getPrebuiltAventurineSpeed());
             playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoHanyaGallagherMoze extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltHanya());
+            playerTeam.add(getPrebuiltGallagher());
+            playerTeam.add(getPrebuiltMoze());
             return playerTeam;
         }
     }
@@ -452,6 +500,18 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltBronyaFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
             playerTeam.add(getPrebuiltSwordMarch());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoBronyaAventurineMoze extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltBronyaFei());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltMoze());
             return playerTeam;
         }
     }
