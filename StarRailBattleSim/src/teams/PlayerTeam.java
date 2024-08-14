@@ -516,6 +516,18 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoRobinAventurineBronya extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltBronyaFei());
+            return playerTeam;
+        }
+    }
+
     public static class FeixiaoRobinAventurineMoze extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {

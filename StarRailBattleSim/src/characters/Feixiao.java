@@ -144,40 +144,52 @@ public class Feixiao extends AbstractCharacter {
             enemy = Battle.battle.enemyTeam.get(0);
         }
 
+        boolean shouldUlt = true;
+
         if (Battle.battle.hasCharacter(Robin.NAME)) {
             if (!this.hasPower(Robin.ULT_POWER_NAME)) {
-                return;
+                shouldUlt = false;
             }
         }
 
         if (Battle.battle.hasCharacter(Sparkle.NAME)) {
             if (!this.hasPower(Sparkle.SKILL_POWER_NAME) || !this.hasPower(Sparkle.ULT_POWER_NAME)) {
-                return;
+                shouldUlt = false;
             }
         }
 
         if (Battle.battle.hasCharacter(Bronya.NAME)) {
             if (!this.hasPower(Bronya.SKILL_POWER_NAME) || !this.hasPower(Bronya.ULT_POWER_NAME)) {
-                return;
+                shouldUlt = false;
             }
         }
 
         if (Battle.battle.hasCharacter(RuanMei.NAME)) {
             if (!this.hasPower(RuanMei.ULT_POWER_NAME)) {
-                return;
+                shouldUlt = false;
             }
         }
 
         if (Battle.battle.hasCharacter(Pela.NAME)) {
             if (!enemy.hasPower(Pela.ULT_DEBUFF_NAME)) {
-                return;
+                shouldUlt = false;
             }
         }
 
         if (Battle.battle.hasCharacter(Hanya.NAME)) {
             if (!this.hasPower(Hanya.ULT_BUFF_NAME)) {
-                return;
+                shouldUlt = false;
             }
+        }
+
+        if (Battle.battle.hasCharacter(Bronya.NAME) && Battle.battle.hasCharacter(Robin.NAME)) {
+            if (this.hasPower(Bronya.SKILL_POWER_NAME) && this.hasPower(Bronya.ULT_POWER_NAME)) {
+                shouldUlt = true;
+            }
+        }
+
+        if (!shouldUlt) {
+            return;
         }
 
         addPower(ultBreakEffBuff);
@@ -202,7 +214,11 @@ public class Feixiao extends AbstractCharacter {
         super.takeTurn();
         if (Battle.battle.hasCharacter(Bronya.NAME)) {
             if (!this.hasPower(Bronya.SKILL_POWER_NAME)) {
-                useBasicAttack();
+                if (Battle.battle.numSkillPoints >= 4) {
+                    useSkill();
+                } else {
+                    useBasicAttack();
+                }
             } else {
                 if (Battle.battle.numSkillPoints > 1) {
                     useSkill();
