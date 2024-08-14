@@ -284,8 +284,8 @@ public class Feixiao extends AbstractCharacter {
             }
             if (!(character instanceof Feixiao)) {
                 if (FUAReady) {
-                    Feixiao.this.useFollowUp(enemiesHit);
                     FUAReady = false;
+                    Feixiao.this.useFollowUp(enemiesHit);
                 }
             }
         }

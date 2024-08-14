@@ -58,7 +58,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();

@@ -116,6 +116,10 @@ public class Moze extends AbstractCharacter {
 
         BattleHelpers.hitEnemy(this, enemy, 2.01f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
+        if (chargeCount == 0) {
+            preyPower.owner.removePower(preyPower);
+        }
+
         BattleHelpers.PostAttackLogic(this, types);
 
         if (!skillPointRecovered) {
@@ -156,11 +160,8 @@ public class Moze extends AbstractCharacter {
         }
         Battle.battle.addToLog(String.format("Moze decremented %d Charge (%d -> %d)", amount, initalStack, chargeCount));
         if (chargeLost >= CHARGE_ATTACK_THRESHOLD) {
-            chargeLost = 0;
+            chargeLost -= CHARGE_ATTACK_THRESHOLD;
             useFollowUp();
-        }
-        if (chargeCount == 0) {
-            preyPower.owner.removePower(preyPower);
         }
     }
 
