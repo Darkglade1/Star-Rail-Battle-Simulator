@@ -13,9 +13,9 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
+        //debugTeam();
         //generateReportYunli();
-        //generateReportFeixiao();
+        generateReportFeixiao();
     }
 
     public static void debugTeam() {
@@ -103,7 +103,7 @@ public class BattleSim {
         otherTeams.add(new FeixiaoMozeAventurineMarch());
 
         ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
-        enemyTeams.add(new FireWindImgWeakTarget1());
+        enemyTeams.add(new FireWindImgLightningWeakTarget1());
         enemyTeams.add(new WindWeakTarget1());
 
         String notes = "E0S0 other 5 stars. E6 4 stars. Maxed out traces and levels. Enemies are level 95. Relics are +15 with relatively relatable rolls. Simulations run for 50 cycles to reduce the impact of RNG and leftover AV/Energy at the end of combat. \n Feixiao will wait until she can break the enemy or the enemy is broken and the team's buffs or debuffs are present before using Ultimate. This results in wasting some stacks but waiting to maximize each ultimate's damage is more damage in the long term.";
