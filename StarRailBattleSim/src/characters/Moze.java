@@ -114,7 +114,14 @@ public class Moze extends AbstractCharacter {
         types.add(DamageType.FOLLOW_UP);
         BattleHelpers.PreAttackLogic(this, types);
 
-        BattleHelpers.hitEnemy(this, enemy, 2.01f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        float totalMult = 2.01f;
+        float initialHitsMult = totalMult * 0.08f;
+        float finalHitMult = totalMult * 0.6f;
+
+        for (int i = 0; i < 5; i++) {
+            BattleHelpers.hitEnemy(this, enemy, initialHitsMult, BattleHelpers.MultiplierStat.ATK, types, 0);
+        }
+        BattleHelpers.hitEnemy(this, enemy, finalHitMult, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
         if (chargeCount == 0) {
             preyPower.owner.removePower(preyPower);

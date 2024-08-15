@@ -554,14 +554,13 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltMoze() {
         AbstractCharacter character = new Moze();
-        character.EquipLightcone(new Cruising(character));
-        character.EquipRelicSet(new Duke(character, false));
-        character.EquipRelicSet(new Valorous(character, false));
+        character.EquipLightcone(new Swordplay(character));
+        character.EquipRelicSet(new Duke(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 12).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 12);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 17).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 7);
         relicStats.equipTo(character);
         return character;
     }

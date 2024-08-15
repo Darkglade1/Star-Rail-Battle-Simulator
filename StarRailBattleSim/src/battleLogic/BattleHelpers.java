@@ -155,7 +155,7 @@ public class BattleHelpers {
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, types, damageElement);
 
         toughnessDamage = calculateToughenssDamage(source, toughnessDamage);
-        if (target.weaknessMap.contains(damageElement)) {
+        if (target.weaknessMap.contains(damageElement) && toughnessDamage > 0) {
             target.reduceToughness(toughnessDamage);
         } else {
             if (source instanceof SwordMarch) {
