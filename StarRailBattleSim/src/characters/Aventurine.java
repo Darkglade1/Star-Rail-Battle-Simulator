@@ -27,6 +27,9 @@ public class Aventurine extends AbstractCharacter {
 
     public Aventurine(boolean SPNeutral) {
         super("Aventurine", 1203, 446, 655, 106, 80, ElementType.IMAGINARY, 110, 150);
+
+        this.path = Path.PRESERVATION;
+
         this.SPNeutral = SPNeutral;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";

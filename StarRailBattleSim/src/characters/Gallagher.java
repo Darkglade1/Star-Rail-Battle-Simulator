@@ -14,6 +14,9 @@ public class Gallagher extends AbstractCharacter {
 
     public Gallagher() {
         super("Gallagher", 1305, 529, 441, 98, 80, ElementType.FIRE, 110, 100);
+
+        this.path = Path.ABUNDANCE;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 18;

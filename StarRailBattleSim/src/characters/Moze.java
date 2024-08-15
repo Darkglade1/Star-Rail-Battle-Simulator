@@ -25,6 +25,9 @@ public class Moze extends AbstractCharacter {
 
     public Moze() {
         super("Moze", 811, 547, 353, 114, 80, ElementType.LIGHTNING, 120, 75);
+
+        this.path = Path.HUNT;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 18;

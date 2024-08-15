@@ -20,6 +20,9 @@ public class RuanMei extends AbstractCharacter {
 
     public RuanMei() {
         super(NAME, 1087, 660, 485, 104, 80, ElementType.ICE, 130, 100);
+
+        this.path = Path.HARMONY;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusBreakEffect = 37.3f;

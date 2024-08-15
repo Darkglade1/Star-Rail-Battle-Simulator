@@ -31,6 +31,9 @@ public class SwordMarch extends AbstractCharacter {
 
     public SwordMarch() {
         super("Sword March", 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75);
+
+        this.path = Path.HUNT;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 28f;

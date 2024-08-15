@@ -25,6 +25,9 @@ public class Feixiao extends AbstractCharacter {
 
     public Feixiao() {
         super("Feixiao", 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75);
+
+        this.path = Path.HUNT;
+
         this.usesEnergy = false;
         this.currentEnergy = 0;
         this.ultCost = 6;

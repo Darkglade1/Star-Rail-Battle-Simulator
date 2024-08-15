@@ -20,6 +20,8 @@ public class Tingyun extends AbstractCharacter {
     public Tingyun() {
         super("Tingyun", 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100);
 
+        this.path = Path.HARMONY;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 28;

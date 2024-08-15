@@ -20,6 +20,8 @@ public class Asta extends AbstractCharacter {
     public Asta() {
         super(NAME, 1023, 512, 463, 106, 80, ElementType.FIRE, 120, 100);
 
+        this.path = Path.HARMONY;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusSameElementDamageBonus = 22.4f;

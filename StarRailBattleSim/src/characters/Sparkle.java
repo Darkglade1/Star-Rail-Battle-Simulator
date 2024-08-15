@@ -16,6 +16,9 @@ public class Sparkle extends AbstractCharacter {
 
     public Sparkle() {
         super(NAME, 1397, 524, 485, 101, 80, ElementType.QUANTUM, 110, 100);
+
+        this.path = Path.HARMONY;
+
         this.basicEnergyGain = 30;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";

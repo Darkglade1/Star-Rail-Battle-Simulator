@@ -26,6 +26,9 @@ public class Robin extends AbstractCharacter {
 
     public Robin() {
         super(NAME, 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100);
+
+        this.path = Path.HARMONY;
+
         this.skillEnergyGain = 35;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";

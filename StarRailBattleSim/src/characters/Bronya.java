@@ -17,6 +17,9 @@ public class Bronya extends AbstractCharacter {
 
     public Bronya() {
         super(NAME, 1242, 582, 534, 99, 80, ElementType.WIND, 120, 100);
+
+        this.path = Path.HARMONY;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusCritDamage = 24;

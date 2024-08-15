@@ -19,6 +19,8 @@ public class Huohuo extends AbstractCharacter {
     public Huohuo() {
         super("Huohuo", 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100);
 
+        this.path = Path.ABUNDANCE;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 28;

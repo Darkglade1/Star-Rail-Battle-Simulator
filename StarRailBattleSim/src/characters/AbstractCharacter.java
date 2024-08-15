@@ -24,7 +24,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         SKILL, BASIC, ENHANCED_BASIC, ULTIMATE, FOLLOW_UP
     }
 
-    public Path path = Path.UNKNOWN;
+    protected Path path = Path.UNKNOWN;
 
     protected int baseHP;
     protected int baseAtk;

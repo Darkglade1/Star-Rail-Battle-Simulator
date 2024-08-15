@@ -15,6 +15,9 @@ public class FuXuan extends AbstractCharacter {
 
     public FuXuan() {
         super("Fu Xuan", 1475, 466, 606, 100, 80, ElementType.QUANTUM, 135, 150);
+
+        this.path = Path.PRESERVATION;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 18;

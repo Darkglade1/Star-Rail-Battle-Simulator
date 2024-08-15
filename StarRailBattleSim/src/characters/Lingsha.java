@@ -27,6 +27,9 @@ public class Lingsha extends AbstractCharacter {
 
     public Lingsha() {
         super("Lingsha", 1358, 679, 437, 98, 80, ElementType.FIRE, 110, 100);
+
+        this.path = Path.ABUNDANCE;
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 18;
