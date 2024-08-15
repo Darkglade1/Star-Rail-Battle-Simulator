@@ -30,17 +30,21 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public int level;
     public float baseCritChance = 5.0f;
     public float baseCritDamage = 50.0f;
+
+    public boolean usesEnergy = true;
     public float maxEnergy;
     public float currentEnergy;
     public float ultCost;
+    protected int basicEnergyGain = 20;
+    protected int skillEnergyGain = 30;
+    protected int ultEnergyGain = 5;
+
     public int tauntValue;
     public ElementType elementType;
     public AbstractLightcone lightcone;
     public ArrayList<AbstractRelicSetBonus> relicSetBonus;
     public boolean useTechnique = true;
-    protected int basicEnergyGain = 20;
-    protected int skillEnergyGain = 30;
-    protected int ultEnergyGain = 5;
+
     public boolean isDPS = false;
 
     public int numTurnsMetric;
@@ -265,6 +269,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void increaseEnergy(float amount, boolean ERRAffected) {
+        if (!this.usesEnergy) return;
         float initialEnergy = currentEnergy;
         float totalEnergyRegenBonus = getTotalERR();
         float energyGained = amount;

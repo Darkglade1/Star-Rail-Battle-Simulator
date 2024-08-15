@@ -25,6 +25,7 @@ public class Feixiao extends AbstractCharacter {
 
     public Feixiao() {
         super("Feixiao", 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75);
+        this.usesEnergy = false;
         this.currentEnergy = 0;
         this.ultCost = 6;
         PermPower tracesPower = new PermPower();
@@ -41,10 +42,6 @@ public class Feixiao extends AbstractCharacter {
         ultBreakEffBuff.name = "Fei Ult Break Eff Buff";
     }
 
-    // override normal energy gain to do nothing
-    public void increaseEnergy(float amount, boolean ERRAffected) {
-
-    }
 
     public void increaseStack(int amount) {
         int initialStack = stackCount;
