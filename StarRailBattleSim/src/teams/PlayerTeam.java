@@ -1,7 +1,18 @@
 package teams;
 
 import characters.*;
-import lightcones.*;
+import lightcones.abundance.Multiplication;
+import lightcones.abundance.PostOpConversation;
+import lightcones.abundance.WhatIsReal;
+import lightcones.destruction.DanceAtSunset;
+import lightcones.harmony.ForTomorrowsJourney;
+import lightcones.harmony.MemoriesOfThePast;
+import lightcones.harmony.PastAndFuture;
+import lightcones.hunt.CruisingInTheStellarSea;
+import lightcones.hunt.Swordplay;
+import lightcones.nihility.ResolutionShinesAsPearlsOfSweat;
+import lightcones.preservation.ConcertForTwo;
+import lightcones.preservation.DayOneOfMyNewLife;
 import relics.*;
 
 import java.util.ArrayList;
@@ -666,7 +677,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltAsta() {
         AbstractCharacter character = new Asta();
-        character.EquipLightcone(new Memories(character));
+        character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
@@ -680,7 +691,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltFuXuan() {
         AbstractCharacter character = new FuXuan();
-        character.EquipLightcone(new Day1(character));
+        character.EquipLightcone(new DayOneOfMyNewLife(character));
         character.EquipRelicSet(new Knight(character, false));
         character.EquipRelicSet(new Longevous(character, false));
         RelicStats relicStats = new RelicStats();
@@ -707,7 +718,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltHanya() {
         AbstractCharacter character = new Hanya();
-        character.EquipLightcone(new Memories(character));
+        character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
@@ -721,7 +732,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltRuanMeiCritSupport() {
         AbstractCharacter character = new RuanMei();
-        character.EquipLightcone(new Memories(character));
+        character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new Thief(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
@@ -818,7 +829,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltPela() {
         AbstractCharacter character = new Pela();
-        character.EquipLightcone(new Resolution(character));
+        character.EquipLightcone(new ResolutionShinesAsPearlsOfSweat(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
@@ -846,7 +857,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltSwordMarchFei() {
         AbstractCharacter character = new SwordMarch();
-        character.EquipLightcone(new Cruising(character));
+        character.EquipLightcone(new CruisingInTheStellarSea(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new RutilentArena(character));
         RelicStats relicStats = new RelicStats();
@@ -859,7 +870,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltSwordMarch() {
         AbstractCharacter character = new SwordMarch();
-        character.EquipLightcone(new Cruising(character));
+        character.EquipLightcone(new CruisingInTheStellarSea(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new RutilentArena(character));
         RelicStats relicStats = new RelicStats();
@@ -883,7 +894,7 @@ public class PlayerTeam {
     }
     public static AbstractCharacter getPrebuiltTingyun() {
         AbstractCharacter character = new Tingyun();
-        character.EquipLightcone(new Memories(character));
+        character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new Musketeer(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
@@ -897,7 +908,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltRobin() {
         AbstractCharacter character = new Robin();
-        character.EquipLightcone(new TomorrowJourney(character));
+        character.EquipLightcone(new ForTomorrowsJourney(character));
         character.EquipRelicSet(new Musketeer(character, false));
         character.EquipRelicSet(new Valorous(character, false));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -912,7 +923,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltHuohuo() {
         AbstractCharacter character = new Huohuo();
-        character.EquipLightcone(new PostOp(character));
+        character.EquipLightcone(new PostOpConversation(character));
         character.EquipRelicSet(new Passerby(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();

@@ -3,7 +3,7 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
-import lightcones.DanceAtSunset;
+import lightcones.destruction.DanceAtSunset;
 import powers.AbstractPower;
 import powers.PermPower;
 import powers.TauntPower;

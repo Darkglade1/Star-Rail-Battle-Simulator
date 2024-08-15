@@ -1,8 +1,9 @@
-package lightcones;
+package lightcones.abundance;
 
 import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
+import lightcones.AbstractLightcone;
 
 import java.util.ArrayList;
 
