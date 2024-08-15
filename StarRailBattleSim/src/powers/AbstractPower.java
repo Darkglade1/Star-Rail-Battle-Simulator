@@ -121,6 +121,59 @@ public abstract class AbstractPower {
 
     }
 
+    public float getStat(PowerStat stat) {
+        switch (stat) {
+            case FLAT_HP:
+                return this.bonusFlatHP;
+            case HP_PERCENT:
+                return this.bonusHPPercent;
+            case FLAT_ATK:
+                return this.bonusFlatAtk;
+            case ATK_PERCENT:
+                return this.bonusAtkPercent;
+            case FLAT_DEF:
+                return this.bonusFlatDef;
+            case DEF_PERCENT:
+                return this.bonusDefPercent;
+            case FLAT_SPEED:
+                return this.bonusFlatSpeed;
+            case SPEED_PERCENT:
+                return this.bonusSpeedPercent;
+            case SAME_ELEMENT_DAMAGE_BONUS:
+                return this.bonusSameElementDamageBonus;
+            case EFFECT_HIT:
+                return this.bonusEffectHit;
+            case EFFECT_RES:
+                return this.bonusEffectRes;
+            case BREAK_EFFECT:
+                return this.bonusBreakEffect;
+            case HEALING:
+                return this.bonusHealing;
+            case DAMAGE_BONUS:
+                return this.bonusDamageBonus;
+            case DAMAGE_TAKEN:
+                return this.bonusDamageTaken;
+            case DEFENSE_REDUCTION:
+                return this.defenseReduction;
+            case DEFENSE_IGNORE:
+                return this.defenseIgnore;
+            case RES_PEN:
+                return this.resPen;
+            case CRIT_CHANCE:
+                return this.bonusCritChance;
+            case CRIT_DAMAGE:
+                return this.bonusCritDamage;
+            case ENERGY_REGEN:
+                return this.bonusEnergyRegen;
+            case TAUNT_VALUE:
+                return this.bonusTauntValue;
+            case WEAKNESS_BREAK_EFF:
+                return this.bonusWeaknessBreakEff;
+            default:
+                throw new IllegalArgumentException("Unknown stat: " + stat);
+        }
+    }
+
     public void setStat(PowerStat stat, float value) {
         switch (stat) {
             case FLAT_HP:
