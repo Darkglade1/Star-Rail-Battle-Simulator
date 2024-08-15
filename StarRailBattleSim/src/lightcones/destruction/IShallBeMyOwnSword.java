@@ -28,6 +28,11 @@ public class IShallBeMyOwnSword extends AbstractLightcone {
         Battle.battle.playerTeam.forEach(c -> c.addPower(new IShallBeMyOwnSwordEffect(this)));
     }
 
+    @Override
+    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+        eclipse = 0;
+    }
+
     public class IShallBeMyOwnSwordEffect extends PermPower {
 
         private IShallBeMyOwnSword lightcone;
@@ -35,11 +40,6 @@ public class IShallBeMyOwnSword extends AbstractLightcone {
         public IShallBeMyOwnSwordEffect(IShallBeMyOwnSword lightcone) {
             this.name = this.getClass().getSimpleName();
             this.lightcone = lightcone;
-        }
-
-        @Override
-        public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
-            eclipse = 0;
         }
 
         @Override
