@@ -24,6 +24,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         SKILL, BASIC, ENHANCED_BASIC, ULTIMATE, FOLLOW_UP
     }
 
+    public Path path = Path.UNKNOWN;
+
     protected int baseHP;
     protected int baseAtk;
     protected int baseDef;
@@ -126,6 +128,10 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
         increaseEnergy(energyFromAttacked);
         lightcone.onAttacked(enemy);
+    }
+
+    public Path getPath() {
+        return path;
     }
 
     public float getFinalAttack() {
