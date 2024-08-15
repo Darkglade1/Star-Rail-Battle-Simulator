@@ -149,6 +149,7 @@ public class Lingsha extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         if (currentEmergencyHealCD > 0) {
             currentEmergencyHealCD--;
         }

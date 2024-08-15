@@ -131,6 +131,7 @@ public class Robin extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         if (skillCounter > 0) {
             skillCounter--;
             if (skillCounter <= 0) {

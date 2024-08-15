@@ -145,6 +145,7 @@ public class Moze extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         skillPointRecovered = false;
     }
 

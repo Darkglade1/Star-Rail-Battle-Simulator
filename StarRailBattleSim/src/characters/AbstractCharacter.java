@@ -335,6 +335,11 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     @Override
+    public void onTurnStart() {
+        lightcone.onTurnStart();
+    }
+
+    @Override
     public void takeTurn() {
         numTurnsMetric++;
         speedPriority = 999; //reset speed priority if it was changed

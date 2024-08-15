@@ -67,6 +67,7 @@ public class RuanMei extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         increaseEnergy(5);
         if (skillCounter > 0) {
             skillCounter--;
