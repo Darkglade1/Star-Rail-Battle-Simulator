@@ -63,6 +63,9 @@ public class BattleHelpers {
 
         float critChance = source.getTotalCritChance();
         for (AbstractPower power : source.powerList) {
+            critChance += power.getConditionalCritRate(source, target, types);
+        }
+        for (AbstractPower power : source.powerList) {
             critChance = power.setFixedCritRate(source, target, types, critChance);
         }
         double roll = Battle.battle.critChanceRng.nextDouble() * 100 + 1;
