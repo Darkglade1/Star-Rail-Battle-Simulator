@@ -26,6 +26,7 @@ public class Battle {
     public float initialBattleLength;
     public AbstractEntity nextUnit;
     public boolean usedEntryTechnique = false;
+    public boolean isInCombat = false;
 
     public HashMap<AbstractCharacter, Float> damageContributionMap;
     public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
@@ -96,6 +97,7 @@ public class Battle {
             character.generateStatsString();
             character.generateStatsReport();
         }
+        isInCombat = true;
         for (AbstractCharacter character : playerTeam) {
             actionValueMap.put(character, character.getBaseAV());
             character.lightcone.onCombatStart();
@@ -189,7 +191,7 @@ public class Battle {
                 }
             }
 
-            if (nextUnit instanceof Numby) {
+            if (nextUnit instanceof AbstractSummon) {
                 actionValueMap.put(nextUnit, nextUnit.getBaseAV());
             }
         }

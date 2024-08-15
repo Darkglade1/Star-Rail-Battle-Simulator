@@ -551,6 +551,92 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoRobinLingshaTopaz extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltLingshaCritSupport());
+            playerTeam.add(getPrebuiltTopazSpeed());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRobinLingshaMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltLingshaCritSupport());
+            playerTeam.add(getPrebuiltSwordMarchFei());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRobinLingshaMoze extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltLingshaCritSupport());
+            playerTeam.add(getPrebuiltMoze());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRuanMeiLingshaTopaz extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRuanMeiCritSupport());
+            playerTeam.add(getPrebuiltLingshaCritSupport());
+            playerTeam.add(getPrebuiltTopazSpeed());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRuanMeiLingshaMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRuanMeiCritSupport());
+            playerTeam.add(getPrebuiltLingshaCritSupport());
+            playerTeam.add(getPrebuiltSwordMarchFei());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoRuanMeiLingshaMoze extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltRuanMeiCritSupport());
+            playerTeam.add(getPrebuiltLingshaCritSupport());
+            playerTeam.add(getPrebuiltMoze());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter getPrebuiltLingshaCritSupport() {
+        AbstractCharacter character = new Lingsha();
+        character.EquipLightcone(new WhatIsReal(character));
+        character.EquipRelicSet(new Thief(character));
+        character.EquipRelicSet(new BrokenKeel(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ERR);
+        relicStats.addSubStat(RelicStats.Stats.BREAK_EFFECT, 12).addSubStat(RelicStats.Stats.SPEED, 6).
+                addSubStat(RelicStats.Stats.EFFECT_RES, 6);
+        relicStats.equipTo(character);
+        return character;
+    }
+
     public static AbstractCharacter getPrebuiltMoze() {
         AbstractCharacter character = new Moze();
         character.EquipLightcone(new Swordplay(character));

@@ -4,7 +4,7 @@ import characters.Topaz;
 
 import java.util.ArrayList;
 
-public class Numby extends AbstractEntity {
+public class Numby extends AbstractSummon {
     Topaz owner;
 
     public Numby(Topaz owner) {
