@@ -16,7 +16,7 @@ public class TrendOfTheUniversalMarket extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 32));
+        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 32, "Trend Of The Universal Market Defense Boost"));
     }
 
     @Override

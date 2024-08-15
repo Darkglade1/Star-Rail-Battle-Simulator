@@ -20,8 +20,8 @@ public class InherentlyUnjustDestiny extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 40));
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 40));
+        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 40, "Inherently Unjust Destiny Defense Boost"));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 40, "Inherently Unjust Destiny Crit Damage Boost"));
     }
 
     @Override

@@ -13,7 +13,7 @@ public class ReturnToDarkness extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 24));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 24, "Return to Darkness Crit Chance Boost"));
     }
 }
 

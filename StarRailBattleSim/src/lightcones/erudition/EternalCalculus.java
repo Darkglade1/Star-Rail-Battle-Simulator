@@ -18,7 +18,7 @@ public class EternalCalculus extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 12));
+        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 12, "Eternal Calculus Attack Boost"));
         this.owner.addPower(new EternalCalculusPower());
     }
 
@@ -38,7 +38,7 @@ public class EternalCalculus extends AbstractLightcone {
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             this.stacks = Math.min(5, enemiesHit.size());
             if (this.stacks > 3) {
-                this.owner.addPower(TempPower.create(PowerStat.SPEED_PERCENT, 16, 1));
+                this.owner.addPower(TempPower.create(PowerStat.SPEED_PERCENT, 16, 1, "Eternal Calculus Speed Boost"));
             }
         }
 

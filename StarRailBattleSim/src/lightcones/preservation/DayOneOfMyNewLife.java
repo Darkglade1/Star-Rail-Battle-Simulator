@@ -13,7 +13,7 @@ public class DayOneOfMyNewLife extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 24));
+        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 24, "Day One Of My New Life Defense Boost"));
     }
 
     @Override

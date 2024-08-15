@@ -17,7 +17,7 @@ public class OnlySilenceRemains extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 32));
+        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 32, "Only Silence Remains Attack Boost"));
         this.owner.addPower(new OnlySilenceRemainsPower());
     }
 

@@ -14,11 +14,11 @@ public class AfterTheCharmonyFall extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 56));
+        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 56, "After the Charmony Fall Break Effect Boost"));
     }
 
     @Override
     public void onUseUltimate() {
-        this.owner.addPower(TempPower.create(PowerStat.SPEED_PERCENT, 16, 2));
+        this.owner.addPower(TempPower.create(PowerStat.SPEED_PERCENT, 16, 2, "After the Charmony Fall Speed Boost"));
     }
 }

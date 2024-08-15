@@ -17,7 +17,7 @@ public class BeforeDawn extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 36));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 36, "Before Dawn Crit Damage Boost"));
         this.owner.addPower(new BeforeDawnPower());
     }
 

@@ -16,7 +16,7 @@ public class ConcertForTwo extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 32));
+        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 32, "Concert For Two Defense Boost"));
     }
 
     @Override

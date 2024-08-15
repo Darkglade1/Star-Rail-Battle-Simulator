@@ -17,7 +17,7 @@ public class AnInstantBeforeAGaze extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 36));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 36, "An Instant Before A Gaze Crit Damage Boost"));
         this.owner.addPower(new AnInstantBeforeAGazePower());
     }
 

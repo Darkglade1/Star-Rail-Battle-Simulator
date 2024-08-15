@@ -15,8 +15,8 @@ public class MomentOfVictory extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 24));
-        this.owner.addPower(PermPower.create(PowerStat.EFFECT_HIT, 24));
+        this.owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 24, "Moment Of Victory Defense Boost"));
+        this.owner.addPower(PermPower.create(PowerStat.EFFECT_HIT, 24, "Moment Of Victory Effect Hit Boost"));
     }
 
     @Override

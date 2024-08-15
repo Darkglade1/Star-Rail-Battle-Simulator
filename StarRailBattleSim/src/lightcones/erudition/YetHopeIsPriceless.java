@@ -18,7 +18,7 @@ public class YetHopeIsPriceless extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 16));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 16, "Yet Hope Is Priceless Crit Chance Boost"));
         this.owner.addPower(new YetHopeIsPricelessPower());
     }
 
@@ -26,7 +26,7 @@ public class YetHopeIsPriceless extends AbstractLightcone {
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.BASIC)) return;
 
-        this.owner.addPower(TempPower.create(PowerStat.DEFENSE_IGNORE, 20, 2));
+        this.owner.addPower(TempPower.create(PowerStat.DEFENSE_IGNORE, 20, 2, "Yet Hope Is Priceless Defense Ignore Debuff"));
     }
 
     public static class YetHopeIsPricelessPower extends AbstractPower {

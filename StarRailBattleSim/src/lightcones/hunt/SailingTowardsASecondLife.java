@@ -16,14 +16,14 @@ public class SailingTowardsASecondLife extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 60));
+        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 60, "Sailing Towards A Second Life Break Effect Boost"));
         this.owner.addPower(new SailingTowardsASecondLifePower());
     }
 
     @Override
     public void onCombatStart() {
         if (this.owner.getTotalBreakEffect() > 150) {
-            this.owner.addPower(PermPower.create(PowerStat.SPEED_PERCENT, 12));
+            this.owner.addPower(PermPower.create(PowerStat.SPEED_PERCENT, 12, "Sailing Towards A Second Life Speed Boost"));
         }
     }
 

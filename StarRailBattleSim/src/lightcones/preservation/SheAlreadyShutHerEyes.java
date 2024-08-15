@@ -17,8 +17,8 @@ public class SheAlreadyShutHerEyes extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.HP_PERCENT, 24));
-        this.owner.addPower(PermPower.create(PowerStat.ENERGY_REGEN, 12));
+        this.owner.addPower(PermPower.create(PowerStat.HP_PERCENT, 24, "She Already Shut Her Eyes HP Boost"));
+        this.owner.addPower(PermPower.create(PowerStat.ENERGY_REGEN, 12, "She Already Shut Her Eyes Energy Regen Boost"));
     }
 
     @Override
@@ -27,7 +27,7 @@ public class SheAlreadyShutHerEyes extends AbstractLightcone {
         // if (...) return;
 
         for (AbstractCharacter character : Battle.battle.playerTeam) {
-            character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 9, 2));
+            character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 9, 2, "She Already Shut Her Eyes Damage Boost"));
         }
     }
 

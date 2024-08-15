@@ -25,7 +25,7 @@ public class NightOfFright extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.ENERGY_REGEN, 12));
+        this.owner.addPower(PermPower.create(PowerStat.ENERGY_REGEN, 12, "Night of Fright Energy Regen Boost"));
     }
 
     @Override

@@ -16,6 +16,6 @@ public class WarmthShortensColdNights extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.HP_PERCENT, 32));
+        this.owner.addPower(PermPower.create(PowerStat.HP_PERCENT, 32, "Warmth Shortens Cold Nights HP Boost"));
     }
 }

@@ -17,7 +17,7 @@ public class TheDayTheCosmosFell extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 24));
+        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 24, "The Day The Cosmos Fell Attack Boost"));
     }
 
     @Override
@@ -26,6 +26,6 @@ public class TheDayTheCosmosFell extends AbstractLightcone {
                 .filter(e -> e.weaknessMap.contains(this.owner.elementType))
                 .count() < 2) return;
 
-        this.owner.addPower(TempPower.create(PowerStat.CRIT_DAMAGE, 40, 2));
+        this.owner.addPower(TempPower.create(PowerStat.CRIT_DAMAGE, 40, 2, "The Day The Cosmos Fell Crit Damage Boost"));
     }
 }

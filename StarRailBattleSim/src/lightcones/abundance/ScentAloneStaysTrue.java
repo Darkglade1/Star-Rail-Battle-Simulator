@@ -17,7 +17,7 @@ public class ScentAloneStaysTrue extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 60));
+        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 60, "Scent Alone Stays True Break Effect Boost"));
     }
 
     @Override
@@ -26,7 +26,7 @@ public class ScentAloneStaysTrue extends AbstractLightcone {
 
         enemiesHit.forEach(e -> {
             float dmg = this.owner.getTotalBreakEffect() >= 150 ? 18 : 10;
-            e.addPower(TempPower.create(PowerStat.DAMAGE_TAKEN, dmg, 2));
+            e.addPower(TempPower.create(PowerStat.DAMAGE_TAKEN, dmg, 2, "Scent Alone Stays True Damage Taken Debuff"));
         });
     }
 }

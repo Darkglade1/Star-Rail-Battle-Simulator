@@ -16,7 +16,7 @@ public class PostOpConversation extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.ENERGY_REGEN, 16));
+        this.owner.addPower(PermPower.create(PowerStat.ENERGY_REGEN, 16, "Post-Op Conversation Energy Regen Boost"));
     }
 
 

@@ -22,13 +22,13 @@ public class SleepLikeTheDead extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 36));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 36, "Sleep Like The Dead Crit Damage Boost"));
     }
 
     @Override
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (this.cooldown == 0) {
-            this.owner.addPower(TempPower.create(PowerStat.CRIT_CHANCE, 36, 1));
+            this.owner.addPower(TempPower.create(PowerStat.CRIT_CHANCE, 36, 1, "Sleep Like The Dead Crit Chance Boost"));
         }
     }
 

@@ -14,7 +14,7 @@ public class TextureOfMemories extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.EFFECT_RES, 16));
+        this.owner.addPower(PermPower.create(PowerStat.EFFECT_RES, 16, "Texture Of Memories Effect Resistance Boost"));
     }
 
     @Override

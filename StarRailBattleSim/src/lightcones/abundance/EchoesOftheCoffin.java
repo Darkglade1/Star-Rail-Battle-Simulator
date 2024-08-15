@@ -18,12 +18,12 @@ public class EchoesOftheCoffin extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 24));
+        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 24, "Echoes of the Coffin ATK Boost"));
     }
 
     @Override
     public void onUseUltimate() {
-        Battle.battle.playerTeam.forEach(c -> c.addPower(TempPower.create(PowerStat.FLAT_SPEED, 12, 1)));
+        Battle.battle.playerTeam.forEach(c -> c.addPower(TempPower.create(PowerStat.FLAT_SPEED, 12, 1, "Echoes of the Coffin Speed Boost")));
     }
 
     @Override

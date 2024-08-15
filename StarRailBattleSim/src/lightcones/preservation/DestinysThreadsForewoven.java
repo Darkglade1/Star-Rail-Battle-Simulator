@@ -17,7 +17,7 @@ public class DestinysThreadsForewoven extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.EFFECT_RES, 20));
+        this.owner.addPower(PermPower.create(PowerStat.EFFECT_RES, 20, "Destiny's Threads Forewoven Effect Resistance Boost"));
         this.owner.addPower(new DestinysThreadsForewovenPower());
     }
 

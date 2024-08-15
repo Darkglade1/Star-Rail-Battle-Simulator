@@ -17,7 +17,7 @@ public class IVentureForthToHunt extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 15, "Venture Forth Stat Bonus"));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 15, "I Venture Forth to Hunt Crit Chance Boost"));
         this.owner.addPower(new VentureForthPower());
     }
 

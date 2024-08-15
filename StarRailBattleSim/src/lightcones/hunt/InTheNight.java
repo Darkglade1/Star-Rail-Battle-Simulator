@@ -16,7 +16,7 @@ public class InTheNight extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 18));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 18, "In The Night Crit Chance Boost"));
         this.owner.addPower(new InTheNightPower());
     }
 

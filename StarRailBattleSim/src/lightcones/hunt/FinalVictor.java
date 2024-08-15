@@ -14,7 +14,7 @@ public class FinalVictor extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 20));
+        this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 20, "Final Victor Attack Boost"));
 
         // I'm really not sure how to do this one
         throw new NotImplementedException();

@@ -18,7 +18,7 @@ public class ShadowedByNight extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 56));
+        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 56, "Shadowed By Night Break Effect Boost"));
     }
 
     @Override

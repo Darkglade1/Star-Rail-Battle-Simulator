@@ -27,7 +27,7 @@ public class BaptismOfPureThought extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 20 + this.enemyDebugs * 8));
+        this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 20 + this.enemyDebugs * 8, "Baptism Of Pure Thought Crit Damage Boost"));
     }
 
     @Override

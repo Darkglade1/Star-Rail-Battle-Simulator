@@ -16,6 +16,6 @@ public class WhatIsReal extends AbstractLightcone {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 48));
+        this.owner.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 48, "What Is Real Break Effect Boost"));
     }
 }

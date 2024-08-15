@@ -14,6 +14,6 @@ public class TodayIsAnotherPeacefulDay extends AbstractLightcone {
     @Override
     public void onCombatStart() {
         float boost = (float) 0.4 * Math.min(160, this.owner.maxEnergy);
-        this.owner.addPower(PermPower.create(PowerStat.DAMAGE_BONUS, boost));
+        this.owner.addPower(PermPower.create(PowerStat.DAMAGE_BONUS, boost, "Today is Another Peaceful Day Damage Boost"));
     }
 }

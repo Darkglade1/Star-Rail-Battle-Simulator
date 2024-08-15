@@ -14,11 +14,12 @@ public class TempPower extends AbstractPower {
      * @param stat the stat to create the PermPower for, is forwarded most fittingly
      * @param value the value of the stat
      * @param turns the amount of turns the power should last
+     * @param name the name of the power
      * @return the created TempPower
      */
-    public static TempPower create(PowerStat stat, float value, int turns) {
+    public static TempPower create(PowerStat stat, float value, int turns, String name) {
         TempPower power = new TempPower();
-        power.name = "TempPower#create(" + stat.name() + "," + value + "," + turns + ")";
+        power.name = name;
         power.turnDuration = turns;
         power.setStat(stat, value);
         return power;
