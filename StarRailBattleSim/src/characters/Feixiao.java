@@ -87,7 +87,11 @@ public class Feixiao extends AbstractCharacter {
         } else {
             enemy = Battle.battle.enemyTeam.get(0);
         }
-        BattleHelpers.hitEnemy(this, enemy, 2.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+
+        float totalMult = 2.0f;
+        BattleHelpers.hitEnemy(this, enemy, totalMult * 0.34f, BattleHelpers.MultiplierStat.ATK, types, 0);
+        BattleHelpers.hitEnemy(this, enemy, totalMult * 0.33f, BattleHelpers.MultiplierStat.ATK, types, 0);
+        BattleHelpers.hitEnemy(this, enemy, totalMult * 0.33f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
 
         BattleHelpers.PostAttackLogic(this, types);
 
@@ -201,8 +205,10 @@ public class Feixiao extends AbstractCharacter {
         types.add(DamageType.FOLLOW_UP);
         BattleHelpers.PreAttackLogic(this, types);
 
+        float totalMult = 0.9f;
         for (int i = 0; i < numHits; i++) {
-            BattleHelpers.hitEnemy(this, enemy, 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            BattleHelpers.hitEnemy(this, enemy, totalMult * 0.1f, BattleHelpers.MultiplierStat.ATK, types, 0);
+            BattleHelpers.hitEnemy(this, enemy, totalMult * 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
         }
         BattleHelpers.hitEnemy(this, enemy, 1.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
 

@@ -2,7 +2,6 @@ package teams;
 
 import characters.*;
 import lightcones.*;
-import powers.PermPower;
 import relics.*;
 
 import java.util.ArrayList;
@@ -516,13 +515,13 @@ public class PlayerTeam {
         }
     }
 
-    public static class FeixiaoRobinAventurineBronya extends PlayerTeam {
+    public static class FeixiaoRobinGallagherBronya extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
             ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
-            playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltGallagher());
             playerTeam.add(getPrebuiltBronyaFei());
             return playerTeam;
         }
