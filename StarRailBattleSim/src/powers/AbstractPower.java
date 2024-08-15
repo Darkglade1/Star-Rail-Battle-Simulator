@@ -3,6 +3,7 @@ package powers;
 import battleLogic.AbstractEntity;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
+import relics.RelicStats;
 
 import java.util.ArrayList;
 
@@ -116,4 +117,81 @@ public abstract class AbstractPower {
     public void onRemove() {
 
     }
+
+    public void setStat(PowerStat stat, float value) {
+        switch (stat) {
+            case FLAT_HP:
+                this.bonusFlatHP = value;
+                break;
+            case HP_PERCENT:
+                this.bonusHPPercent = value;
+                break;
+            case FLAT_ATK:
+                this.bonusFlatAtk = value;
+                break;
+            case ATK_PERCENT:
+                this.bonusAtkPercent = value;
+                break;
+            case FLAT_DEF:
+                this.bonusFlatDef = value;
+                break;
+            case DEF_PERCENT:
+                this.bonusDefPercent = value;
+                break;
+            case FLAT_SPEED:
+                this.bonusFlatSpeed = value;
+                break;
+            case SPEED_PERCENT:
+                this.bonusSpeedPercent = value;
+                break;
+            case SAME_ELEMENT_DAMAGE_BONUS:
+                this.bonusSameElementDamageBonus = value;
+                break;
+            case EFFECT_HIT:
+                this.bonusEffectHit = value;
+                break;
+            case EFFECT_RES:
+                this.bonusEffectRes = value;
+                break;
+            case BREAK_EFFECT:
+                this.bonusBreakEffect = value;
+                break;
+            case HEALING:
+                this.bonusHealing = value;
+                break;
+            case DAMAGE_BONUS:
+                this.bonusDamageBonus = value;
+                break;
+            case DAMAGE_TAKEN:
+                this.bonusDamageTaken = value;
+                break;
+            case DEFENSE_REDUCTION:
+                this.defenseReduction = value;
+                break;
+            case DEFENSE_IGNORE:
+                this.defenseIgnore = value;
+                break;
+            case RES_PEN:
+                this.resPen = value;
+                break;
+            case CRIT_CHANCE:
+                this.bonusCritChance = value;
+                break;
+            case CRIT_DAMAGE:
+                this.bonusCritDamage = value;
+                break;
+            case ENERGY_REGEN:
+                this.bonusEnergyRegen = value;
+                break;
+            case TAUNT_VALUE:
+                this.bonusTauntValue = value;
+                break;
+            case WEAKNESS_BREAK_EFF:
+                this.bonusWeaknessBreakEff = value;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown stat: " + stat);
+        }
+    }
+
 }
