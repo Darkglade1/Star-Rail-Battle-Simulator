@@ -27,10 +27,12 @@ public class BoundlessChoreo extends AbstractLightcone {
 
         @Override
         public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-            // TODO: Add SPEED_REDUCTION
             if (enemy.powerList
                     .stream()
-                    .noneMatch(p -> p.getStat(PowerStat.DEFENSE_REDUCTION) != 0)){
+                    .noneMatch(p -> (
+                            p.getStat(PowerStat.DEFENSE_REDUCTION) != 0)
+                            || p.getStat(PowerStat.SPEED_PERCENT) < 0
+                    )){
                 return 0;
             }
 

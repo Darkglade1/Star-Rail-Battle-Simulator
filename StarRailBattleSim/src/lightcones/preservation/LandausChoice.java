@@ -14,7 +14,7 @@ public class LandausChoice extends AbstractLightcone {
     @Override
     public void onEquip() {
         this.owner.addPower(PermPower.create(PowerStat.TAUNT_VALUE, 200, "Landau's Choice Taunt Value Boost"));
-        // TODO: Damage taken reduced by 24%
-        // this.owner.addPower(PermPower.create());
+        // Dunno if this work
+        this.owner.addPower(PermPower.create(PowerStat.DAMAGE_TAKEN, -24, "Landau's Choice Damage Taken Reduction"));
     }
 }
