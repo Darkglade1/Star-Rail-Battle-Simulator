@@ -121,6 +121,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
 
     public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
         increaseEnergy(energyFromAttacked);
+        lightcone.onAttacked(enemy);
     }
 
     public float getFinalAttack() {

@@ -39,6 +39,10 @@ public abstract class AbstractLightcone {
 
     }
 
+    public void onAttacked(AbstractEnemy enemy) {
+
+    }
+
     public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
 
     }
