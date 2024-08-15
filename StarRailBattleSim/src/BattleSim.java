@@ -79,6 +79,9 @@ public class BattleSim {
         otherTeams.add(new FeixiaoRobinAventurineTopaz());
         otherTeams.add(new FeixiaoRobinAventurineMarch());
         otherTeams.add(new FeixiaoRobinAventurineMoze());
+        otherTeams.add(new FeixiaoRobinLingshaTopaz());
+        otherTeams.add(new FeixiaoRobinLingshaMarch());
+        otherTeams.add(new FeixiaoRobinLingshaMoze());
         otherTeams.add(new FeixiaoRobinGallagherTopaz());
         otherTeams.add(new FeixiaoRobinGallagherMarch());
         otherTeams.add(new FeixiaoRobinGallagherMoze());
@@ -88,6 +91,9 @@ public class BattleSim {
         otherTeams.add(new FeixiaoRuanMeiAventurineTopaz());
         otherTeams.add(new FeixiaoRuanMeiAventurineMarch());
         otherTeams.add(new FeixiaoRuanMeiAventurineMoze());
+        otherTeams.add(new FeixiaoRuanMeiLingshaTopaz());
+        otherTeams.add(new FeixiaoRuanMeiLingshaMarch());
+        otherTeams.add(new FeixiaoRuanMeiLingshaMoze());
         otherTeams.add(new FeixiaoRuanMeiGallagherTopaz());
         otherTeams.add(new FeixiaoRuanMeiGallagherMarch());
         otherTeams.add(new FeixiaoSparkleAventurineTopaz());
