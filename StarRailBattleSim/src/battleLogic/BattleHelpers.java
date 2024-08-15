@@ -188,6 +188,9 @@ public class BattleHelpers {
     }
 
     public static void PostAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
+        int damageTotal = (int) attackDamageTotal;
+        Battle.battle.addToLog(String.format("Total Damage: %d", damageTotal));
+
         character.lightcone.onAttack(character, enemiesHit, types);
         ArrayList<AbstractPower> powersToTrigger = new ArrayList<>(character.powerList); // jank way to dodge comod exception lol
         for (AbstractPower power : powersToTrigger) {
@@ -199,9 +202,6 @@ public class BattleHelpers {
                 power.onAttacked(character, enemy, types);
             }
         }
-
-        int damageTotal = (int) attackDamageTotal;
-        Battle.battle.addToLog(String.format("Total Damage: %d", damageTotal));
     }
 
     public static void attackCharacter(AbstractEnemy source, AbstractCharacter target, int energyToGain) {
