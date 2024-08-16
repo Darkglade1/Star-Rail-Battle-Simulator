@@ -23,6 +23,8 @@ public class Battle {
     public int MAX_SKILL_POINTS = 5;
     public int totalPlayerDamage;
     public float finalDPAV;
+    public int totalSkillPointsUsed = 0;
+    public int totalSkillPointsGenerated = 0;
     public String log = "";
     public float initialBattleLength;
     public AbstractEntity nextUnit;
@@ -70,6 +72,7 @@ public class Battle {
     public void useSkillPoint(AbstractCharacter character, int amount) {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints -= amount;
+        totalSkillPointsUsed += amount;
         addToLog(String.format("%s used %d Skill Point(s) (%d -> %d)", character.name, amount, initialSkillPoints, numSkillPoints));
         if (numSkillPoints < 0) {
             throw new RuntimeException("ERROR - SKILL POINTS WENT NEGATIVE");
@@ -79,6 +82,7 @@ public class Battle {
     public void generateSkillPoint(AbstractCharacter character, int amount) {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints += amount;
+        totalSkillPointsGenerated += amount;
         if (numSkillPoints > MAX_SKILL_POINTS) {
             numSkillPoints = MAX_SKILL_POINTS;
         }
@@ -218,6 +222,8 @@ public class Battle {
         addToLog(String.format("Total player team damage: %d \nAction Value used: %.1f", totalPlayerDamage, initialBattleLength));
         finalDPAV = (float)totalPlayerDamage / initialBattleLength;
         addToLog("DPAV: " + finalDPAV);
+        addToLog("Skill Points Used: " + totalSkillPointsUsed);
+        addToLog("Skill Points Generated: " + totalSkillPointsGenerated);
         for (AbstractCharacter character : playerTeam) {
             if (!damageContributionMap.containsKey(character)) {
                 damageContributionMap.put(character, 0.0f);
@@ -232,7 +238,7 @@ public class Battle {
         for (Map.Entry<AbstractCharacter,Float> entry : damageContributionMap.entrySet()) {
             float percent = entry.getValue() / totalPlayerDamage * 100;
             damageContributionMapPercent.put(entry.getKey(), percent);
-            log.append(String.format("%s: %.3f (%.3f%%) | ", entry.getKey().name, entry.getValue(), percent));
+            log.append(String.format("%s: %.3f DPAV (%.3f%%) | ", entry.getKey().name, entry.getValue() / initialBattleLength, percent));
         }
         return log.toString();
     }

@@ -103,6 +103,7 @@ public class Yunli extends AbstractCharacter {
             Battle.battle.addToLog(name + " used Counter");
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.FOLLOW_UP);
+            increaseEnergy(5);
             BattleHelpers.PreAttackLogic(this, types);
 
             int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
@@ -114,7 +115,6 @@ public class Yunli extends AbstractCharacter {
                 BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
             }
             BattleHelpers.PostAttackLogic(this, types);
-            increaseEnergy(5);
         }
         increaseEnergy(15);
         super.onAttacked(enemy, energyFromAttacked);
@@ -148,7 +148,7 @@ public class Yunli extends AbstractCharacter {
         BattleHelpers.PreAttackLogic(this, types);
 
         int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-        BattleHelpers.hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        BattleHelpers.hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
             BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
@@ -158,7 +158,7 @@ public class Yunli extends AbstractCharacter {
 
         int numBounces = 6;
         while (numBounces > 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.72f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.72f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT / 4);
             numBounces--;
         }
         BattleHelpers.PostAttackLogic(this, types);
@@ -174,7 +174,7 @@ public class Yunli extends AbstractCharacter {
         BattleHelpers.PreAttackLogic(this, types);
 
         int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-        BattleHelpers.hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        BattleHelpers.hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
             BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }

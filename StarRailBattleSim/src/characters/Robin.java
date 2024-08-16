@@ -215,16 +215,7 @@ public class Robin extends AbstractCharacter {
         }
 
         private float getFinalAttackWithoutConcerto() {
-            int totalBaseAtk = baseAtk + lightcone.baseAtk;
-            float totalBonusAtkPercent = 0;
-            float totalBonusFlatAtk = 0;
-            for (AbstractPower power : powerList) {
-                if (!power.name.equals(this.name)) {
-                    totalBonusAtkPercent += power.getStat(PowerStat.ATK_PERCENT);
-                    totalBonusFlatAtk += power.getStat(PowerStat.FLAT_ATK);
-                }
-            }
-            return (totalBaseAtk * (1 + totalBonusAtkPercent / 100) + totalBonusFlatAtk);
+            return Robin.this.getFinalAttack() - this.getStat(PowerStat.FLAT_ATK);
         }
 
         @Override
