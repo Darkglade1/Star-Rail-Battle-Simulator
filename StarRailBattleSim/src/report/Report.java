@@ -87,7 +87,7 @@ public class Report {
                 if (characterCSVs.containsKey(entry.getKey())) {
                     characterCSV = new StringBuilder(characterCSVs.get(entry.getKey()));
                 }
-                characterCSV.append(enemyTeam).append("\n").append(entry.getKey()).append(" Metrics,");
+                characterCSV.append(enemyTeam).append("\n").append("\n").append(entry.getKey()).append(" Metrics,");
                 ArrayList<String> teamRow = characterTeamList.get(entry.getKey());
                 for (String team : teamRow) {
                     characterCSV.append(team).append(",");
