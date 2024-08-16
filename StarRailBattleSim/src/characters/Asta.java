@@ -100,7 +100,6 @@ public class Asta extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        super.onTurnStart();
         if (justCastUlt) {
             justCastUlt = false;
             return;

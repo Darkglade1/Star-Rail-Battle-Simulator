@@ -1,4 +1,6 @@
+import battleLogic.AbstractEntity;
 import battleLogic.Battle;
+import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import enemies.FireWindImgLightningWeakEnemy;
 import enemies.PhysWeakEnemy;
@@ -6,6 +8,8 @@ import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import static teams.EnemyTeam.*;

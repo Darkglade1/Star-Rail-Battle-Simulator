@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.AbstractEntity;
 import battleLogic.Battle;
+import battleLogic.BattleEvents;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
 import lightcones.DefaultLightcone;
@@ -10,7 +11,9 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public abstract class AbstractCharacter extends AbstractEntity {
 
@@ -71,6 +74,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     protected float TOUGHNESS_DAMAGE_THREE_UNITs = 30;
 
     public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue, Path path) {
+        super();
         this.name = name;
         this.baseHP = baseHP;
         this.baseAtk = baseAtk;
@@ -109,6 +113,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
                 character.addPower(new Sparkle.SparkleTalentPower());
             }
         }
+
+        this.emit(BattleEvents::onUseSkill);
     }
     public void useBasicAttack() {
         moveHistory.add(MoveType.BASIC);
@@ -116,6 +122,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         Battle.battle.addToLog(name + " used Basic");
         Battle.battle.generateSkillPoint(this, 1);
         increaseEnergy(basicEnergyGain);
+
+        this.emit(BattleEvents::onUseBasic);
     }
     public void useUltimate() {
         moveHistory.add(MoveType.ULTIMATE);
@@ -124,16 +132,12 @@ public abstract class AbstractCharacter extends AbstractEntity {
         currentEnergy -= ultCost;
         Battle.battle.addToLog(String.format("%s used Ultimate (%.3f -> %.3f)", name, initialEnergy, currentEnergy));
         increaseEnergy(ultEnergyGain);
-        this.lightcone.onUseUltimate();
-        ArrayList<AbstractPower> powersToTrigger = new ArrayList<>(powerList); // jank way to dodge comod exception lol
-        for (AbstractPower power : powersToTrigger) {
-            power.onUseUltimate();
-        }
+
+        this.emit(BattleEvents::onUseUltimate);
     }
 
-    public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
+    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         increaseEnergy(energyFromAttacked);
-        lightcone.onAttacked(enemy);
     }
 
     public Path getPath() {
@@ -306,13 +310,16 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void EquipLightcone(AbstractLightcone lightcone) {
+        this.getListeners().remove(this.lightcone);
         this.lightcone = lightcone;
-        lightcone.onEquip();
+        this.lightcone.onEquip();
+        this.getListeners().add(this.lightcone);
     }
 
     public void EquipRelicSet(AbstractRelicSetBonus relicSetBonus) {
         this.relicSetBonus.add(relicSetBonus);
         relicSetBonus.onEquip();
+        this.getListeners().add(relicSetBonus);
     }
 
     public boolean lastMove(MoveType move) {
@@ -345,16 +352,6 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void useTechnique() {
-
-    }
-
-    public void onCombatStart() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-        lightcone.onTurnStart();
     }
 
     @Override

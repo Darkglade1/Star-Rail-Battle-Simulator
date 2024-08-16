@@ -1,11 +1,12 @@
 package lightcones;
 
+import battleLogic.BattleEvents;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 
 import java.util.ArrayList;
 
-public abstract class AbstractLightcone {
+public abstract class AbstractLightcone implements BattleEvents {
 
     public int baseHP;
     public int baseAtk;
@@ -23,39 +24,7 @@ public abstract class AbstractLightcone {
 
     }
 
-    public void onCombatStart() {
-
-    }
-
-    public void onUseUltimate() {
-
-    }
-
-    public void onTurnStart() {
-
-    }
-
-    public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> types) {
-
-    }
-
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
-
-    }
-
-    public void onAttacked(AbstractEnemy enemy) {
-
-    }
-
-    public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
-
-    }
-
     public void onSpecificTrigger(AbstractCharacter character, AbstractEnemy enemy) {
-
-    }
-
-    public void onEndTurn() {
 
     }
 

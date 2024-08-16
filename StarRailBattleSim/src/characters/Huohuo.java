@@ -76,7 +76,7 @@ public class Huohuo extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        super.onTurnStart();
+        
         talentCounter--;
         if (talentCounter <= 0) {
             for (AbstractCharacter character : Battle.battle.playerTeam) {

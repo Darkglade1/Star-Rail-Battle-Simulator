@@ -7,6 +7,8 @@ import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
 
+import java.util.ArrayList;
+
 public class MomentOfVictory extends AbstractLightcone {
 
     public MomentOfVictory(AbstractCharacter owner) {
@@ -21,7 +23,7 @@ public class MomentOfVictory extends AbstractLightcone {
     }
 
     @Override
-    public void onAttacked(AbstractEnemy enemy) {
+    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         this.owner.addPower(TempPower.create(PowerStat.DEF_PERCENT, 24, 1, "Moment Of Victory Defense Boost"));
     }
 }

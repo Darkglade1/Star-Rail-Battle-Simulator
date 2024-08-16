@@ -124,7 +124,6 @@ public class Aventurine extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        super.onTurnStart();
         blindBetFollowUpCounter = blindBetFollowUpPerTurn;
     }
 

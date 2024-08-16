@@ -201,7 +201,7 @@ public class Topaz extends AbstractCharacter {
         }
 
         @Override
-        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
+        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
             for (AbstractCharacter.DamageType type : types) {
                 if (type == AbstractCharacter.DamageType.FOLLOW_UP) {
                     Topaz.this.numby.AdvanceForward();

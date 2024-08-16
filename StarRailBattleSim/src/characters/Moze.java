@@ -141,7 +141,7 @@ public class Moze extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        super.onTurnStart();
+        
         skillPointRecovered = false;
     }
 
@@ -212,7 +212,7 @@ public class Moze extends AbstractCharacter {
         }
 
         @Override
-        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
+        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
             boolean trigger = true;
             if (character instanceof Moze) {
                 if (types.contains(DamageType.ULTIMATE)) {

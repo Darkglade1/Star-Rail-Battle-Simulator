@@ -189,7 +189,7 @@ public class SwordMarch extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        super.onTurnStart();
+        
         FUAReady = true;
         increaseEnergy(5);
         if (currentEnergy >= ultCost) {

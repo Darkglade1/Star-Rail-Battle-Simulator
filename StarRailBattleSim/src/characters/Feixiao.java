@@ -230,7 +230,7 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        super.onTurnStart();
+        
         if (currentEnergy >= ultCost) {
             useUltimate(); // check for ultimate activation at start of turn as well
         }
