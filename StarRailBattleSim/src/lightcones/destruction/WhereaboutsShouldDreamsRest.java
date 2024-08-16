@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class WhereaboutsShouldDreamsRest extends AbstractLightcone {
     public WhereaboutsShouldDreamsRest(AbstractCharacter owner) {
         super(1164, 476, 529, owner);
+        throw new UnsupportedOperationException("Not implemented, speed debugs not working properly.");
     }
 
     @Override

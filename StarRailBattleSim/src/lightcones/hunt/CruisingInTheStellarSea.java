@@ -24,6 +24,10 @@ public class CruisingInTheStellarSea extends AbstractLightcone {
     @Override
     public void onEquip() {
         this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 16, "Cruising In The Stellar Sea Crit Chance Boost"));
+    }
+
+    @Override
+    public void onCombatStart() {
         this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 40 * upTime, "Cruising In The Stellar Sea Attack Boost"));
     }
 }

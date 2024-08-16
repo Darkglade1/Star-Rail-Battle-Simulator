@@ -44,7 +44,8 @@ public class ThoseManySprings extends AbstractLightcone {
         public Unarmored() {
             this.name = NAME;
             this.turnDuration = 2;
-            this.bonusDamageBonus = 10;
+            this.bonusDamageTaken = 10;
+            this.type = PowerType.DEBUFF;
         }
     }
 
@@ -54,7 +55,8 @@ public class ThoseManySprings extends AbstractLightcone {
         public Cornered() {
             this.name = NAME;
             this.turnDuration = 2;
-            this.bonusDamageBonus = 24;
+            this.bonusDamageTaken = 24;
+            this.type = PowerType.DEBUFF;
         }
     }
 }

@@ -21,7 +21,10 @@ public class UnderTheBlueSky extends AbstractLightcone {
     @Override
     public void onEquip() {
         this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 32, "Under The Blue Sky ATK Boost"));
-        // Not sure if this is the correct way to do uptime with CR
+    }
+
+    @Override
+    public void onCombatStart() {
         this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 24 * this.upTime, "Under The Blue Sky Crit Boost"));
     }
 }

@@ -15,9 +15,7 @@ public class Hanya extends AbstractCharacter {
     public static final String ULT_BUFF_NAME = "Hanya Ult Buff";
 
     public Hanya() {
-        super(NAME, 917, 564, 353, 110, 80, ElementType.PHYSICAL, 140, 100);
-
-        this.path = Path.HARMONY;
+        super(NAME, 917, 564, 353, 110, 80, ElementType.PHYSICAL, 140, 100, Path.HARMONY);
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";

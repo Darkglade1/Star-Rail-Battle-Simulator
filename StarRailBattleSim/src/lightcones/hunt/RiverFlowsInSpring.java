@@ -15,7 +15,7 @@ public class RiverFlowsInSpring extends AbstractLightcone {
     }
 
     @Override
-    public void onEquip() {
+    public void onCombatStart() {
         this.owner.addPower(PermPower.create(PowerStat.SPEED_PERCENT, 12, "River Flows In Spring Speed Boost"));
         this.owner.addPower(PermPower.create(PowerStat.DAMAGE_BONUS, 24, "River Flows In Spring Damage Boost"));
     }

@@ -7,14 +7,11 @@ import lightcones.AbstractLightcone;
 import powers.AbstractPower;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 public class NightOnTheMilkyWay extends AbstractLightcone {
 
-    private static final Random rng = new Random();
     private final int weaknessBoostUptime;
-
 
     /**
      * Constructor for NightOnTheMilkyWay, with a default weakness boost uptime of 50%
@@ -46,7 +43,7 @@ public class NightOnTheMilkyWay extends AbstractLightcone {
 
         @Override
         public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-            if (rng.nextInt(100) < weaknessBoostUptime) {
+            if (Battle.battle.milkyWayRng.nextInt(100) < weaknessBoostUptime) {
                 return 50;
             }
             return 0;

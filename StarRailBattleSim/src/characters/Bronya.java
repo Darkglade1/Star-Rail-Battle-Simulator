@@ -16,9 +16,7 @@ public class Bronya extends AbstractCharacter {
     public static final String ULT_POWER_NAME = "BronyaUltPower";
 
     public Bronya() {
-        super(NAME, 1242, 582, 534, 99, 80, ElementType.WIND, 120, 100);
-
-        this.path = Path.HARMONY;
+        super(NAME, 1242, 582, 534, 99, 80, ElementType.WIND, 120, 100, Path.HARMONY);
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";

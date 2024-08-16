@@ -55,11 +55,25 @@ public abstract class AbstractPower {
         return 0;
     }
 
+    /**
+     * Increase damage dealt by the character when attacking the enemy
+     */
     public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
 
+    /**
+     * Increases incoming damage
+     */
     public float getConditionalDamageTaken(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        return 0;
+    }
+
+    /**
+     * Increase damage dealt by the character when attacking the enemy
+     * Use this for DMG Boosts, that are applied as a debug on targets
+     */
+    public float receiveConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
 

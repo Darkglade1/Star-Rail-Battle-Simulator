@@ -37,7 +37,7 @@ public class AlongThePassingShore extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageTaken(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float receiveConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (character != this.lightcone.owner) return 0;
 
             if (damageTypes.contains(AbstractCharacter.DamageType.ULTIMATE)) {

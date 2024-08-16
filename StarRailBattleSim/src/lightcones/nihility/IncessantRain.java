@@ -1,5 +1,6 @@
 package lightcones.nihility;
 
+import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
@@ -31,9 +32,12 @@ public class IncessantRain extends AbstractLightcone {
             return;
         }
 
-        for (AbstractEnemy enemy : enemiesHit) {
-            enemy.addPower(new AetherCode());
+        if (enemiesHit.isEmpty()) {
+            return;
         }
+
+        AbstractEnemy target = enemiesHit.get(Battle.battle.aetherRng.nextInt(enemiesHit.size()));
+        target.addPower(new AetherCode());
     }
 
     public static class AetherCode extends TempPower {

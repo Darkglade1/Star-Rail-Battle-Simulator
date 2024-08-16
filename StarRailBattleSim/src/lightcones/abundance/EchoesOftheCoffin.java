@@ -23,12 +23,14 @@ public class EchoesOftheCoffin extends AbstractLightcone {
 
     @Override
     public void onUseUltimate() {
-        Battle.battle.playerTeam.forEach(c -> c.addPower(TempPower.create(PowerStat.FLAT_SPEED, 12, 1, "Echoes of the Coffin Speed Boost")));
+        Battle.battle.playerTeam.forEach(c -> {
+            Battle.battle.IncreaseSpeed(c, TempPower.create(PowerStat.FLAT_SPEED, 12, 1, "Echoes of the Coffin Speed Boost"));
+        });
     }
 
     @Override
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         int stacks = Math.min(3, enemiesHit.size());
-        this.owner.currentEnergy += 3*stacks;
+        this.owner.increaseEnergy(3*stacks);
     }
 }

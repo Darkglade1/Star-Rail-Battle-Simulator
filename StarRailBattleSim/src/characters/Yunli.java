@@ -29,9 +29,7 @@ public class Yunli extends AbstractCharacter {
     private String numSlashesMetricName = "Number of Slashes";
 
     public Yunli() {
-        super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
-
-        this.path = Path.DESTRUCTION;
+        super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125, Path.DESTRUCTION);
 
         this.ultCost = 120;
         this.isDPS = true;

@@ -27,9 +27,7 @@ public class Topaz extends AbstractCharacter {
     private String wastedNumbyAdvancesMetricName = "Number of Wasted Numby Advances";
 
     public Topaz() {
-        super("Topaz", 931, 621, 412, 110, 80, ElementType.FIRE, 130, 75);
-
-        this.path = Path.HUNT;
+        super("Topaz", 931, 621, 412, 110, 80, ElementType.FIRE, 130, 75, Path.HUNT);
 
         proofOfDebt = new ProofOfDebt();
 

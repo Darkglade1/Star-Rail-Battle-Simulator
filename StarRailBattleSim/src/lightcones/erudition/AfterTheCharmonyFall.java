@@ -1,5 +1,6 @@
 package lightcones.erudition;
 
+import battleLogic.Battle;
 import characters.AbstractCharacter;
 import lightcones.AbstractLightcone;
 import powers.PermPower;
@@ -19,6 +20,6 @@ public class AfterTheCharmonyFall extends AbstractLightcone {
 
     @Override
     public void onUseUltimate() {
-        this.owner.addPower(TempPower.create(PowerStat.SPEED_PERCENT, 16, 2, "After the Charmony Fall Speed Boost"));
+        Battle.battle.IncreaseSpeed(this.owner, TempPower.create(PowerStat.SPEED_PERCENT, 16, 2, "After the Charmony Fall Speed Boost"));
     }
 }

@@ -12,6 +12,7 @@ public class PatienceIsAllYouNeed extends AbstractLightcone {
 
     public PatienceIsAllYouNeed(AbstractCharacter owner) {
         super(1058, 582, 463, owner);
+        throw new UnsupportedOperationException("Not implemented, stacking speed buffs currently doesn't work.");
     }
 
     @Override

@@ -41,10 +41,14 @@ public class IVentureForthToHunt extends AbstractLightcone {
             if (damageTypes.contains(AbstractCharacter.DamageType.ULTIMATE) && this.stacks > 0) {
                 return 27 * this.stacks;
             }
-            if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
+            return 0;
+        }
+
+        @Override
+        public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+            if (types.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
                 this.stacks = Math.min(2, this.stacks + 1);
             }
-            return 0;
         }
     }
 }

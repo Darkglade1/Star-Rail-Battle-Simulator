@@ -30,9 +30,7 @@ public class SwordMarch extends AbstractCharacter {
     private boolean FUAReady = true;
 
     public SwordMarch() {
-        super("Sword March", 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75);
-
-        this.path = Path.HUNT;
+        super("Sword March", 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75, Path.HUNT);
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";

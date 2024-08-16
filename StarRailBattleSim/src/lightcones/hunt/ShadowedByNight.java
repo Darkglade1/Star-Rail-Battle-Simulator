@@ -1,5 +1,6 @@
 package lightcones.hunt;
 
+import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
@@ -23,14 +24,14 @@ public class ShadowedByNight extends AbstractLightcone {
 
     @Override
     public void onCombatStart() {
-        this.owner.addPower(new ShadowedByNightPower());
+        Battle.battle.IncreaseSpeed(this.owner, new ShadowedByNightPower());
     }
 
     @Override
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.BREAK)) return;
 
-        this.owner.addPower(new ShadowedByNightPower());
+        Battle.battle.IncreaseSpeed(this.owner, new ShadowedByNightPower());
     }
 
     public static class ShadowedByNightPower extends TempPower {

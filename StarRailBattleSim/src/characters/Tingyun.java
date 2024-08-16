@@ -18,9 +18,7 @@ public class Tingyun extends AbstractCharacter {
     private String talentProcsMetricName = "Talent Extra Damage Procs";
 
     public Tingyun() {
-        super("Tingyun", 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100);
-
-        this.path = Path.HARMONY;
+        super("Tingyun", 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100, Path.HARMONY);
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";

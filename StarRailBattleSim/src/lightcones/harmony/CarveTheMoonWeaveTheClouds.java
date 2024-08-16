@@ -10,14 +10,13 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class CarveTheMoonWeaveTheClouds extends AbstractLightcone {
-    private static final Random random = new Random();
 
     public CarveTheMoonWeaveTheClouds(AbstractCharacter owner) {
         super(953, 476, 331, owner);
     }
 
     private void refreshEffects() {
-        int type = random.nextInt(3) + 1;
+        int type = Battle.battle.weaveEffectRng.nextInt(3) + 1;
         CarveTheMoonWeaveTheCloudsEffect effect = new CarveTheMoonWeaveTheCloudsEffect(type);
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.removePower(effect.name);

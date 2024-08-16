@@ -21,7 +21,7 @@ public class MakeTheWorldClamor extends AbstractLightcone {
     @Override
     public void onCombatStart() {
         if (this.owner.usesEnergy)
-            this.owner.currentEnergy += 32;
+            this.owner.increaseEnergy(32);
     }
 
     public static class MakeTheWorldClamorPower extends PermPower {

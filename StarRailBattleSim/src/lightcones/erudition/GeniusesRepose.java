@@ -17,6 +17,10 @@ public class GeniusesRepose extends AbstractLightcone {
     @Override
     public void onEquip() {
         this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 32, "Geniuses Repose Attack Boost"));
+    }
+
+    @Override
+    public void onCombatStart() {
         this.owner.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 48, "Geniuses Repose Crit Damage Boost"));
     }
 }

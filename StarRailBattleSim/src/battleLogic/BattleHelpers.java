@@ -34,6 +34,9 @@ public class BattleHelpers {
         for (AbstractPower power : source.powerList) {
             dmgMultiplier += power.getConditionalDamageBonus(source, target, types);
         }
+        for (AbstractPower power : target.powerList) {
+            dmgMultiplier += power.receiveConditionalDamageBonus(source, target, types);
+        }
         float dmgMultiplierFloat = 1 + dmgMultiplier / 100;
 
         float enemyDefPercent = target.getFinalDefense();

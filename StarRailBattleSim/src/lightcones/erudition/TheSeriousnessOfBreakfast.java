@@ -17,6 +17,10 @@ public class TheSeriousnessOfBreakfast extends AbstractLightcone {
     @Override
     public void onEquip() {
         this.owner.addPower(PermPower.create(PowerStat.DAMAGE_BONUS, 24, "The Seriousness of Breakfast Damage Boost"));
+    }
+
+    @Override
+    public void onCombatStart() {
         this.owner.addPower(PermPower.create(PowerStat.ATK_PERCENT, 8*3, "The Seriousness of Breakfast Attack Boost"));
     }
 }

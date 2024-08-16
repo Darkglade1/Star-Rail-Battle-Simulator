@@ -15,9 +15,7 @@ public class Sparkle extends AbstractCharacter {
     public static final String ULT_POWER_NAME = "SparkleUltPower";
 
     public Sparkle() {
-        super(NAME, 1397, 524, 485, 101, 80, ElementType.QUANTUM, 110, 100);
-
-        this.path = Path.HARMONY;
+        super(NAME, 1397, 524, 485, 101, 80, ElementType.QUANTUM, 110, 100, Path.HARMONY);
 
         this.basicEnergyGain = 30;
         PermPower tracesPower = new PermPower();

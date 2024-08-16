@@ -24,7 +24,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         SKILL, BASIC, ENHANCED_BASIC, ULTIMATE, FOLLOW_UP
     }
 
-    protected Path path = Path.UNKNOWN;
+    protected final Path path;
 
     protected int baseHP;
     protected int baseAtk;
@@ -68,7 +68,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     protected float TOUGHNESS_DAMAGE_TWO_UNITS = 20;
     protected float TOUGHNESS_DAMAGE_THREE_UNITs = 30;
 
-    public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue) {
+    public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue, Path path) {
         this.name = name;
         this.baseHP = baseHP;
         this.baseAtk = baseAtk;
@@ -80,6 +80,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         this.ultCost = maxEnergy;
         this.currentEnergy = maxEnergy / 2;
         this.tauntValue = tauntValue;
+        this.path = path;
+
         powerList = new ArrayList<>();
         relicSetBonus = new ArrayList<>();
         moveHistory = new ArrayList<>();

@@ -24,9 +24,7 @@ public class Feixiao extends AbstractCharacter {
     private boolean FUAReady = true;
 
     public Feixiao() {
-        super("Feixiao", 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75);
-
-        this.path = Path.HUNT;
+        super("Feixiao", 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75, Path.HUNT);
 
         this.usesEnergy = false;
         this.currentEnergy = 0;
