@@ -13,12 +13,12 @@ import java.util.ArrayList;
 
 public class FlowingNightglow extends AbstractLightcone {
     public static final String ERPowerName = "FlowingNightglowERRPower";
-    private final AbstractPower cadenzaBuff;
+
+    // As long as robin has cadenza, everyone has cadenza, so we make this a perm power that we manually add and remove
+    private final AbstractPower cadenzaBuff = PermPower.create(PowerStat.DAMAGE_BONUS, 24, "Flowing Nightglow DMG Boost");
 
     public FlowingNightglow(AbstractCharacter owner) {
         super(953, 635, 463, owner);
-        // As long as robin has cadenza, everyone has cadenza, so we make this a perm power that we manually add and remove
-        cadenzaBuff = PermPower.create(PowerStat.DAMAGE_BONUS, 24, "Flowing Nightglow DMG Boost");
     }
 
     @Override

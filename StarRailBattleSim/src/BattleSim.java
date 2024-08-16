@@ -70,7 +70,7 @@ public class BattleSim {
         enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(250);
+        battle.Start(5050);
     }
 
     public static void generateReportFeixiao() {

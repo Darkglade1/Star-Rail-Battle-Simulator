@@ -910,7 +910,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltRobin() {
         AbstractCharacter character = new Robin();
-        character.EquipLightcone(new FlowingNightglow(character));
+        character.EquipLightcone(new ForTomorrowsJourney(character));
         character.EquipRelicSet(new Musketeer(character, false));
         character.EquipRelicSet(new Valorous(character, false));
         character.EquipRelicSet(new BrokenKeel(character));
