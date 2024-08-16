@@ -5,10 +5,12 @@ import lightcones.abundance.Multiplication;
 import lightcones.abundance.PostOpConversation;
 import lightcones.abundance.WhatIsReal;
 import lightcones.destruction.DanceAtSunset;
+import lightcones.harmony.FlowingNightglow;
 import lightcones.harmony.ForTomorrowsJourney;
 import lightcones.harmony.MemoriesOfThePast;
 import lightcones.harmony.PastAndFuture;
 import lightcones.hunt.CruisingInTheStellarSea;
+import lightcones.hunt.IVentureForthToHunt;
 import lightcones.hunt.Swordplay;
 import lightcones.nihility.ResolutionShinesAsPearlsOfSweat;
 import lightcones.preservation.ConcertForTwo;
@@ -760,7 +762,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltFeixiao() {
         AbstractCharacter character = new Feixiao();
-        character.EquipLightcone(new VentureForth(character));
+        character.EquipLightcone(new IVentureForthToHunt(character));
         character.EquipRelicSet(new Valorous(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
@@ -908,7 +910,7 @@ public class PlayerTeam {
 
     public static AbstractCharacter getPrebuiltRobin() {
         AbstractCharacter character = new Robin();
-        character.EquipLightcone(new ForTomorrowsJourney(character));
+        character.EquipLightcone(new FlowingNightglow(character));
         character.EquipRelicSet(new Musketeer(character, false));
         character.EquipRelicSet(new Valorous(character, false));
         character.EquipRelicSet(new BrokenKeel(character));

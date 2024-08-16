@@ -185,6 +185,7 @@ public class BattleHelpers {
     public static void PreAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
         attackDamageTotal = 0;
         enemiesHit.clear();
+        character.lightcone.onBeforeUseAttack(types);
         for (AbstractPower power : character.powerList) {
             power.onBeforeUseAttack(types);
         }

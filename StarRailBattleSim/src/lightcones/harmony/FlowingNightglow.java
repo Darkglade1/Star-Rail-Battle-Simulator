@@ -41,7 +41,7 @@ public class FlowingNightglow extends AbstractLightcone {
         }
 
         @Override
-        public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+        public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> types) {
             lightcone.cantillation = Math.min(5, lightcone.cantillation + 1);
         }
 

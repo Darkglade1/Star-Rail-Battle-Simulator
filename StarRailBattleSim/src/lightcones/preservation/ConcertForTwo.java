@@ -1,12 +1,9 @@
 package lightcones.preservation;
 
 import characters.AbstractCharacter;
-import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
 import powers.PermPower;
 import powers.PowerStat;
-
-import java.util.ArrayList;
 
 public class ConcertForTwo extends AbstractLightcone {
 
@@ -20,7 +17,8 @@ public class ConcertForTwo extends AbstractLightcone {
     }
 
     @Override
-    public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
-        // TODO: For every on-field character that has a Shield, the DMG dealt by the wearer increases by 8%.
+    public void onCombatStart() {
+        // just assume full uptime for now
+        this.owner.addPower(PermPower.create(PowerStat.DAMAGE_BONUS, 32, "Concert For Two Damage Boost"));
     }
 }
