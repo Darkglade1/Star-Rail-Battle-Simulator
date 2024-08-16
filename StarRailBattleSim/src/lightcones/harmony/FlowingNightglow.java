@@ -2,8 +2,8 @@ package lightcones.harmony;
 
 import battleLogic.Battle;
 import characters.AbstractCharacter;
-import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
+import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
@@ -12,46 +12,51 @@ import java.util.ArrayList;
 
 
 public class FlowingNightglow extends AbstractLightcone {
-
-    private int cantillation = 0;
+    public static final String ERPowerName = "FlowingNightglowERRPower";
+    private final AbstractPower cadenzaBuff;
 
     public FlowingNightglow(AbstractCharacter owner) {
         super(953, 635, 463, owner);
+        // As long as robin has cadenza, everyone has cadenza, so we make this a perm power that we manually add and remove
+        cadenzaBuff = PermPower.create(PowerStat.DAMAGE_BONUS, 24, "Flowing Nightglow DMG Boost");
     }
 
     @Override
     public void onCombatStart() {
-        Battle.battle.playerTeam.forEach(c -> c.addPower(new FlowingNightglowPower(this)));
+        AbstractPower power = new FlowingNightglowPower();
+        Battle.battle.playerTeam.forEach(c -> c.addPower(power));
+    }
+
+    @Override
+    public void onEndTurn() {
+        Battle.battle.playerTeam.forEach(c -> c.removePower(cadenzaBuff));
     }
 
     @Override
     public void onUseUltimate() {
-        this.cantillation = 0;
+        owner.removePower(ERPowerName);
         this.owner.addPower(TempPower.create(PowerStat.ATK_PERCENT, 48, 1, "Flowing Nightglow ATK Boost"));
-        Battle.battle.playerTeam.forEach(c -> c.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 24, 1, "Flowing Nightglow DMG Boost")));
+        Battle.battle.playerTeam.forEach(c -> c.addPower(cadenzaBuff));
     }
 
-    public static class FlowingNightglowPower extends PermPower {
-
-        FlowingNightglow lightcone;
-
-        public FlowingNightglowPower(FlowingNightglow lightcone) {
+    public class FlowingNightglowPower extends PermPower {
+        public FlowingNightglowPower() {
             this.name = this.getClass().getSimpleName();
-            this.lightcone = lightcone;
         }
-
         @Override
         public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> types) {
-            lightcone.cantillation = Math.min(5, lightcone.cantillation + 1);
+            FlowingNightglow.this.owner.addPower(new FlowingNightglowERRPower());
         }
+    }
 
+    public static class FlowingNightglowERRPower extends PermPower {
+        public FlowingNightglowERRPower() {
+            this.name = ERPowerName;
+            this.maxStacks = 5;
+        }
         @Override
         public float getConditionalERR(AbstractCharacter character) {
-            if (character == this.lightcone.owner) {
-                return 3 * lightcone.cantillation;
-            }
-
-            return 0;
+            return 3 * stacks;
         }
     }
 

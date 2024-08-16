@@ -22,7 +22,6 @@ public class SomethingIrreplaceable extends AbstractLightcone {
     public void onAttacked(AbstractEnemy enemy) {
         // TODO: Restore HP
         TempPower power = TempPower.create(PowerStat.DAMAGE_BONUS, 24, 1, "Something Irreplaceable Damage Bonus");
-        power.justApplied = false; // Removes on next turn start
         this.owner.addPower(power);
     }
 }

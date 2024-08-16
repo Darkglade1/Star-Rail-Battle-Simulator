@@ -254,6 +254,10 @@ public class SwordMarch extends AbstractCharacter {
         @Override
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             SwordMarch.this.gainCharge(1);
+        }
+
+        @Override
+        public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             if (types.contains(DamageType.BASIC) || types.contains(DamageType.SKILL)) {
                 SwordMarch.this.useFollowUp(enemiesHit);
             }

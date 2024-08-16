@@ -55,4 +55,8 @@ public abstract class AbstractLightcone {
 
     }
 
+    public void onEndTurn() {
+
+    }
+
 }

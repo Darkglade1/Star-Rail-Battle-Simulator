@@ -304,6 +304,9 @@ public class Feixiao extends AbstractCharacter {
             if (!Feixiao.this.hasPower(ultBreakEffBuff.name)) {
                 Feixiao.this.increaseStack(1);
             }
+        }
+        @Override
+        public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<DamageType> types) {
             if (!(character instanceof Feixiao)) {
                 if (FUAReady) {
                     FUAReady = false;

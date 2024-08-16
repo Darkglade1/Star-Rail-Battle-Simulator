@@ -164,6 +164,9 @@ public class Battle {
                 }
             }
             nextUnit.takeTurn();
+            if (nextUnit instanceof  AbstractCharacter) {
+                ((AbstractCharacter) nextUnit).lightcone.onEndTurn();
+            }
             ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
             for (AbstractPower power : nextUnit.powerList) {
                 power.onEndTurn();

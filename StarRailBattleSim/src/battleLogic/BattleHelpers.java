@@ -209,6 +209,10 @@ public class BattleHelpers {
                 power.onAttacked(character, enemy, types);
             }
         }
+        ArrayList<AbstractPower> powersToTrigger2 = new ArrayList<>(character.powerList); // jank way to dodge comod exception lol
+        for (AbstractPower power : powersToTrigger2) {
+            power.afterAttackFinish(character, enemiesHit, types);
+        }
     }
 
     public static void attackCharacter(AbstractEnemy source, AbstractCharacter target, int energyToGain) {
