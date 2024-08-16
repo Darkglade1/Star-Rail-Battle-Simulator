@@ -642,7 +642,7 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ERR);
-        relicStats.addSubStat(RelicStats.Stats.BREAK_EFFECT, 12).addSubStat(RelicStats.Stats.SPEED, 6).
+        relicStats.addSubStat(RelicStats.Stats.BREAK_EFFECT, 10).addSubStat(RelicStats.Stats.SPEED, 8).
                 addSubStat(RelicStats.Stats.EFFECT_RES, 6);
         relicStats.equipTo(character);
         return character;
@@ -758,22 +758,9 @@ public class PlayerTeam {
         return character;
     }
 
-//    public static AbstractCharacter getPrebuiltFeixiao() {
-//        AbstractCharacter character = new Feixiao();
-//        character.EquipLightcone(new VentureForth(character));
-//        character.EquipRelicSet(new Valorous(character));
-//        character.EquipRelicSet(new Duran(character));
-//        RelicStats relicStats = new RelicStats();
-//        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
-//                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
-//        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 11).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13);
-//        relicStats.equipTo(character);
-//        return character;
-//    }
-
     public static AbstractCharacter getPrebuiltFeixiao() {
         AbstractCharacter character = new Feixiao();
-        character.EquipLightcone(new Swordplay(character));
+        character.EquipLightcone(new VentureForth(character));
         character.EquipRelicSet(new Valorous(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
@@ -784,6 +771,19 @@ public class PlayerTeam {
         return character;
     }
 
+//    public static AbstractCharacter getPrebuiltFeixiao() {
+//        AbstractCharacter character = new Feixiao();
+//        character.EquipLightcone(new Swordplay(character));
+//        character.EquipRelicSet(new Valorous(character));
+//        character.EquipRelicSet(new Duran(character));
+//        RelicStats relicStats = new RelicStats();
+//        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+//                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+//        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 11).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13);
+//        relicStats.equipTo(character);
+//        return character;
+//    }
+
     public static AbstractCharacter getPrebuiltTopazSpeed() {
         AbstractCharacter character = new Topaz();
         character.EquipLightcone(new Swordplay(character));
@@ -792,7 +792,7 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 10).addSubStat(RelicStats.Stats.SPEED, 1);
         relicStats.equipTo(character);
         return character;
     }

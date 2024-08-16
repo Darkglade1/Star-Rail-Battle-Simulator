@@ -22,9 +22,10 @@ public class Feixiao extends AbstractCharacter {
     public int stackCount = 0;
     public final int stackThreshold = 2;
     private boolean FUAReady = true;
+    public static final String NAME = "Feixiao";
 
     public Feixiao() {
-        super("Feixiao", 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75, Path.HUNT);
+        super(NAME, 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75, Path.HUNT);
 
         this.usesEnergy = false;
         this.currentEnergy = 0;
