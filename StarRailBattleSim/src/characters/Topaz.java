@@ -6,12 +6,14 @@ import battleLogic.Numby;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Topaz extends AbstractCharacter {
-    AbstractPower proofOfDebt;
+    AbstractPower proofOfDebt = new ProofOfDebt();
     Numby numby;
     PermPower stonksPower;
     private int ultCounter = 0;
@@ -29,14 +31,10 @@ public class Topaz extends AbstractCharacter {
     public Topaz() {
         super("Topaz", 931, 621, 412, 110, 80, ElementType.FIRE, 130, 75, Path.HUNT);
 
-        proofOfDebt = new ProofOfDebt();
-
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusSameElementDamageBonus = 22.4f;
-        tracesPower.bonusCritChance = 12.0f;
-        tracesPower.bonusHPPercent = 10;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .addStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
+                .addStat(PowerStat.CRIT_CHANCE, 12.0f)
+                .addStat(PowerStat.HP_PERCENT, 10));
 
         this.addPower(new FireWeaknessBonusDamage());
 
@@ -92,11 +90,9 @@ public class Topaz extends AbstractCharacter {
         // only ult if numby isn't about to spin so we don't waste action forward as much
         if (Battle.battle.actionValueMap.get(numby) >= numby.getBaseAV() * 0.25) {
             super.useUltimate();
-            stonksPower = new PermPower();
-            stonksPower.bonusCritDamage = 25;
-            stonksPower.name = "Topaz Ult Power";
+            this.stonksPower = PermPower.create(PowerStat.CRIT_DAMAGE, 25, "Topaz Ult Power");
             ultCounter = 2;
-            addPower(stonksPower);
+            this.addPower(this.stonksPower);
         }
     }
 

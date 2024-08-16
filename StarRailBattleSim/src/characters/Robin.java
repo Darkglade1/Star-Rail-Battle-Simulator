@@ -7,15 +7,19 @@ import battleLogic.Concerto;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Robin extends AbstractCharacter {
-    PermPower skillPower;
-    RobinUltPower ultPower;
-    RobinFixedCritPower fixedCritPower;
+
+    PermPower skillPower = PermPower.create(PowerStat.DAMAGE_BONUS, 50, "Robin Skill Power");
+    RobinUltPower ultPower = new RobinUltPower();
+    RobinFixedCritPower fixedCritPower = new RobinFixedCritPower();
+
     private int skillCounter = 0;
     private int allyAttacksMetric = 0;
     private int concertoProcs = 0;
@@ -28,19 +32,11 @@ public class Robin extends AbstractCharacter {
         super(NAME, 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100, Path.HARMONY);
 
         this.skillEnergyGain = 35;
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusAtkPercent = 28;
-        tracesPower.bonusHPPercent = 18;
-        tracesPower.bonusFlatSpeed = 5;
-        this.addPower(tracesPower);
 
-        skillPower = new PermPower();
-        skillPower.bonusDamageBonus = 50;
-        skillPower.name = "Robin Skill Power";
-
-        ultPower = new RobinUltPower();
-        fixedCritPower = new RobinFixedCritPower();
+        this.addPower(new TracePower()
+                .addStat(PowerStat.ATK_PERCENT, 28)
+                .addStat(PowerStat.HP_PERCENT, 18)
+                .addStat(PowerStat.FLAT_SPEED, 5));
     }
 
     public void useSkill() {
@@ -194,11 +190,10 @@ public class Robin extends AbstractCharacter {
         return list;
     }
 
-    private class RobinTalentPower extends AbstractPower {
+    private class RobinTalentPower extends PermPower {
         public RobinTalentPower() {
             this.name = this.getClass().getSimpleName();
-            lastsForever = true;
-            this.bonusCritDamage = 20;
+            this.setStat(PowerStat.CRIT_DAMAGE, 20);
         }
 
         @Override
@@ -216,17 +211,17 @@ public class Robin extends AbstractCharacter {
 
         public void updateAtkBuff() {
             float atk = getFinalAttackWithoutConcerto();
-            this.bonusFlatAtk = (int)(0.228 * atk) + 200;
+            this.setStat(PowerStat.FLAT_ATK, (int)(0.228 * atk) + 200);
         }
 
         private float getFinalAttackWithoutConcerto() {
             int totalBaseAtk = baseAtk + lightcone.baseAtk;
             float totalBonusAtkPercent = 0;
-            int totalBonusFlatAtk = 0;
+            float totalBonusFlatAtk = 0;
             for (AbstractPower power : powerList) {
                 if (!power.name.equals(this.name)) {
-                    totalBonusAtkPercent += power.bonusAtkPercent;
-                    totalBonusFlatAtk += power.bonusFlatAtk;
+                    totalBonusAtkPercent += power.getStat(PowerStat.ATK_PERCENT);
+                    totalBonusFlatAtk += power.getStat(PowerStat.FLAT_ATK);
                 }
             }
             return (totalBaseAtk * (1 + totalBonusAtkPercent / 100) + totalBonusFlatAtk);

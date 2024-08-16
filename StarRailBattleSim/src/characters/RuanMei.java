@@ -5,12 +5,14 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
+import powers.TracePower;
 
 import java.util.ArrayList;
 
 public class RuanMei extends AbstractCharacter {
     PermPower skillPower;
-    AbstractPower ultPower;
+    AbstractPower ultPower = new RuanMeiUltPower();
     private int skillCounter = 0;
     private int ultCounter = 0;
     public static final String NAME = "Ruan Mei";
@@ -21,19 +23,14 @@ public class RuanMei extends AbstractCharacter {
     public RuanMei() {
         super(NAME, 1087, 660, 485, 104, 80, ElementType.ICE, 130, 100, Path.HARMONY);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusBreakEffect = 37.3f;
-        tracesPower.bonusDefPercent = 22.5f;
-        tracesPower.bonusFlatSpeed = 5;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .addStat(PowerStat.BREAK_EFFECT, 37.3f)
+                .addStat(PowerStat.DEF_PERCENT, 22.5f)
+                .addStat(PowerStat.FLAT_SPEED, 5));
 
-        skillPower = new PermPower();
-        skillPower.bonusDamageBonus = 68;
-        skillPower.bonusWeaknessBreakEff = 50;
-        skillPower.name = SKILL_POWER_NAME;
-
-        ultPower = new RuanMeiUltPower();
+        this.skillPower = (PermPower) new PermPower(SKILL_POWER_NAME)
+                .addStat(PowerStat.DAMAGE_BONUS, 68)
+                .addStat(PowerStat.WEAKNESS_BREAK_EFF, 50);
     }
 
     public void useSkill() {
@@ -99,16 +96,10 @@ public class RuanMei extends AbstractCharacter {
 
     public void onCombatStart() {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
-            PermPower breakBuff = new PermPower();
-            breakBuff.bonusBreakEffect = 20;
-            breakBuff.name = "Ruan Mei Break Buff";
-            character.addPower(breakBuff);
+            character.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 20, "Ruan Mei Break Buff"));
 
-            PermPower speedBuff = new PermPower();
-            speedBuff.name = "Ruan Mei Speed Power";
-            speedBuff.bonusSpeedPercent = 10;
             if (character != this) {
-                character.addPower(speedBuff);
+                character.addPower(PermPower.create(PowerStat.SPEED_PERCENT, 10, "Ruan Mei Speed Buff"));
             }
         }
     }
@@ -134,11 +125,10 @@ public class RuanMei extends AbstractCharacter {
         }
     }
 
-    private class RuanMeiUltPower extends AbstractPower {
+    private class RuanMeiUltPower extends PermPower {
         public RuanMeiUltPower() {
-            this.name = ULT_POWER_NAME;
-            this.lastsForever = true;
-            this.resPen = 25;
+            super(ULT_DEBUFF_NAME);
+            this.setStat(PowerStat.RES_PEN, 25);
         }
 
         @Override

@@ -2,6 +2,7 @@ package relics;
 
 import characters.AbstractCharacter;
 import powers.PermPower;
+import powers.PowerStat;
 
 public class Thief extends AbstractRelicSetBonus {
     public Thief(AbstractCharacter owner) {
@@ -14,9 +15,9 @@ public class Thief extends AbstractRelicSetBonus {
     public void onEquip() {
         PermPower statBonus = new PermPower();
         statBonus.name = "Thief Stat Bonus";
-        statBonus.bonusBreakEffect = 16;
+        statBonus.setStat(PowerStat.BREAK_EFFECT, 16);
         if (isFullSet) {
-            statBonus.bonusBreakEffect += 16;
+            statBonus.increaseStat(PowerStat.BREAK_EFFECT, 16);
         }
         owner.addPower(statBonus);
     }

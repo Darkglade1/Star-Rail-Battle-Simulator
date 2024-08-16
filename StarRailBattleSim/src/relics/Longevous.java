@@ -2,6 +2,7 @@ package relics;
 
 import characters.AbstractCharacter;
 import powers.PermPower;
+import powers.PowerStat;
 
 public class Longevous extends AbstractRelicSetBonus {
     public Longevous(AbstractCharacter owner) {
@@ -12,10 +13,7 @@ public class Longevous extends AbstractRelicSetBonus {
     }
 
     public void onEquip() {
-        PermPower statBonus = new PermPower();
-        statBonus.name = "Longevous Stat Bonus";
-        statBonus.bonusHPPercent = 12;
-        owner.addPower(statBonus);
+        this.owner.addPower(PermPower.create(PowerStat.HP_PERCENT, 12, "Longevous Stat Bonus"));
     }
 
     public String toString() {

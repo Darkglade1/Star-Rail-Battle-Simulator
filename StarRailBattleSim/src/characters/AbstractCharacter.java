@@ -4,7 +4,9 @@ import battleLogic.AbstractEntity;
 import battleLogic.Battle;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
+import lightcones.DefaultLightcone;
 import powers.AbstractPower;
+import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
@@ -85,6 +87,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         powerList = new ArrayList<>();
         relicSetBonus = new ArrayList<>();
         moveHistory = new ArrayList<>();
+
+        this.lightcone = new DefaultLightcone(this);
     }
 
     public void useSkill() {
@@ -141,9 +145,9 @@ public abstract class AbstractCharacter extends AbstractEntity {
         float totalBonusAtkPercent = 0;
         int totalBonusFlatAtk = 0;
         for (AbstractPower power : powerList) {
-            totalBonusAtkPercent += power.bonusAtkPercent;
+            totalBonusAtkPercent += power.getStat(PowerStat.ATK_PERCENT);
             totalBonusAtkPercent += power.getConditionalAtkBonus(this);
-            totalBonusFlatAtk += power.bonusFlatAtk;
+            totalBonusFlatAtk += power.getStat(PowerStat.FLAT_ATK);
         }
         return (totalBaseAtk * (1 + totalBonusAtkPercent / 100) + totalBonusFlatAtk);
     }
@@ -153,8 +157,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         float totalBonusDefPercent = 0;
         int totalBonusFlatDef = 0;
         for (AbstractPower power : powerList) {
-            totalBonusDefPercent += power.bonusDefPercent;
-            totalBonusFlatDef += power.bonusFlatDef;
+            totalBonusDefPercent += power.getStat(PowerStat.DEF_PERCENT);
+            totalBonusFlatDef += power.getStat(PowerStat.FLAT_DEF);
         }
         return (totalBaseDef * (1 + totalBonusDefPercent / 100) + totalBonusFlatDef);
     }
@@ -164,8 +168,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         float totalBonusHPPercent = 0;
         int totalBonusFlatHP = 0;
         for (AbstractPower power : powerList) {
-            totalBonusHPPercent += power.bonusHPPercent;
-            totalBonusFlatHP += power.bonusFlatHP;
+            totalBonusHPPercent += power.getStat(PowerStat.HP_PERCENT);
+            totalBonusFlatHP += power.getStat(PowerStat.FLAT_HP);
         }
         return (totalBaseHP * (1 + totalBonusHPPercent / 100) + totalBonusFlatHP);
     }
@@ -175,8 +179,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         float totalBonusSpeedPercent = 0;
         float totalBonusFlatSpeed = 0;
         for (AbstractPower power : powerList) {
-            totalBonusSpeedPercent += power.bonusSpeedPercent;
-            totalBonusFlatSpeed += power.bonusFlatSpeed;
+            totalBonusSpeedPercent += power.getStat(PowerStat.SPEED_PERCENT);
+            totalBonusFlatSpeed += power.getStat(PowerStat.FLAT_SPEED);
         }
         return (totalBaseSpeed * (1 + totalBonusSpeedPercent / 100) + totalBonusFlatSpeed);
     }
@@ -184,7 +188,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalCritChance() {
         float totalCritChance = baseCritChance;
         for (AbstractPower power : powerList) {
-            totalCritChance += power.bonusCritChance;
+            totalCritChance += power.getStat(PowerStat.CRIT_CHANCE);
         }
         if (totalCritChance > 100) {
             totalCritChance = 100;
@@ -195,7 +199,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalCritDamage() {
         float totalCritDamage = baseCritDamage;
         for (AbstractPower power : powerList) {
-            totalCritDamage += power.bonusCritDamage;
+            totalCritDamage += power.getStat(PowerStat.CRIT_DAMAGE);
         }
         return totalCritDamage;
     }
@@ -204,8 +208,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         float totalSameElementDamageBonus = 0;
         float totalGlobalElementDamageBonus = 0;
         for (AbstractPower power : powerList) {
-            totalSameElementDamageBonus += power.bonusSameElementDamageBonus;
-            totalGlobalElementDamageBonus += power.bonusDamageBonus;
+            totalSameElementDamageBonus += power.getStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS);
+            totalGlobalElementDamageBonus += power.getStat(PowerStat.DAMAGE_BONUS);
         }
         return totalSameElementDamageBonus + totalGlobalElementDamageBonus;
     }
@@ -213,7 +217,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalOffElementDamageBonus() {
         float totalGlobalElementDamageBonus = 0;
         for (AbstractPower power : powerList) {
-            totalGlobalElementDamageBonus += power.bonusDamageBonus;
+            totalGlobalElementDamageBonus += power.getStat(PowerStat.DAMAGE_BONUS);
         }
         return totalGlobalElementDamageBonus;
     }
@@ -221,7 +225,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalResPen() {
         int totalResPen = 0;
         for (AbstractPower power : powerList) {
-            totalResPen += power.resPen;
+            totalResPen += power.getStat(PowerStat.RES_PEN);
         }
         return totalResPen;
     }
@@ -230,7 +234,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         int baseTauntValue = tauntValue;
         float totalBonusTauntValue = 0;
         for (AbstractPower power : powerList) {
-            totalBonusTauntValue += power.bonusTauntValue;
+            totalBonusTauntValue += power.getStat(PowerStat.TAUNT_VALUE);
         }
         return (baseTauntValue * (1 + totalBonusTauntValue / 100));
     }
@@ -238,7 +242,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalERR() {
         float totalEnergyRegenBonus = 0;
         for (AbstractPower power : powerList) {
-            totalEnergyRegenBonus += power.bonusEnergyRegen;
+            totalEnergyRegenBonus += power.getStat(PowerStat.ENERGY_REGEN);
             totalEnergyRegenBonus += power.getConditionalERR(this);
         }
         return totalEnergyRegenBonus;
@@ -247,7 +251,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalEHR() {
         float totalEHR = 0;
         for (AbstractPower power : powerList) {
-            totalEHR += power.bonusEffectHit;
+            totalEHR += power.getStat(PowerStat.EFFECT_HIT);
         }
         return totalEHR;
     }
@@ -255,7 +259,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalEffectRes() {
         float totalEffectRes = 0;
         for (AbstractPower power : powerList) {
-            totalEffectRes += power.bonusEffectRes;
+            totalEffectRes += power.getStat(PowerStat.EFFECT_RES);
         }
         return totalEffectRes;
     }
@@ -263,7 +267,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalBreakEffect() {
         float totalBreakEffect = 0;
         for (AbstractPower power : powerList) {
-            totalBreakEffect += power.bonusBreakEffect;
+            totalBreakEffect += power.getStat(PowerStat.BREAK_EFFECT);
         }
         return totalBreakEffect;
     }
@@ -271,7 +275,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public float getTotalWeaknessBreakEff() {
         float totalWeaknessBreakEff = 0;
         for (AbstractPower power : powerList) {
-            totalWeaknessBreakEff += power.bonusWeaknessBreakEff;
+            totalWeaknessBreakEff += power.getStat(PowerStat.WEAKNESS_BREAK_EFF);
         }
         return totalWeaknessBreakEff;
     }

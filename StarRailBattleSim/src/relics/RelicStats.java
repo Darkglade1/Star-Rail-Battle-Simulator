@@ -2,6 +2,7 @@ package relics;
 
 import characters.AbstractCharacter;
 import powers.PermPower;
+import powers.PowerStat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,21 +26,22 @@ public class RelicStats {
 
     public void equipTo(AbstractCharacter character) {
         PermPower relicBonus = new PermPower();
-        relicBonus.bonusFlatHP = getTotalBonus(Stats.HP_FLAT);
-        relicBonus.bonusFlatAtk = getTotalBonus(Stats.ATK_FLAT);
-        relicBonus.bonusFlatDef = getTotalBonus(Stats.DEF_FLAT);
-        relicBonus.bonusHPPercent = getTotalBonus(Stats.HP_PER);
-        relicBonus.bonusAtkPercent = getTotalBonus(Stats.ATK_PER);
-        relicBonus.bonusDefPercent = getTotalBonus(Stats.DEF_PER);
-        relicBonus.bonusCritChance = getTotalBonus(Stats.CRIT_RATE);
-        relicBonus.bonusCritDamage = getTotalBonus(Stats.CRIT_DAMAGE);
-        relicBonus.bonusEffectHit = getTotalBonus(Stats.EFFECT_HIT);
-        relicBonus.bonusEffectRes = getTotalBonus(Stats.EFFECT_RES);
-        relicBonus.bonusBreakEffect = getTotalBonus(Stats.BREAK_EFFECT);
-        relicBonus.bonusFlatSpeed = getTotalBonus(Stats.SPEED);
-        relicBonus.bonusHealing = getTotalBonus(Stats.HEALING);
-        relicBonus.bonusEnergyRegen = getTotalBonus(Stats.ERR);
-        relicBonus.bonusSameElementDamageBonus = getTotalBonus(Stats.ELEMENT_DAMAGE);
+
+        relicBonus.setStat(PowerStat.FLAT_HP, getTotalBonus(Stats.HP_FLAT));
+        relicBonus.setStat(PowerStat.FLAT_ATK, getTotalBonus(Stats.ATK_FLAT));
+        relicBonus.setStat(PowerStat.FLAT_DEF, getTotalBonus(Stats.DEF_FLAT));
+        relicBonus.setStat(PowerStat.HP_PERCENT, getTotalBonus(Stats.HP_PER));
+        relicBonus.setStat(PowerStat.ATK_PERCENT, getTotalBonus(Stats.ATK_PER));
+        relicBonus.setStat(PowerStat.DEF_PERCENT, getTotalBonus(Stats.DEF_PER));
+        relicBonus.setStat(PowerStat.CRIT_CHANCE, getTotalBonus(Stats.CRIT_RATE));
+        relicBonus.setStat(PowerStat.CRIT_DAMAGE, getTotalBonus(Stats.CRIT_DAMAGE));
+        relicBonus.setStat(PowerStat.EFFECT_HIT, getTotalBonus(Stats.EFFECT_HIT));
+        relicBonus.setStat(PowerStat.EFFECT_RES, getTotalBonus(Stats.EFFECT_RES));
+        relicBonus.setStat(PowerStat.BREAK_EFFECT, getTotalBonus(Stats.BREAK_EFFECT));
+        relicBonus.setStat(PowerStat.FLAT_SPEED, getTotalBonus(Stats.SPEED));
+        relicBonus.setStat(PowerStat.HEALING, getTotalBonus(Stats.HEALING));
+        relicBonus.setStat(PowerStat.ENERGY_REGEN, getTotalBonus(Stats.ERR));
+        relicBonus.setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, getTotalBonus(Stats.ELEMENT_DAMAGE));
         relicBonus.name = "Relic Stats Bonuses";
         character.addPower(relicBonus);
     }

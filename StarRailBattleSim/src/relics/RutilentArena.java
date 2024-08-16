@@ -4,6 +4,7 @@ import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 
 import java.util.ArrayList;
 
@@ -12,10 +13,7 @@ public class RutilentArena extends AbstractRelicSetBonus {
         super(owner);
     }
     public void onEquip() {
-        PermPower statBonus = new PermPower();
-        statBonus.name = "Rutilent Arena Stat Bonus";
-        statBonus.bonusCritChance = 8;
-        owner.addPower(statBonus);
+        owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 8, "Rutilent Arena Crit Chance Bonus"));
     }
 
     public void onCombatStart() {

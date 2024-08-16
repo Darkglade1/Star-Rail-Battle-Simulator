@@ -5,6 +5,7 @@ import characters.SwordMarch;
 import characters.Yunli;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
+import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
@@ -172,7 +173,7 @@ public class Battle {
                 }
             }
             for (AbstractPower power : powersToRemove) {
-                if (power.bonusSpeedPercent > 0 || power.bonusFlatSpeed > 0) {
+                if (power.getStat(PowerStat.SPEED_PERCENT) > 0 || power.getStat(PowerStat.FLAT_SPEED) > 0) {
                     DecreaseSpeed(nextUnit, power);
                 } else {
                     nextUnit.removePower(power);

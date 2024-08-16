@@ -3,7 +3,8 @@ package lightcones.harmony;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
-import powers.AbstractPower;
+import powers.PowerStat;
+import powers.TempPower;
 
 /**
  * Assumes onSpecificTrigger is called on skill, with the character as next to act
@@ -17,19 +18,11 @@ public class PastAndFuture extends AbstractLightcone {
 
     public void onSpecificTrigger(AbstractCharacter character, AbstractEnemy enemy) {
         if (character != null) {
-            character.addPower(new PastAndFutureDamagePower());
+            character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 32, 1, "Past and Future Damage Boost"));
         }
     }
 
     public String toString() {
         return "Past and Future";
-    }
-
-    private static class PastAndFutureDamagePower extends AbstractPower {
-        public PastAndFutureDamagePower() {
-            this.name = this.getClass().getSimpleName();
-            this.turnDuration = 1;
-            this.bonusDamageBonus = 32;
-        }
     }
 }

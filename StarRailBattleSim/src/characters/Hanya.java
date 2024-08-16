@@ -5,7 +5,9 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 
@@ -17,12 +19,10 @@ public class Hanya extends AbstractCharacter {
     public Hanya() {
         super(NAME, 917, 564, 353, 110, 80, ElementType.PHYSICAL, 140, 100, Path.HARMONY);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusAtkPercent = 28;
-        tracesPower.bonusFlatSpeed = 9;
-        tracesPower.bonusHPPercent = 10;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .addStat(PowerStat.ATK_PERCENT, 28)
+                .addStat(PowerStat.FLAT_SPEED, 9)
+                .addStat(PowerStat.HP_PERCENT, 10));
     }
 
     public void useSkill() {
@@ -46,11 +46,8 @@ public class Hanya extends AbstractCharacter {
         }
         enemy.addPower(burden);
 
-        TempPower speedPower = new TempPower();
-        speedPower.bonusSpeedPercent = 20;
-        speedPower.turnDuration = 1;
+        TempPower speedPower = TempPower.create(PowerStat.SPEED_PERCENT, 20, 1, "Hanya Skill Speed Power");
         speedPower.justApplied = true;
-        speedPower.name = "Hanya Skill Speed Power";
         Battle.battle.IncreaseSpeed(this, speedPower);
 
         BattleHelpers.PostAttackLogic(this, types);
@@ -81,11 +78,9 @@ public class Hanya extends AbstractCharacter {
                 if (existingPower != null) {
                     Battle.battle.DecreaseSpeed(character, existingPower);
                 }
-                TempPower ultBuff = new TempPower();
-                ultBuff.bonusAtkPercent = 65;
-                ultBuff.bonusFlatSpeed = this.getFinalSpeed() * 0.21f;
-                ultBuff.turnDuration = 3;
-                ultBuff.name = ULT_BUFF_NAME;
+                TempPower ultBuff = new TempPower(3, ULT_BUFF_NAME);
+                ultBuff.setStat(PowerStat.ATK_PERCENT, 65);
+                ultBuff.setStat(PowerStat.FLAT_SPEED, this.getFinalSpeed() * 0.21f);
                 Battle.battle.IncreaseSpeed(character, ultBuff);
                 break;
             }
@@ -113,11 +108,8 @@ public class Hanya extends AbstractCharacter {
 
         public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (damageTypes.contains(DamageType.BASIC) || damageTypes.contains(DamageType.SKILL) || damageTypes.contains(DamageType.ULTIMATE)) {
-                TempPower talentPower = new TempPower();
-                talentPower.turnDuration = 2;
-                talentPower.bonusDamageBonus = 43;
+                TempPower talentPower = TempPower.create(PowerStat.DAMAGE_BONUS, 43, 2, "Hanya Talent Power");
                 talentPower.justApplied = true;
-                talentPower.name = "Hanya Talent Power";
                 character.addPower(talentPower);
             }
         }
@@ -127,18 +119,18 @@ public class Hanya extends AbstractCharacter {
             if (damageTypes.contains(DamageType.BASIC) || damageTypes.contains(DamageType.SKILL) || damageTypes.contains(DamageType.ULTIMATE)) {
                 hitCount++;
                 Battle.battle.addToLog(String.format("Burden is at %d/%d hits", hitCount, hitsToTrigger));
+
                 if (hitCount >= hitsToTrigger) {
                     triggersLeft--;
                     Battle.battle.generateSkillPoint(character, 1);
                     Hanya.this.increaseEnergy(2);
-                    TempPower tracePower = new TempPower();
-                    tracePower.turnDuration = 1;
+
+                    TempPower tracePower = TempPower.create(PowerStat.ATK_PERCENT, 10, 1, "Hanya Trace Atk Power");
                     if (Battle.battle.nextUnit == character) {
                         tracePower.justApplied = true;
                     }
-                    tracePower.bonusAtkPercent = 10;
-                    tracePower.name = "Hanya Trace Atk Power";
                     character.addPower(tracePower);
+
                     hitCount = 0;
                     if (triggersLeft <= 0) {
                         owner.removePower(this);

@@ -5,7 +5,9 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,12 +21,10 @@ public class Huohuo extends AbstractCharacter {
     public Huohuo() {
         super("Huohuo", 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100, Path.ABUNDANCE);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusHPPercent = 28;
-        tracesPower.bonusFlatSpeed = 5;
-        tracesPower.bonusEffectRes = 18;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .addStat(PowerStat.HP_PERCENT, 28)
+                .addStat(PowerStat.FLAT_SPEED, 5)
+                .addStat(PowerStat.EFFECT_RES, 18));
     }
 
     public void useSkill() {
@@ -55,11 +55,7 @@ public class Huohuo extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             if (character != this) {
                 character.increaseEnergy(character.maxEnergy * 0.2f, false);
-                TempPower tailAtkBonus = new TempPower();
-                tailAtkBonus.bonusAtkPercent = 40;
-                tailAtkBonus.turnDuration = 2;
-                tailAtkBonus.name = "Tail Atk Bonus";
-                character.addPower(tailAtkBonus);
+                character.addPower(TempPower.create(PowerStat.ATK_PERCENT, 40, 2, "Tail Atk Bonus"));
             }
         }
     }

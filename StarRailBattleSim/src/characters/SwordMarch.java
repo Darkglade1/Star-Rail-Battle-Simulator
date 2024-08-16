@@ -5,8 +5,10 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TauntPower;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,12 +34,10 @@ public class SwordMarch extends AbstractCharacter {
     public SwordMarch() {
         super("Sword March", 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75, Path.HUNT);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusAtkPercent = 28f;
-        tracesPower.bonusCritDamage = 24f;
-        tracesPower.bonusDefPercent = 12.5f;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .addStat(PowerStat.ATK_PERCENT, 28)
+                .addStat(PowerStat.CRIT_DAMAGE, 24)
+                .addStat(PowerStat.DEF_PERCENT, 12.5f));
         this.hasAttackingUltimate = true;
     }
 
@@ -48,11 +48,7 @@ public class SwordMarch extends AbstractCharacter {
                 master = character;
                 AbstractPower masterPower = new MarchMasterPower();
                 Battle.battle.IncreaseSpeed(master, masterPower);
-
-                PermPower marchSpeedBoost = new PermPower();
-                marchSpeedBoost.bonusSpeedPercent = 10;
-                marchSpeedBoost.name = "March Speed Boost";
-                Battle.battle.IncreaseSpeed(this, marchSpeedBoost);
+                Battle.battle.IncreaseSpeed(this, PermPower.create(PowerStat.SPEED_PERCENT, 10, "March Speed Boost"));
             }
         }
     }
@@ -98,12 +94,13 @@ public class SwordMarch extends AbstractCharacter {
         int initialHits = 3;
         int numExtraHits = 0;
         int procChance = 60;
-        TempPower ultCritDmgBuff = new TempPower();
-        ultCritDmgBuff.bonusCritDamage = 50;
-        ultCritDmgBuff.name = "March Ult Crit Dmg Buff";
-        TempPower ebaDamageBonus = new TempPower();
-        ebaDamageBonus.bonusDamageBonus = 88;
-        ebaDamageBonus.name = "March Enhanced Basic Damage Bonus";
+
+        TempPower ultCritDmgBuff = new TempPower("March Ult Crit Dmg Buff");
+        ultCritDmgBuff.setStat(PowerStat.CRIT_DAMAGE, 50);
+
+        TempPower ebaDamageBonus = new TempPower("March Enhanced Basic Damage Bonus");
+        ebaDamageBonus.setStat(PowerStat.DAMAGE_BONUS, 88);
+
         addPower(ebaDamageBonus);
         if (hasUltEnhancement) {
             initialHits += 2;
@@ -132,11 +129,7 @@ public class SwordMarch extends AbstractCharacter {
         removePower(ebaDamageBonus);
         isEnhanced = false;
 
-        TempPower ebaMasterBuff = new TempPower();
-        ebaMasterBuff.bonusCritDamage = 60;
-        ebaMasterBuff.turnDuration = 2;
-        ebaMasterBuff.name = "Enhanced Basic Master Buff";
-        master.addPower(ebaMasterBuff);
+        master.addPower(TempPower.create(PowerStat.CRIT_DAMAGE, 60, 2,"Enhanced Basic Master Buff"));
 
         BattleHelpers.PostAttackLogic(this, types);
     }
@@ -244,11 +237,10 @@ public class SwordMarch extends AbstractCharacter {
         return list;
     }
 
-    private class MarchMasterPower extends AbstractPower {
+    private class MarchMasterPower extends PermPower {
         public MarchMasterPower() {
             this.name = this.getClass().getSimpleName();
-            this.bonusSpeedPercent = 10.8f;
-            this.lastsForever = true;
+            this.setStat(PowerStat.SPEED_PERCENT, 10.8f);
         }
 
         @Override

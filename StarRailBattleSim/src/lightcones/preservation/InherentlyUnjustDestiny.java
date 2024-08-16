@@ -6,6 +6,7 @@ import lightcones.AbstractLightcone;
 import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
+import powers.TempPower;
 
 import java.util.ArrayList;
 
@@ -34,12 +35,12 @@ public class InherentlyUnjustDestiny extends AbstractLightcone {
         }
     }
 
-    public static class FollowDmgBonus extends AbstractPower {
+    public static class FollowDmgBonus extends TempPower {
         public FollowDmgBonus() {
+            super(2);
             this.name = this.getClass().getSimpleName();
-            this.turnDuration = 2;
             this.type = PowerType.DEBUFF;
-            this.bonusDamageTaken = 10;
+            this.setStat(PowerStat.DAMAGE_TAKEN, 10);
         }
     }
 

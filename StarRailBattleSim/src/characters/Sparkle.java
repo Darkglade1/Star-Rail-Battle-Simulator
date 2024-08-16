@@ -5,6 +5,8 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
+import powers.TracePower;
 
 import java.util.ArrayList;
 
@@ -18,12 +20,10 @@ public class Sparkle extends AbstractCharacter {
         super(NAME, 1397, 524, 485, 101, 80, ElementType.QUANTUM, 110, 100, Path.HARMONY);
 
         this.basicEnergyGain = 30;
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusCritDamage = 24;
-        tracesPower.bonusHPPercent = 28;
-        tracesPower.bonusEffectRes = 10;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .addStat(PowerStat.CRIT_DAMAGE, 24)
+                .addStat(PowerStat.HP_PERCENT, 28)
+                .addStat(PowerStat.EFFECT_RES, 10));
     }
 
     public void useSkill() {
@@ -77,9 +77,7 @@ public class Sparkle extends AbstractCharacter {
         Battle.battle.MAX_SKILL_POINTS += 2;
         int numQuantumAllies = 0;
         for (AbstractCharacter character : Battle.battle.playerTeam) {
-            PermPower nocturne = new PermPower();
-            nocturne.bonusAtkPercent = 15;
-            nocturne.name = "Sparkle Atk Bonus";
+            PermPower nocturne = PermPower.create(PowerStat.ATK_PERCENT, 15, "Sparkle Atk Bonus");
             character.addPower(nocturne);
             if (character.elementType == ElementType.QUANTUM) {
                 numQuantumAllies++;
@@ -95,9 +93,7 @@ public class Sparkle extends AbstractCharacter {
         }
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             if (character.elementType == ElementType.QUANTUM) {
-                PermPower quantumNocturne = new PermPower();
-                quantumNocturne.bonusAtkPercent = quantumAtkBonus;
-                quantumNocturne.name = "Sparkle Quantum Atk Bonus";
+                PermPower quantumNocturne = PermPower.create(PowerStat.ATK_PERCENT, quantumAtkBonus, "Sparkle Quantum Atk Bonus");
                 character.addPower(quantumNocturne);
             }
         }
@@ -107,12 +103,11 @@ public class Sparkle extends AbstractCharacter {
         Battle.battle.generateSkillPoint(this, 3);
     }
 
-    private class SparkleSkillPower extends AbstractPower {
+    private class SparkleSkillPower extends PermPower {
         public SparkleSkillPower() {
-            this.name = SKILL_POWER_NAME;
-            this.lastsForever = true;
+            super(SKILL_POWER_NAME);
             this.justApplied = true;
-            this.bonusCritDamage = (getTotalCritDamage() * 0.24f) + 45;
+            this.setStat(PowerStat.CRIT_DAMAGE, (getTotalCritDamage() * 0.24f) + 45);
         }
 
         @Override

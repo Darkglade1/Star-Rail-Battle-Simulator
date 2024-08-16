@@ -5,6 +5,7 @@ import characters.Moze;
 import characters.SwordMarch;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
+import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class BattleHelpers {
 
         float damageTaken = 0;
         for (AbstractPower power : target.powerList) {
-            damageTaken += power.bonusDamageTaken;
+            damageTaken += power.getStat(PowerStat.DAMAGE_TAKEN);
             damageTaken += power.getConditionalDamageTaken(source, target, types);
         }
         float damageTakenMultiplier = 1 + damageTaken / 100;
@@ -129,7 +130,7 @@ public class BattleHelpers {
         types.add(AbstractCharacter.DamageType.BREAK);
         float damageTaken = 0;
         for (AbstractPower power : target.powerList) {
-            damageTaken += power.bonusDamageTaken;
+            damageTaken += power.getStat(PowerStat.DAMAGE_TAKEN);
             damageTaken += power.getConditionalDamageTaken(source, target, types);
         }
         float damageTakenMultiplier = 1 + damageTaken / 100;

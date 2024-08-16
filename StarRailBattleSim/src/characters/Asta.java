@@ -5,7 +5,9 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 
@@ -20,12 +22,10 @@ public class Asta extends AbstractCharacter {
     public Asta() {
         super(NAME, 1023, 512, 463, 106, 80, ElementType.FIRE, 120, 100, Path.HARMONY);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusSameElementDamageBonus = 22.4f;
-        tracesPower.bonusDefPercent = 22.5f;
-        tracesPower.bonusCritChance = 6.7f;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .addStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
+                .addStat(PowerStat.DEF_PERCENT, 22.5f)
+                .addStat(PowerStat.CRIT_CHANCE, 6.7f));
 
         talentPower = new AstaTalentPower();
         skillEnergyGain = 36;
@@ -75,11 +75,7 @@ public class Asta extends AbstractCharacter {
     public void useUltimate() {
         super.useUltimate();
         for (AbstractCharacter character : Battle.battle.playerTeam) {
-            TempPower ultBuff = new TempPower();
-            ultBuff.bonusFlatSpeed = 53;
-            ultBuff.turnDuration = 2;
-            ultBuff.name = "Asta Ult Speed Buff";
-            Battle.battle.IncreaseSpeed(character, ultBuff);
+            Battle.battle.IncreaseSpeed(character, TempPower.create(PowerStat.FLAT_SPEED, 53, 2, "Asta Ult Speed Buff"));
         }
         justCastUlt = true;
     }
@@ -97,10 +93,7 @@ public class Asta extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.addPower(talentPower);
             if (character.elementType == ElementType.FIRE) {
-                PermPower firePower = new PermPower();
-                firePower.bonusSameElementDamageBonus = 18;
-                firePower.name = "Asta Fire Damage Bonus";
-                character.addPower(firePower);
+                character.addPower(PermPower.create(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 18, "Asta Fire Damage Bonus"));
             }
         }
         addPower(new AstaERRPower());
