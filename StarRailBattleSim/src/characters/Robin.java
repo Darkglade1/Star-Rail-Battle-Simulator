@@ -66,6 +66,25 @@ public class Robin extends AbstractCharacter {
     }
 
     public void useUltimate() {
+        if (Battle.battle.hasCharacter(Feixiao.NAME)) {
+            if (Battle.battle.hasCharacter(Bronya.NAME)) {
+                for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+                    if (entry.getKey().name.equals(Bronya.NAME)) {
+                        if (entry.getValue() < entry.getKey().getBaseAV() * 0.7) {
+                            return;
+                        }
+                    }
+                }
+            } else {
+                for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+                    if (entry.getKey().name.equals(Feixiao.NAME)) {
+                        if (entry.getValue() < entry.getKey().getBaseAV() * 0.7) {
+                            return;
+                        }
+                    }
+                }
+            }
+        }
         super.useUltimate();
         AbstractEntity slowestAlly = null;
         float slowestAV = -1;

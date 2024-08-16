@@ -22,9 +22,10 @@ public class Feixiao extends AbstractCharacter {
     public int stackCount = 0;
     public final int stackThreshold = 2;
     private boolean FUAReady = true;
+    public static final String NAME = "Feixiao";
 
     public Feixiao() {
-        super("Feixiao", 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75);
+        super(NAME, 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75);
         this.currentEnergy = 0;
         this.ultCost = 6;
         PermPower tracesPower = new PermPower();
