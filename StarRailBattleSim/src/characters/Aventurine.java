@@ -5,7 +5,8 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
-import powers.TempPower;
+import powers.PowerStat;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,12 +30,10 @@ public class Aventurine extends AbstractCharacter {
         super("Aventurine", 1203, 446, 655, 106, 80, ElementType.IMAGINARY, 110, 150, Path.PRESERVATION);
 
         this.SPNeutral = SPNeutral;
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusDefPercent = 35;
-        tracesPower.bonusSameElementDamageBonus = 14.4f;
-        tracesPower.bonusEffectRes = 10;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .setStat(PowerStat.DEF_PERCENT, 35)
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 14.4f)
+                .setStat(PowerStat.EFFECT_RES, 10));
         this.hasAttackingUltimate = true;
     }
 
@@ -121,10 +120,7 @@ public class Aventurine extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.addPower(talentPower);
         }
-        PermPower defenseCritPower = new PermPower();
-        defenseCritPower.bonusCritChance = 48;
-        defenseCritPower.name = "Aventurine Crit Chance Bonus";
-        addPower(defenseCritPower);
+        addPower(PermPower.create(PowerStat.CRIT_CHANCE, 48, "Aventurine Crit Chance Bonus"));
     }
 
     public void onTurnStart() {

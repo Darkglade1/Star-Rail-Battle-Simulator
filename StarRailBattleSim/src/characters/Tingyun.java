@@ -4,8 +4,9 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,12 +21,10 @@ public class Tingyun extends AbstractCharacter {
     public Tingyun() {
         super("Tingyun", 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100, Path.HARMONY);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusAtkPercent = 28;
-        tracesPower.bonusDefPercent = 22.5f;
-        tracesPower.bonusSameElementDamageBonus = 8;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.DEF_PERCENT, 22.5f)
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 8));
     }
 
     public void useSkill() {
@@ -38,11 +37,8 @@ public class Tingyun extends AbstractCharacter {
             }
         }
 
-        TempPower speedPower = new TempPower();
-        speedPower.bonusSpeedPercent = 20;
-        speedPower.turnDuration = 1;
+        TempPower speedPower = TempPower.create(PowerStat.SPEED_PERCENT, 20, 1, "Tingyun Skill Speed Power");
         speedPower.justApplied = true;
-        speedPower.name = "Tingyun Skill Speed Power";
         Battle.battle.IncreaseSpeed(this, speedPower);
     }
     public void useBasicAttack() {
@@ -72,11 +68,7 @@ public class Tingyun extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             if (character.isDPS && character.currentEnergy < character.maxEnergy) {
                 character.increaseEnergy(60, false);
-                TempPower ultDamageBonus = new TempPower();
-                ultDamageBonus.bonusDamageBonus = 56;
-                ultDamageBonus.turnDuration = 2;
-                ultDamageBonus.name = "Tingyun Ult Damage Bonus";
-                character.addPower(ultDamageBonus);
+                character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 56, 2, "Tingyun Ult Damage Bonus"));
                 break;
             }
         }
@@ -121,11 +113,12 @@ public class Tingyun extends AbstractCharacter {
         return list;
     }
 
-    private class TingyunSkillPower extends AbstractPower {
+    private class TingyunSkillPower extends TempPower {
         public TingyunSkillPower() {
+            super(3);
+
             this.name = this.getClass().getSimpleName();
-            this.bonusAtkPercent = 55;
-            this.turnDuration = 3;
+            this.setStat(PowerStat.ATK_PERCENT, 55);
         }
 
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
@@ -136,11 +129,7 @@ public class Tingyun extends AbstractCharacter {
 
         public void onUseUltimate() {
             if (benefactor != null) {
-                TempPower speedPower = new TempPower();
-                speedPower.bonusSpeedPercent = 20;
-                speedPower.turnDuration = 1;
-                speedPower.name = "Tingyun E1 Speed Power";
-                Battle.battle.IncreaseSpeed(benefactor, speedPower);
+                Battle.battle.IncreaseSpeed(benefactor, TempPower.create(PowerStat.SPEED_PERCENT, 20, 1, "Tingyun E1 Speed Power"));
             }
         }
 

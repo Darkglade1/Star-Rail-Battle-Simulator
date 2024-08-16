@@ -5,7 +5,9 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 
@@ -15,12 +17,10 @@ public class Gallagher extends AbstractCharacter {
     public Gallagher() {
         super("Gallagher", 1305, 529, 441, 98, 80, ElementType.FIRE, 110, 100,  Path.ABUNDANCE);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusHPPercent = 18;
-        tracesPower.bonusBreakEffect = 13.3f;
-        tracesPower.bonusEffectRes = 28;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .setStat(PowerStat.HP_PERCENT, 18)
+                .setStat(PowerStat.BREAK_EFFECT, 13.3f)
+                .setStat(PowerStat.EFFECT_RES, 28));
         this.hasAttackingUltimate = true;
     }
 
@@ -75,10 +75,9 @@ public class Gallagher extends AbstractCharacter {
 
     public void onCombatStart() {
         increaseEnergy(20);
-        PermPower e6buff = new PermPower();
-        e6buff.bonusBreakEffect = 20;
-        e6buff.bonusWeaknessBreakEff = 20;
-        e6buff.name = "Gallagher E6 Buff";
+        PermPower e6buff = new PermPower("Gallagher E6 Buff");
+        e6buff.setStat(PowerStat.BREAK_EFFECT, 20);
+        e6buff.setStat(PowerStat.WEAKNESS_BREAK_EFF, 20);
         addPower(e6buff);
     }
 

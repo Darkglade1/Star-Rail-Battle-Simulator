@@ -5,6 +5,7 @@ import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 
 import java.util.ArrayList;
 
@@ -14,10 +15,7 @@ public class BrokenKeel extends AbstractRelicSetBonus {
     }
 
     public void onEquip() {
-        PermPower statBonus = new PermPower();
-        statBonus.name = "Broken Keel Stat Bonus";
-        statBonus.bonusEffectRes = 10;
-        owner.addPower(statBonus);
+        owner.addPower(PermPower.create(PowerStat.EFFECT_RES, 10, "Broken Keel Effect Resistance Bonus"));
     }
 
     public void onCombatStart() {

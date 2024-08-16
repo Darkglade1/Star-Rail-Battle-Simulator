@@ -5,6 +5,7 @@ import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,8 @@ public class DanceAtSunset extends AbstractLightcone {
     public void onEquip() {
         PermPower statBonus = new PermPower();
         statBonus.name = "Dance At Sunset Stat Bonus";
-        statBonus.bonusCritDamage = 36;
-        statBonus.bonusTauntValue = 500;
+        statBonus.setStat(PowerStat.CRIT_DAMAGE, 36);
+        statBonus.setStat(PowerStat.TAUNT_VALUE, 500);
         owner.addPower(statBonus);
     }
 

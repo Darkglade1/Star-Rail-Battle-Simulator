@@ -5,12 +5,13 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
 
 import java.util.ArrayList;
 
 public class FuXuan extends AbstractCharacter {
-    AbstractPower skillPower = new FuXuanSkillPower();
+    AbstractPower skillPower = PermPower.create(PowerStat.CRIT_CHANCE, 12, "Fu Xuan Skill Power");
     private int skillCounter = 0;
 
     public FuXuan() {
@@ -18,9 +19,9 @@ public class FuXuan extends AbstractCharacter {
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusHPPercent = 18;
-        tracesPower.bonusCritChance = 18.7f;
-        tracesPower.bonusEffectRes = 10;
+        tracesPower.setStat(PowerStat.HP_PERCENT, 18);
+        tracesPower.setStat(PowerStat.CRIT_CHANCE, 18.7f);
+        tracesPower.setStat(PowerStat.EFFECT_RES, 10);
         this.addPower(tracesPower);
         this.hasAttackingUltimate = true;
     }
@@ -85,17 +86,9 @@ public class FuXuan extends AbstractCharacter {
 
     public void useTechnique() {
         skillCounter = 2;
-        skillPower.bonusFlatHP = 0.06f * FuXuan.this.getFinalHP();
+        skillPower.setStat(PowerStat.FLAT_HP, 0.06f * FuXuan.this.getFinalHP());
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.addPower(skillPower);
-        }
-    }
-
-    private class FuXuanSkillPower extends AbstractPower {
-        public FuXuanSkillPower() {
-            this.name = this.getClass().getSimpleName();
-            lastsForever = true;
-            this.bonusCritChance = 12;
         }
     }
 }

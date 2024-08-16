@@ -4,9 +4,9 @@ import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
-import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
+import powers.TempPower;
 
 /**
  * This lightcone assumes onSpecificTrigger is called when the character uses their skill, and that
@@ -26,7 +26,7 @@ public class ButTheBattleIsntOver extends AbstractLightcone  {
     public void onSpecificTrigger(AbstractCharacter character, AbstractEnemy enemy) {
         if (character == null) return;
 
-        character.addPower(new BattleIsntOverBoost());
+        character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 30, 1, "But The Battle Isn't Over Damage Boost"));
     }
 
     @Override
@@ -34,14 +34,6 @@ public class ButTheBattleIsntOver extends AbstractLightcone  {
         // Metric is incremented before hook is called, so there is an offset.
         if (this.owner.numUltsMetric % 2 == 1) {
             Battle.battle.generateSkillPoint(this.owner, 1);
-        }
-    }
-
-    public static class BattleIsntOverBoost extends AbstractPower {
-        public BattleIsntOverBoost() {
-            this.name = this.getClass().getSimpleName();
-            this.turnDuration = 1;
-            this.bonusDamageBonus = 30;
         }
     }
 }

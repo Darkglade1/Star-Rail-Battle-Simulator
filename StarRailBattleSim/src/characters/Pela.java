@@ -4,8 +4,9 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,10 @@ public class Pela extends AbstractCharacter {
     public Pela() {
         super(NAME, 988, 547, 463, 105, 80, ElementType.ICE, 110, 100, Path.NIHILITY);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusAtkPercent = 18;
-        tracesPower.bonusSameElementDamageBonus = 22.4f;
-        tracesPower.bonusEffectHit = 10;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .setStat(PowerStat.ATK_PERCENT, 18)
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
+                .setStat(PowerStat.EFFECT_HIT, 10));
         this.hasAttackingUltimate = true;
     }
 
@@ -69,10 +68,7 @@ public class Pela extends AbstractCharacter {
 
         for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
             BattleHelpers.hitEnemy(this, enemy, 1.08f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
-            TempPower exposed = new TempPower();
-            exposed.turnDuration = 2;
-            exposed.defenseReduction = 42;
-            exposed.name = ULT_DEBUFF_NAME;
+            TempPower exposed = TempPower.create(PowerStat.DEFENSE_REDUCTION, 42, 2, ULT_DEBUFF_NAME);
             exposed.type = AbstractPower.PowerType.DEBUFF;
             enemy.addPower(exposed);
         }
@@ -104,10 +100,7 @@ public class Pela extends AbstractCharacter {
         BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.8f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
 
         for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            TempPower techniqueExposed = new TempPower();
-            techniqueExposed.turnDuration = 2;
-            techniqueExposed.defenseReduction = 20;
-            techniqueExposed.name = "Pela Technique Def Reduction";
+            TempPower techniqueExposed = TempPower.create(PowerStat.DEFENSE_REDUCTION, 20, 2, "Pela Technique Def Reduction");
             techniqueExposed.type = AbstractPower.PowerType.DEBUFF;
             enemy.addPower(techniqueExposed);
         }

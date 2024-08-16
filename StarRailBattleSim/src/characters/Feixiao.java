@@ -5,14 +5,16 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Feixiao extends AbstractCharacter {
 
-    PermPower ultBreakEffBuff;
+    PermPower ultBreakEffBuff = PermPower.create(PowerStat.WEAKNESS_BREAK_EFF, 100, "Fei Ult Break Eff Buff");
     private int numFUAs = 0;
     private int numStacks;
     private int wastedStacks;
@@ -30,18 +32,13 @@ public class Feixiao extends AbstractCharacter {
         this.usesEnergy = false;
         this.currentEnergy = 0;
         this.ultCost = 6;
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusAtkPercent = 28f;
-        tracesPower.bonusCritChance = 12f;
-        tracesPower.bonusDefPercent = 12.5f;
-        this.addPower(tracesPower);
         this.isDPS = true;
         this.hasAttackingUltimate = true;
 
-        ultBreakEffBuff = new PermPower();
-        ultBreakEffBuff.bonusWeaknessBreakEff = 100;
-        ultBreakEffBuff.name = "Fei Ult Break Eff Buff";
+        this.addPower(new TracePower()
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.CRIT_CHANCE, 12)
+                .setStat(PowerStat.DEF_PERCENT, 12.5f));
     }
 
 
@@ -73,11 +70,7 @@ public class Feixiao extends AbstractCharacter {
         types.add(DamageType.SKILL);
         BattleHelpers.PreAttackLogic(this, types);
 
-        TempPower atkBonus = new TempPower();
-        atkBonus.bonusAtkPercent = 48;
-        atkBonus.turnDuration = 3;
-        atkBonus.name = "Fei Atk Bonus";
-        addPower(atkBonus);
+        this.addPower(TempPower.create(PowerStat.ATK_PERCENT, 48, 3,"Fei Atk Bonus"));
 
         AbstractEnemy enemy;
         if (Battle.battle.enemyTeam.size() >= 3) {
@@ -123,11 +116,7 @@ public class Feixiao extends AbstractCharacter {
         numFUAs++;
         Battle.battle.addToLog(name + " used Follow Up");
 
-        TempPower dmgBonus = new TempPower();
-        dmgBonus.bonusDamageBonus = 60;
-        dmgBonus.turnDuration = 2;
-        dmgBonus.name = "Fei Damage Bonus";
-        addPower(dmgBonus);
+        addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 60, 2, "Fei Damage Bonus"));
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);

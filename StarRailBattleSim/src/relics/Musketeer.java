@@ -4,6 +4,7 @@ import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 
 import java.util.ArrayList;
 
@@ -18,9 +19,9 @@ public class Musketeer extends AbstractRelicSetBonus {
     public void onEquip() {
         PermPower statBonus = new PermPower();
         statBonus.name = "Musketeer Stat Bonus";
-        statBonus.bonusAtkPercent = 12;
+        statBonus.setStat(PowerStat.ATK_PERCENT, 12);;
         if (this.isFullSet) {
-            statBonus.bonusSpeedPercent = 6;
+            statBonus.setStat(PowerStat.SPEED_PERCENT, 6);
         }
         owner.addPower(statBonus);
     }

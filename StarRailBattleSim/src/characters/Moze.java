@@ -4,8 +4,9 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,12 +27,10 @@ public class Moze extends AbstractCharacter {
     public Moze() {
         super("Moze", 811, 547, 353, 114, 80, ElementType.LIGHTNING, 120, 75, Path.HUNT);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusAtkPercent = 18;
-        tracesPower.bonusCritDamage = 37.3f;
-        tracesPower.bonusHPPercent = 10;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .setStat(PowerStat.ATK_PERCENT, 18)
+                .setStat(PowerStat.CRIT_DAMAGE, 37.3f)
+                .setStat(PowerStat.HP_PERCENT, 10));
         this.hasAttackingUltimate = true;
 
         preyPower = new MozePreyPower();
@@ -84,11 +83,7 @@ public class Moze extends AbstractCharacter {
         types.add(DamageType.FOLLOW_UP);
         BattleHelpers.PreAttackLogic(this, types);
 
-        TempPower dmgBonus = new TempPower();
-        dmgBonus.bonusDamageBonus = 30;
-        dmgBonus.turnDuration = 2;
-        dmgBonus.name = "Moze Damage Bonus";
-        addPower(dmgBonus);
+        addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 30, 2, "Moze Damage Bonus"));
 
         AbstractEnemy enemy;
         if (Battle.battle.enemyTeam.size() >= 3) {

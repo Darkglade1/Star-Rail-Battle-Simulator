@@ -7,6 +7,7 @@ import characters.AbstractCharacter;
 import characters.Moze;
 import characters.RuanMei;
 import powers.AbstractPower;
+import powers.PowerStat;
 import powers.TauntPower;
 
 import java.util.ArrayList;
@@ -66,18 +67,18 @@ public abstract class AbstractEnemy extends AbstractEntity {
         int totalBonusAtkPercent = 0;
         int totalBonusFlatAtk = 0;
         for (AbstractPower power : powerList) {
-            totalBonusAtkPercent += power.bonusAtkPercent;
-            totalBonusFlatAtk += power.bonusFlatAtk;
+            totalBonusAtkPercent += power.getStat(PowerStat.ATK_PERCENT);
+            totalBonusFlatAtk += power.getStat(PowerStat.FLAT_ATK);
         }
-        return (int) (totalBaseAtk * (1 + (float)totalBonusAtkPercent / 100) + totalBonusFlatAtk);
+        return (int) (totalBaseAtk * (1 + totalBonusAtkPercent / 100) + totalBonusFlatAtk);
     }
 
     public float getFinalDefense() {
         float totalDefenseBonus = 0;
         float totalDefenseReduction = 0;
         for (AbstractPower power : powerList) {
-            totalDefenseBonus += power.bonusDefPercent;
-            totalDefenseReduction += power.defenseReduction;
+            totalDefenseBonus += power.getStat(PowerStat.DEF_PERCENT);
+            totalDefenseReduction += power.getStat(PowerStat.DEFENSE_REDUCTION);
         }
         return totalDefenseBonus - totalDefenseReduction;
     }

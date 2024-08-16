@@ -5,7 +5,8 @@ import battleLogic.BattleHelpers;
 import battleLogic.FuYuan;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
+import powers.PowerStat;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +29,11 @@ public class Lingsha extends AbstractCharacter {
     public Lingsha() {
         super("Lingsha", 1358, 679, 437, 98, 80, ElementType.FIRE, 110, 100, Path.ABUNDANCE);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusHPPercent = 18;
-        tracesPower.bonusBreakEffect = 37.3f;
-        tracesPower.bonusAtkPercent = 10;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .setStat(PowerStat.HP_PERCENT, 18)
+                .setStat(PowerStat.BREAK_EFFECT, 37.3f)
+                .setStat(PowerStat.ATK_PERCENT, 10));
+
         this.hasAttackingUltimate = true;
         this.basicEnergyGain = 30;
 

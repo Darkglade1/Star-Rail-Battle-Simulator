@@ -1,11 +1,22 @@
 package powers;
 
-import relics.RelicStats;
-
 public class TempPower extends AbstractPower {
 
     public TempPower() {
+        super();
+    }
 
+    public TempPower(String name) {
+        super(name);
+    }
+
+    public TempPower(int turns) {
+        this.turnDuration = turns;
+    }
+
+    public TempPower(int turns, String name) {
+        super(name);
+        this.turnDuration = turns;
     }
 
     /**
@@ -24,5 +35,4 @@ public class TempPower extends AbstractPower {
         power.setStat(stat, value);
         return power;
     }
-
 }

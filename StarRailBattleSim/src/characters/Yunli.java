@@ -6,8 +6,10 @@ import enemies.AbstractEnemy;
 import lightcones.destruction.DanceAtSunset;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TauntPower;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +17,8 @@ import java.util.HashMap;
 public class Yunli extends AbstractCharacter {
 
     public boolean isParrying;
-    AbstractPower cullPower;
-    AbstractPower techniqueDamageBonus;
+    AbstractPower cullPower = new CullCritDamageBuff();
+    AbstractPower techniqueDamageBonus = PermPower.create(PowerStat.DAMAGE_BONUS, 80, "Technique Damage Bonus");
     AbstractPower tauntPower = new TauntPower(this);
 
     private int numNormalCounters = 0;
@@ -34,18 +36,10 @@ public class Yunli extends AbstractCharacter {
         this.ultCost = 120;
         this.isDPS = true;
 
-        cullPower = new CullCritDamageBuff();
-
-        techniqueDamageBonus = new PermPower();
-        techniqueDamageBonus.bonusDamageBonus = 80;
-        techniqueDamageBonus.name = "Technique Damage Bonus";
-
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusAtkPercent = 28;
-        tracesPower.bonusCritChance = 6.7f;
-        tracesPower.bonusHPPercent = 18;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.CRIT_CHANCE, 6.7f)
+                .setStat(PowerStat.HP_PERCENT, 18));
     }
 
     public void useSkill() {
@@ -205,11 +199,7 @@ public class Yunli extends AbstractCharacter {
     }
 
     public AbstractPower getTrueSunderPower() {
-        TempPower trueSunderAtkBonus = new TempPower();
-        trueSunderAtkBonus.bonusAtkPercent = 30;
-        trueSunderAtkBonus.turnDuration = 1;
-        trueSunderAtkBonus.name = "True Sunder Atk Bonus";
-        return trueSunderAtkBonus;
+        return TempPower.create(PowerStat.ATK_PERCENT, 30, 1, "True Sunder Atk Bonus");
     }
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {

@@ -1,10 +1,13 @@
 package powers;
 
-import relics.RelicStats;
-
 public class PermPower extends AbstractPower {
 
     public PermPower() {
+        this.lastsForever = true;
+    }
+
+    public PermPower(String name) {
+        super(name);
         this.lastsForever = true;
     }
 

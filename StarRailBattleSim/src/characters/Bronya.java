@@ -5,7 +5,9 @@ import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
+import powers.PowerStat;
 import powers.TempPower;
+import powers.TracePower;
 
 import java.util.ArrayList;
 
@@ -18,20 +20,15 @@ public class Bronya extends AbstractCharacter {
     public Bronya() {
         super(NAME, 1242, 582, 534, 99, 80, ElementType.WIND, 120, 100, Path.HARMONY);
 
-        PermPower tracesPower = new PermPower();
-        tracesPower.name = "Traces Stat Bonus";
-        tracesPower.bonusCritDamage = 24;
-        tracesPower.bonusSameElementDamageBonus = 22.4f;
-        tracesPower.bonusEffectRes = 10;
-        this.addPower(tracesPower);
+        this.addPower(new TracePower()
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
+                .setStat(PowerStat.CRIT_DAMAGE, 24)
+                .setStat(PowerStat.EFFECT_RES, 10));
     }
 
     public void useSkill() {
         super.useSkill();
-        AbstractPower skillPower = new TempPower();
-        skillPower.name = SKILL_POWER_NAME;
-        skillPower.bonusDamageBonus = 66;
-        skillPower.turnDuration = 1;
+        AbstractPower skillPower = TempPower.create(PowerStat.DAMAGE_BONUS, 66, 1, SKILL_POWER_NAME);
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             if (character.isDPS) {
                 character.addPower(skillPower);
@@ -64,8 +61,8 @@ public class Bronya extends AbstractCharacter {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             AbstractPower ultPower = new TempPower();
             ultPower.name = ULT_POWER_NAME;
-            ultPower.bonusAtkPercent = 55;
-            ultPower.bonusCritDamage = 20 + (this.getTotalCritDamage() * 0.16f);
+            ultPower.setStat(PowerStat.ATK_PERCENT, 55);
+            ultPower.setStat(PowerStat.CRIT_DAMAGE, 20 + (this.getTotalCritDamage() * 0.16f));
             ultPower.turnDuration = 2;
             character.removePower(ultPower.name); // remove the old power in case bronya's crit damage changed so we get new snapshot of her buff
             character.addPower(ultPower);
@@ -83,21 +80,14 @@ public class Bronya extends AbstractCharacter {
 
     public void onCombatStart() {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
-            PermPower tracePower = new PermPower();
-            tracePower.bonusDamageBonus = 10;
-            tracePower.name = "Bronya Trace Damage Bonus";
-            character.addPower(tracePower);
+            character.addPower(PermPower.create(PowerStat.DAMAGE_BONUS, 10, "Bronya Trace Damage Bonus"));
         }
-        addPower(new BronyaBasicCritPower());
+        this.addPower(new BronyaBasicCritPower());
     }
 
     public void useTechnique() {
         for (AbstractCharacter character : Battle.battle.playerTeam) {
-            AbstractPower techniquePower = new TempPower();
-            techniquePower.name = "Bronya Technique Power";
-            techniquePower.bonusAtkPercent = 15;
-            techniquePower.turnDuration = 2;
-            character.addPower(techniquePower);
+            character.addPower(TempPower.create(PowerStat.ATK_PERCENT, 15, 2, "Bronya Technique Power"));
         }
     }
 

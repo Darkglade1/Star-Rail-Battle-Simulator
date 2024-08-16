@@ -2,6 +2,7 @@ package relics;
 
 import characters.AbstractCharacter;
 import powers.PermPower;
+import powers.PowerStat;
 
 public class Knight extends AbstractRelicSetBonus {
     public Knight(AbstractCharacter owner) {
@@ -12,10 +13,7 @@ public class Knight extends AbstractRelicSetBonus {
     }
 
     public void onEquip() {
-        PermPower statBonus = new PermPower();
-        statBonus.name = "Knight Stat Bonus";
-        statBonus.bonusDefPercent = 15;
-        owner.addPower(statBonus);
+        owner.addPower(PermPower.create(PowerStat.DEF_PERCENT, 15, "Knight Defense Bonus"));
     }
 
     public String toString() {
