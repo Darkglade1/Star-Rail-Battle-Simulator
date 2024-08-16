@@ -15,7 +15,8 @@ public class Pela extends AbstractCharacter {
     public static final String ULT_DEBUFF_NAME = "Pela Ult Def Reduction";
 
     public Pela() {
-        super(NAME, 988, 547, 463, 105, 80, ElementType.ICE, 110, 100);
+        super(NAME, 988, 547, 463, 105, 80, ElementType.ICE, 110, 100, Path.NIHILITY);
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusAtkPercent = 18;

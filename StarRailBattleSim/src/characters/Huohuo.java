@@ -17,7 +17,7 @@ public class Huohuo extends AbstractCharacter {
     private String numTalentProcsMetricName = "Number of Talent Procs";
 
     public Huohuo() {
-        super("Huohuo", 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100);
+        super("Huohuo", 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100, Path.ABUNDANCE);
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
@@ -81,6 +81,7 @@ public class Huohuo extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         talentCounter--;
         if (talentCounter <= 0) {
             for (AbstractCharacter character : Battle.battle.playerTeam) {

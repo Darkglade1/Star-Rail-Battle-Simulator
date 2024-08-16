@@ -18,7 +18,7 @@ public class Asta extends AbstractCharacter {
     private boolean justCastUlt = false;
 
     public Asta() {
-        super(NAME, 1023, 512, 463, 106, 80, ElementType.FIRE, 120, 100);
+        super(NAME, 1023, 512, 463, 106, 80, ElementType.FIRE, 120, 100, Path.HARMONY);
 
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
@@ -107,6 +107,7 @@ public class Asta extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         if (justCastUlt) {
             justCastUlt = false;
             return;

@@ -39,6 +39,10 @@ public class Battle {
     public Random getRandomEnemyRng = new Random(seed);
     public Random procChanceRng = new Random(seed);
     public Random gambleChanceRng = new Random(seed);
+    public Random qpqRng = new Random(seed);
+    public Random milkyWayRng = new Random(seed);
+    public Random weaveEffectRng = new Random(seed);
+    public Random aetherRng = new Random(seed);
 
     public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
         this.playerTeam = playerTeam;

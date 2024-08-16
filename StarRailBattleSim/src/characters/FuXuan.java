@@ -14,7 +14,8 @@ public class FuXuan extends AbstractCharacter {
     private int skillCounter = 0;
 
     public FuXuan() {
-        super("Fu Xuan", 1475, 466, 606, 100, 80, ElementType.QUANTUM, 135, 150);
+        super("Fu Xuan", 1475, 466, 606, 100, 80, ElementType.QUANTUM, 135, 150, Path.PRESERVATION);
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 18;

@@ -24,23 +24,29 @@ public abstract class AbstractCharacter extends AbstractEntity {
         SKILL, BASIC, ENHANCED_BASIC, ULTIMATE, FOLLOW_UP
     }
 
+    protected final Path path;
+
     protected int baseHP;
     protected int baseAtk;
     protected int baseDef;
     public int level;
     public float baseCritChance = 5.0f;
     public float baseCritDamage = 50.0f;
+
+    public boolean usesEnergy = true;
     public float maxEnergy;
     public float currentEnergy;
     public float ultCost;
+    protected int basicEnergyGain = 20;
+    protected int skillEnergyGain = 30;
+    protected int ultEnergyGain = 5;
+
     public int tauntValue;
     public ElementType elementType;
     public AbstractLightcone lightcone;
     public ArrayList<AbstractRelicSetBonus> relicSetBonus;
     public boolean useTechnique = true;
-    protected int basicEnergyGain = 20;
-    protected int skillEnergyGain = 30;
-    protected int ultEnergyGain = 5;
+
     public boolean isDPS = false;
 
     public int numTurnsMetric;
@@ -62,7 +68,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     protected float TOUGHNESS_DAMAGE_TWO_UNITS = 20;
     protected float TOUGHNESS_DAMAGE_THREE_UNITs = 30;
 
-    public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue) {
+    public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue, Path path) {
         this.name = name;
         this.baseHP = baseHP;
         this.baseAtk = baseAtk;
@@ -74,6 +80,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         this.ultCost = maxEnergy;
         this.currentEnergy = maxEnergy / 2;
         this.tauntValue = tauntValue;
+        this.path = path;
+
         powerList = new ArrayList<>();
         relicSetBonus = new ArrayList<>();
         moveHistory = new ArrayList<>();
@@ -121,6 +129,11 @@ public abstract class AbstractCharacter extends AbstractEntity {
 
     public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
         increaseEnergy(energyFromAttacked);
+        lightcone.onAttacked(enemy);
+    }
+
+    public Path getPath() {
+        return path;
     }
 
     public float getFinalAttack() {
@@ -264,6 +277,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void increaseEnergy(float amount, boolean ERRAffected) {
+        if (!this.usesEnergy) return;
         float initialEnergy = currentEnergy;
         float totalEnergyRegenBonus = getTotalERR();
         float energyGained = amount;
@@ -332,6 +346,11 @@ public abstract class AbstractCharacter extends AbstractEntity {
 
     public void onCombatStart() {
 
+    }
+
+    @Override
+    public void onTurnStart() {
+        lightcone.onTurnStart();
     }
 
     @Override

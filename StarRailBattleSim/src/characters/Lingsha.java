@@ -26,7 +26,8 @@ public class Lingsha extends AbstractCharacter {
     private String numEmergencyHealsMetricName = "Number of Emergency Heal Triggers";
 
     public Lingsha() {
-        super("Lingsha", 1358, 679, 437, 98, 80, ElementType.FIRE, 110, 100);
+        super("Lingsha", 1358, 679, 437, 98, 80, ElementType.FIRE, 110, 100, Path.ABUNDANCE);
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 18;
@@ -149,6 +150,7 @@ public class Lingsha extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         if (currentEmergencyHealCD > 0) {
             currentEmergencyHealCD--;
         }

@@ -3,7 +3,7 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
-import lightcones.DanceAtSunset;
+import lightcones.destruction.DanceAtSunset;
 import powers.AbstractPower;
 import powers.PermPower;
 import powers.TauntPower;
@@ -29,7 +29,8 @@ public class Yunli extends AbstractCharacter {
     private String numSlashesMetricName = "Number of Slashes";
 
     public Yunli() {
-        super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125);
+        super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125, Path.DESTRUCTION);
+
         this.ultCost = 120;
         this.isDPS = true;
 

@@ -25,7 +25,8 @@ public class Robin extends AbstractCharacter {
     public static final String ULT_POWER_NAME = "RobinUltPower";
 
     public Robin() {
-        super(NAME, 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100);
+        super(NAME, 1281, 640, 485, 102, 80, ElementType.PHYSICAL, 160, 100, Path.HARMONY);
+
         this.skillEnergyGain = 35;
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
@@ -150,6 +151,7 @@ public class Robin extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         if (skillCounter > 0) {
             skillCounter--;
             if (skillCounter <= 0) {

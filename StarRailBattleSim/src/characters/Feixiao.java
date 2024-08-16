@@ -25,7 +25,9 @@ public class Feixiao extends AbstractCharacter {
     public static final String NAME = "Feixiao";
 
     public Feixiao() {
-        super(NAME, 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75);
+        super(NAME, 1048, 602, 388, 112, 80, ElementType.WIND, 12, 75, Path.HUNT);
+
+        this.usesEnergy = false;
         this.currentEnergy = 0;
         this.ultCost = 6;
         PermPower tracesPower = new PermPower();
@@ -42,10 +44,6 @@ public class Feixiao extends AbstractCharacter {
         ultBreakEffBuff.name = "Fei Ult Break Eff Buff";
     }
 
-    // override normal energy gain to do nothing
-    public void increaseEnergy(float amount, boolean ERRAffected) {
-
-    }
 
     public void increaseStack(int amount) {
         int initialStack = stackCount;
@@ -243,6 +241,7 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void onTurnStart() {
+        super.onTurnStart();
         if (currentEnergy >= ultCost) {
             useUltimate(); // check for ultimate activation at start of turn as well
         }

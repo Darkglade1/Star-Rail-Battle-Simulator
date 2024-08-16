@@ -13,7 +13,8 @@ public class Gallagher extends AbstractCharacter {
     private boolean isEnhanced = false;
 
     public Gallagher() {
-        super("Gallagher", 1305, 529, 441, 98, 80, ElementType.FIRE, 110, 100);
+        super("Gallagher", 1305, 529, 441, 98, 80, ElementType.FIRE, 110, 100,  Path.ABUNDANCE);
+
         PermPower tracesPower = new PermPower();
         tracesPower.name = "Traces Stat Bonus";
         tracesPower.bonusHPPercent = 18;
