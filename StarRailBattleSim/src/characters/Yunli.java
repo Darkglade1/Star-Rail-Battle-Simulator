@@ -37,9 +37,9 @@ public class Yunli extends AbstractCharacter {
         this.isDPS = true;
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.ATK_PERCENT, 28)
-                .addStat(PowerStat.CRIT_CHANCE, 6.7f)
-                .addStat(PowerStat.HP_PERCENT, 18));
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.CRIT_CHANCE, 6.7f)
+                .setStat(PowerStat.HP_PERCENT, 18));
     }
 
     public void useSkill() {

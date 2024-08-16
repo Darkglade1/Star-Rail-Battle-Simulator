@@ -4,7 +4,6 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
 import powers.TracePower;
@@ -20,9 +19,9 @@ public class Pela extends AbstractCharacter {
         super(NAME, 988, 547, 463, 105, 80, ElementType.ICE, 110, 100, Path.NIHILITY);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.ATK_PERCENT, 18)
-                .addStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
-                .addStat(PowerStat.EFFECT_HIT, 10));
+                .setStat(PowerStat.ATK_PERCENT, 18)
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
+                .setStat(PowerStat.EFFECT_HIT, 10));
         this.hasAttackingUltimate = true;
     }
 

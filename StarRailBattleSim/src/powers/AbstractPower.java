@@ -143,23 +143,14 @@ public abstract class AbstractPower {
     }
 
     /**
-     * Add a value to a stat, calls setStat internally, for chaining.
-     * @param stat The stat to add to
-     * @param value The value to add
-     * @return The power object
-     */
-    public AbstractPower addStat(PowerStat stat, float value) {
-        this.setStat(stat, value);
-        return this;
-    }
-
-    /**
      * Set the value of a stat, this overwrites the previous value
      * @param stat The stat to set
      * @param value The value to set
+     * @return The power object
      */
-    public void setStat(PowerStat stat, float value) {
+    public AbstractPower setStat(PowerStat stat, float value) {
         this.stats.put(stat, value);
+        return this;
     }
 
 }

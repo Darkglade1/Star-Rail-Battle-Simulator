@@ -32,9 +32,9 @@ public class Topaz extends AbstractCharacter {
         super("Topaz", 931, 621, 412, 110, 80, ElementType.FIRE, 130, 75, Path.HUNT);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
-                .addStat(PowerStat.CRIT_CHANCE, 12.0f)
-                .addStat(PowerStat.HP_PERCENT, 10));
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
+                .setStat(PowerStat.CRIT_CHANCE, 12.0f)
+                .setStat(PowerStat.HP_PERCENT, 10));
 
         this.addPower(new FireWeaknessBonusDamage());
 

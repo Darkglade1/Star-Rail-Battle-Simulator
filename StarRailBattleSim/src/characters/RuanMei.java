@@ -24,13 +24,13 @@ public class RuanMei extends AbstractCharacter {
         super(NAME, 1087, 660, 485, 104, 80, ElementType.ICE, 130, 100, Path.HARMONY);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.BREAK_EFFECT, 37.3f)
-                .addStat(PowerStat.DEF_PERCENT, 22.5f)
-                .addStat(PowerStat.FLAT_SPEED, 5));
+                .setStat(PowerStat.BREAK_EFFECT, 37.3f)
+                .setStat(PowerStat.DEF_PERCENT, 22.5f)
+                .setStat(PowerStat.FLAT_SPEED, 5));
 
         this.skillPower = (PermPower) new PermPower(SKILL_POWER_NAME)
-                .addStat(PowerStat.DAMAGE_BONUS, 68)
-                .addStat(PowerStat.WEAKNESS_BREAK_EFF, 50);
+                .setStat(PowerStat.DAMAGE_BONUS, 68)
+                .setStat(PowerStat.WEAKNESS_BREAK_EFF, 50);
     }
 
     public void useSkill() {

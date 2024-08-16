@@ -4,7 +4,6 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
 import powers.TracePower;
@@ -20,9 +19,9 @@ public class Hanya extends AbstractCharacter {
         super(NAME, 917, 564, 353, 110, 80, ElementType.PHYSICAL, 140, 100, Path.HARMONY);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.ATK_PERCENT, 28)
-                .addStat(PowerStat.FLAT_SPEED, 9)
-                .addStat(PowerStat.HP_PERCENT, 10));
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.FLAT_SPEED, 9)
+                .setStat(PowerStat.HP_PERCENT, 10));
     }
 
     public void useSkill() {

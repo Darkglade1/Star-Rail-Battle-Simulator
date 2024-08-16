@@ -34,9 +34,9 @@ public class Robin extends AbstractCharacter {
         this.skillEnergyGain = 35;
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.ATK_PERCENT, 28)
-                .addStat(PowerStat.HP_PERCENT, 18)
-                .addStat(PowerStat.FLAT_SPEED, 5));
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.HP_PERCENT, 18)
+                .setStat(PowerStat.FLAT_SPEED, 5));
     }
 
     public void useSkill() {

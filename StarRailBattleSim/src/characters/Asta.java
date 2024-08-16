@@ -23,9 +23,9 @@ public class Asta extends AbstractCharacter {
         super(NAME, 1023, 512, 463, 106, 80, ElementType.FIRE, 120, 100, Path.HARMONY);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
-                .addStat(PowerStat.DEF_PERCENT, 22.5f)
-                .addStat(PowerStat.CRIT_CHANCE, 6.7f));
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
+                .setStat(PowerStat.DEF_PERCENT, 22.5f)
+                .setStat(PowerStat.CRIT_CHANCE, 6.7f));
 
         talentPower = new AstaTalentPower();
         skillEnergyGain = 36;

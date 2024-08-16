@@ -4,7 +4,6 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
 import powers.TracePower;
@@ -22,9 +21,9 @@ public class Huohuo extends AbstractCharacter {
         super("Huohuo", 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100, Path.ABUNDANCE);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.HP_PERCENT, 28)
-                .addStat(PowerStat.FLAT_SPEED, 5)
-                .addStat(PowerStat.EFFECT_RES, 18));
+                .setStat(PowerStat.HP_PERCENT, 28)
+                .setStat(PowerStat.FLAT_SPEED, 5)
+                .setStat(PowerStat.EFFECT_RES, 18));
     }
 
     public void useSkill() {

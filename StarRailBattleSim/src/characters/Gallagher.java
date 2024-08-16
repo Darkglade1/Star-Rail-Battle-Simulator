@@ -18,9 +18,9 @@ public class Gallagher extends AbstractCharacter {
         super("Gallagher", 1305, 529, 441, 98, 80, ElementType.FIRE, 110, 100,  Path.ABUNDANCE);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.HP_PERCENT, 18)
-                .addStat(PowerStat.BREAK_EFFECT, 13.3f)
-                .addStat(PowerStat.EFFECT_RES, 28));
+                .setStat(PowerStat.HP_PERCENT, 18)
+                .setStat(PowerStat.BREAK_EFFECT, 13.3f)
+                .setStat(PowerStat.EFFECT_RES, 28));
         this.hasAttackingUltimate = true;
     }
 

@@ -5,7 +5,6 @@ import battleLogic.BattleHelpers;
 import battleLogic.FuYuan;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
 import powers.PowerStat;
 import powers.TracePower;
 
@@ -31,9 +30,9 @@ public class Lingsha extends AbstractCharacter {
         super("Lingsha", 1358, 679, 437, 98, 80, ElementType.FIRE, 110, 100, Path.ABUNDANCE);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.HP_PERCENT, 18)
-                .addStat(PowerStat.BREAK_EFFECT, 37.3f)
-                .addStat(PowerStat.ATK_PERCENT, 10));
+                .setStat(PowerStat.HP_PERCENT, 18)
+                .setStat(PowerStat.BREAK_EFFECT, 37.3f)
+                .setStat(PowerStat.ATK_PERCENT, 10));
 
         this.hasAttackingUltimate = true;
         this.basicEnergyGain = 30;

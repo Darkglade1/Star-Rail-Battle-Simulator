@@ -4,7 +4,6 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
 import powers.TracePower;
@@ -23,9 +22,9 @@ public class Tingyun extends AbstractCharacter {
         super("Tingyun", 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100, Path.HARMONY);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.ATK_PERCENT, 28)
-                .addStat(PowerStat.DEF_PERCENT, 22.5f)
-                .addStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 8));
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.DEF_PERCENT, 22.5f)
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 8));
     }
 
     public void useSkill() {

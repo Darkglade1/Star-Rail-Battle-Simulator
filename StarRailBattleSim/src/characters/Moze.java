@@ -4,7 +4,6 @@ import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
-import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
 import powers.TracePower;
@@ -29,9 +28,9 @@ public class Moze extends AbstractCharacter {
         super("Moze", 811, 547, 353, 114, 80, ElementType.LIGHTNING, 120, 75, Path.HUNT);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.ATK_PERCENT, 18)
-                .addStat(PowerStat.CRIT_DAMAGE, 37.3f)
-                .addStat(PowerStat.HP_PERCENT, 10));
+                .setStat(PowerStat.ATK_PERCENT, 18)
+                .setStat(PowerStat.CRIT_DAMAGE, 37.3f)
+                .setStat(PowerStat.HP_PERCENT, 10));
         this.hasAttackingUltimate = true;
 
         preyPower = new MozePreyPower();

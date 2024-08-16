@@ -36,9 +36,9 @@ public class Feixiao extends AbstractCharacter {
         this.hasAttackingUltimate = true;
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.ATK_PERCENT, 28)
-                .addStat(PowerStat.CRIT_CHANCE, 12)
-                .addStat(PowerStat.DEF_PERCENT, 12.5f));
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.CRIT_CHANCE, 12)
+                .setStat(PowerStat.DEF_PERCENT, 12.5f));
     }
 
 

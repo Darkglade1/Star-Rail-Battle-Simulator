@@ -21,9 +21,9 @@ public class Sparkle extends AbstractCharacter {
 
         this.basicEnergyGain = 30;
         this.addPower(new TracePower()
-                .addStat(PowerStat.CRIT_DAMAGE, 24)
-                .addStat(PowerStat.HP_PERCENT, 28)
-                .addStat(PowerStat.EFFECT_RES, 10));
+                .setStat(PowerStat.CRIT_DAMAGE, 24)
+                .setStat(PowerStat.HP_PERCENT, 28)
+                .setStat(PowerStat.EFFECT_RES, 10));
     }
 
     public void useSkill() {

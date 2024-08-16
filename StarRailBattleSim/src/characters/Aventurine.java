@@ -6,7 +6,6 @@ import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
-import powers.TempPower;
 import powers.TracePower;
 
 import java.util.ArrayList;
@@ -32,9 +31,9 @@ public class Aventurine extends AbstractCharacter {
 
         this.SPNeutral = SPNeutral;
         this.addPower(new TracePower()
-                .addStat(PowerStat.DEF_PERCENT, 35)
-                .addStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 14.4f)
-                .addStat(PowerStat.EFFECT_RES, 10));
+                .setStat(PowerStat.DEF_PERCENT, 35)
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 14.4f)
+                .setStat(PowerStat.EFFECT_RES, 10));
         this.hasAttackingUltimate = true;
     }
 

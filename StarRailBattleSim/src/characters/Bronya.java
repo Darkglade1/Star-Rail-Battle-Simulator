@@ -21,9 +21,9 @@ public class Bronya extends AbstractCharacter {
         super(NAME, 1242, 582, 534, 99, 80, ElementType.WIND, 120, 100, Path.HARMONY);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
-                .addStat(PowerStat.CRIT_DAMAGE, 24)
-                .addStat(PowerStat.EFFECT_RES, 10));
+                .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)
+                .setStat(PowerStat.CRIT_DAMAGE, 24)
+                .setStat(PowerStat.EFFECT_RES, 10));
     }
 
     public void useSkill() {

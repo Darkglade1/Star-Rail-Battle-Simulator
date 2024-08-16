@@ -6,7 +6,6 @@ import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
-import powers.TauntPower;
 import powers.TempPower;
 import powers.TracePower;
 
@@ -35,9 +34,9 @@ public class SwordMarch extends AbstractCharacter {
         super("Sword March", 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75, Path.HUNT);
 
         this.addPower(new TracePower()
-                .addStat(PowerStat.ATK_PERCENT, 28)
-                .addStat(PowerStat.CRIT_DAMAGE, 24)
-                .addStat(PowerStat.DEF_PERCENT, 12.5f));
+                .setStat(PowerStat.ATK_PERCENT, 28)
+                .setStat(PowerStat.CRIT_DAMAGE, 24)
+                .setStat(PowerStat.DEF_PERCENT, 12.5f));
         this.hasAttackingUltimate = true;
     }
 
