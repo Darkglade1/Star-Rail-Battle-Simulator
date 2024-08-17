@@ -214,7 +214,6 @@ public class SwordMarch extends AbstractCharacter {
             this.chargeCount -= chargeThreshold;
             Battle.battle.AdvanceEntity(this, 100);
             isEnhanced = true;
-            speedPriority = 0;
         }
     }
 

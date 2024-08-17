@@ -1,9 +1,6 @@
 package characters;
 
-import battleLogic.AbstractEntity;
-import battleLogic.Battle;
-import battleLogic.BattleHelpers;
-import battleLogic.Concerto;
+import battleLogic.*;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -82,6 +79,15 @@ public class Robin extends AbstractCharacter {
                 }
             }
         }
+        if (Battle.battle.hasCharacter(Topaz.NAME)) {
+            for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+                if (entry.getKey().name.equals(Numby.NAME)) {
+                    if (entry.getValue() <= 0) {
+                        return;
+                    }
+                }
+            }
+        }
         super.useUltimate();
         AbstractEntity slowestAlly = null;
         float slowestAV = -1;
@@ -114,13 +120,13 @@ public class Robin extends AbstractCharacter {
                 }
             }
         }
+
         // preserves the order in which allies go next based on their original AVs
-        fastestAlly.speedPriority = 1;
-        middleAlly.speedPriority = 2;
-        slowestAlly.speedPriority = 3;
-        Battle.battle.AdvanceEntity(fastestAlly, 100);
-        Battle.battle.AdvanceEntity(middleAlly, 100);
+        // most recently advanced ally will go first
         Battle.battle.AdvanceEntity(slowestAlly, 100);
+        Battle.battle.AdvanceEntity(middleAlly, 100);
+        Battle.battle.AdvanceEntity(fastestAlly, 100);
+
         for (AbstractCharacter character : Battle.battle.playerTeam) {
             character.addPower(ultPower);
         }

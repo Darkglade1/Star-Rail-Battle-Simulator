@@ -34,7 +34,6 @@ public class Bronya extends AbstractCharacter {
                 character.addPower(skillPower);
                 Battle.battle.AdvanceEntity(character, 100);
                 lightcone.onSpecificTrigger(character, null);
-                character.speedPriority = 1;
             }
         }
     }

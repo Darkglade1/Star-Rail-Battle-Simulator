@@ -6,17 +6,18 @@ import java.util.ArrayList;
 
 public class Numby extends AbstractSummon {
     Topaz owner;
+    public static final String NAME = "Numby";
 
     public Numby(Topaz owner) {
         this.baseSpeed = 80;
-        this.name = "Numby";
+        this.name = NAME;
         this.owner = owner;
     }
 
     public void takeTurn() {
+        super.takeTurn();
         owner.numbyAttacksMetrics++;
         owner.numbyAttack(new ArrayList<>());
-        speedPriority = 999; //reset speed priority if it was changed
     }
 
     public void AdvanceForward() {

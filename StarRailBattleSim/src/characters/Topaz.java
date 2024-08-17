@@ -30,9 +30,10 @@ public class Topaz extends AbstractSummoner {
     private String numbyAdvancedTimesMetricName = "Number of Useful Numby Advances";
     private String actualNumbyAdvanceMetricName = "Amount of AV Advanced by Numby";
     private String wastedNumbyAdvancesMetricName = "Number of Wasted Numby Advances";
+    public static final String NAME = "Topaz";
 
     public Topaz() {
-        super("Topaz", 931, 621, 412, 110, 80, ElementType.FIRE, 130, 75, Path.HUNT);
+        super(NAME, 931, 621, 412, 110, 80, ElementType.FIRE, 130, 75, Path.HUNT);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 22.4f)

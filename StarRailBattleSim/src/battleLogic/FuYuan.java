@@ -14,7 +14,7 @@ public class FuYuan extends AbstractSummon {
     }
 
     public void takeTurn() {
+        super.takeTurn();
         owner.FuYuanAttack(true);
-        speedPriority = 999; //reset speed priority if it was changed
     }
 }

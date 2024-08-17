@@ -358,8 +358,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
 
     @Override
     public void takeTurn() {
+        super.takeTurn();
         numTurnsMetric++;
-        speedPriority = 999; //reset speed priority if it was changed
     }
 
     public void onWeaknessBreak(AbstractEnemy enemy) {

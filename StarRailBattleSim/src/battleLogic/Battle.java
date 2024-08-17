@@ -30,6 +30,7 @@ public class Battle {
     public AbstractEntity nextUnit;
     public boolean usedEntryTechnique = false;
     public boolean isInCombat = false;
+    public int actionForwardPriorityCounter = AbstractEntity.SPEED_PRIORITY_DEFAULT;
 
     public HashMap<AbstractCharacter, Float> damageContributionMap;
     public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
@@ -199,6 +200,13 @@ public class Battle {
             if (nextUnit instanceof AbstractSummon) {
                 actionValueMap.put(nextUnit, nextUnit.getBaseAV());
             }
+
+            // check again for optimizing robin's ult around numby
+            for (AbstractCharacter character : playerTeam) {
+                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
+                    character.useUltimate();
+                }
+            }
         }
 
         addToLog("");
@@ -310,6 +318,8 @@ public class Battle {
                     newAV = 0;
                 }
                 entry.setValue(newAV);
+                actionForwardPriorityCounter--;
+                entity.speedPriority = actionForwardPriorityCounter;
                 addToLog(String.format("%s advanced by %.1f%% (%.3f -> %.3f)", entry.getKey().name, advanceAmount, originalAV, newAV));
             }
         }

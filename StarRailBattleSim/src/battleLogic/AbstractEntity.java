@@ -13,7 +13,8 @@ public abstract class AbstractEntity implements BattleEvents {
     public String name;
     public int baseSpeed;
     public ArrayList<AbstractPower> powerList = new ArrayList<>();
-    public int speedPriority = 99;
+    public static final int SPEED_PRIORITY_DEFAULT = 99;
+    public int speedPriority = SPEED_PRIORITY_DEFAULT;
     protected int numTurnsMetric = 0;
 
     private final Collection<BattleEvents> listeners = new ConcurrentLinkedQueue<>();
@@ -36,7 +37,7 @@ public abstract class AbstractEntity implements BattleEvents {
     }
 
     public void takeTurn() {
-
+        resetSpeedPriority(); //reset speed priority if it was changed
     }
 
     public void addPower(AbstractPower power) {
@@ -102,5 +103,9 @@ public abstract class AbstractEntity implements BattleEvents {
 
     public String toString() {
         return name;
+    }
+
+    public void resetSpeedPriority() {
+        speedPriority = SPEED_PRIORITY_DEFAULT;
     }
 }

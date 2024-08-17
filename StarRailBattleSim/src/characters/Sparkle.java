@@ -35,7 +35,6 @@ public class Sparkle extends AbstractCharacter {
                 character.addPower(skillPower);
                 Battle.battle.AdvanceEntity(character, 50);
                 lightcone.onSpecificTrigger(character, null);
-                character.speedPriority = 1;
             }
         }
     }
