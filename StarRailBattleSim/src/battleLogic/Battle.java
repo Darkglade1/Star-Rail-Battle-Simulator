@@ -342,6 +342,7 @@ public class Battle {
         float baseAV = entity.getBaseAV();
         Float currAV = actionValueMap.get(entity);
         if (currAV == null) {
+            entity.addPower(speedPower);
             return;
         }
         float percentToNextAction = (baseAV - currAV) / baseAV;
@@ -358,6 +359,7 @@ public class Battle {
         float baseAV = entity.getBaseAV();
         Float currAV = actionValueMap.get(entity);
         if (currAV == null) {
+            entity.removePower(speedPower);
             return;
         }
         float percentToNextAction = (baseAV - currAV) / baseAV;
