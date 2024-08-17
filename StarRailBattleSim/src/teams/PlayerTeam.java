@@ -14,7 +14,7 @@ import lightcones.nihility.ResolutionShinesAsPearlsOfSweat;
 import lightcones.preservation.ConcertForTwo;
 import lightcones.preservation.DayOneOfMyNewLife;
 import relics.RelicStats;
-import relics.ornament.BrokenKeelOld;
+import relics.ornament.BrokenKeel;
 import relics.ornament.Duran;
 import relics.ornament.RutilentArena;
 import relics.relics.KnightOfPurityPalace;
@@ -648,7 +648,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Lingsha();
         character.EquipLightcone(new WhatIsReal(character));
         character.EquipRelicSet(new ThiefOfShootingMeteor(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ERR);
@@ -675,7 +675,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Bronya();
         character.EquipLightcone(new PastAndFuture(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
@@ -689,7 +689,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Asta();
         character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.ERR);
@@ -717,7 +717,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Gallagher();
         character.EquipLightcone(new Multiplication(character));
         character.EquipRelicSet(new ThiefOfShootingMeteor(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
@@ -730,7 +730,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Hanya();
         character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.ERR);
@@ -744,7 +744,7 @@ public class PlayerTeam {
         AbstractCharacter character = new RuanMei();
         character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new ThiefOfShootingMeteor(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.ERR);
@@ -758,7 +758,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Sparkle();
         character.EquipLightcone(new PastAndFuture(character));
         character.EquipRelicSet(new PasserbyOfWanderingCloud(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
@@ -812,7 +812,7 @@ public class PlayerTeam {
         character.EquipLightcone(new ConcertForTwo(character));
         character.EquipRelicSet(new KnightOfPurityPalace(character, false));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character, false));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.DEF_PER);
@@ -827,7 +827,7 @@ public class PlayerTeam {
         character.EquipLightcone(new ConcertForTwo(character));
         character.EquipRelicSet(new KnightOfPurityPalace(character, false));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character, false));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.DEF_PER);
@@ -841,7 +841,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Pela();
         character.EquipLightcone(new ResolutionShinesAsPearlsOfSweat(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.EFFECT_HIT).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
@@ -855,7 +855,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Sparkle();
         character.EquipLightcone(new PastAndFuture(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
@@ -906,7 +906,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Tingyun();
         character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ERR);
@@ -921,7 +921,7 @@ public class PlayerTeam {
         character.EquipLightcone(new ForTomorrowsJourney(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character, false));
         character.EquipRelicSet(new TheWindSoaringValorous(character, false));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ATK_PER).
                 addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ERR);
@@ -935,7 +935,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Huohuo();
         character.EquipLightcone(new PostOpConversation(character));
         character.EquipRelicSet(new PasserbyOfWanderingCloud(character));
-        character.EquipRelicSet(new BrokenKeelOld(character));
+        character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.ERR);
