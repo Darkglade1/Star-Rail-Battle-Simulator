@@ -2,7 +2,6 @@ package relics.ornament;
 
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
-import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
@@ -28,7 +27,7 @@ public class CelestialDifferentiator extends AbstractRelicSetBonus {
         this.owner.addPower(new CelestialDifferentiatorCRBonus());
     }
 
-    public static class CelestialDifferentiatorCRBonus extends AbstractPower {
+    public static class CelestialDifferentiatorCRBonus extends PermPower {
         public CelestialDifferentiatorCRBonus() {
             super("Celestial Differentiator CR bonus");
             this.setStat(PowerStat.CRIT_CHANCE, 60);

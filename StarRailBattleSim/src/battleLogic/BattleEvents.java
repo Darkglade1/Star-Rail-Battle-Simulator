@@ -28,7 +28,8 @@ public interface BattleEvents {
     default void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {}
 
     /**
-     * Called before enemies have received the onAttack event
+     * Called before enemies have received the onAttacked event
+     * This hook is for after a character has attacked and dealt damage to the enemy. Most effects that need this sort of timing should use this hook.
      * @param character The character that attacked
      * @param enemiesHit The enemies that were hit
      * @param types The types of damage dealt
