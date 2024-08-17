@@ -59,4 +59,8 @@ public abstract class AbstractLightcone {
 
     }
 
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
 }
