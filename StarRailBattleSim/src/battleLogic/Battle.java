@@ -340,7 +340,10 @@ public class Battle {
 
     public void IncreaseSpeed(AbstractEntity entity, AbstractPower speedPower) {
         float baseAV = entity.getBaseAV();
-        float currAV = actionValueMap.get(entity);
+        Float currAV = actionValueMap.get(entity);
+        if (currAV == null) {
+            return;
+        }
         float percentToNextAction = (baseAV - currAV) / baseAV;
 
         entity.addPower(speedPower);
@@ -353,7 +356,10 @@ public class Battle {
 
     public void DecreaseSpeed(AbstractEntity entity, AbstractPower speedPower) {
         float baseAV = entity.getBaseAV();
-        float currAV = actionValueMap.get(entity);
+        Float currAV = actionValueMap.get(entity);
+        if (currAV == null) {
+            return;
+        }
         float percentToNextAction = (baseAV - currAV) / baseAV;
 
         entity.removePower(speedPower);
