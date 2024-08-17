@@ -4,11 +4,11 @@ import characters.AbstractCharacter;
 import powers.PermPower;
 import powers.PowerStat;
 
-public class Knight extends AbstractRelicSetBonus {
-    public Knight(AbstractCharacter owner) {
+public class KnightOfPurityPalace extends AbstractRelicSetBonus {
+    public KnightOfPurityPalace(AbstractCharacter owner) {
         super(owner);
     }
-    public Knight(AbstractCharacter owner, boolean isFullSet) {
+    public KnightOfPurityPalace(AbstractCharacter owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 

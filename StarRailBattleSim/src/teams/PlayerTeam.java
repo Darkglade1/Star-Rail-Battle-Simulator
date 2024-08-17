@@ -5,12 +5,10 @@ import lightcones.abundance.Multiplication;
 import lightcones.abundance.PostOpConversation;
 import lightcones.abundance.WhatIsReal;
 import lightcones.destruction.DanceAtSunset;
-import lightcones.harmony.FlowingNightglow;
 import lightcones.harmony.ForTomorrowsJourney;
 import lightcones.harmony.MemoriesOfThePast;
 import lightcones.harmony.PastAndFuture;
 import lightcones.hunt.CruisingInTheStellarSea;
-import lightcones.hunt.IVentureForthToHunt;
 import lightcones.hunt.Swordplay;
 import lightcones.nihility.ResolutionShinesAsPearlsOfSweat;
 import lightcones.preservation.ConcertForTwo;
@@ -639,7 +637,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltLingshaCritSupport() {
         AbstractCharacter character = new Lingsha();
         character.EquipLightcone(new WhatIsReal(character));
-        character.EquipRelicSet(new Thief(character));
+        character.EquipRelicSet(new ThiefOfShootingMeteor(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
@@ -653,7 +651,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltMoze() {
         AbstractCharacter character = new Moze();
         character.EquipLightcone(new Swordplay(character));
-        character.EquipRelicSet(new Duke(character));
+        character.EquipRelicSet(new TheAshblazingGrandDuke(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
@@ -666,7 +664,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltBronyaFei() {
         AbstractCharacter character = new Bronya();
         character.EquipLightcone(new PastAndFuture(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
@@ -680,7 +678,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltAsta() {
         AbstractCharacter character = new Asta();
         character.EquipLightcone(new MemoriesOfThePast(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
@@ -694,8 +692,8 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltFuXuan() {
         AbstractCharacter character = new FuXuan();
         character.EquipLightcone(new DayOneOfMyNewLife(character));
-        character.EquipRelicSet(new Knight(character, false));
-        character.EquipRelicSet(new Longevous(character, false));
+        character.EquipRelicSet(new KnightOfPurityPalace(character, false));
+        character.EquipRelicSet(new LongevousDisciple(character, false));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.HP_PER);
@@ -708,7 +706,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltGallagher() {
         AbstractCharacter character = new Gallagher();
         character.EquipLightcone(new Multiplication(character));
-        character.EquipRelicSet(new Thief(character));
+        character.EquipRelicSet(new ThiefOfShootingMeteor(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).
@@ -721,7 +719,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltHanya() {
         AbstractCharacter character = new Hanya();
         character.EquipLightcone(new MemoriesOfThePast(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
@@ -735,7 +733,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltRuanMeiCritSupport() {
         AbstractCharacter character = new RuanMei();
         character.EquipLightcone(new MemoriesOfThePast(character));
-        character.EquipRelicSet(new Thief(character));
+        character.EquipRelicSet(new ThiefOfShootingMeteor(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
@@ -749,7 +747,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltSparkleFei() {
         AbstractCharacter character = new Sparkle();
         character.EquipLightcone(new PastAndFuture(character));
-        character.EquipRelicSet(new Passerby(character));
+        character.EquipRelicSet(new PasserbyOfWanderingCloud(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
@@ -789,7 +787,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltTopazSpeed() {
         AbstractCharacter character = new Topaz();
         character.EquipLightcone(new Swordplay(character));
-        character.EquipRelicSet(new Duke(character));
+        character.EquipRelicSet(new TheAshblazingGrandDuke(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
@@ -802,8 +800,8 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltAventurineSpeed() {
         AbstractCharacter character = new Aventurine(false);
         character.EquipLightcone(new ConcertForTwo(character));
-        character.EquipRelicSet(new Knight(character, false));
-        character.EquipRelicSet(new Duke(character, false));
+        character.EquipRelicSet(new KnightOfPurityPalace(character, false));
+        character.EquipRelicSet(new TheAshblazingGrandDuke(character, false));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.SPEED).
@@ -817,8 +815,8 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltAventurine() {
         AbstractCharacter character = new Aventurine();
         character.EquipLightcone(new ConcertForTwo(character));
-        character.EquipRelicSet(new Knight(character, false));
-        character.EquipRelicSet(new Duke(character, false));
+        character.EquipRelicSet(new KnightOfPurityPalace(character, false));
+        character.EquipRelicSet(new TheAshblazingGrandDuke(character, false));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.SPEED).
@@ -832,7 +830,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltPela() {
         AbstractCharacter character = new Pela();
         character.EquipLightcone(new ResolutionShinesAsPearlsOfSweat(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.EFFECT_HIT).addMainStat(RelicStats.Stats.SPEED).
@@ -846,7 +844,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltSparkle() {
         AbstractCharacter character = new Sparkle();
         character.EquipLightcone(new PastAndFuture(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_DAMAGE).addMainStat(RelicStats.Stats.SPEED).
@@ -860,7 +858,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltSwordMarchFei() {
         AbstractCharacter character = new SwordMarch();
         character.EquipLightcone(new CruisingInTheStellarSea(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new RutilentArena(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
@@ -873,7 +871,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltSwordMarch() {
         AbstractCharacter character = new SwordMarch();
         character.EquipLightcone(new CruisingInTheStellarSea(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new RutilentArena(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
@@ -885,7 +883,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltTopaz() {
         AbstractCharacter character = new Topaz();
         character.EquipLightcone(new Swordplay(character));
-        character.EquipRelicSet(new Duke(character));
+        character.EquipRelicSet(new TheAshblazingGrandDuke(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
@@ -897,7 +895,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltTingyun() {
         AbstractCharacter character = new Tingyun();
         character.EquipLightcone(new MemoriesOfThePast(character));
-        character.EquipRelicSet(new Musketeer(character));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.SPEED).
@@ -911,7 +909,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltRobin() {
         AbstractCharacter character = new Robin();
         character.EquipLightcone(new ForTomorrowsJourney(character));
-        character.EquipRelicSet(new Musketeer(character, false));
+        character.EquipRelicSet(new MusketeerOfWildWheat(character, false));
         character.EquipRelicSet(new Valorous(character, false));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
@@ -926,7 +924,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltHuohuo() {
         AbstractCharacter character = new Huohuo();
         character.EquipLightcone(new PostOpConversation(character));
-        character.EquipRelicSet(new Passerby(character));
+        character.EquipRelicSet(new PasserbyOfWanderingCloud(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HEALING).addMainStat(RelicStats.Stats.SPEED).

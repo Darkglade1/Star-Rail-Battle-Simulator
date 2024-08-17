@@ -8,11 +8,11 @@ import powers.PowerStat;
 
 import java.util.ArrayList;
 
-public class Musketeer extends AbstractRelicSetBonus {
-    public Musketeer(AbstractCharacter owner) {
+public class MusketeerOfWildWheat extends AbstractRelicSetBonus {
+    public MusketeerOfWildWheat(AbstractCharacter owner) {
         super(owner);
     }
-    public Musketeer(AbstractCharacter owner, boolean isFullSet) {
+    public MusketeerOfWildWheat(AbstractCharacter owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 

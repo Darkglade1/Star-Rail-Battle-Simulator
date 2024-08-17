@@ -6,11 +6,11 @@ import powers.AbstractPower;
 
 import java.util.ArrayList;
 
-public class Duke extends AbstractRelicSetBonus {
-    public Duke(AbstractCharacter owner) {
+public class TheAshblazingGrandDuke extends AbstractRelicSetBonus {
+    public TheAshblazingGrandDuke(AbstractCharacter owner) {
         super(owner);
     }
-    public Duke(AbstractCharacter owner, boolean isFullSet) {
+    public TheAshblazingGrandDuke(AbstractCharacter owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
     AbstractPower atkBonus;

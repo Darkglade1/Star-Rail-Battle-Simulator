@@ -18,7 +18,7 @@ public abstract class AbstractEntity implements BattleEvents {
 
     private final Collection<BattleEvents> listeners = new ConcurrentLinkedQueue<>();
 
-    public Collection<BattleEvents> getListeners() {
+    protected Collection<BattleEvents> getListeners() {
         return listeners;
     }
 

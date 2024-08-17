@@ -5,11 +5,11 @@ import characters.AbstractCharacter;
 import powers.PermPower;
 import powers.PowerStat;
 
-public class Passerby extends AbstractRelicSetBonus {
-    public Passerby(AbstractCharacter owner) {
+public class PasserbyOfWanderingCloud extends AbstractRelicSetBonus {
+    public PasserbyOfWanderingCloud(AbstractCharacter owner) {
         super(owner);
     }
-    public Passerby(AbstractCharacter owner, boolean isFullSet) {
+    public PasserbyOfWanderingCloud(AbstractCharacter owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 

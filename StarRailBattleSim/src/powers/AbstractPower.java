@@ -12,8 +12,9 @@ import java.util.Map;
 
 public abstract class AbstractPower implements BattleEvents {
 
+    // TODO: Implement DOT
     public enum PowerType {
-        BUFF, DEBUFF
+        BUFF, DEBUFF,DOT
     }
 
     public String name;
