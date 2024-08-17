@@ -43,6 +43,7 @@ public class FiresmithOfLavaForging extends AbstractRelicSetBonus {
             return 0;
         }
 
+        // TODO: onAfterUseUltimate
         @Override
         public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             if (!types.contains(AbstractCharacter.DamageType.ULTIMATE)) return;

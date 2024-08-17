@@ -23,6 +23,8 @@ public class ForgeOfTheKalpagniLatern extends AbstractRelicSetBonus {
         this.owner.addPower(PermPower.create(PowerStat.SPEED_PERCENT, 6, "Forge Of The Kalpagni Latern SPD Boost"));
     }
 
+
+    // TODO: Rework onBeforeUseAttack to include enemies
     @Override
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (enemiesHit.stream().anyMatch(e -> e.weaknessMap.contains(AbstractCharacter.ElementType.FIRE))) {
