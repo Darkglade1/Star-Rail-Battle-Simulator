@@ -8,11 +8,11 @@ import powers.PowerStat;
 
 import java.util.ArrayList;
 
-public class Valorous extends AbstractRelicSetBonus {
-    public Valorous(AbstractCharacter owner) {
+public class TheWindSoaringValorous extends AbstractRelicSetBonus {
+    public TheWindSoaringValorous(AbstractCharacter owner) {
         super(owner);
     }
-    public Valorous(AbstractCharacter owner, boolean isFullSet) {
+    public TheWindSoaringValorous(AbstractCharacter owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 

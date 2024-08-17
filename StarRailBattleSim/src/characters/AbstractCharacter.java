@@ -22,7 +22,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public enum DamageType {
-        SKILL, BASIC, ULTIMATE, FOLLOW_UP, DOT, BREAK
+        SKILL, BASIC, ULTIMATE, FOLLOW_UP, DOT, BREAK, SUPER_BREAK
     }
 
     public enum MoveType {

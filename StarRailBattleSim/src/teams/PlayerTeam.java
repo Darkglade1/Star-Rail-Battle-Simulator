@@ -774,7 +774,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltFeixiao() {
         AbstractCharacter character = new Feixiao();
         character.EquipLightcone(new Swordplay(character));
-        character.EquipRelicSet(new Valorous(character));
+        character.EquipRelicSet(new TheWindSoaringValorous(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
@@ -910,7 +910,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Robin();
         character.EquipLightcone(new ForTomorrowsJourney(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character, false));
-        character.EquipRelicSet(new Valorous(character, false));
+        character.EquipRelicSet(new TheWindSoaringValorous(character, false));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.ATK_PER).addMainStat(RelicStats.Stats.ATK_PER).
@@ -938,7 +938,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltYunli() {
         AbstractCharacter character = new Yunli();
         character.EquipLightcone(new DanceAtSunset(character));
-        character.EquipRelicSet(new Valorous(character));
+        character.EquipRelicSet(new TheWindSoaringValorous(character));
         character.EquipRelicSet(new Duran(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
