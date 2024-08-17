@@ -808,8 +808,8 @@ public class PlayerTeam {
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.DEF_PER);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 11).addSubStat(RelicStats.Stats.DEF_PER, 3).
-                addSubStat(RelicStats.Stats.CRIT_DAMAGE, 3).addSubStat(RelicStats.Stats.SPEED, 7);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 10).addSubStat(RelicStats.Stats.DEF_PER, 3).
+                addSubStat(RelicStats.Stats.CRIT_DAMAGE, 3).addSubStat(RelicStats.Stats.SPEED, 8);
         relicStats.equipTo(character);
         return character;
     }
