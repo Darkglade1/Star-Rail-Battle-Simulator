@@ -50,7 +50,11 @@ public class PioneerDiverOfDeadWaters extends AbstractRelicSetBonus {
 
         public PioneerDiverOfDeadWaters4PC() {
             this.name = this.getClass().getSimpleName();
-            this.setStat(PowerStat.CRIT_CHANCE, 4);
+        }
+
+        @Override
+        public float getConditionalCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+            return boosted ? 8 :4;
         }
 
         @Override

@@ -12,8 +12,6 @@ import relics.AbstractRelicSetBonus;
  */
 public class MessengerTraversingHackerspace extends AbstractRelicSetBonus {
 
-    private TempPower ultimate4PC = TempPower.create(PowerStat.SPEED_PERCENT, 12, 1, "Messenger Traversing Hackerspace 4PC ");
-
     public MessengerTraversingHackerspace(AbstractCharacter owner, boolean fullSet) {
         super(owner, fullSet);
     }
@@ -31,6 +29,9 @@ public class MessengerTraversingHackerspace extends AbstractRelicSetBonus {
     public void onUseUltimate() {
         if (!this.isFullSet) return;
 
-        Battle.battle.playerTeam.forEach(c -> c.addPower(ultimate4PC));
+        Battle.battle.playerTeam.forEach(c -> {
+            TempPower ultPower = TempPower.create(PowerStat.SPEED_PERCENT, 12, 1, "Messenger Traversing Hackerspace 4PC ");
+            Battle.battle.IncreaseSpeed(c, ultPower);
+        });
     }
 }

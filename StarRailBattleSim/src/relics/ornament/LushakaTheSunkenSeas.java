@@ -17,7 +17,7 @@ public class LushakaTheSunkenSeas extends AbstractRelicSetBonus {
 
     @Override
     public void onEquip() {
-        this.owner.addPower(PermPower.create(PowerStat.EFFECT_RES, 5, "Lushaka The Sunken Seas Effect Resistance Bonus"));
+        this.owner.addPower(PermPower.create(PowerStat.ENERGY_REGEN, 5, "Lushaka The Sunken Seas Effect Resistance Bonus"));
     }
 
     @Override

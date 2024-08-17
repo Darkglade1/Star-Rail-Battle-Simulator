@@ -21,14 +21,13 @@ public class EagleOfTwilightLine extends AbstractRelicSetBonus {
     @Override
     public void onEquip() {
         if (this.owner.elementType == AbstractCharacter.ElementType.WIND) {
-            this.owner.addPower(PermPower.create(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 10, "Genius of Brilliant Stars Quantum bonus"));
+            this.owner.addPower(PermPower.create(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 10, "Eagle Of Twilight Line Wind bonus"));
         }
     }
 
     @Override
-    public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onUseUltimate() {
         if (!this.isFullSet) return;
-        if (!types.contains(AbstractCharacter.DamageType.ULTIMATE)) return;
 
         Battle.battle.AdvanceEntity(this.owner, 25);
     }

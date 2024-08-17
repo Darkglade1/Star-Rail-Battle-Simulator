@@ -19,7 +19,8 @@ public class DuranDynastyOfRunningWolves extends AbstractRelicSetBonus {
 
     @Override
     public void onCombatStart() {
-        Battle.battle.playerTeam.forEach(c -> c.addPower(new DuranStackPower()));
+        DuranStackPower power = new DuranStackPower();
+        Battle.battle.playerTeam.forEach(c -> c.addPower(power));
     }
 
     public String toString() {

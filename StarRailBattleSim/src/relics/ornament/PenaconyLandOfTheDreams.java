@@ -24,6 +24,7 @@ public class PenaconyLandOfTheDreams extends AbstractRelicSetBonus {
     public void onCombatStart() {
         Battle.battle.playerTeam.stream()
                 .filter(c -> c.elementType == this.owner.elementType)
+                .filter(c -> c != this.owner)
                 .forEach(c -> c.addPower(PermPower.create(PowerStat.DAMAGE_BONUS, 10, "Penacony Land of the Dreams damage bonus")));
     }
 }

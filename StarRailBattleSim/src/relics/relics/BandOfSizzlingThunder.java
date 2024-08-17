@@ -18,7 +18,7 @@ public class BandOfSizzlingThunder extends AbstractRelicSetBonus {
     @Override
     public void onEquip() {
         if (this.owner.elementType == AbstractCharacter.ElementType.LIGHTNING) {
-            this.owner.addPower(PermPower.create(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 10, "Firesmith of Lave Forging Fire Bonus"));
+            this.owner.addPower(PermPower.create(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 10, "Band Of Sizzling Thunder Lightning Bonus"));
         }
     }
 
@@ -26,9 +26,6 @@ public class BandOfSizzlingThunder extends AbstractRelicSetBonus {
     public void onUseSkill() {
         if (!this.isFullSet) return;
 
-        // When the wearer uses their Skill, increases the wearer's ATK by 20% for 1 turn(s).
-        // Not sure if this means after skill, or add it before using skill. And that skill is also boosted(?)
-        // Someone would have to check, I don't have this set lol
         this.owner.addPower(TempPower.create(PowerStat.ATK_PERCENT, 20, 1, "Band of Sizzling Thunder 4PC"));
     }
 }
