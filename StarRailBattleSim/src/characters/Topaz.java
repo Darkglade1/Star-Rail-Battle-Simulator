@@ -88,6 +88,11 @@ public class Topaz extends AbstractSummoner {
     }
 
     public void useUltimate() {
+        if (Battle.battle.hasCharacter(Robin.NAME)) {
+            if (!this.hasPower(Robin.ULT_POWER_NAME)) {
+                return;
+            }
+        }
         // only ult if numby isn't about to spin so we don't waste action forward as much
         if (Battle.battle.actionValueMap.get(numby) >= numby.getBaseAV() * 0.25) {
             super.useUltimate();
