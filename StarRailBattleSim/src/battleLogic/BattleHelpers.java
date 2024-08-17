@@ -154,6 +154,9 @@ public class BattleHelpers {
         source.emit(l -> {
             l.onBeforeHitEnemy(source, target, types);
         });
+        target.emit(l -> {
+            l.onBeforeHitEnemy(source, target, types);
+        });
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, types, damageElement);
 
         toughnessDamage = calculateToughenssDamage(source, toughnessDamage);

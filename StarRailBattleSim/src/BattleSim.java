@@ -17,30 +17,10 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        //debugTeam();
+        debugTeam();
         //generateReportYunli();
-        generateReportFeixiao();
+        //generateReportFeixiao();
         //ameliasSuperDump();
-    }
-
-    public static void ameliasSuperDump() {
-        TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
-                .stream()
-                .map(c -> TestHelper.callMethodOnClasses(c, "getTeam"))
-                .map(l -> (ArrayList<AbstractCharacter>) l)
-                .filter(Objects::nonNull)
-                .sorted(Comparator.comparing(team -> team.getClass().getSimpleName()))
-                .forEach(team -> {
-                    Battle battle = new Battle();
-                    Battle.battle = battle;
-                    battle.setPlayerTeam(team);
-
-                    ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-                    enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
-                    battle.setEnemyTeam(enemyTeam);
-
-                    battle.Start(500, true);
-                });
     }
 
     public static void debugTeam() {
@@ -83,7 +63,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
-        //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherBronya().getTeam());
@@ -176,6 +156,26 @@ public class BattleSim {
         String notes = "Notes: E0S1 Yunli, E0S0 other 5 stars. E6 4 stars. Maxed out traces and levels. Enemies are level 95. Relics are +15 with relatively relatable rolls. Simulations run for 50 cycles to reduce the impact of RNG and leftover AV/Energy at the end of combat.";
         Report report = new Report(baselineTeam, otherTeams, enemyTeams, 5050, notes);
         report.generateCSV();
+    }
+
+    public static void ameliasSuperDump() {
+        TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
+                .stream()
+                .map(c -> TestHelper.callMethodOnClasses(c, "getTeam"))
+                .map(l -> (ArrayList<AbstractCharacter>) l)
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparing(team -> team.getClass().getSimpleName()))
+                .forEach(team -> {
+                    Battle battle = new Battle();
+                    Battle.battle = battle;
+                    battle.setPlayerTeam(team);
+
+                    ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
+                    enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
+                    battle.setEnemyTeam(enemyTeam);
+
+                    battle.Start(500, true);
+                });
     }
 
 
