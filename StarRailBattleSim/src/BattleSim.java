@@ -1,4 +1,3 @@
-import battleLogic.AbstractEntity;
 import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
@@ -8,8 +7,6 @@ import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import static teams.EnemyTeam.*;
@@ -21,6 +18,25 @@ public class BattleSim {
         debugTeam();
         //generateReportYunli();
         //generateReportFeixiao();
+        //ameliasSuperDump();
+    }
+
+    public static void ameliasSuperDump() {
+        TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
+                .stream()
+                .map(c -> TestHelper.callMethodOnClasses(c, "getTeam"))
+                .map(l -> (ArrayList<AbstractCharacter>) l)
+                .forEach(l -> {
+                    Battle battle = new Battle();
+                    Battle.battle = battle;
+                    battle.setPlayerTeam(l);
+
+                    ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
+                    enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
+                    battle.setEnemyTeam(enemyTeam);
+
+                    battle.Start(100, true);
+                });
     }
 
     public static void debugTeam() {
