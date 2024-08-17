@@ -127,7 +127,7 @@ public class RuanMei extends AbstractCharacter {
 
     private class RuanMeiUltPower extends PermPower {
         public RuanMeiUltPower() {
-            super(ULT_DEBUFF_NAME);
+            super(ULT_POWER_NAME);
             this.setStat(PowerStat.RES_PEN, 25);
         }
 
