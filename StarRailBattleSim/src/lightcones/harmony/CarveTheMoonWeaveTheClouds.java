@@ -37,6 +37,7 @@ public class CarveTheMoonWeaveTheClouds extends AbstractLightcone {
     public static class CarveTheMoonWeaveTheCloudsEffect extends PermPower {
 
         public CarveTheMoonWeaveTheCloudsEffect(int type) {
+            super("Carve the Moon, Weave the Clouds effect");
             switch (type) {
                 case 1:
                     this.setStat(PowerStat.ATK_PERCENT, 20);
