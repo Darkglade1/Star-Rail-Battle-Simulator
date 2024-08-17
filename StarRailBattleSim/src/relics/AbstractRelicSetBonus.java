@@ -23,4 +23,8 @@ public abstract class AbstractRelicSetBonus implements BattleEvents {
 
     }
 
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
 }

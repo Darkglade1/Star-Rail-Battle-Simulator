@@ -39,8 +39,6 @@ public class Topaz extends AbstractSummoner {
                 .setStat(PowerStat.CRIT_CHANCE, 12.0f)
                 .setStat(PowerStat.HP_PERCENT, 10));
 
-        this.addPower(new FireWeaknessBonusDamage());
-
         numby = new Numby(this);
         stonksPower = new PermPower();
     }
@@ -100,6 +98,7 @@ public class Topaz extends AbstractSummoner {
     }
 
     public void onCombatStart() {
+        this.addPower(new FireWeaknessBonusDamage());
         Battle.battle.actionValueMap.put(numby, numby.getBaseAV());
         Battle.battle.getRandomEnemy().addPower(proofOfDebt);
     }

@@ -15,7 +15,7 @@ import lightcones.preservation.ConcertForTwo;
 import lightcones.preservation.DayOneOfMyNewLife;
 import relics.RelicStats;
 import relics.ornament.BrokenKeel;
-import relics.ornament.Duran;
+import relics.ornament.DuranDynastyOfRunningWolves;
 import relics.ornament.RutilentArena;
 import relics.relics.KnightOfPurityPalace;
 import relics.relics.LongevousDisciple;
@@ -662,7 +662,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Moze();
         character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character));
-        character.EquipRelicSet(new Duran(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
@@ -771,12 +771,12 @@ public class PlayerTeam {
 //    public static AbstractCharacter getPrebuiltFeixiao() {
 //        AbstractCharacter character = new Feixiao();
 //        character.EquipLightcone(new IVentureForthToHunt(character));
-//        character.EquipRelicSet(new Valorous(character));
-//        character.EquipRelicSet(new Duran(character));
+//        character.EquipRelicSet(new TheWindSoaringValorous(character));
+//        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
 //        RelicStats relicStats = new RelicStats();
 //        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
 //                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
-//        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 11).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13);
+//        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 5).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 19);
 //        relicStats.equipTo(character);
 //        return character;
 //    }
@@ -785,7 +785,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Feixiao();
         character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new TheWindSoaringValorous(character));
-        character.EquipRelicSet(new Duran(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
@@ -798,7 +798,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Topaz();
         character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character));
-        character.EquipRelicSet(new Duran(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
@@ -894,7 +894,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Topaz();
         character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character));
-        character.EquipRelicSet(new Duran(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
@@ -949,7 +949,7 @@ public class PlayerTeam {
         AbstractCharacter character = new Yunli();
         character.EquipLightcone(new DanceAtSunset(character));
         character.EquipRelicSet(new TheWindSoaringValorous(character));
-        character.EquipRelicSet(new Duran(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);

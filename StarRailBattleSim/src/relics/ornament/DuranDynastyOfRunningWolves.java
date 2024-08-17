@@ -3,7 +3,6 @@ package relics.ornament;
 import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
-import powers.AbstractPower;
 import powers.PermPower;
 import relics.AbstractRelicSetBonus;
 
@@ -19,43 +18,52 @@ public class DuranDynastyOfRunningWolves extends AbstractRelicSetBonus {
 
     @Override
     public void onCombatStart() {
-        DuranStackPower power = new DuranStackPower();
-        Battle.battle.playerTeam.forEach(c -> c.addPower(power));
+        Battle.battle.playerTeam.forEach(c -> c.addPower(new DuranTrackerPower()));
     }
 
     public String toString() {
         return this.getClass().getSimpleName();
     }
 
-    private class DuranStackPower extends PermPower {
+    private static class DuranTrackerPower extends PermPower {
+        public DuranTrackerPower() {
+            this.name = this.getClass().getSimpleName();
+        }
+        @Override
+        public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
+            if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
+                for (AbstractCharacter character : Battle.battle.playerTeam) {
+                    for (AbstractRelicSetBonus relicSetBonus : character.relicSetBonus) {
+                        if (relicSetBonus instanceof DuranDynastyOfRunningWolves) {
+                            character.addPower(new DuranStackPower());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static class DuranStackPower extends PermPower {
         public DuranStackPower() {
             this.name = this.getClass().getSimpleName();
             this.maxStacks = 5;
         }
-
-        @Override
-        public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
-            if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
-                this.stacks = Math.min(this.stacks + 1, this.maxStacks);
-            }
-        }
-
         @Override
         public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-            if (character != DuranDynastyOfRunningWolves.this.owner) return 0;
-
-            if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
-                return 5 * stacks;
+            for (AbstractCharacter.DamageType type : damageTypes) {
+                if (type == AbstractCharacter.DamageType.FOLLOW_UP) {
+                    return 5 * stacks;
+                }
             }
             return 0;
         }
 
         @Override
         public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-            if (character != DuranDynastyOfRunningWolves.this.owner) return 0;
-
-            if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)  && stacks == maxStacks) {
-                return 25;
+            for (AbstractCharacter.DamageType type : damageTypes) {
+                if (type == AbstractCharacter.DamageType.FOLLOW_UP && stacks == maxStacks) {
+                    return 25;
+                }
             }
             return 0;
         }
