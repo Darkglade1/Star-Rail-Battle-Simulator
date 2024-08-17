@@ -1,5 +1,6 @@
 package characters;
 
+import battleLogic.AbstractSummon;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import battleLogic.Numby;
@@ -10,9 +11,11 @@ import powers.PowerStat;
 import powers.TracePower;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
-public class Topaz extends AbstractCharacter {
+public class Topaz extends AbstractSummoner {
     AbstractPower proofOfDebt = new ProofOfDebt();
     Numby numby;
     PermPower stonksPower;
@@ -181,6 +184,11 @@ public class Topaz extends AbstractCharacter {
         list.add(actualNumbyAdvanceMetricName);
         list.add(wastedNumbyAdvancesMetricName);
         return list;
+    }
+
+    @Override
+    public List<AbstractSummon> getSummons() {
+        return Collections.singletonList(numby);
     }
 
     private class ProofOfDebt extends AbstractPower {

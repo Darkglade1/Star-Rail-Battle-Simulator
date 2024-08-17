@@ -224,7 +224,7 @@ public class Battle {
         }
 
         if (onlyDmg) {
-            System.out.println("Damage Contribution: | " + calcPercentContributionString());
+            System.out.println("Damage Contribution: | " + calcPercentContributionString() + "Total Damage " + totalPlayerDamage);
         } else {
             addToLog("Damage Contribution: | " + calcPercentContributionString());
             System.out.println(log);
