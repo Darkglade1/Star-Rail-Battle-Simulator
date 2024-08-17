@@ -28,4 +28,8 @@ public abstract class AbstractLightcone implements BattleEvents {
 
     }
 
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
 }

@@ -73,29 +73,28 @@ public class BattleHelpers {
             critChance = power.setFixedCritRate(source, target, types, critChance);
         }
         double roll = Battle.battle.critChanceRng.nextDouble() * 100 + 1;
-        float critMultiplierFloat = 1.0f;
 
         boolean wasCrit = false;
         if (roll < (double)critChance) {
             wasCrit = true;
-            float critDamage = source.getTotalCritDamage();
-            for (AbstractPower power : source.powerList) {
-                critDamage += power.getConditionalCritDamage(source, target, types);
-            }
-            for (AbstractPower power : target.powerList) {
-                critDamage += power.receiveConditionalCritDamage(source, target, types);
-            }
-            for (AbstractPower power : source.powerList) {
-                critDamage = power.setFixedCritDmg(source, target, types, critDamage);
-            }
-            float critMultiplier = 100.0f + critDamage;
-            critMultiplierFloat = critMultiplier / 100;
         }
+        float critDamage = source.getTotalCritDamage();
+        for (AbstractPower power : source.powerList) {
+            critDamage += power.getConditionalCritDamage(source, target, types);
+        }
+        for (AbstractPower power : target.powerList) {
+            critDamage += power.receiveConditionalCritDamage(source, target, types);
+        }
+        for (AbstractPower power : source.powerList) {
+            critDamage = power.setFixedCritDmg(source, target, types, critDamage);
+        }
+        float expectedCritMultiplier = (100.0f + critDamage * critChance * 0.01f) / 100;
+        float critMultiplier = (100.0f + critDamage) / 100;
 
-        float calculatedDamage = baseDamage * dmgMultiplierFloat * defMultiplierFloat * resMultiplierFloat * damageTakenMultiplier * toughnessMultiplier * critMultiplierFloat;
+        float calculatedDamage = baseDamage * dmgMultiplierFloat * defMultiplierFloat * resMultiplierFloat * damageTakenMultiplier * toughnessMultiplier * expectedCritMultiplier;
         if (wasCrit) {
-            Battle.battle.addToLog(String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f",
-                    source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier, critMultiplierFloat));
+            Battle.battle.addToLog(String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f Expected Crit Damage Multiplier: %.3f",
+                    source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier, critMultiplier, expectedCritMultiplier));
         } else {
             Battle.battle.addToLog(String.format("%s hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f",
                     source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
