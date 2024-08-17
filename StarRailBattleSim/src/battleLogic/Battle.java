@@ -6,9 +6,9 @@ import characters.Yunli;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
-import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -233,11 +233,14 @@ public class Battle {
 
     public String calcPercentContributionString() {
         StringBuilder log = new StringBuilder();
-        for (Map.Entry<AbstractCharacter,Float> entry : damageContributionMap.entrySet()) {
-            float percent = entry.getValue() / totalPlayerDamage * 100;
-            damageContributionMapPercent.put(entry.getKey(), percent);
-            log.append(String.format("%s: %.3f DPAV (%.3f%%) | ", entry.getKey().name, entry.getValue() / initialBattleLength, percent));
-        }
+        damageContributionMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEach(entry -> {
+                    float percent = entry.getValue() / totalPlayerDamage * 100;
+                    damageContributionMapPercent.put(entry.getKey(), percent);
+                    log.append(String.format("%s: %.3f DPAV (%.3f%%) | ", entry.getKey().name, entry.getValue() / initialBattleLength, percent));
+                });
         return log.toString();
     }
 
