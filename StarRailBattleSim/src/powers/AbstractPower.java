@@ -89,6 +89,20 @@ public abstract class AbstractPower implements BattleEvents {
         return currentCritDmg;
     }
 
+    /**
+     * @return A def% bonus
+     */
+    public float getConditionalDefenseBonus(AbstractCharacter character) {
+        return 0;
+    }
+
+    /**
+     * @return A break% bonus
+     */
+    public float getConditionalBreakEffectBonus(AbstractCharacter character) {
+        return 0;
+    }
+
     @Override
     public void onEndTurn() {
         if (!lastsForever && durationBasedOnSelfTurns) {

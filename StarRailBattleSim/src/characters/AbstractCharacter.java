@@ -162,6 +162,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         int totalBonusFlatDef = 0;
         for (AbstractPower power : powerList) {
             totalBonusDefPercent += power.getStat(PowerStat.DEF_PERCENT);
+            totalBonusDefPercent += power.getConditionalDefenseBonus(this);
             totalBonusFlatDef += power.getStat(PowerStat.FLAT_DEF);
         }
         return (totalBaseDef * (1 + totalBonusDefPercent / 100) + totalBonusFlatDef);
@@ -272,6 +273,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         float totalBreakEffect = 0;
         for (AbstractPower power : powerList) {
             totalBreakEffect += power.getStat(PowerStat.BREAK_EFFECT);
+            totalBreakEffect += power.getConditionalBreakEffectBonus(this);
         }
         return totalBreakEffect;
     }
