@@ -32,7 +32,7 @@ public class TaliaKingdomOfBanditry extends AbstractRelicSetBonus {
         @Override
         public float getConditionalBreakEffectBonus(AbstractCharacter character) {
             if (character.getFinalSpeed() >= 145) {
-                return 16;
+                return 20;
             }
 
             return 0;

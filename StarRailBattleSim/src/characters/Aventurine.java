@@ -173,6 +173,7 @@ public class Aventurine extends AbstractCharacter {
         public AventurineTalentPower() {
             this.name = this.getClass().getSimpleName();
             this.lastsForever = true;
+            this.setStat(PowerStat.EFFECT_RES, 50); //assume 100% shield uptime
         }
 
         @Override
