@@ -89,7 +89,7 @@ public class Yunli extends AbstractCharacter {
         }
     }
 
-    public void onAttacked(AbstractEnemy enemy, int energyFromAttacked) {
+    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> t, int energyFromAttacked) {
         addPower(getTrueSunderPower());
         if (isParrying) {
             useCull(enemy);
@@ -117,7 +117,7 @@ public class Yunli extends AbstractCharacter {
             BattleHelpers.PostAttackLogic(this, types);
         }
         increaseEnergy(15);
-        super.onAttacked(enemy, energyFromAttacked);
+        super.onAttacked(character, enemy, t, energyFromAttacked);
     }
 
     public void takeTurn() {

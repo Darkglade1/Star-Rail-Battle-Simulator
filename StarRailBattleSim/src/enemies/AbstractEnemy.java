@@ -43,6 +43,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
     private int timesBrokenMetric = 0;
 
     public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness, int doubleActionCooldown) {
+        super();
         this.name = name;
         this.baseHP = baseHP;
         this.baseAtk = baseAtk;

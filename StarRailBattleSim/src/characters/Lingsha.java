@@ -1,5 +1,6 @@
 package characters;
 
+import battleLogic.AbstractSummon;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import battleLogic.FuYuan;
@@ -9,10 +10,12 @@ import powers.PowerStat;
 import powers.TracePower;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Lingsha extends AbstractCharacter {
+public class Lingsha extends AbstractSummoner {
     FuYuan fuYuan;
     AbstractPower damageTrackerPower;
     private static final int fuYuanMaxHitCount = 5;
@@ -150,7 +153,7 @@ public class Lingsha extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        super.onTurnStart();
+        
         if (currentEmergencyHealCD > 0) {
             currentEmergencyHealCD--;
         }
@@ -202,6 +205,11 @@ public class Lingsha extends AbstractCharacter {
         list.add(fuYuanAttacksMetricName);
         list.add(numEmergencyHealsMetricName);
         return list;
+    }
+
+    @Override
+    public List<AbstractSummon> getSummons() {
+        return Collections.singletonList(fuYuan);
     }
 
     private static class Befog extends AbstractPower {

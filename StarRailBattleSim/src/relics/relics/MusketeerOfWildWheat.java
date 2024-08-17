@@ -1,18 +1,19 @@
-package relics;
+package relics.relics;
 
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
+import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 
-public class Musketeer extends AbstractRelicSetBonus {
-    public Musketeer(AbstractCharacter owner) {
+public class MusketeerOfWildWheat extends AbstractRelicSetBonus {
+    public MusketeerOfWildWheat(AbstractCharacter owner) {
         super(owner);
     }
-    public Musketeer(AbstractCharacter owner, boolean isFullSet) {
+    public MusketeerOfWildWheat(AbstractCharacter owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 

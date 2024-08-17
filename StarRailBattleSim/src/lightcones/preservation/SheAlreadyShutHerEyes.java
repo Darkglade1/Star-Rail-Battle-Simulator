@@ -8,6 +8,8 @@ import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
 
+import java.util.ArrayList;
+
 // TODO: The wave boost isn't implemented yet, doesn't seem like Battle has a concept of waves
 public class SheAlreadyShutHerEyes extends AbstractLightcone {
 
@@ -22,7 +24,7 @@ public class SheAlreadyShutHerEyes extends AbstractLightcone {
     }
 
     @Override
-    public void onAttacked(AbstractEnemy enemy) {
+    public void onAttacked(AbstractCharacter c, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         // TODO: Check if owner has shield, and if it has more than the attack
         // if (...) return;
 

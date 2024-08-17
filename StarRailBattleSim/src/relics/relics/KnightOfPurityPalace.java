@@ -1,14 +1,15 @@
-package relics;
+package relics.relics;
 
 import characters.AbstractCharacter;
 import powers.PermPower;
 import powers.PowerStat;
+import relics.AbstractRelicSetBonus;
 
-public class Knight extends AbstractRelicSetBonus {
-    public Knight(AbstractCharacter owner) {
+public class KnightOfPurityPalace extends AbstractRelicSetBonus {
+    public KnightOfPurityPalace(AbstractCharacter owner) {
         super(owner);
     }
-    public Knight(AbstractCharacter owner, boolean isFullSet) {
+    public KnightOfPurityPalace(AbstractCharacter owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 

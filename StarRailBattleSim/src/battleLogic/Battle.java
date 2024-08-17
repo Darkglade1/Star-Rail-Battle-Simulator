@@ -6,9 +6,9 @@ import characters.Yunli;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
-import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -90,6 +90,10 @@ public class Battle {
     }
 
     public void Start(float battleLength) {
+        Start(battleLength, false);
+    }
+
+    public void Start(float battleLength, boolean onlyDmg) {
         initialBattleLength = battleLength;
         totalPlayerDamage = 0;
         log = "Combat Start\n";
@@ -109,11 +113,7 @@ public class Battle {
         isInCombat = true;
         for (AbstractCharacter character : playerTeam) {
             actionValueMap.put(character, character.getBaseAV());
-            character.lightcone.onCombatStart();
-            character.onCombatStart();
-            for (AbstractRelicSetBonus relicSetBonus : character.relicSetBonus) {
-                relicSetBonus.onCombatStart();
-            }
+            character.emit(BattleEvents::onCombatStart);
         }
 
         addToLog("Triggering Techniques");
@@ -158,23 +158,16 @@ public class Battle {
                 nextUnit = ((Concerto) nextUnit).owner;
                 actionValueMap.put(nextUnit, 0.0f);
             }
-            ArrayList<AbstractPower> powersToTrgger = new ArrayList<>(nextUnit.powerList);
-            for (AbstractPower power : powersToTrgger) {
-                power.onTurnStart();
-            }
-            nextUnit.onTurnStart();
+            nextUnit.emit(BattleEvents::onTurnStart);
             if (nextUnit instanceof AbstractEnemy || nextUnit instanceof AbstractCharacter) {
                 if (actionValueMap.get(nextUnit) <= 0) {
                     actionValueMap.put(nextUnit, nextUnit.getBaseAV());
                 }
             }
             nextUnit.takeTurn();
-            if (nextUnit instanceof  AbstractCharacter) {
-                ((AbstractCharacter) nextUnit).lightcone.onEndTurn();
-            }
+            nextUnit.emit(BattleEvents::onEndTurn);
             ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
             for (AbstractPower power : nextUnit.powerList) {
-                power.onEndTurn();
                 if (!power.lastsForever && power.turnDuration <= 0) {
                     powersToRemove.add(power);
                 }
@@ -229,17 +222,25 @@ public class Battle {
                 damageContributionMap.put(character, 0.0f);
             }
         }
-        addToLog("Damage Contribution: | " + calcPercentContributionString());
-        System.out.println(log);
+
+        if (onlyDmg) {
+            System.out.println("Damage Contribution: | " + calcPercentContributionString() + "Total Damage " + totalPlayerDamage);
+        } else {
+            addToLog("Damage Contribution: | " + calcPercentContributionString());
+            System.out.println(log);
+        }
     }
 
     public String calcPercentContributionString() {
         StringBuilder log = new StringBuilder();
-        for (Map.Entry<AbstractCharacter,Float> entry : damageContributionMap.entrySet()) {
-            float percent = entry.getValue() / totalPlayerDamage * 100;
-            damageContributionMapPercent.put(entry.getKey(), percent);
-            log.append(String.format("%s: %.3f DPAV (%.3f%%) | ", entry.getKey().name, entry.getValue() / initialBattleLength, percent));
-        }
+        damageContributionMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEach(entry -> {
+                    float percent = entry.getValue() / totalPlayerDamage * 100;
+                    damageContributionMapPercent.put(entry.getKey(), percent);
+                    log.append(String.format("%s: %.3f DPAV (%.3f%%) | ", entry.getKey().name, entry.getValue() / initialBattleLength, percent));
+                });
         return log.toString();
     }
 

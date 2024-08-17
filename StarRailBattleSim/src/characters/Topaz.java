@@ -1,5 +1,6 @@
 package characters;
 
+import battleLogic.AbstractSummon;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import battleLogic.Numby;
@@ -10,9 +11,11 @@ import powers.PowerStat;
 import powers.TracePower;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
-public class Topaz extends AbstractCharacter {
+public class Topaz extends AbstractSummoner {
     AbstractPower proofOfDebt = new ProofOfDebt();
     Numby numby;
     PermPower stonksPower;
@@ -183,6 +186,11 @@ public class Topaz extends AbstractCharacter {
         return list;
     }
 
+    @Override
+    public List<AbstractSummon> getSummons() {
+        return Collections.singletonList(numby);
+    }
+
     private class ProofOfDebt extends AbstractPower {
         public ProofOfDebt() {
             this.name = this.getClass().getSimpleName();
@@ -201,7 +209,7 @@ public class Topaz extends AbstractCharacter {
         }
 
         @Override
-        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
+        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
             for (AbstractCharacter.DamageType type : types) {
                 if (type == AbstractCharacter.DamageType.FOLLOW_UP) {
                     Topaz.this.numby.AdvanceForward();

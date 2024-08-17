@@ -1,9 +1,10 @@
-package relics;
+package relics.ornament;
 
 import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
+import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 

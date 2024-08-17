@@ -151,13 +151,9 @@ public class BattleHelpers {
     }
 
     public static void hitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat, ArrayList<AbstractCharacter.DamageType> types, float toughnessDamage, AbstractCharacter.ElementType damageElement) {
-        for (AbstractRelicSetBonus relicSetBonus : source.relicSetBonus) {
-            relicSetBonus.onBeforeHitEnemy(source, target, types);
-        }
-        source.lightcone.onBeforeHitEnemy(source, target, types);
-        for (AbstractPower power : target.powerList) {
-            power.onBeforeHitEnemy(source, target, types);
-        }
+        source.emit(l -> {
+            l.onBeforeHitEnemy(source, target, types);
+        });
         float calculatedDamage = calculateDamageAgainstEnemy(source, target, multiplier, stat, types, damageElement);
 
         toughnessDamage = calculateToughenssDamage(source, toughnessDamage);
@@ -185,34 +181,27 @@ public class BattleHelpers {
     public static void PreAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
         attackDamageTotal = 0;
         enemiesHit.clear();
-        character.lightcone.onBeforeUseAttack(types);
-        for (AbstractPower power : character.powerList) {
-            power.onBeforeUseAttack(types);
-        }
-        for (AbstractRelicSetBonus relicSet : character.relicSetBonus) {
-            relicSet.onBeforeUseAttack(types);
-        }
+        character.emit(l -> {
+            l.onBeforeUseAttack(types);
+        });
     }
 
     public static void PostAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
         int damageTotal = (int) attackDamageTotal;
         Battle.battle.addToLog(String.format("Total Damage: %d", damageTotal));
 
-        character.lightcone.onAttack(character, enemiesHit, types);
-        ArrayList<AbstractPower> powersToTrigger = new ArrayList<>(character.powerList); // jank way to dodge comod exception lol
-        for (AbstractPower power : powersToTrigger) {
-            power.onAttack(character, enemiesHit, types);
-        }
+        character.emit(l -> {
+            l.onAttack(character, enemiesHit, types);
+        });
         for (AbstractEnemy enemy : enemiesHit) {
-            ArrayList<AbstractPower> enemyPowersToTrigger = new ArrayList<>(enemy.powerList);
-            for (AbstractPower power : enemyPowersToTrigger) {
-                power.onAttacked(character, enemy, types);
-            }
+            enemy.emit(l -> {
+                l.onAttacked(character, enemy, types, 0);
+            });
         }
-        ArrayList<AbstractPower> powersToTrigger2 = new ArrayList<>(character.powerList); // jank way to dodge comod exception lol
-        for (AbstractPower power : powersToTrigger2) {
-            power.afterAttackFinish(character, enemiesHit, types);
-        }
+
+        character.emit(l -> {
+            l.afterAttackFinish(character, enemiesHit, types);
+        });
     }
 
     public static void attackCharacter(AbstractEnemy source, AbstractCharacter target, int energyToGain) {
@@ -222,11 +211,9 @@ public class BattleHelpers {
             }
         }
         Battle.battle.addToLog(source.name + " attacked " + target.name);
-        target.onAttacked(source, energyToGain);
-        ArrayList<AbstractPower> powersToTrigger = new ArrayList<>(target.powerList);
-        for (AbstractPower power : powersToTrigger) {
-            power.onAttacked(target, source, new ArrayList<>());
-        }
+        target.emit(l -> {
+            l.onAttacked(target, source, new ArrayList<>(), energyToGain);
+        });
     }
 
     public static void additionalDamageHitEnemy(AbstractCharacter source, AbstractEnemy target, float multiplier, MultiplierStat stat) {

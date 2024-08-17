@@ -124,7 +124,6 @@ public class Aventurine extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        super.onTurnStart();
         blindBetFollowUpCounter = blindBetFollowUpPerTurn;
     }
 
@@ -176,7 +175,8 @@ public class Aventurine extends AbstractCharacter {
             this.lastsForever = true;
         }
 
-        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
+        @Override
+        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<DamageType> types, int energyFromAttacked) {
             if (character == Aventurine.this) {
                 increaseBlindBet(2);
             } else {
@@ -184,6 +184,7 @@ public class Aventurine extends AbstractCharacter {
             }
         }
 
+        @Override
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             if (character != Aventurine.this && types.contains(DamageType.FOLLOW_UP) && blindBetFollowUpCounter > 0) {
                 increaseBlindBet(1);

@@ -1,11 +1,12 @@
 package relics;
 
+import battleLogic.BattleEvents;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 
 import java.util.ArrayList;
 
-public abstract class AbstractRelicSetBonus {
+public abstract class AbstractRelicSetBonus implements BattleEvents {
     public AbstractCharacter owner;
     protected boolean isFullSet;
 
@@ -19,18 +20,6 @@ public abstract class AbstractRelicSetBonus {
     }
 
     public void onEquip() {
-
-    }
-
-    public void onCombatStart() {
-
-    }
-
-    public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
-
-    }
-
-    public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
 
     }
 

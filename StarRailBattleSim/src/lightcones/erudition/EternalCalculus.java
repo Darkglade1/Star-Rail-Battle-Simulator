@@ -23,11 +23,6 @@ public class EternalCalculus extends AbstractLightcone {
         this.owner.addPower(new EternalCalculusPower());
     }
 
-    @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
-        super.onAttack(character, enemiesHit, types);
-    }
-
     public static class EternalCalculusPower extends AbstractPower {
 
         public EternalCalculusPower() {

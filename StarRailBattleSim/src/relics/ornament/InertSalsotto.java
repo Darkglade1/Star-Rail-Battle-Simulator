@@ -1,10 +1,11 @@
-package relics;
+package relics.ornament;
 
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
+import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 

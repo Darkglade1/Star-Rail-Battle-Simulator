@@ -1,6 +1,7 @@
 package powers;
 
 import battleLogic.AbstractEntity;
+import battleLogic.BattleEvents;
 import characters.AbstractCharacter;
 import com.sun.istack.internal.NotNull;
 import enemies.AbstractEnemy;
@@ -9,10 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractPower {
+public abstract class AbstractPower implements BattleEvents {
 
+    // TODO: Implement DOT
     public enum PowerType {
-        BUFF, DEBUFF
+        BUFF, DEBUFF,DOT
     }
 
     public String name;
@@ -87,24 +89,21 @@ public abstract class AbstractPower {
         return currentCritDmg;
     }
 
-    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
-
+    /**
+     * @return A def% bonus
+     */
+    public float getConditionalDefenseBonus(AbstractCharacter character) {
+        return 0;
     }
 
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
-
-    }
-    public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
-
-    }
-
-    public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
-
+    /**
+     * @return A break% bonus
+     */
+    public float getConditionalBreakEffectBonus(AbstractCharacter character) {
+        return 0;
     }
 
-    public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-
-    }
+    @Override
     public void onEndTurn() {
         if (!lastsForever && durationBasedOnSelfTurns) {
             if (justApplied) {
@@ -113,14 +112,6 @@ public abstract class AbstractPower {
                 turnDuration--;
             }
         }
-    }
-
-    public void onTurnStart() {
-
-    }
-
-    public void onUseUltimate() {
-
     }
 
     public void onRemove() {

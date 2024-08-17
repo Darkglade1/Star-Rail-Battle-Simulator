@@ -6,6 +6,8 @@ import lightcones.AbstractLightcone;
 import powers.PermPower;
 import powers.PowerStat;
 
+import java.util.ArrayList;
+
 public class TextureOfMemories extends AbstractLightcone {
 
     public TextureOfMemories(AbstractCharacter owner) {
@@ -18,7 +20,7 @@ public class TextureOfMemories extends AbstractLightcone {
     }
 
     @Override
-    public void onAttacked(AbstractEnemy enemy) {
+    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         // TODO: Check shield
         // TODO: Reduce dmg taken power
     }
