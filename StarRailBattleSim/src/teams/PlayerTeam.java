@@ -9,6 +9,7 @@ import lightcones.harmony.ForTomorrowsJourney;
 import lightcones.harmony.MemoriesOfThePast;
 import lightcones.harmony.PastAndFuture;
 import lightcones.hunt.CruisingInTheStellarSea;
+import lightcones.hunt.IVentureForthToHunt;
 import lightcones.hunt.Swordplay;
 import lightcones.nihility.ResolutionShinesAsPearlsOfSweat;
 import lightcones.preservation.ConcertForTwo;
@@ -776,7 +777,7 @@ public class PlayerTeam {
 //        RelicStats relicStats = new RelicStats();
 //        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
 //                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
-//        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 5).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 19);
+//        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 6).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 18);
 //        relicStats.equipTo(character);
 //        return character;
 //    }
