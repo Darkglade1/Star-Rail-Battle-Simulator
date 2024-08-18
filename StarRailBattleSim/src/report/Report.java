@@ -120,7 +120,7 @@ public class Report {
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             pw.println(CSV);
         } catch (FileNotFoundException e) {
-            System.out.println("gg");
+            e.printStackTrace();
         }
 
         for (Map.Entry<String, String> entry : characterCSVs.entrySet()) {
@@ -128,7 +128,7 @@ public class Report {
             try (PrintWriter pw = new PrintWriter(characterCSV)) {
                 pw.println(entry.getValue());
             } catch (FileNotFoundException e) {
-                System.out.println("gg 2");
+                e.printStackTrace();
             }
         }
     }
