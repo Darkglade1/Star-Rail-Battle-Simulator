@@ -263,10 +263,12 @@ public class Robin extends AbstractCharacter {
             lastsForever = true;
         }
 
+        @Override
         public float setFixedCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes, float currentCrit) {
             return 100;
         }
 
+        @Override
         public float setFixedCritDmg(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes, float currentCritDmg) {
             return 150;
         }

@@ -3,6 +3,7 @@ package characters;
 import battleLogic.*;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
+import powers.PermPower;
 import powers.PowerStat;
 import powers.TracePower;
 
@@ -161,7 +162,6 @@ public class Lingsha extends AbstractSummoner {
     }
 
     public void onTurnStart() {
-        
         if (currentEmergencyHealCD > 0) {
             currentEmergencyHealCD--;
         }
@@ -238,13 +238,13 @@ public class Lingsha extends AbstractSummoner {
         }
     }
 
-    private class LingshaEmergencyHealTracker extends AbstractPower {
+    private class LingshaEmergencyHealTracker extends PermPower {
         public LingshaEmergencyHealTracker() {
             this.name = this.getClass().getSimpleName();
-            this.lastsForever = true;
         }
 
-        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
+        @Override
+        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyToGain) {
             int timesHit = characterTimesDamageTakenMap.get(character);
             timesHit++;
             Battle.battle.addToLog(String.format("%s has been hit %d times since last heal", character.name, timesHit));
