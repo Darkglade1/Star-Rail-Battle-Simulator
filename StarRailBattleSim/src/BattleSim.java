@@ -41,9 +41,9 @@ public class BattleSim {
 //        enemyTeam.add(new PhysWeakEnemy(2, 2));
 //        battle.setEnemyTeam(enemyTeam);
 
-        battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
-        //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
@@ -67,7 +67,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherBronya().getTeam());
-        battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaMarch().getTeam());
 
