@@ -145,7 +145,7 @@ public class Feixiao extends AbstractCharacter {
         }
 
         if (Battle.battle.hasCharacter(Sparkle.NAME)) {
-            if (!this.hasPower(Sparkle.SKILL_POWER_NAME)) {
+            if (!this.hasPower(Sparkle.SKILL_POWER_NAME) || !this.hasPower(Sparkle.ULT_POWER_NAME)) {
                 shouldUlt = false;
             }
         }
@@ -178,6 +178,10 @@ public class Feixiao extends AbstractCharacter {
             if (this.hasPower(Bronya.SKILL_POWER_NAME) && this.hasPower(Bronya.ULT_POWER_NAME)) {
                 shouldUlt = true;
             }
+        }
+
+        if (Battle.battle.isBattleAboutToEnd()) {
+            shouldUlt = true;
         }
 
         if (!shouldUlt) {

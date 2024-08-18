@@ -27,6 +27,7 @@ public class Battle {
     public int totalSkillPointsGenerated = 0;
     public String log = "";
     public float initialBattleLength;
+    public float battleLength;
     public AbstractEntity nextUnit;
     public boolean usedEntryTechnique = false;
     public boolean isInCombat = false;
@@ -94,8 +95,9 @@ public class Battle {
         Start(battleLength, false);
     }
 
-    public void Start(float battleLength, boolean onlyDmg) {
-        initialBattleLength = battleLength;
+    public void Start(float initialLength, boolean onlyDmg) {
+        initialBattleLength = initialLength;
+        this.battleLength = initialLength;
         totalPlayerDamage = 0;
         log = "Combat Start\n";
         damageContributionMap = new HashMap<>();
@@ -280,6 +282,11 @@ public class Battle {
             }
         }
         return false;
+    }
+
+    public boolean isBattleAboutToEnd() {
+        AbstractEntity next = findLowestAVUnit(actionValueMap);
+        return actionValueMap.get(next) > battleLength;
     }
 
     private AbstractEntity findLowestAVUnit(HashMap<AbstractEntity, Float> actionValueMap) {
