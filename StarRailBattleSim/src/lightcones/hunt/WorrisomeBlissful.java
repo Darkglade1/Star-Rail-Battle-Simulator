@@ -19,15 +19,15 @@ public class WorrisomeBlissful extends AbstractLightcone {
         this.owner.addPower(new WorrisomeBlissfulPower());
     }
 
-
-
     @Override
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (character != owner) return;
         if (enemiesHit.isEmpty()) return;
 
-        for (AbstractEnemy enemy : enemiesHit) {
-            enemy.addPower(new TameState());
+        if (types.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
+            for (AbstractEnemy enemy : enemiesHit) {
+                enemy.addPower(new TameState());
+            }
         }
     }
 
