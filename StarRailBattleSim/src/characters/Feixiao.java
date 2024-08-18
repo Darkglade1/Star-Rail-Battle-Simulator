@@ -282,6 +282,11 @@ public class Feixiao extends AbstractCharacter {
         return list;
     }
 
+    public HashMap<String, String> addLeftoverCharacterEnergyMetric(HashMap<String, String> metricMap) {
+        metricMap.put(leftoverEnergyMetricName, String.format("%.2f (Flying Aureus)", this.currentEnergy));
+        return metricMap;
+    }
+
     private class FeiTalentPower extends AbstractPower {
         public FeiTalentPower() {
             this.name = this.getClass().getSimpleName();

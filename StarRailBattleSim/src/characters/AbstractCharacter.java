@@ -63,6 +63,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public String numSkillsMetricName = "Skills Used";
     public String numBasicsMetricName = "Basic Attacks Used";
     public String numUltsMetricName = "Ultimates Used";
+    public String leftoverAVMetricName = "Leftover AV";
+    public String leftoverEnergyMetricName = "Leftover Energy";
     protected boolean firstMove = true;
     public boolean hasAttackingUltimate;
     protected ArrayList<MoveType> moveHistory;
@@ -435,6 +437,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
         map.put(numSkillsMetricName, String.valueOf(numSkillsMetric));
         map.put(numBasicsMetricName, String.valueOf(numBasicsMetric));
         map.put(numUltsMetricName, String.valueOf(numUltsMetric));
+        map = addLeftoverCharacterAVMetric(map);
+        map = addLeftoverCharacterEnergyMetric(map);
         return map;
     }
 
@@ -444,6 +448,18 @@ public abstract class AbstractCharacter extends AbstractEntity {
         list.add(numSkillsMetricName);
         list.add(numBasicsMetricName);
         list.add(numUltsMetricName);
+        list.add(leftoverAVMetricName);
+        list.add(leftoverEnergyMetricName);
         return list;
+    }
+
+    public HashMap<String, String> addLeftoverCharacterAVMetric(HashMap<String, String> metricMap) {
+        metricMap.put(leftoverAVMetricName, String.format("%.2f", Battle.battle.actionValueMap.get(this)));
+        return metricMap;
+    }
+
+    public HashMap<String, String> addLeftoverCharacterEnergyMetric(HashMap<String, String> metricMap) {
+        metricMap.put(leftoverEnergyMetricName, String.format("%.2f", this.currentEnergy));
+        return metricMap;
     }
 }

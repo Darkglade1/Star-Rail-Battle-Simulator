@@ -136,7 +136,7 @@ public class Battle {
                     float newAV = entry.getValue() - battleLength;
                     entry.setValue(newAV);
                 }
-                addToLog("Battle ended, leftover AV: " + actionValueMap);
+                addToLog("Battle ended");
                 break;
             }
             if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
@@ -225,11 +225,15 @@ public class Battle {
         addToLog("DPAV: " + finalDPAV);
         addToLog("Skill Points Used: " + totalSkillPointsUsed);
         addToLog("Skill Points Generated: " + totalSkillPointsGenerated);
+        addToLog("Leftover AV: " + actionValueMap);
+        StringBuilder leftoverEnergy = new StringBuilder();
         for (AbstractCharacter character : playerTeam) {
+            leftoverEnergy.append(String.format("| %s: %.2f | ", character.name, character.currentEnergy));
             if (!damageContributionMap.containsKey(character)) {
                 damageContributionMap.put(character, 0.0f);
             }
         }
+        addToLog("Leftover Energy: " + leftoverEnergy);
 
         if (onlyDmg) {
             System.out.println("Damage Contribution: | " + calcPercentContributionString() + "Total Damage " + totalPlayerDamage);

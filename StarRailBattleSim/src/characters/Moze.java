@@ -190,6 +190,17 @@ public class Moze extends AbstractCharacter {
         return list;
     }
 
+    public HashMap<String, String> addLeftoverCharacterAVMetric(HashMap<String, String> metricMap) {
+        Float leftoverAV = Battle.battle.actionValueMap.get(this);
+        if (leftoverAV == null) {
+            metricMap.put(leftoverAVMetricName, String.format("%d (Charge Left)", chargeCount));
+        } else {
+            return super.addLeftoverCharacterAVMetric(metricMap);
+        }
+
+        return metricMap;
+    }
+
     private class MozePreyPower extends AbstractPower {
         public MozePreyPower() {
             this.name = this.getClass().getSimpleName();

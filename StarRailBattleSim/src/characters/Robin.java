@@ -16,6 +16,7 @@ public class Robin extends AbstractCharacter {
     PermPower skillPower = PermPower.create(PowerStat.DAMAGE_BONUS, 50, "Robin Skill Power");
     RobinUltPower ultPower = new RobinUltPower();
     RobinFixedCritPower fixedCritPower = new RobinFixedCritPower();
+    Concerto concerto = new Concerto(this);
 
     private int skillCounter = 0;
     private int allyAttacksMetric = 0;
@@ -132,7 +133,6 @@ public class Robin extends AbstractCharacter {
         }
         this.addPower(fixedCritPower);
         Battle.battle.actionValueMap.remove(this);
-        Concerto concerto = new Concerto(this);
         Battle.battle.actionValueMap.put(concerto, concerto.getBaseAV());
     }
 
@@ -193,6 +193,18 @@ public class Robin extends AbstractCharacter {
         list.add(allyAttacksMetricName);
         list.add(concertoProcsMetricName);
         return list;
+    }
+
+    public HashMap<String, String> addLeftoverCharacterAVMetric(HashMap<String, String> metricMap) {
+        Float leftoverAV = Battle.battle.actionValueMap.get(this);
+        if (leftoverAV == null) {
+            leftoverAV = Battle.battle.actionValueMap.get(concerto);
+            metricMap.put(leftoverAVMetricName, String.format("%.2f (Concerto)", leftoverAV));
+        } else {
+            return super.addLeftoverCharacterAVMetric(metricMap);
+        }
+
+        return metricMap;
     }
 
     private class RobinTalentPower extends PermPower {
