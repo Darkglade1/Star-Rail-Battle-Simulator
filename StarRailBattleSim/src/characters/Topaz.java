@@ -30,6 +30,8 @@ public class Topaz extends AbstractSummoner {
     private String numbyAdvancedTimesMetricName = "Number of Useful Numby Advances";
     private String actualNumbyAdvanceMetricName = "Amount of AV Advanced by Numby";
     private String wastedNumbyAdvancesMetricName = "Number of Wasted Numby Advances";
+    private String leftoverAVNumbyMetricName = "Leftover AV (Numby)";
+    private String leftoverUltChargesMetricName = "Leftover Ult Charges";
     public static final String NAME = "Topaz";
 
     public Topaz() {
@@ -175,6 +177,8 @@ public class Topaz extends AbstractSummoner {
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(leftoverAVNumbyMetricName, String.valueOf(Battle.battle.actionValueMap.get(numby)));
+        map.put(leftoverUltChargesMetricName, String.valueOf(ultCounter));
         map.put(numbyAttacksMetricName, String.valueOf(numbyAttacksMetrics));
         map.put(numbyAdvancedTimesMetricName, String.valueOf(numbyAdvancedTimesMetrics));
         map.put(actualNumbyAdvanceMetricName, String.valueOf(actualNumbyAdvanceMetric));
@@ -184,6 +188,8 @@ public class Topaz extends AbstractSummoner {
 
     public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
         ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(leftoverAVNumbyMetricName);
+        list.add(leftoverUltChargesMetricName);
         list.add(numbyAttacksMetricName);
         list.add(numbyAdvancedTimesMetricName);
         list.add(actualNumbyAdvanceMetricName);

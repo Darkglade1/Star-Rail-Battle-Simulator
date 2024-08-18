@@ -25,6 +25,7 @@ public class Lingsha extends AbstractSummoner {
     private String fuYuanAttacksMetricName = "Number of Fu Yuan Attacks";
     private int numEmergencyHeals = 0;
     private String numEmergencyHealsMetricName = "Number of Emergency Heal Triggers";
+    private String leftoverAVFuYuanMetricName = "Leftover AV (Fu Yuan)";
 
     public Lingsha() {
         super("Lingsha", 1358, 679, 437, 98, 80, ElementType.FIRE, 110, 100, Path.ABUNDANCE);
@@ -202,6 +203,7 @@ public class Lingsha extends AbstractSummoner {
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(leftoverAVFuYuanMetricName, String.valueOf(Battle.battle.actionValueMap.get(fuYuan)));
         map.put(fuYuanAttacksMetricName, String.valueOf(fuYuanAttacksMetric));
         map.put(numEmergencyHealsMetricName, String.valueOf(numEmergencyHeals));
         return map;
@@ -209,6 +211,7 @@ public class Lingsha extends AbstractSummoner {
 
     public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
         ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(leftoverAVFuYuanMetricName);
         list.add(fuYuanAttacksMetricName);
         list.add(numEmergencyHealsMetricName);
         return list;
