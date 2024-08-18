@@ -139,6 +139,7 @@ public class Battle {
                     entry.setValue(newAV);
                 }
                 addToLog("Battle ended");
+                isInCombat = false;
                 break;
             }
             if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
@@ -315,7 +316,11 @@ public class Battle {
     }
 
     public void addToLog(String addition) {
-        log += addition + "\n";
+        String timestamp = String.format("(%.2f AV) - ", initialBattleLength - battleLength);
+        if (!isInCombat) {
+            timestamp = "";
+        }
+        log += timestamp + addition + "\n";
     }
 
     public void AdvanceEntity(AbstractEntity entity, float advanceAmount) {
