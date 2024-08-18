@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -12,13 +13,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Huohuo extends AbstractCharacter {
+    private static String NAME = "Huohuo";
+    
     HuohuoTalentPower talentPower = new HuohuoTalentPower();
     private int talentCounter = 0;
     private int numTalentProcs = 0;
     private String numTalentProcsMetricName = "Number of Talent Procs";
 
     public Huohuo() {
-        super("Huohuo", 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100, Path.ABUNDANCE);
+        super(NAME, 1358, 602, 509, 98, 80, ElementType.WIND, 140, 100, Path.ABUNDANCE);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.HP_PERCENT, 28)
@@ -29,7 +32,7 @@ public class Huohuo extends AbstractCharacter {
     public void useSkill() {
         super.useSkill();
         talentCounter = 2;
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(talentPower);
         }
     }
@@ -37,21 +40,16 @@ public class Huohuo extends AbstractCharacter {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 0.5f, BattleHelpers.MultiplierStat.HP, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        } else {
-            AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, 0.5f, BattleHelpers.MultiplierStat.HP, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        }
-        BattleHelpers.PostAttackLogic(this, types);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 0.5f, BattleHelpers.MultiplierStat.HP, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             if (character != this) {
                 character.increaseEnergy(character.maxEnergy * 0.2f, false);
                 character.addPower(TempPower.create(PowerStat.ATK_PERCENT, 40, 2, "Tail Atk Bonus"));
@@ -61,7 +59,7 @@ public class Huohuo extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0 && talentCounter <= 0) {
+        if (getBattle().getSkillPoints() > 0 && talentCounter <= 0) {
             useSkill();
         } else {
             useBasicAttack();
@@ -70,7 +68,7 @@ public class Huohuo extends AbstractCharacter {
 
     public void onCombatStart() {
         talentCounter = 1;
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(talentPower);
         }
     }
@@ -79,7 +77,7 @@ public class Huohuo extends AbstractCharacter {
         
         talentCounter--;
         if (talentCounter <= 0) {
-            for (AbstractCharacter character : Battle.battle.playerTeam) {
+            for (AbstractCharacter character : getBattle().getPlayers()) {
                 character.removePower(talentPower);
             }
         }

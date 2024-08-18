@@ -22,7 +22,7 @@ public class IzumoGenseiAndTakamaDivineRealm extends AbstractRelicSetBonus {
 
     @Override
     public void onCombatStart() {
-        if (Battle.battle.playerTeam.stream().anyMatch(c -> c.getPath() == this.owner.getPath())) {
+        if (getBattle().getPlayers().stream().anyMatch(c -> c.getPath() == this.owner.getPath())) {
             this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 12, "Izumo Gensei And Takama Divine Realm CRIT boost"));
         }
     }

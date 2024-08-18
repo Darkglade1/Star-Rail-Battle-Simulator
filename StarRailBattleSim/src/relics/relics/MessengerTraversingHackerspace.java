@@ -29,9 +29,9 @@ public class MessengerTraversingHackerspace extends AbstractRelicSetBonus {
     public void onUseUltimate() {
         if (!this.isFullSet) return;
 
-        Battle.battle.playerTeam.forEach(c -> {
+        getBattle().getPlayers().forEach(c -> {
             TempPower ultPower = TempPower.create(PowerStat.SPEED_PERCENT, 12, 1, "Messenger Traversing Hackerspace 4PC ");
-            Battle.battle.IncreaseSpeed(c, ultPower);
+            getBattle().IncreaseSpeed(c, ultPower);
         });
     }
 }

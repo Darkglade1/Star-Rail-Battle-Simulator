@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -12,10 +13,12 @@ import powers.TracePower;
 import java.util.ArrayList;
 
 public class Gallagher extends AbstractCharacter {
+    public static String NAME = "Gallagher";
+
     private boolean isEnhanced = false;
 
     public Gallagher() {
-        super("Gallagher", 1305, 529, 441, 98, 80, ElementType.FIRE, 110, 100,  Path.ABUNDANCE);
+        super(NAME, 1305, 529, 441, 98, 80, ElementType.FIRE, 110, 100,  Path.ABUNDANCE);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.HP_PERCENT, 18)
@@ -28,17 +31,11 @@ public class Gallagher extends AbstractCharacter {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
         if (isEnhanced) {
-            BattleHelpers.hitEnemy(this, enemy, 2.75f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT * 3);
+            getBattle().getHelper().hitEnemy(this, enemy, 2.75f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT * 3);
             AbstractPower atkDebuff = new TempPower();
             atkDebuff.type = AbstractPower.PowerType.DEBUFF;
             atkDebuff.turnDuration = 2;
@@ -46,26 +43,26 @@ public class Gallagher extends AbstractCharacter {
             enemy.addPower(atkDebuff);
             isEnhanced = false;
         } else {
-            BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            getBattle().getHelper().hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.ULTIMATE);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            BattleHelpers.hitEnemy(this, enemy, 1.65f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
+            getBattle().getHelper().hitEnemy(this, enemy, 1.65f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
             AbstractPower besotted = new Besotted();
             enemy.addPower(besotted);
             isEnhanced = true;
         }
-        Battle.battle.AdvanceEntity(this, 100);
+        getBattle().AdvanceEntity(this, 100);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void takeTurn() {

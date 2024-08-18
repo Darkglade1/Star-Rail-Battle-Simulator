@@ -16,7 +16,7 @@ public class WeWillMeetAgain extends AbstractLightcone {
     @Override
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         for (AbstractEnemy enemy : enemiesHit) {
-            BattleHelpers.additionalDamageHitEnemy(this.owner, enemy, 96, BattleHelpers.MultiplierStat.ATK);
+            getBattle().getHelper().additionalDamageHitEnemy(this.owner, enemy, 96, BattleHelpers.MultiplierStat.ATK);
         }
     }
 }

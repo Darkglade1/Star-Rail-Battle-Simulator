@@ -1,9 +1,18 @@
 package battleLogic;
 
-import characters.Topaz;
 
-import java.util.ArrayList;
+import characters.AbstractSummoner;
 
-public class AbstractSummon extends AbstractEntity {
+public class AbstractSummon<O extends AbstractSummoner> extends AbstractEntity  {
 
+    protected final O summoner;
+
+    public AbstractSummon(O summoner) {
+        this.summoner = summoner;
+    }
+
+    @Override
+    public IBattle getBattle() {
+        return this.summoner.getBattle();
+    }
 }

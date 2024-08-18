@@ -18,7 +18,7 @@ public class DuranDynastyOfRunningWolves extends AbstractRelicSetBonus {
 
     @Override
     public void onCombatStart() {
-        Battle.battle.playerTeam.forEach(c -> c.addPower(new DuranTrackerPower()));
+        getBattle().getPlayers().forEach(c -> c.addPower(new DuranTrackerPower()));
     }
 
     public String toString() {
@@ -32,7 +32,7 @@ public class DuranDynastyOfRunningWolves extends AbstractRelicSetBonus {
         @Override
         public void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) {
-                for (AbstractCharacter character : Battle.battle.playerTeam) {
+                for (AbstractCharacter character : getBattle().getPlayers()) {
                     for (AbstractRelicSetBonus relicSetBonus : character.relicSetBonus) {
                         if (relicSetBonus instanceof DuranDynastyOfRunningWolves) {
                             character.addPower(new DuranStackPower());

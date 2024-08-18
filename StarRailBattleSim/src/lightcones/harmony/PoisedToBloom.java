@@ -23,7 +23,7 @@ public class PoisedToBloom extends AbstractLightcone {
 
     @Override
     public void onCombatStart() {
-        Battle.battle.playerTeam
+        getBattle().getPlayers()
                 .stream()
                 .filter(c -> !c.getPath().equals(Path.UNKNOWN))
                 .collect(Collectors.groupingBy(AbstractCharacter::getPath))

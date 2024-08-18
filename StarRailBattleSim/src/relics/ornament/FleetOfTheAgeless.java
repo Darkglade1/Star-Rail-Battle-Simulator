@@ -22,7 +22,7 @@ public class FleetOfTheAgeless extends AbstractRelicSetBonus {
 
     @Override
     public void onCombatStart() {
-        Battle.battle.playerTeam.forEach(c -> c.addPower(new FleetOfTheAgelessPower()));
+        getBattle().getPlayers().forEach(c -> c.addPower(new FleetOfTheAgelessPower()));
     }
 
     public class FleetOfTheAgelessPower extends PermPower {

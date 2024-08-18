@@ -1,8 +1,6 @@
 package enemies;
 
 import battleLogic.AbstractEntity;
-import battleLogic.Battle;
-import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;
 import characters.Moze;
 import characters.RuanMei;
@@ -108,7 +106,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
         }
         attack();
         if (doubleActionCounter == 0) {
-            Battle.battle.addToLog(name + " takes a second action");
+            getBattle().addToLog(name + " takes a second action");
             attack();
             doubleActionCounter = doubleActionCooldown;
         } else {
@@ -121,9 +119,9 @@ public abstract class AbstractEnemy extends AbstractEntity {
         EnemyAttackType attackType = rollAttackType();
         if (attackType == EnemyAttackType.AOE) {
             numAoEMetric++;
-            Battle.battle.addToLog(String.format("%s uses AoE attack", name));
-            for (AbstractCharacter character : Battle.battle.playerTeam) {
-                BattleHelpers.attackCharacter(this, character, 10);
+            getBattle().addToLog(String.format("%s uses AoE attack", name));
+            for (AbstractCharacter character : getBattle().getPlayers()) {
+                getBattle().getHelper().attackCharacter(this, character, 10);
             }
         } else {
             AbstractCharacter target;
@@ -131,9 +129,9 @@ public abstract class AbstractEnemy extends AbstractEntity {
             int idx = -99;
             if (taunt instanceof TauntPower) {
                 target = ((TauntPower) taunt).taunter;
-                Battle.battle.addToLog(name + " forced to attack " + target.name);
-                for (int i = 0; i < Battle.battle.playerTeam.size(); i++) {
-                    if (Battle.battle.playerTeam.get(i) == target) {
+                getBattle().addToLog(name + " forced to attack " + target.name);
+                for (int i = 0; i < getBattle().getPlayers().size(); i++) {
+                    if (getBattle().getPlayers().get(i) == target) {
                         idx = i;
                         break;
                     }
@@ -141,7 +139,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
             } else {
                 double totalWeight= 0.0;
                 ArrayList<AbstractCharacter> validTargets = new ArrayList<>();
-                for (AbstractCharacter character : Battle.battle.playerTeam) {
+                for (AbstractCharacter character : getBattle().getPlayers()) {
                     if (character instanceof Moze) {
                         if (!((Moze) character).isDeparted) {
                             validTargets.add(character);
@@ -154,7 +152,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
                     totalWeight += character.getFinalTauntValue();
                 }
                 idx = 0;
-                for (double r = Battle.battle.enemyTargetRng.nextDouble() * totalWeight; idx < validTargets.size() - 1; ++idx) {
+                for (double r = getBattle().getEnemyTargetRng().nextDouble() * totalWeight; idx < validTargets.size() - 1; ++idx) {
                     r -= validTargets.get(idx).getFinalTauntValue();
                     if (r <= 0.0) break;
                 }
@@ -163,17 +161,17 @@ public abstract class AbstractEnemy extends AbstractEntity {
 
             if (attackType == EnemyAttackType.SINGLE) {
                 numSingleTargetMetric++;
-                Battle.battle.addToLog(String.format("%s uses single target attack against %s", name, target.name));
-                BattleHelpers.attackCharacter(this, target, 10);
+                getBattle().addToLog(String.format("%s uses single target attack against %s", name, target.name));
+                getBattle().getHelper().attackCharacter(this, target, 10);
             } else {
                 numBlastMetric++;
-                Battle.battle.addToLog(String.format("%s uses blast attack against %s", name, target.name));
-                BattleHelpers.attackCharacter(this, target, 10);
-                if (idx + 1 < Battle.battle.playerTeam.size()) {
-                    BattleHelpers.attackCharacter(this, Battle.battle.playerTeam.get(idx + 1), 5);
+                getBattle().addToLog(String.format("%s uses blast attack against %s", name, target.name));
+                getBattle().getHelper().attackCharacter(this, target, 10);
+                if (idx + 1 < getBattle().getPlayers().size()) {
+                    getBattle().getHelper().attackCharacter(this, getBattle().getPlayers().get(idx + 1), 5);
                 }
                 if (idx - 1 >= 0) {
-                    BattleHelpers.attackCharacter(this, Battle.battle.playerTeam.get(idx - 1), 5);
+                    getBattle().getHelper().attackCharacter(this, getBattle().getPlayers().get(idx - 1), 5);
                 }
             }
         }
@@ -186,7 +184,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
             totalWeight += type.weight;
         }
         int idx = 0;
-        for (double r = Battle.battle.enemyMoveRng.nextDouble() * totalWeight; idx < EnemyAttackType.values().length - 1; ++idx) {
+        for (double r = getBattle().getEnemyMoveRng().nextDouble() * totalWeight; idx < EnemyAttackType.values().length - 1; ++idx) {
             r -= EnemyAttackType.values()[idx].weight;
             if (r <= 0.0) break;
         }
@@ -198,17 +196,17 @@ public abstract class AbstractEnemy extends AbstractEntity {
         if (this.weaknessBroken) {
             RuanMei.RuanMeiUltDebuff ruanMeiDebuff = (RuanMei.RuanMeiUltDebuff) this.getPower(RuanMei.ULT_DEBUFF_NAME);
             if (ruanMeiDebuff != null && !ruanMeiDebuff.triggered) {
-                Battle.battle.addToLog("Ruan Mei Ult Delay Triggered");
+                getBattle().addToLog("Ruan Mei Ult Delay Triggered");
                 float delay = ruanMeiDebuff.owner.getTotalBreakEffect() * 0.2f + 10;
-                Battle.battle.DelayEntity(this, delay);
+                getBattle().DelayEntity(this, delay);
                 ruanMeiDebuff.triggered = true;
-                BattleHelpers.breakDamageHitEnemy(ruanMeiDebuff.owner, this, 0.5f);
+                getBattle().getHelper().breakDamageHitEnemy(ruanMeiDebuff.owner, this, 0.5f);
             } else {
                 if (this.hasPower(RuanMei.ULT_DEBUFF_NAME)) {
                     this.removePower(RuanMei.ULT_DEBUFF_NAME);
                 }
                 this.weaknessBroken = false;
-                Battle.battle.addToLog(String.format("%s recovered from weakness break (%.3f -> %.3f)", name, toughness, maxToughness));
+                getBattle().addToLog(String.format("%s recovered from weakness break (%.3f -> %.3f)", name, toughness, maxToughness));
                 this.toughness = maxToughness;
             }
         }
@@ -224,11 +222,11 @@ public abstract class AbstractEnemy extends AbstractEntity {
             this.toughness = 0;
             this.weaknessBroken = true;
         }
-        Battle.battle.addToLog(String.format("%s's toughness reduced by %.3f (%.3f -> %.3f)", name, amount, initialToughness, toughness));
+        getBattle().addToLog(String.format("%s's toughness reduced by %.3f (%.3f -> %.3f)", name, amount, initialToughness, toughness));
         if (this.weaknessBroken) {
             timesBrokenMetric++;
-            Battle.battle.DelayEntity(this, 25);
-            for (AbstractCharacter character : Battle.battle.playerTeam) {
+            getBattle().DelayEntity(this, 25);
+            for (AbstractCharacter character : getBattle().getPlayers()) {
                 character.onWeaknessBreak(this);
             }
         }

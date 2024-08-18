@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -35,54 +36,42 @@ public class Asta extends AbstractCharacter {
         super.useSkill();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 0.55f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 0.55f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
         int numBounces = 5;
         while (numBounces > 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.55f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            getBattle().getHelper().hitEnemy(this, getBattle().getRandomEnemy(), 0.55f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
             numBounces--;
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
     public void useBasicAttack() {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
-            Battle.battle.IncreaseSpeed(character, TempPower.create(PowerStat.FLAT_SPEED, 53, 2, "Asta Ult Speed Buff"));
+        for (AbstractCharacter character : getBattle().getPlayers()) {
+            getBattle().IncreaseSpeed(character, TempPower.create(PowerStat.FLAT_SPEED, 53, 2, "Asta Ult Speed Buff"));
         }
         justCastUlt = true;
     }
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0) {
+        if (getBattle().getSkillPoints() > 0) {
             useSkill();
         } else {
             useBasicAttack();
@@ -90,7 +79,7 @@ public class Asta extends AbstractCharacter {
     }
 
     public void onCombatStart() {
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(talentPower);
             if (character.elementType == ElementType.FIRE) {
                 character.addPower(PermPower.create(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 18, "Asta Fire Damage Bonus"));
@@ -111,19 +100,19 @@ public class Asta extends AbstractCharacter {
     }
 
     public void useTechnique() {
-        if (Battle.battle.usedEntryTechnique) {
+        if (getBattle().usedEntryTechnique()) {
             return;
         } else {
-            Battle.battle.usedEntryTechnique = true;
+            getBattle().setUsedEntryTechnique(true);
         }
         ArrayList<DamageType> types = new ArrayList<>();
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            BattleHelpers.hitEnemy(this, enemy, 0.5f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
+            getBattle().getHelper().hitEnemy(this, enemy, 0.5f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void increaseStacks(int amount) {
@@ -132,7 +121,7 @@ public class Asta extends AbstractCharacter {
         if (talentPower.stacks > MAX_STACKS) {
             talentPower.stacks = MAX_STACKS;
         }
-        Battle.battle.addToLog(String.format("Asta gained %d Stacks (%d -> %d)", amount, initalStack, talentPower.stacks));
+        getBattle().addToLog(String.format("Asta gained %d Stacks (%d -> %d)", amount, initalStack, talentPower.stacks));
     }
 
     public void decreaseStacks(int amount) {
@@ -141,7 +130,7 @@ public class Asta extends AbstractCharacter {
         if (talentPower.stacks < 0) {
             talentPower.stacks = 0;
         }
-        Battle.battle.addToLog(String.format("Asta lost %d Stacks (%d -> %d)", amount, initalStack, talentPower.stacks));
+        getBattle().addToLog(String.format("Asta lost %d Stacks (%d -> %d)", amount, initalStack, talentPower.stacks));
     }
 
     private class AstaTalentPower extends AbstractPower {

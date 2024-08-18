@@ -15,7 +15,7 @@ public class Multiplication extends AbstractLightcone {
 
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (types.contains(AbstractCharacter.DamageType.BASIC)) {
-            Battle.battle.AdvanceEntity(character, 20);
+            getBattle().AdvanceEntity(character, 20);
         }
     }
 

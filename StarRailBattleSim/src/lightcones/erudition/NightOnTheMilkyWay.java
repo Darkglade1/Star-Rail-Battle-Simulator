@@ -1,6 +1,5 @@
 package lightcones.erudition;
 
-import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
@@ -38,12 +37,12 @@ public class NightOnTheMilkyWay extends AbstractLightcone {
 
         @Override
         public float getConditionalAtkBonus(AbstractCharacter character) {
-            return 15 * Battle.battle.enemyTeam.size();
+            return 15 * getBattle().getEnemies().size();
         }
 
         @Override
         public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-            if (Battle.battle.milkyWayRng.nextInt(100) < weaknessBoostUptime) {
+            if (getBattle().getMilkyWayRng().nextInt(100) < weaknessBoostUptime) {
                 return 50;
             }
             return 0;

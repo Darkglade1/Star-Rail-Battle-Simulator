@@ -1,6 +1,5 @@
 package lightcones.abundance;
 
-import battleLogic.Battle;
 import characters.AbstractCharacter;
 import lightcones.AbstractLightcone;
 
@@ -15,14 +14,14 @@ public class QuidProQuo extends AbstractLightcone {
 
     @Override
     public void onTurnStart() {
-        List<AbstractCharacter> characters = Battle.battle.playerTeam
+        List<AbstractCharacter> characters = getBattle().getPlayers()
                 .stream()
                 .filter(c -> c.currentEnergy < c.maxEnergy / 2)
                 .collect(Collectors.toList());
 
         if (characters.isEmpty()) return;
 
-        AbstractCharacter target = characters.get(Battle.battle.qpqRng.nextInt(characters.size()));
+        AbstractCharacter target = characters.get(getBattle().getQpqRng().nextInt(characters.size()));
         target.increaseEnergy(16);
     }
 }

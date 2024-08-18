@@ -10,13 +10,15 @@ import powers.PowerStat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class Battle {
-    public static Battle battle;
+public class Battle implements IBattle {
     public ArrayList<AbstractCharacter> playerTeam;
     public ArrayList<AbstractEnemy> enemyTeam;
+
+    private BattleHelpers battleHelpers;
 
     public final int INITIAL_SKILL_POINTS = 3;
     public int numSkillPoints = INITIAL_SKILL_POINTS;
@@ -37,7 +39,7 @@ public class Battle {
     public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
     public HashMap<AbstractEntity, Float> actionValueMap;
 
-    long seed = 154172837382L;
+    protected static long seed = 154172837382L;
     public Random enemyMoveRng = new Random(seed);
     public Random enemyTargetRng = new Random(seed);
     public Random critChanceRng = new Random(seed);
@@ -49,16 +51,38 @@ public class Battle {
     public Random weaveEffectRng = new Random(seed);
     public Random aetherRng = new Random(seed);
 
+    public Battle() {
+        this.battleHelpers = new BattleHelpers(this);
+    }
+
     public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
         this.playerTeam = playerTeam;
+        this.playerTeam.forEach(character -> character.setBattle(this));
     }
 
     public void setEnemyTeam(ArrayList<AbstractEnemy> enemyTeam) {
         this.enemyTeam = enemyTeam;
+        this.enemyTeam.forEach(enemy -> enemy.setBattle(this));
     }
 
     public AbstractEnemy getRandomEnemy() {
-        return Battle.battle.enemyTeam.get(getRandomEnemyRng.nextInt(Battle.battle.enemyTeam.size()));
+        return this.enemyTeam.get(getRandomEnemyRng.nextInt(this.enemyTeam.size()));
+    }
+
+    @Override
+    public AbstractEntity getNextUnit() {
+        return this.nextUnit;
+    }
+
+    @Override
+    public boolean isAboutToEnd() {
+        AbstractEntity next = findLowestAVUnit(actionValueMap);
+        return actionValueMap.get(next) > battleLength;
+    }
+
+    @Override
+    public boolean inCombat() {
+        return this.isInCombat;
     }
 
     public void updateContribution(AbstractCharacter character, float damageContribution) {
@@ -69,6 +93,21 @@ public class Battle {
         } else {
             damageContributionMap.put(character, damageContribution);
         }
+    }
+
+    @Override
+    public void increaseTotalPlayerDmg(float dmg) {
+        totalPlayerDamage += dmg;
+    }
+
+    @Override
+    public float initialLength() {
+        return this.initialBattleLength;
+    }
+
+    @Override
+    public BattleHelpers getHelper() {
+        return this.battleHelpers;
     }
 
     public void useSkillPoint(AbstractCharacter character, int amount) {
@@ -89,6 +128,16 @@ public class Battle {
             numSkillPoints = MAX_SKILL_POINTS;
         }
         addToLog(String.format("%s generated %d Skill Point(s) (%d -> %d)", character.name, amount, initialSkillPoints, numSkillPoints));
+    }
+
+    @Override
+    public void increaseMaxSkillPoints(int maxSkillPoints) {
+        MAX_SKILL_POINTS += maxSkillPoints;
+    }
+
+    @Override
+    public int getSkillPoints() {
+        return this.numSkillPoints;
     }
 
     public void Start(float battleLength) {
@@ -276,6 +325,22 @@ public class Battle {
         }
         return null;
     }
+
+    @Override
+    public boolean usedEntryTechnique() {
+        return this.usedEntryTechnique;
+    }
+
+    @Override
+    public void setUsedEntryTechnique(boolean usedEntryTechnique) {
+        this.usedEntryTechnique = usedEntryTechnique;
+    }
+
+    @Override
+    public List<AbstractCharacter> getPlayers() {
+        return this.playerTeam;
+    }
+
     public boolean hasCharacter(String name) {
         for (AbstractCharacter character : playerTeam) {
             if (character.name.equals(name)) {
@@ -285,9 +350,21 @@ public class Battle {
         return false;
     }
 
-    public boolean isBattleAboutToEnd() {
-        AbstractEntity next = findLowestAVUnit(actionValueMap);
-        return actionValueMap.get(next) > battleLength;
+    @Override
+    public List<AbstractEnemy> getEnemies() {
+        return this.enemyTeam;
+    }
+
+    @Override
+    public AbstractEnemy getMiddleEnemy() {
+        AbstractEnemy enemy;
+        if (this.enemyTeam.size() >= 3) {
+            int middleIndex = this.enemyTeam.size() / 2;
+            enemy = this.enemyTeam.get(middleIndex);
+        } else {
+            enemy = this.enemyTeam.get(0);
+        }
+        return enemy;
     }
 
     private AbstractEntity findLowestAVUnit(HashMap<AbstractEntity, Float> actionValueMap) {
@@ -321,6 +398,21 @@ public class Battle {
             timestamp = "";
         }
         log += timestamp + addition + "\n";
+    }
+
+    @Override
+    public HashMap<AbstractCharacter, Float> getDamageContributionMap() {
+        return this.damageContributionMap;
+    }
+
+    @Override
+    public HashMap<AbstractCharacter, Float> getDamageContributionMapPercent() {
+        return this.damageContributionMapPercent;
+    }
+
+    @Override
+    public HashMap<AbstractEntity, Float> getActionValueMap() {
+        return this.actionValueMap;
     }
 
     public void AdvanceEntity(AbstractEntity entity, float advanceAmount) {
@@ -386,5 +478,60 @@ public class Battle {
         actionValueMap.put(entity, newCurrAV);
 
         addToLog(String.format("%s delayed by speed decrease (%.3f -> %.3f)", entity.name, currAV, newCurrAV));
+    }
+
+    @Override
+    public long getSeed() {
+        return seed;
+    }
+
+    @Override
+    public Random getEnemyMoveRng() {
+        return enemyMoveRng;
+    }
+
+    @Override
+    public Random getEnemyTargetRng() {
+        return enemyTargetRng;
+    }
+
+    @Override
+    public Random getCritChanceRng() {
+        return critChanceRng;
+    }
+
+    @Override
+    public Random getGetRandomEnemyRng() {
+        return getRandomEnemyRng;
+    }
+
+    @Override
+    public Random getProcChanceRng() {
+        return procChanceRng;
+    }
+
+    @Override
+    public Random getGambleChanceRng() {
+        return gambleChanceRng;
+    }
+
+    @Override
+    public Random getQpqRng() {
+        return qpqRng;
+    }
+
+    @Override
+    public Random getMilkyWayRng() {
+        return milkyWayRng;
+    }
+
+    @Override
+    public Random getWeaveEffectRng() {
+        return weaveEffectRng;
+    }
+
+    @Override
+    public Random getAetherRng() {
+        return aetherRng;
     }
 }

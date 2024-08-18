@@ -29,7 +29,7 @@ public class EarthlyEscapade extends AbstractLightcone {
 
     @Override
     public void onCombatStart() {
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(new Mask(mask));
         }
     }

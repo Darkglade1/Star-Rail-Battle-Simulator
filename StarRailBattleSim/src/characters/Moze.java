@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Moze extends AbstractCharacter {
+    public static String NAME = "Moze";
+    
     public int FUAs = 0;
     public int talentProcs = 0;
     private String FUAsMetricName = "Number of Follow Up Attacks Used";
@@ -25,7 +28,7 @@ public class Moze extends AbstractCharacter {
     public boolean isDeparted = false;
 
     public Moze() {
-        super("Moze", 811, 547, 353, 114, 80, ElementType.LIGHTNING, 120, 75, Path.HUNT);
+        super(NAME, 811, 547, 353, 114, 80, ElementType.LIGHTNING, 120, 75, Path.HUNT);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.ATK_PERCENT, 18)
@@ -40,40 +43,28 @@ public class Moze extends AbstractCharacter {
         super.useSkill();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
         preyPower.owner = enemy;
         enemy.addPower(preyPower);
-        BattleHelpers.hitEnemy(this, enemy, 1.65f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        getBattle().getHelper().hitEnemy(this, enemy, 1.65f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
         increaseCharge(MAX_CHARGE);
 
-        BattleHelpers.PostAttackLogic(this, types);
-        Battle.battle.actionValueMap.remove(this);
+        getBattle().getHelper().PostAttackLogic(this, types);
+        getBattle().getActionValueMap().remove(this);
         isDeparted = true;
     }
     public void useBasicAttack() {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
@@ -81,20 +72,14 @@ public class Moze extends AbstractCharacter {
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.ULTIMATE);
         types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
         addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 30, 2, "Moze Damage Bonus"));
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 2.7f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_THREE_UNITs);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 2.7f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_THREE_UNITs);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
 
         useFollowUp();
     }
@@ -103,37 +88,37 @@ public class Moze extends AbstractCharacter {
         AbstractEnemy enemy = (AbstractEnemy) preyPower.owner;
         moveHistory.add(MoveType.FOLLOW_UP);
         FUAs++;
-        Battle.battle.addToLog(name + " used Follow Up");
+        getBattle().addToLog(name + " used Follow Up");
         increaseEnergy(10);
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
         float totalMult = 2.01f;
         float initialHitsMult = totalMult * 0.08f;
         float finalHitMult = totalMult * 0.6f;
 
         for (int i = 0; i < 5; i++) {
-            BattleHelpers.hitEnemy(this, enemy, initialHitsMult, BattleHelpers.MultiplierStat.ATK, types, 0);
+            getBattle().getHelper().hitEnemy(this, enemy, initialHitsMult, BattleHelpers.MultiplierStat.ATK, types, 0);
         }
-        BattleHelpers.hitEnemy(this, enemy, finalHitMult, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        getBattle().getHelper().hitEnemy(this, enemy, finalHitMult, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
         if (chargeCount == 0) {
             preyPower.owner.removePower(preyPower);
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
 
         if (!skillPointRecovered) {
-            Battle.battle.generateSkillPoint(this, 1);
+            getBattle().generateSkillPoint(this, 1);
             skillPointRecovered = true;
         }
     }
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0) {
+        if (getBattle().getSkillPoints() > 0) {
             useSkill();
         } else {
             useBasicAttack();
@@ -152,7 +137,7 @@ public class Moze extends AbstractCharacter {
         if (chargeCount > MAX_CHARGE) {
             chargeCount = MAX_CHARGE;
         }
-        Battle.battle.addToLog(String.format("Moze gained %d Charge (%d -> %d)", amount, initalStack, chargeCount));
+        getBattle().addToLog(String.format("Moze gained %d Charge (%d -> %d)", amount, initalStack, chargeCount));
     }
 
     public void decreaseCharge(int amount) {
@@ -163,7 +148,7 @@ public class Moze extends AbstractCharacter {
             if (chargeCount < 0) {
                 chargeCount = 0;
             }
-            Battle.battle.addToLog(String.format("Moze decremented %d Charge (%d -> %d)", amount, initalStack, chargeCount));
+            getBattle().addToLog(String.format("Moze decremented %d Charge (%d -> %d)", amount, initalStack, chargeCount));
             if (chargeLost >= CHARGE_ATTACK_THRESHOLD) {
                 chargeLost -= CHARGE_ATTACK_THRESHOLD;
                 useFollowUp();
@@ -172,7 +157,7 @@ public class Moze extends AbstractCharacter {
     }
 
     public void onCombatStart() {
-        Battle.battle.AdvanceEntity(this, 30);
+        getBattle().AdvanceEntity(this, 30);
         increaseEnergy(20);
     }
 
@@ -191,7 +176,7 @@ public class Moze extends AbstractCharacter {
     }
 
     public HashMap<String, String> addLeftoverCharacterAVMetric(HashMap<String, String> metricMap) {
-        Float leftoverAV = Battle.battle.actionValueMap.get(this);
+        Float leftoverAV = getBattle().getActionValueMap().get(this);
         if (leftoverAV == null) {
             metricMap.put(leftoverAVMetricName, String.format("%d (Charge Left)", chargeCount));
         } else {
@@ -234,7 +219,7 @@ public class Moze extends AbstractCharacter {
             }
             if (trigger) {
                 talentProcs++;
-                BattleHelpers.additionalDamageHitEnemy(Moze.this, enemy, 0.33f, BattleHelpers.MultiplierStat.ATK);
+                getBattle().getHelper().additionalDamageHitEnemy(Moze.this, enemy, 0.33f, BattleHelpers.MultiplierStat.ATK);
                 increaseEnergy(2);
                 decreaseCharge(1);
             }
@@ -242,8 +227,8 @@ public class Moze extends AbstractCharacter {
 
         @Override
         public void onRemove() {
-            Battle.battle.actionValueMap.put(Moze.this, Moze.this.getBaseAV());
-            Battle.battle.AdvanceEntity(Moze.this, 30);
+            getBattle().getActionValueMap().put(Moze.this, Moze.this.getBaseAV());
+            getBattle().AdvanceEntity(Moze.this, 30);
             isDeparted = false;
         }
     }

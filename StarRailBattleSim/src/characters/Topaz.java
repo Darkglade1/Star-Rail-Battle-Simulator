@@ -3,6 +3,7 @@ package characters;
 import battleLogic.AbstractSummon;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import battleLogic.Numby;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -52,17 +53,10 @@ public class Topaz extends AbstractSummoner {
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
 
-        AbstractEnemy target;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            target = Battle.battle.enemyTeam.get(middleIndex);
-            target.addPower(proofOfDebt);
-        } else {
-            target = Battle.battle.enemyTeam.get(0);
-            target.addPower(proofOfDebt);
-        }
+        AbstractEnemy target = getBattle().getMiddleEnemy();
+        target.addPower(proofOfDebt);
 
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
             if (enemy.hasPower(proofOfDebt.name) && enemy != target) {
                 enemy.removePower(proofOfDebt);
                 break;
@@ -76,28 +70,28 @@ public class Topaz extends AbstractSummoner {
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
         types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
         AbstractEnemy target = null;
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
             if (enemy.hasPower(proofOfDebt.name)) {
                 target = enemy;
                 break;
             }
         }
-        BattleHelpers.hitEnemy(this, target, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        getBattle().getHelper().hitEnemy(this, target, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
-        if (Battle.battle.hasCharacter(Robin.NAME)) {
+        if (getBattle().hasCharacter(Robin.NAME)) {
             if (!this.hasPower(Robin.ULT_POWER_NAME)) {
                 return;
             }
         }
         // only ult if numby isn't about to spin so we don't waste action forward as much
-        if (Battle.battle.actionValueMap.get(numby) >= numby.getBaseAV() * 0.25) {
+        if (getBattle().getActionValueMap().get(numby) >= numby.getBaseAV() * 0.25) {
             super.useUltimate();
             this.stonksPower = PermPower.create(PowerStat.CRIT_DAMAGE, 25, "Topaz Ult Power");
             ultCounter = 2;
@@ -107,17 +101,17 @@ public class Topaz extends AbstractSummoner {
 
     public void onCombatStart() {
         this.addPower(new FireWeaknessBonusDamage());
-        Battle.battle.actionValueMap.put(numby, numby.getBaseAV());
-        Battle.battle.getRandomEnemy().addPower(proofOfDebt);
+        getBattle().getActionValueMap().put(numby, numby.getBaseAV());
+        getBattle().getRandomEnemy().addPower(proofOfDebt);
     }
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0) {
+        if (getBattle().getSkillPoints() > 0) {
             if (firstMove) {
                 useSkill();
                 firstMove = false;
-            } else if (Battle.battle.numSkillPoints <= 3 || ultCounter > 0) {
+            } else if (getBattle().getSkillPoints() <= 3 || ultCounter > 0) {
                 useBasicAttack();
             } else {
                 useSkill();
@@ -138,10 +132,10 @@ public class Topaz extends AbstractSummoner {
             toughnessDamage = TOUGHNESS_DAMAGE_TWO_UNITS / 7;
         }
         types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
         AbstractEnemy target = null;
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
             if (enemy.hasPower(proofOfDebt.name)) {
                 target = enemy;
                 break;
@@ -149,10 +143,10 @@ public class Topaz extends AbstractSummoner {
         }
 
         for (int i = 0; i < 7; i++) {
-            BattleHelpers.hitEnemy(this, target, multiplier / 7, BattleHelpers.MultiplierStat.ATK, types, toughnessDamage);
+            getBattle().getHelper().hitEnemy(this, target, multiplier / 7, BattleHelpers.MultiplierStat.ATK, types, toughnessDamage);
         }
         if (ultCounter > 0) {
-            BattleHelpers.hitEnemy(this, target, 0.9f, BattleHelpers.MultiplierStat.ATK, types, toughnessDamage);
+            getBattle().getHelper().hitEnemy(this, target, 0.9f, BattleHelpers.MultiplierStat.ATK, types, toughnessDamage);
             increaseEnergy(10);
             ultCounter--;
             if (ultCounter <= 0) {
@@ -168,7 +162,7 @@ public class Topaz extends AbstractSummoner {
             increaseEnergy(60);
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useTechnique() {
@@ -177,7 +171,7 @@ public class Topaz extends AbstractSummoner {
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
-        map.put(leftoverAVNumbyMetricName, String.valueOf(Battle.battle.actionValueMap.get(numby)));
+        map.put(leftoverAVNumbyMetricName, String.valueOf(getBattle().getActionValueMap().get(numby)));
         map.put(leftoverUltChargesMetricName, String.valueOf(ultCounter));
         map.put(numbyAttacksMetricName, String.valueOf(numbyAttacksMetrics));
         map.put(numbyAdvancedTimesMetricName, String.valueOf(numbyAdvancedTimesMetrics));

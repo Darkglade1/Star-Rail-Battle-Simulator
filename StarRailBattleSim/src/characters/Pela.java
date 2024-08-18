@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -29,59 +30,47 @@ public class Pela extends AbstractCharacter {
         super.useSkill();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 2.31f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 2.31f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
     public void useBasicAttack() {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.ULTIMATE);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            BattleHelpers.hitEnemy(this, enemy, 1.08f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
+            getBattle().getHelper().hitEnemy(this, enemy, 1.08f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
             TempPower exposed = TempPower.create(PowerStat.DEFENSE_REDUCTION, 42, 2, ULT_DEBUFF_NAME);
             exposed.type = AbstractPower.PowerType.DEBUFF;
             enemy.addPower(exposed);
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0 && firstMove) {
+        if (getBattle().getSkillPoints() > 0 && firstMove) {
             useSkill();
             firstMove = false;
-        } else if (Battle.battle.numSkillPoints >= 4) {
+        } else if (getBattle().getSkillPoints() >= 4) {
             useSkill();
         } else {
             useBasicAttack();
@@ -89,23 +78,23 @@ public class Pela extends AbstractCharacter {
     }
 
     public void useTechnique() {
-        if (Battle.battle.usedEntryTechnique) {
+        if (getBattle().usedEntryTechnique()) {
             return;
         } else {
-            Battle.battle.usedEntryTechnique = true;
+            getBattle().setUsedEntryTechnique(true);
         }
         ArrayList<DamageType> types = new ArrayList<>();
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.8f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        getBattle().getHelper().hitEnemy(this, getBattle().getRandomEnemy(), 0.8f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
 
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
             TempPower techniqueExposed = TempPower.create(PowerStat.DEFENSE_REDUCTION, 20, 2, "Pela Technique Def Reduction");
             techniqueExposed.type = AbstractPower.PowerType.DEBUFF;
             enemy.addPower(techniqueExposed);
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void onCombatStart() {

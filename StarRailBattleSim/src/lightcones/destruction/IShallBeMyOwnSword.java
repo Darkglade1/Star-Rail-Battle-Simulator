@@ -25,7 +25,7 @@ public class IShallBeMyOwnSword extends AbstractLightcone {
 
     @Override
     public void onCombatStart() {
-        Battle.battle.playerTeam.forEach(c -> c.addPower(new IShallBeMyOwnSwordEffect(this)));
+        getBattle().getPlayers().forEach(c -> c.addPower(new IShallBeMyOwnSwordEffect(this)));
     }
 
     @Override

@@ -25,7 +25,6 @@ public class BattleSim {
 
     public static void debugTeam() {
         Battle battle = new Battle();
-        Battle.battle = battle;
 
 //        battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
@@ -167,7 +166,6 @@ public class BattleSim {
                 .sorted(Comparator.comparing(team -> team.getClass().getSimpleName()))
                 .forEach(team -> {
                     Battle battle = new Battle();
-                    Battle.battle = battle;
                     battle.setPlayerTeam(team);
 
                     ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();

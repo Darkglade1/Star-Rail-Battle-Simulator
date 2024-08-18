@@ -4,31 +4,30 @@ import characters.Topaz;
 
 import java.util.ArrayList;
 
-public class Numby extends AbstractSummon {
-    Topaz owner;
+public class Numby extends AbstractSummon<Topaz> {
     public static final String NAME = "Numby";
 
     public Numby(Topaz owner) {
+        super(owner);
         this.baseSpeed = 80;
         this.name = NAME;
-        this.owner = owner;
     }
 
     public void takeTurn() {
         super.takeTurn();
-        owner.numbyAttacksMetrics++;
-        owner.numbyAttack(new ArrayList<>());
+        this.summoner.numbyAttacksMetrics++;
+        this.summoner.numbyAttack(new ArrayList<>());
     }
 
     public void AdvanceForward() {
-        float initialAV = Battle.battle.actionValueMap.get(this);
+        float initialAV = getBattle().getActionValueMap().get(this);
         if (initialAV > 0) {
             speedPriority = 0;
-            owner.numbyAdvancedTimesMetrics++;
-            Battle.battle.AdvanceEntity(this, 50);
-            owner.actualNumbyAdvanceMetric += Math.abs(initialAV - Battle.battle.actionValueMap.get(this));
+            this.summoner.numbyAdvancedTimesMetrics++;
+            getBattle().AdvanceEntity(this, 50);
+            this.summoner.actualNumbyAdvanceMetric += (int) Math.abs(initialAV - getBattle().getActionValueMap().get(this));
         } else {
-            owner.wastedNumbyAdvances++;
+            this.summoner.wastedNumbyAdvances++;
         }
     }
 }

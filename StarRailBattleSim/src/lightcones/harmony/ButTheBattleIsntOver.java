@@ -33,7 +33,7 @@ public class ButTheBattleIsntOver extends AbstractLightcone  {
     public void onUseUltimate() {
         // Metric is incremented before hook is called, so there is an offset.
         if (this.owner.numUltsMetric % 2 == 1) {
-            Battle.battle.generateSkillPoint(this.owner, 1);
+            getBattle().generateSkillPoint(this.owner, 1);
         }
     }
 }

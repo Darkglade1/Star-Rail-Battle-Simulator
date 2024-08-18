@@ -22,7 +22,7 @@ public class PasserbyOfWanderingCloud extends AbstractRelicSetBonus {
 
     public void onCombatStart() {
         if (this.isFullSet) {
-            Battle.battle.generateSkillPoint(owner, 1);
+            getBattle().generateSkillPoint(owner, 1);
         }
     }
 

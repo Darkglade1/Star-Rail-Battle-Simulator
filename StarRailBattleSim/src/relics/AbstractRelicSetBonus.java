@@ -1,18 +1,25 @@
 package relics;
 
 import battleLogic.BattleEvents;
+import battleLogic.BattleParticipant;
+import battleLogic.IBattle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 
 import java.util.ArrayList;
 
-public abstract class AbstractRelicSetBonus implements BattleEvents {
+public abstract class AbstractRelicSetBonus implements BattleEvents,BattleParticipant {
     public AbstractCharacter owner;
     protected boolean isFullSet;
 
     public AbstractRelicSetBonus(AbstractCharacter owner, boolean fullSet) {
         this.owner = owner;
         this.isFullSet = fullSet;
+    }
+
+    @Override
+    public IBattle getBattle() {
+        return this.owner.getBattle();
     }
 
     public AbstractRelicSetBonus(AbstractCharacter owner) {

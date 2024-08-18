@@ -1,13 +1,11 @@
 package lightcones.harmony;
 
-import battleLogic.Battle;
 import characters.AbstractCharacter;
 import lightcones.AbstractLightcone;
 import powers.PermPower;
 import powers.PowerStat;
 
 import java.util.NoSuchElementException;
-import java.util.Random;
 
 public class CarveTheMoonWeaveTheClouds extends AbstractLightcone {
 
@@ -16,9 +14,9 @@ public class CarveTheMoonWeaveTheClouds extends AbstractLightcone {
     }
 
     private void refreshEffects() {
-        int type = Battle.battle.weaveEffectRng.nextInt(3) + 1;
+        int type = getBattle().getWeaveEffectRng().nextInt(3) + 1;
         CarveTheMoonWeaveTheCloudsEffect effect = new CarveTheMoonWeaveTheCloudsEffect(type);
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.removePower(effect.name);
             character.addPower(effect);
         }

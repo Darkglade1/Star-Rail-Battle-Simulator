@@ -28,7 +28,7 @@ public class OnlySilenceRemains extends AbstractLightcone {
 
         @Override
         public float getConditionalCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-            if (Battle.battle.enemyTeam.size() < 3) {
+            if (getBattle().getEnemies().size() < 3) {
                 return 24;
             }
 

@@ -23,8 +23,8 @@ public class EchoesOftheCoffin extends AbstractLightcone {
 
     @Override
     public void onUseUltimate() {
-        Battle.battle.playerTeam.forEach(c -> {
-            Battle.battle.IncreaseSpeed(c, TempPower.create(PowerStat.FLAT_SPEED, 12, 1, "Echoes of the Coffin Speed Boost"));
+        getBattle().getPlayers().forEach(c -> {
+            getBattle().IncreaseSpeed(c, TempPower.create(PowerStat.FLAT_SPEED, 12, 1, "Echoes of the Coffin Speed Boost"));
         });
     }
 
