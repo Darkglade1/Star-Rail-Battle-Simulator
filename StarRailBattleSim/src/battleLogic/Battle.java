@@ -65,6 +65,7 @@ public class Battle implements IBattle {
         this.enemyTeam.forEach(enemy -> enemy.setBattle(this));
     }
 
+    @Override
     public AbstractEnemy getRandomEnemy() {
         return this.enemyTeam.get(getRandomEnemyRng.nextInt(this.enemyTeam.size()));
     }
@@ -85,6 +86,7 @@ public class Battle implements IBattle {
         return this.isInCombat;
     }
 
+    @Override
     public void updateContribution(AbstractCharacter character, float damageContribution) {
         if (damageContributionMap.containsKey(character)) {
             float existingTotal = damageContributionMap.get(character);
@@ -110,6 +112,7 @@ public class Battle implements IBattle {
         return this.battleHelpers;
     }
 
+    @Override
     public void useSkillPoint(AbstractCharacter character, int amount) {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints -= amount;
@@ -120,6 +123,7 @@ public class Battle implements IBattle {
         }
     }
 
+    @Override
     public void generateSkillPoint(AbstractCharacter character, int amount) {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints += amount;
@@ -341,6 +345,7 @@ public class Battle implements IBattle {
         return this.playerTeam;
     }
 
+    @Override
     public boolean hasCharacter(String name) {
         for (AbstractCharacter character : playerTeam) {
             if (character.name.equals(name)) {
@@ -392,6 +397,7 @@ public class Battle implements IBattle {
         return next;
     }
 
+    @Override
     public void addToLog(String addition) {
         String timestamp = String.format("(%.2f AV) - ", initialBattleLength - battleLength);
         if (!isInCombat) {
@@ -415,6 +421,7 @@ public class Battle implements IBattle {
         return this.actionValueMap;
     }
 
+    @Override
     public void AdvanceEntity(AbstractEntity entity, float advanceAmount) {
         for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
             if (entry.getKey() == entity) {
@@ -433,6 +440,7 @@ public class Battle implements IBattle {
         }
     }
 
+    @Override
     public void DelayEntity(AbstractEntity entity, float delayAmount) {
         for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
             if (entry.getKey() == entity) {
@@ -446,6 +454,7 @@ public class Battle implements IBattle {
         }
     }
 
+    @Override
     public void IncreaseSpeed(AbstractEntity entity, AbstractPower speedPower) {
         float baseAV = entity.getBaseAV();
         Float currAV = actionValueMap.get(entity);
@@ -463,6 +472,7 @@ public class Battle implements IBattle {
         addToLog(String.format("%s advanced by speed increase (%.3f -> %.3f)", entity.name, currAV, newCurrAV));
     }
 
+    @Override
     public void DecreaseSpeed(AbstractEntity entity, AbstractPower speedPower) {
         float baseAV = entity.getBaseAV();
         Float currAV = actionValueMap.get(entity);
