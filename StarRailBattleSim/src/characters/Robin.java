@@ -89,6 +89,12 @@ public class Robin extends AbstractCharacter {
                 }
             }
         }
+        // don't ult if someone on the team is at 0 AV
+        for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+            if (entry.getKey() instanceof AbstractCharacter && entry.getValue() <= 0) {
+                return;
+            }
+        }
         super.useUltimate();
         AbstractEntity slowestAlly = null;
         float slowestAV = -1;

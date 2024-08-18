@@ -24,6 +24,7 @@ public class SwordMarch extends AbstractCharacter {
     private String numFUAsMetricName = "Follow up Attacks used";
     private String numUltEnhancedEBAUsed = "Ult Boosted Enhanced Basic Attacks used";
     private String numExtraHitsMetricName = "Number of extra hits with EBA";
+    private String leftoverChargeMetricName = "Leftover Charge";
     public int chargeCount = 0;
     public final int chargeThreshold = 7;
     private boolean isEnhanced;
@@ -219,6 +220,7 @@ public class SwordMarch extends AbstractCharacter {
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(leftoverChargeMetricName, String.valueOf(chargeCount));
         map.put(numFUAsMetricName, String.valueOf(numFUAs));
         map.put(numEBAMetricName, String.valueOf(numEBA));
         map.put(numUltEnhancedEBAUsed, String.valueOf(numUltEnhancedEBA));
@@ -228,6 +230,7 @@ public class SwordMarch extends AbstractCharacter {
 
     public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
         ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(leftoverChargeMetricName);
         list.add(numFUAsMetricName);
         list.add(numEBAMetricName);
         list.add(numUltEnhancedEBAUsed);
