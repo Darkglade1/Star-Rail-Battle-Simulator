@@ -1,9 +1,6 @@
 package characters;
 
-import battleLogic.AbstractSummon;
-import battleLogic.Battle;
-import battleLogic.BattleHelpers;
-import battleLogic.FuYuan;
+import battleLogic.*;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -93,6 +90,16 @@ public class Lingsha extends AbstractSummoner {
     }
 
     public void useUltimate() {
+        // don't ult if numby is about to attack
+        if (Battle.battle.hasCharacter(Topaz.NAME)) {
+            for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+                if (entry.getKey().name.equals(Numby.NAME)) {
+                    if (entry.getValue() <= 0) {
+                        return;
+                    }
+                }
+            }
+        }
         // only ult if fu yuan isn't about to attack so we don't waste action forward as much
         if (Battle.battle.actionValueMap.get(fuYuan) >= fuYuan.getBaseAV() * 0.5) {
             super.useUltimate();

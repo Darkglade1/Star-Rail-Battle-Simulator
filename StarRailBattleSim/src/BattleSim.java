@@ -17,9 +17,9 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        //debugTeam();
+        debugTeam();
         //generateReportYunli();
-        generateReportFeixiao();
+        //generateReportFeixiao();
         //ameliasSuperDump();
     }
 
@@ -42,7 +42,7 @@ public class BattleSim {
 //        battle.setEnemyTeam(enemyTeam);
 
         battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
-        //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());
@@ -53,7 +53,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoTopazAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoRuanMeiGallagherTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRuanMeiGallagherTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherMarch().getTeam());
@@ -63,11 +63,11 @@ public class BattleSim {
         //battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherBronya().getTeam());
-        //battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaMarch().getTeam());
 
