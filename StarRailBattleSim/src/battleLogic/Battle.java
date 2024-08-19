@@ -1,7 +1,7 @@
 package battleLogic;
 
 import battleLogic.log.DefaultLogger;
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.LogSupplier;
 import battleLogic.log.Logger;
 import battleLogic.log.lines.battle.AdvanceEntity;
@@ -84,6 +84,10 @@ public class Battle implements IBattle {
     public void setEnemyTeam(ArrayList<AbstractEnemy> enemyTeam) {
         this.enemyTeam = enemyTeam;
         this.enemyTeam.forEach(enemy -> enemy.setBattle(this));
+    }
+
+    public Logger getLogger() {
+        return logger;
     }
 
     @Override
@@ -170,15 +174,11 @@ public class Battle implements IBattle {
         return this.numSkillPoints;
     }
 
-    public void Start(float battleLength) {
-        Start(battleLength, false);
-    }
-
-    public void Start(float initialLength, boolean onlyDmg) {
+    public void Start(float initialLength) {
         initialBattleLength = initialLength;
         this.battleLength = initialLength;
         totalPlayerDamage = 0;
-        log = "Combat Start\n";
+        addToLog("Combat Start");
         damageContributionMap = new HashMap<>();
         damageContributionMapPercent = new HashMap<>();
         numSkillPoints = INITIAL_SKILL_POINTS;
@@ -291,6 +291,10 @@ public class Battle implements IBattle {
             }
         }
 
+        this.generateMetrics();
+    }
+
+    private void generateMetrics() {
         addToLog("");
         addToLog("Player Metrics:");
         for (AbstractCharacter character : playerTeam) {
@@ -316,13 +320,7 @@ public class Battle implements IBattle {
             }
         }
         addToLog("Leftover Energy: " + leftoverEnergy);
-
-        if (onlyDmg) {
-            System.out.println("Damage Contribution: | " + calcPercentContributionString() + "Total Damage " + totalPlayerDamage);
-        } else {
-            addToLog("Damage Contribution: | " + calcPercentContributionString());
-            System.out.println(log);
-        }
+        addToLog("Damage Contribution: | " + calcPercentContributionString() + "Total Damage " + totalPlayerDamage);
     }
 
     public String calcPercentContributionString() {
@@ -431,7 +429,7 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public void addToLog(LogLine addition) {
+    public void addToLog(Loggable addition) {
         /*String timestamp = String.format("(%.2f AV) - ", initialBattleLength - battleLength);
         if (!isInCombat) {
             timestamp = "";

@@ -1,9 +1,9 @@
 package battleLogic.log.lines.character;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class ConcertoEnd extends LogLine {
+public class ConcertoEnd implements Loggable {
     @Override
     public String asString() {
         return "Concerto ends, it's now Robin's turn";

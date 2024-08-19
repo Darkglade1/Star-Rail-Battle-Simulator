@@ -1,9 +1,9 @@
 package battleLogic.log.lines.battle;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class BattleEnd extends LogLine {
+public class BattleEnd implements Loggable {
     @Override
     public String asString() {
         return "Battle Ended";

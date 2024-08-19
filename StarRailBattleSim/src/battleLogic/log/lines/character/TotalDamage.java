@@ -1,12 +1,12 @@
 package battleLogic.log.lines.character;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
 import java.util.ArrayList;
 
-public class TotalDamage extends LogLine {
+public class TotalDamage implements Loggable {
 
     private final AbstractCharacter character;
     private final ArrayList<AbstractCharacter.DamageType> types;

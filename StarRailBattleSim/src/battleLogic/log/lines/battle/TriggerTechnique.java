@@ -1,13 +1,13 @@
 package battleLogic.log.lines.battle;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TriggerTechnique extends LogLine {
+public class TriggerTechnique implements Loggable {
 
     private final List<AbstractCharacter> characters;
 

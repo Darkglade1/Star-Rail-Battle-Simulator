@@ -1,10 +1,10 @@
 package battleLogic.log.lines.character;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
-public class EmergencyHeal extends LogLine {
+public class EmergencyHeal implements Loggable {
 
     private final AbstractCharacter character;
 

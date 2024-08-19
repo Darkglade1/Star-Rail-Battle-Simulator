@@ -1,12 +1,12 @@
 package battleLogic.log.lines.battle;
 
 import battleLogic.AbstractEntity;
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
 import java.util.HashMap;
 
-public class TurnStart extends LogLine {
+public class TurnStart implements Loggable {
 
     private final AbstractEntity next;
     private final float atAV;

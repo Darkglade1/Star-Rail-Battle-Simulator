@@ -1,9 +1,9 @@
 package battleLogic.log.lines.character.lingsha;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class ResetTracker extends LogLine {
+public class ResetTracker implements Loggable {
     @Override
     public String asString() {
         return "Resetting Lingsha damage tracker due to healing";

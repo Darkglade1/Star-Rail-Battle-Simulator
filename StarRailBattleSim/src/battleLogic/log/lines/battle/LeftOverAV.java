@@ -1,9 +1,9 @@
 package battleLogic.log.lines.battle;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class LeftOverAV extends LogLine {
+public class LeftOverAV implements Loggable {
 
     private final float AV;
 

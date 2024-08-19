@@ -1,10 +1,10 @@
 package battleLogic.log.lines.character.lingsha;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
-public class HitSinceLastHeal extends LogLine {
+public class HitSinceLastHeal implements Loggable {
 
     private final AbstractCharacter character;
     private final int timesHit;

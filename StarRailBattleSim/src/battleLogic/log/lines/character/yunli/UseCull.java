@@ -1,10 +1,10 @@
 package battleLogic.log.lines.character.yunli;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.Yunli;
 
-public class UseCull extends LogLine {
+public class UseCull implements Loggable {
 
     private final Yunli yunli;
 

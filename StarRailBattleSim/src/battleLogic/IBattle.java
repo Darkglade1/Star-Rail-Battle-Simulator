@@ -1,6 +1,6 @@
 package battleLogic;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -36,7 +36,7 @@ public interface IBattle {
     void increaseMaxSkillPoints(int maxSkillPoints);
     int getSkillPoints();
 
-    void addToLog(LogLine addition);
+    void addToLog(Loggable addition);
 
     HashMap<AbstractCharacter, Float> getDamageContributionMap();
     HashMap<AbstractCharacter, Float> getDamageContributionMapPercent();

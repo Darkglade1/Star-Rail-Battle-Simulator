@@ -1,9 +1,9 @@
 package battleLogic.log.lines.character.lingsha;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class FuYuanLose extends LogLine {
+public class FuYuanLose implements Loggable {
 
     private final int amount;
     private final int initalStack;

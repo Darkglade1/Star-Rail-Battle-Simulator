@@ -1,9 +1,9 @@
 package battleLogic.log.lines.character.hanya;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class BurdenLog extends LogLine {
+public class BurdenLog implements Loggable {
 
     private final int hitCount;
     private final int hitsToTrigger;

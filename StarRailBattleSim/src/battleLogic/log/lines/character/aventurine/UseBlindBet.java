@@ -1,10 +1,10 @@
 package battleLogic.log.lines.character.aventurine;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.Aventurine;
 
-public class UseBlindBet extends LogLine {
+public class UseBlindBet implements Loggable {
 
     private final Aventurine character;
     private final int initialBlindBet;

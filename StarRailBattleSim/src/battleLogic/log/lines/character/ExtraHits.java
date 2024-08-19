@@ -1,10 +1,10 @@
 package battleLogic.log.lines.character;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
-public class ExtraHits extends LogLine {
+public class ExtraHits implements Loggable {
 
     private final AbstractCharacter character;
     private final int numExtraHits;

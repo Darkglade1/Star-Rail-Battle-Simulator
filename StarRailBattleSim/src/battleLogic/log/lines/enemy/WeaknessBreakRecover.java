@@ -1,10 +1,10 @@
 package battleLogic.log.lines.enemy;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import enemies.AbstractEnemy;
 
-public class WeaknessBreakRecover extends LogLine {
+public class WeaknessBreakRecover implements Loggable {
 
     private final AbstractEnemy enemy;
     private final float from;

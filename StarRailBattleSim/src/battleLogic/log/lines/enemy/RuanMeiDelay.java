@@ -1,9 +1,9 @@
 package battleLogic.log.lines.enemy;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class RuanMeiDelay extends LogLine {
+public class RuanMeiDelay implements Loggable {
     @Override
     public String asString() {
         return "Ruan Mei Ult Delay Triggered";

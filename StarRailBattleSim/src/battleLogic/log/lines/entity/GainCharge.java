@@ -1,10 +1,10 @@
 package battleLogic.log.lines.entity;
 
 import battleLogic.AbstractEntity;
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class GainCharge extends LogLine {
+public class GainCharge implements Loggable {
 
     private final AbstractEntity character;
     private final int amount;

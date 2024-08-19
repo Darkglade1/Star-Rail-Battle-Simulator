@@ -1,9 +1,9 @@
 package battleLogic.log.lines.battle;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class StringLine extends LogLine {
+public class StringLine implements Loggable {
 
     private final String content;
 

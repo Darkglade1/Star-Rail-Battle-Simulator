@@ -1,11 +1,11 @@
 package battleLogic.log.lines.character;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 
-public class HitResult extends LogLine {
+public class HitResult implements Loggable {
 
     private final AbstractCharacter source;
     private final AbstractEnemy target;

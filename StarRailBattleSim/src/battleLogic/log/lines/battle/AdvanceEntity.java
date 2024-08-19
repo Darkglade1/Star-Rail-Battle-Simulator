@@ -1,10 +1,10 @@
 package battleLogic.log.lines.battle;
 
 import battleLogic.AbstractEntity;
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
-public class AdvanceEntity extends LogLine {
+public class AdvanceEntity implements Loggable {
 
     private final AbstractEntity entity;
     private final float avDelta;

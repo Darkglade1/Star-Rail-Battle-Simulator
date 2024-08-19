@@ -42,6 +42,9 @@ import battleLogic.log.lines.entity.LosePower;
 import battleLogic.log.lines.entity.RefreshPower;
 import battleLogic.log.lines.entity.StackPower;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Abstract class for logging battle events.
  * Overriding the log method will by default do the same thing for every LogLine.
@@ -49,11 +52,18 @@ import battleLogic.log.lines.entity.StackPower;
  */
 public abstract class Logger {
 
-    public final void handle(LogLine logLine) {
-        logLine.handle(this);
+    protected List<Loggable> events = new ArrayList<>();
+
+    public List<Loggable> getEvents() {
+        return events;
     }
 
-    abstract void log(LogLine logLine);
+    public final void handle(Loggable loggable) {
+        events.add(loggable);
+        loggable.handle(this);
+    }
+
+    protected abstract void log(Loggable loggable);
     
     public void handle(StringLine line) {
         log(line);

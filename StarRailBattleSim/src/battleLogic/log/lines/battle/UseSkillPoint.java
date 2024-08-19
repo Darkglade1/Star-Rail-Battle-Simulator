@@ -1,10 +1,10 @@
 package battleLogic.log.lines.battle;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
-public class UseSkillPoint extends LogLine {
+public class UseSkillPoint implements Loggable {
 
     private final AbstractCharacter character;
     private final int amount;

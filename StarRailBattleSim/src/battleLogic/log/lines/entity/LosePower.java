@@ -1,11 +1,11 @@
 package battleLogic.log.lines.entity;
 
 import battleLogic.AbstractEntity;
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import powers.AbstractPower;
 
-public class LosePower extends LogLine {
+public class LosePower implements Loggable {
 
     private final AbstractEntity entity;
     private final AbstractPower power;

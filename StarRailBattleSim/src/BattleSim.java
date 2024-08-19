@@ -1,12 +1,16 @@
 import battleLogic.Battle;
+import battleLogic.log.DefaultLogger;
+import battleLogic.log.VoidLogger;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import enemies.FireWindImgLightningWeakEnemy;
-import enemies.PhysWeakEnemy;
 import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
@@ -17,10 +21,10 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
+        //debugTeam();
         //generateReportYunli();
         //generateReportFeixiao();
-        //ameliasSuperDump();
+        ameliasSanityCheck();
     }
 
     public static void debugTeam() {
@@ -157,7 +161,7 @@ public class BattleSim {
         report.generateCSV();
     }
 
-    public static void ameliasSuperDump() {
+    public static void ameliasSanityCheck() {
         TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
                 .stream()
                 .map(c -> TestHelper.callMethodOnClasses(c, "getTeam"))
@@ -165,14 +169,14 @@ public class BattleSim {
                 .filter(Objects::nonNull)
                 .sorted(Comparator.comparing(team -> team.getClass().getSimpleName()))
                 .forEach(team -> {
-                    Battle battle = new Battle();
+                    Battle battle = new Battle(VoidLogger::new);
                     battle.setPlayerTeam(team);
 
                     ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
                     enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
                     battle.setEnemyTeam(enemyTeam);
 
-                    battle.Start(500, true);
+                    battle.Start(500);
                 });
     }
 

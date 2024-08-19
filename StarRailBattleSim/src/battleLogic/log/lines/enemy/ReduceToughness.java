@@ -1,10 +1,10 @@
 package battleLogic.log.lines.enemy;
 
-import battleLogic.log.LogLine;
+import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import enemies.AbstractEnemy;
 
-public class ReduceToughness extends LogLine {
+public class ReduceToughness implements Loggable {
 
     private final AbstractEnemy enemy;
     private final float tDelta;
