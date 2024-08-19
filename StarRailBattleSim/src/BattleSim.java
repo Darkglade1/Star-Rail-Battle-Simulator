@@ -19,7 +19,7 @@ public class BattleSim {
     public static void main(String[] args) {
         debugTeam();
         //generateReportYunli();
-        //generateReportFeixiao();
+        generateReportFeixiao();
         //ameliasSuperDump();
     }
 
@@ -49,6 +49,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
+        battle.setPlayerTeam(new FeixiaoPelaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurinePela().getTeam());
         //battle.setPlayerTeam(new FeixiaoTopazAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaAventurineTopaz().getTeam());
@@ -60,7 +61,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRobinTopazFuXuan().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinMarchFuXuan().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
-        //battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
+        battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
@@ -80,7 +81,7 @@ public class BattleSim {
     }
 
     public static void generateReportFeixiao() {
-        PlayerTeam baselineTeam = new FeixiaoHanyaGallagherMarch();
+        PlayerTeam baselineTeam = new FeixiaoPelaGallagherMarch();
         ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
         otherTeams.add(new FeixiaoRobinAventurineTopaz());
         otherTeams.add(new FeixiaoRobinAventurineMarch());
@@ -111,6 +112,7 @@ public class BattleSim {
         otherTeams.add(new FeixiaoHanyaAventurineTopaz());
         otherTeams.add(new FeixiaoHanyaAventurineMarch());
         otherTeams.add(new FeixiaoHanyaGallagherMoze());
+        otherTeams.add(new FeixiaoHanyaGallagherMarch());
         otherTeams.add(new AstaFeixiaoAventurineTopaz());
         otherTeams.add(new AstaFeixiaoAventurineMarch());
         otherTeams.add(new AstaFeixiaoGallagherMarch());
