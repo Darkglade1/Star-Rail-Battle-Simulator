@@ -3,6 +3,7 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import battleLogic.IBattle;
+import battleLogic.log.lines.entity.GainCharge;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -121,7 +122,7 @@ public class Asta extends AbstractCharacter {
         if (talentPower.stacks > MAX_STACKS) {
             talentPower.stacks = MAX_STACKS;
         }
-        getBattle().addToLog(String.format("Asta gained %d Stacks (%d -> %d)", amount, initalStack, talentPower.stacks));
+        getBattle().addToLog(new GainCharge(this, amount, initalStack, talentPower.stacks, "Stacks"));
     }
 
     public void decreaseStacks(int amount) {
@@ -130,7 +131,7 @@ public class Asta extends AbstractCharacter {
         if (talentPower.stacks < 0) {
             talentPower.stacks = 0;
         }
-        getBattle().addToLog(String.format("Asta lost %d Stacks (%d -> %d)", amount, initalStack, talentPower.stacks));
+        getBattle().addToLog(new GainCharge(this, amount, initalStack, talentPower.stacks, "Stacks"));
     }
 
     private class AstaTalentPower extends AbstractPower {

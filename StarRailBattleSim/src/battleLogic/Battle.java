@@ -1,5 +1,19 @@
 package battleLogic;
 
+import battleLogic.log.DefaultLogger;
+import battleLogic.log.LogLine;
+import battleLogic.log.LogSupplier;
+import battleLogic.log.Logger;
+import battleLogic.log.lines.battle.AdvanceEntity;
+import battleLogic.log.lines.battle.BattleEnd;
+import battleLogic.log.lines.battle.LeftOverAV;
+import battleLogic.log.lines.battle.SpeedAdvanceEntity;
+import battleLogic.log.lines.battle.SpeedDelayEntity;
+import battleLogic.log.lines.battle.StringLine;
+import battleLogic.log.lines.battle.TriggerTechnique;
+import battleLogic.log.lines.battle.TurnStart;
+import battleLogic.log.lines.battle.UseSkillPoint;
+import battleLogic.log.lines.character.ConcertoEnd;
 import characters.AbstractCharacter;
 import characters.SwordMarch;
 import characters.Yunli;
@@ -18,7 +32,8 @@ public class Battle implements IBattle {
     public ArrayList<AbstractCharacter> playerTeam;
     public ArrayList<AbstractEnemy> enemyTeam;
 
-    private BattleHelpers battleHelpers;
+    private final BattleHelpers battleHelpers;
+    private final Logger logger;
 
     public final int INITIAL_SKILL_POINTS = 3;
     public int numSkillPoints = INITIAL_SKILL_POINTS;
@@ -53,6 +68,12 @@ public class Battle implements IBattle {
 
     public Battle() {
         this.battleHelpers = new BattleHelpers(this);
+        this.logger = new DefaultLogger(this);
+    }
+
+    public Battle(LogSupplier logger) {
+        this.battleHelpers = new BattleHelpers(this);
+        this.logger = logger.get(this);
     }
 
     public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
@@ -108,6 +129,11 @@ public class Battle implements IBattle {
     }
 
     @Override
+    public float battleLength() {
+        return this.battleLength;
+    }
+
+    @Override
     public BattleHelpers getHelper() {
         return this.battleHelpers;
     }
@@ -117,7 +143,7 @@ public class Battle implements IBattle {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints -= amount;
         totalSkillPointsUsed += amount;
-        addToLog(String.format("%s used %d Skill Point(s) (%d -> %d)", character.name, amount, initialSkillPoints, numSkillPoints));
+        addToLog(new UseSkillPoint(character, amount, initialSkillPoints, numSkillPoints));
         if (numSkillPoints < 0) {
             throw new RuntimeException("ERROR - SKILL POINTS WENT NEGATIVE");
         }
@@ -131,7 +157,7 @@ public class Battle implements IBattle {
         if (numSkillPoints > MAX_SKILL_POINTS) {
             numSkillPoints = MAX_SKILL_POINTS;
         }
-        addToLog(String.format("%s generated %d Skill Point(s) (%d -> %d)", character.name, amount, initialSkillPoints, numSkillPoints));
+        addToLog(new UseSkillPoint(character, amount, initialSkillPoints, numSkillPoints));
     }
 
     @Override
@@ -172,7 +198,7 @@ public class Battle implements IBattle {
             character.emit(BattleEvents::onCombatStart);
         }
 
-        addToLog("Triggering Techniques");
+        addToLog(new TriggerTechnique(this.playerTeam));
         for (AbstractCharacter character : playerTeam) {
             if (character.useTechnique) {
                 character.useTechnique();
@@ -183,7 +209,7 @@ public class Battle implements IBattle {
         SwordMarch march = getSwordMarch();
 
         while (battleLength > 0) {
-            addToLog("AV until battle ends: " + battleLength);
+            addToLog(new LeftOverAV(this.battleLength));
             nextUnit = findLowestAVUnit(actionValueMap);
             float nextAV = actionValueMap.get(nextUnit);
             if (nextAV > battleLength) {
@@ -191,7 +217,7 @@ public class Battle implements IBattle {
                     float newAV = entry.getValue() - battleLength;
                     entry.setValue(newAV);
                 }
-                addToLog("Battle ended");
+                addToLog(new BattleEnd());
                 isInCombat = false;
                 break;
             }
@@ -202,14 +228,14 @@ public class Battle implements IBattle {
                     nextAV = actionValueMap.get(nextUnit);
                 }
             }
-            addToLog("Next is " + nextUnit.name + " at " + nextAV + " action value " + actionValueMap);
+            addToLog(new TurnStart(nextUnit, nextAV, actionValueMap));
             battleLength -= nextAV;
             for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                 float newAV = entry.getValue() - nextAV;
                 entry.setValue(newAV);
             }
             if (nextUnit instanceof Concerto) {
-                addToLog("Concerto ends, it's now Robin's turn");
+                addToLog(new ConcertoEnd());
                 actionValueMap.remove(nextUnit);
                 ((Concerto) nextUnit).owner.onConcertoEnd();
                 nextUnit = ((Concerto) nextUnit).owner;
@@ -385,7 +411,10 @@ public class Battle implements IBattle {
                 speedTieList.add(entry.getKey());
             }
         }
-        if (speedTieList.size() != 0) {
+        if (next == null) {
+            throw new RuntimeException("ERROR - NO NEXT UNIT FOUND");
+        }
+        if (!speedTieList.isEmpty()) {
             int lowestSpeedTie = next.speedPriority;
             for (AbstractEntity entity : speedTieList) {
                 if (entity.speedPriority < lowestSpeedTie) {
@@ -397,13 +426,18 @@ public class Battle implements IBattle {
         return next;
     }
 
-    @Override
     public void addToLog(String addition) {
-        String timestamp = String.format("(%.2f AV) - ", initialBattleLength - battleLength);
+        this.logger.handle(new StringLine(addition));
+    }
+
+    @Override
+    public void addToLog(LogLine addition) {
+        /*String timestamp = String.format("(%.2f AV) - ", initialBattleLength - battleLength);
         if (!isInCombat) {
             timestamp = "";
         }
-        log += timestamp + addition + "\n";
+        log += timestamp + addition + "\n";*/
+        this.logger.handle(addition);
     }
 
     @Override
@@ -435,7 +469,7 @@ public class Battle implements IBattle {
                 entry.setValue(newAV);
                 actionForwardPriorityCounter--;
                 entity.speedPriority = actionForwardPriorityCounter;
-                addToLog(String.format("%s advanced by %.1f%% (%.3f -> %.3f)", entry.getKey().name, advanceAmount, originalAV, newAV));
+                addToLog(new AdvanceEntity(entity, advanceAmount, originalAV, newAV));
             }
         }
     }
@@ -449,7 +483,7 @@ public class Battle implements IBattle {
                 float originalAV = entry.getValue();
                 float newAV = originalAV + AVIncrease;
                 entry.setValue(newAV);
-                addToLog(String.format("%s delayed by %.1f%% (%.3f -> %.3f)", entry.getKey().name, delayAmount, originalAV, newAV));
+                addToLog(new AdvanceEntity(entity, delayAmount, originalAV, newAV));
             }
         }
     }
@@ -469,7 +503,7 @@ public class Battle implements IBattle {
         float newCurrAV = newBaseAV - (percentToNextAction * newBaseAV);
         actionValueMap.put(entity, newCurrAV);
 
-        addToLog(String.format("%s advanced by speed increase (%.3f -> %.3f)", entity.name, currAV, newCurrAV));
+        addToLog(new SpeedAdvanceEntity(entity, currAV, newCurrAV));
     }
 
     @Override
@@ -487,7 +521,7 @@ public class Battle implements IBattle {
         float newCurrAV = newBaseAV - (percentToNextAction * newBaseAV);
         actionValueMap.put(entity, newCurrAV);
 
-        addToLog(String.format("%s delayed by speed decrease (%.3f -> %.3f)", entity.name, currAV, newCurrAV));
+        addToLog(new SpeedDelayEntity(entity, currAV, newCurrAV));
     }
 
     @Override

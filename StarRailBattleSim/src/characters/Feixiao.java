@@ -3,6 +3,9 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import battleLogic.IBattle;
+import battleLogic.log.lines.character.DoMove;
+import battleLogic.log.lines.character.GainEnergy;
+import battleLogic.log.lines.entity.GainCharge;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -46,7 +49,7 @@ public class Feixiao extends AbstractCharacter {
     public void increaseStack(int amount) {
         int initialStack = stackCount;
         stackCount += amount;
-        getBattle().addToLog(String.format("%s gained %d Stack (%d -> %d)", name, amount, initialStack, stackCount));
+        getBattle().addToLog(new GainCharge(this, amount, initialStack, stackCount, "Stacks"));
         if (stackCount >= stackThreshold) {
             int energyGain = stackCount / stackThreshold;
             gainStackEnergy(energyGain);
@@ -62,7 +65,7 @@ public class Feixiao extends AbstractCharacter {
             wastedStacks += energyGain;
         }
         stackCount = stackCount % stackThreshold;
-        getBattle().addToLog(String.format("%s gained %d Energy (%.1f -> %.1f)", name, energyGain, initialEnergy, currentEnergy));
+        getBattle().addToLog(new GainEnergy(this, energyGain, initialEnergy));
     }
 
     public void useSkill() {
@@ -103,7 +106,7 @@ public class Feixiao extends AbstractCharacter {
         AbstractEnemy enemy = enemiesHit.get(middleIndex);
         moveHistory.add(MoveType.FOLLOW_UP);
         numFUAs++;
-        getBattle().addToLog(name + " used Follow Up");
+        getBattle().addToLog(new DoMove(this, MoveType.FOLLOW_UP));
 
         addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 60, 2, "Fei Damage Bonus"));
 

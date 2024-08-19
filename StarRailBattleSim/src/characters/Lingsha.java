@@ -1,6 +1,11 @@
 package characters;
 
 import battleLogic.*;
+import battleLogic.log.lines.character.EmergencyHeal;
+import battleLogic.log.lines.character.lingsha.FuYuanGain;
+import battleLogic.log.lines.character.lingsha.FuYuanLose;
+import battleLogic.log.lines.character.lingsha.HitSinceLastHeal;
+import battleLogic.log.lines.character.lingsha.ResetTracker;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -144,7 +149,7 @@ public class Lingsha extends AbstractSummoner {
         if (fuYuanCurrentHitCount > fuYuanMaxHitCount) {
             fuYuanCurrentHitCount = fuYuanMaxHitCount;
         }
-        getBattle().addToLog(String.format("Fu Yuan gained %d hits (%d -> %d)", amount, initalStack, fuYuanCurrentHitCount));
+        getBattle().addToLog(new FuYuanGain(amount, initalStack, fuYuanCurrentHitCount));
     }
 
     private void decreaseHitCount(int amount) {
@@ -154,7 +159,7 @@ public class Lingsha extends AbstractSummoner {
             fuYuanCurrentHitCount = 0;
             getBattle().getActionValueMap().remove(fuYuan);
         }
-        getBattle().addToLog(String.format("Fu Yuan hits left decreased by %d (%d -> %d)", amount, initalStack, fuYuanCurrentHitCount));
+        getBattle().addToLog(new FuYuanLose(amount, initalStack, fuYuanCurrentHitCount));
     }
 
     public void onTurnStart() {
@@ -191,7 +196,7 @@ public class Lingsha extends AbstractSummoner {
     }
 
     public void resetDamageTracker() {
-        getBattle().addToLog("Resetting Lingsha damage tracker due to healing");
+        getBattle().addToLog(new ResetTracker());
         for (Map.Entry<AbstractCharacter, Integer> entry : characterTimesDamageTakenMap.entrySet()) {
             entry.setValue(0);
         }
@@ -243,9 +248,9 @@ public class Lingsha extends AbstractSummoner {
         public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyToGain) {
             int timesHit = characterTimesDamageTakenMap.get(character);
             timesHit++;
-            getBattle().addToLog(String.format("%s has been hit %d times since last heal", character.name, timesHit));
+            getBattle().addToLog(new HitSinceLastHeal(character, timesHit));
             if (timesHit >= 2 && currentEmergencyHealCD <= 0) {
-                getBattle().addToLog("Triggering Lingsha Emergency Heal");
+                getBattle().addToLog(new EmergencyHeal(Lingsha.this));
                 numEmergencyHeals++;
                 currentEmergencyHealCD = emergencyHealCooldown;
                 Lingsha.this.FuYuanAttack(false);
