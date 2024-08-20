@@ -19,7 +19,7 @@ public class BattleSim {
     public static void main(String[] args) {
         debugTeam();
         //generateReportYunli();
-        generateReportFeixiao();
+        //generateReportFeixiao();
         //ameliasSuperDump();
     }
 
@@ -48,7 +48,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoPelaGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoPelaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurinePela().getTeam());
         //battle.setPlayerTeam(new FeixiaoTopazAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaAventurineTopaz().getTeam());
@@ -60,14 +60,14 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRobinTopazFuXuan().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinMarchFuXuan().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
-        battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherBronya().getTeam());
-        //battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaMarch().getTeam());
 

@@ -5,9 +5,6 @@ import lightcones.AbstractLightcone;
 import powers.PermPower;
 import powers.PowerStat;
 
-/**
- * Extra energy is ignored as there is no skill hook
- */
 public class SharedFeeling extends AbstractLightcone {
 
     public SharedFeeling( AbstractCharacter owner) {
@@ -17,5 +14,10 @@ public class SharedFeeling extends AbstractLightcone {
     @Override
     public void onEquip() {
         this.owner.addPower(PermPower.create(PowerStat.HEALING, 20, "Shared Feeling Healing Boost"));
+    }
+
+    @Override
+    public void onUseSkill() {
+        getBattle().getPlayers().forEach(c -> c.increaseEnergy(4));
     }
 }

@@ -29,7 +29,11 @@ public class FlowingNightglow extends AbstractLightcone {
 
     @Override
     public void onEndTurn() {
-        getBattle().getPlayers().forEach(c -> c.removePower(cadenzaBuff));
+        for (AbstractCharacter character : getBattle().getPlayers()) {
+            if (character.hasPower(cadenzaBuff.name)) {
+                character.removePower(cadenzaBuff);
+            }
+        }
     }
 
     @Override
