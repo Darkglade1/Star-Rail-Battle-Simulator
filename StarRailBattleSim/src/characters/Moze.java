@@ -68,6 +68,11 @@ public class Moze extends AbstractCharacter {
     }
 
     public void useUltimate() {
+        if (getBattle().hasCharacter(Robin.NAME) && !getBattle().isAboutToEnd()) {
+            if (!this.hasPower(Robin.ULT_POWER_NAME)) {
+                return;
+            }
+        }
         super.useUltimate();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.ULTIMATE);
