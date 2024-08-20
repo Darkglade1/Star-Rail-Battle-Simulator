@@ -18,8 +18,8 @@ public class BattleSim {
     public static void main(String[] args) {
         //debugTeam();
         //generateReportYunli();
-        //generateReportFeixiao();
-        generateReportFeixiaoLightconeReport();
+        generateReportFeixiao();
+        //generateReportFeixiaoLightconeReport();
         //ameliasSuperDump();
     }
 
