@@ -6,7 +6,6 @@ import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,7 +20,6 @@ public class BattleMetrics implements Loggable {
     private final float totalSkillPointsGenerated;
     private final Map<AbstractEntity, Float> finalActionValue;
     private final Map<AbstractCharacter, Float> leftOverEnergy;
-    private final Map<AbstractCharacter, Float> totalDamageDealt;
 
     public BattleMetrics(IBattle battle) {
         this.totalPlayerDmg = battle.getTotalPlayerDmg();
@@ -35,7 +33,6 @@ public class BattleMetrics implements Loggable {
                 .collect(HashMap::new,
                         (map, character) -> map.put(character, character.currentEnergy),
                         HashMap::putAll);
-        this.totalDamageDealt = new HashMap<>(battle.getDamageContributionMap());
     }
 
     @Override

@@ -5,17 +5,24 @@ import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerMetrics implements Loggable {
 
     private final AbstractCharacter player;
-    private final Map<String, Object> metrics = new HashMap<>();
+    private final Map<StatType, Float> outOfCombatStats = new HashMap<>();
+    private final Map<String, Boolean> relicSets = new HashMap<>();
+    private final int turnsTaken;
+    private final int basics;
+    private final int skills;
+    private final int ultimates;
+    private final List<AbstractCharacter.MoveType> rotation;
+    private final Map<String, String> characterSpecificMetrics = new HashMap<>();
 
     public PlayerMetrics(AbstractCharacter player) {
         this.player = player;
 
-        Map<StatType, Float> outOfCombatStats = new HashMap<>();
         outOfCombatStats.put(StatType.ATK, player.getFinalAttack());
         outOfCombatStats.put(StatType.DEF, player.getFinalDefense());
         outOfCombatStats.put(StatType.HP, player.getFinalHP());
@@ -27,20 +34,14 @@ public class PlayerMetrics implements Loggable {
         outOfCombatStats.put(StatType.EHR, player.getTotalEHR());
         outOfCombatStats.put(StatType.ERR, player.getTotalERR());
         outOfCombatStats.put(StatType.RES, player.getTotalEffectRes());
-
-        Map<String, Boolean> relicSets = new HashMap<>();
         player.relicSetBonus.forEach(r -> relicSets.put(r.toString(), r.isFullSet()));
 
-        Map<String, Object> combatMetrics = new HashMap<>();
-        combatMetrics.put("turnsTaken", player.numTurnsMetric);
-        combatMetrics.put("basics", player.numBasicsMetric);
-        combatMetrics.put("skills", player.numSkillsMetric);
-        combatMetrics.put("ultimates", player.numUltsMetric);
-        combatMetrics.put("rotation", player.moveHistory);
-
-        this.metrics.put("outOFCombatStats", outOfCombatStats);
-        this.metrics.put("relicSets", relicSets);
-        this.metrics.put("combatMetrics", combatMetrics);
+        this.turnsTaken = player.numTurnsMetric;
+        this.basics = player.numBasicsMetric;
+        this.skills = player.numSkillsMetric;
+        this.ultimates = player.numUltsMetric;
+        this.rotation = player.moveHistory;
+        this.characterSpecificMetrics.putAll(player.getCharacterSpecificMetricMap());
     }
 
     @Override
@@ -48,12 +49,14 @@ public class PlayerMetrics implements Loggable {
         String statsString = "";
         String gearString = String.format("Metrics for %s \nLightcone: %s \nRelic Set Bonuses: ", player.name, player.lightcone);
         gearString += player.relicSetBonus;
-        statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%% \nBreak Effect: %.3f%%", player.getFinalAttack(), player.getFinalDefense(), player.getFinalHP(), player.getFinalSpeed(), player.getTotalSameElementDamageBonus(), player.getTotalCritChance(), player.getTotalCritDamage(), player.getTotalBreakEffect());
+        statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%% \nBreak Effect: %.3f%%",
+                outOfCombatStats.get(StatType.ATK), outOfCombatStats.get(StatType.DEF), outOfCombatStats.get(StatType.HP), outOfCombatStats.get(StatType.SPD), outOfCombatStats.get(StatType.DMG), outOfCombatStats.get(StatType.CRIT), outOfCombatStats.get(StatType.CRITDMG), outOfCombatStats.get(StatType.BREAK));
 
-        StringBuilder metrics = new StringBuilder(statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d \nRotation: %s", player.numTurnsMetric, player.numBasicsMetric, player.numSkillsMetric, player.numUltsMetric, player.moveHistory));
+        StringBuilder metrics = new StringBuilder(statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d \nRotation: %s",
+               turnsTaken, basics, skills, ultimates, rotation));
         HashMap<String, String> metricsMap = player.getCharacterSpecificMetricMap();
-        for (String metric : player.getOrderedCharacterSpecificMetricsKeys()) {
-            metrics.append("\n").append(metric).append(": ").append(metricsMap.get(metric));
+        for (Map.Entry<String, String> entry : this.characterSpecificMetrics.entrySet()) {
+            metrics.append("\n").append(entry.getKey()).append(": ").append(metricsMap.get(entry.getValue()));
         }
         return metrics.toString();
     }
@@ -61,16 +64,6 @@ public class PlayerMetrics implements Loggable {
     @Override
     public void handle(Logger logger) {
         logger.handle(this);
-    }
-
-    public static class RelicSet {
-        private final String name;
-        private final boolean fullSet;
-
-        public RelicSet(String name, boolean fullSet) {
-            this.name = name;
-            this.fullSet = fullSet;
-        }
     }
 
     public enum StatType {
