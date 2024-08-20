@@ -16,10 +16,11 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        //debugTeam();
+        debugTeam();
         //generateReportYunli();
-        generateReportFeixiao();
+        //generateReportFeixiao();
         //generateReportFeixiaoLightconeReport();
+        //generateReportFeixiaoRelicReport();
         //ameliasSuperDump();
     }
 
@@ -87,6 +88,25 @@ public class BattleSim {
         otherTeams.add(new FeixiaoTeamLightconeCompareWorrisome());
         otherTeams.add(new FeixiaoTeamLightconeCompareBaptism());
         otherTeams.add(new FeixiaoTeamLightconeCompareCruising());
+
+        ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
+        enemyTeams.add(new FireWindImgLightningWeakTarget1());
+
+        String notes = "E0S0 other 5 stars. E6 4 stars. Maxed out traces and levels. Enemies are level 95. Relics are +15 with relatively relatable rolls. Simulations run for 5 cycles. \n Feixiao will wait until the team's buffs or debuffs are present before using Ultimate. This results in wasting some stacks but waiting to maximize each ultimate's damage is more damage in the long term.";
+        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 550, notes);
+        report.generateCSV();
+    }
+
+    public static void generateReportFeixiaoRelicReport() {
+        PlayerTeam baselineTeam = new FeixiaoTeamRelicCompareBaseline();
+        ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
+        otherTeams.add(new FeixiaoTeamRelicCompareDuke());
+        otherTeams.add(new FeixiaoTeamRelicCompare2PCDuke2PCAtk());
+        otherTeams.add(new FeixiaoTeamRelicCompare2PCDuke2PCWind());
+        otherTeams.add(new FeixiaoTeamRelicCompareIzumo());
+        otherTeams.add(new FeixiaoTeamRelicCompareSalsotto());
+        otherTeams.add(new FeixiaoTeamRelicCompareGlamoth());
+        otherTeams.add(new FeixiaoTeamRelicCompareStation());
 
         ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
         enemyTeams.add(new FireWindImgLightningWeakTarget1());
