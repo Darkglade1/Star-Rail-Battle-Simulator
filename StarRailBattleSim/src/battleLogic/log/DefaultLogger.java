@@ -12,25 +12,12 @@ import java.io.PrintStream;
  */
 public class DefaultLogger extends Logger implements BattleParticipant {
 
-    private final IBattle battle;
-    private final PrintStream out;
-
-    /**
-     * Create a new DefaultLogger
-     * @param battle The battle this logger is for
-     * @param out The PrintStream to print to
-     */
     public DefaultLogger(IBattle battle, PrintStream out) {
-        this.battle = battle;
-        this.out = out;
+        super(battle, out);
     }
 
-    /**
-     * Create a new DefaultLogger that will print to System.out
-     * @param battle The battle this logger is for
-     */
     public DefaultLogger(IBattle battle) {
-        this(battle, System.out);
+        super(battle);
     }
 
     private String prefix() {

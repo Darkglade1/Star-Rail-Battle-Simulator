@@ -19,7 +19,7 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
     public ArrayList<AbstractPower> powerList = new ArrayList<>();
     public static final int SPEED_PRIORITY_DEFAULT = 99;
     public int speedPriority = SPEED_PRIORITY_DEFAULT;
-    protected int numTurnsMetric = 0;
+    public int numTurnsMetric = 0;
     private IBattle battle;
 
     public void setBattle(IBattle battle) {

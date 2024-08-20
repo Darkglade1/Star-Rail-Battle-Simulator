@@ -10,10 +10,10 @@ public class GainEnergy implements Loggable {
     private final float currentEnergy;
     private final float energyGained;
 
-    public GainEnergy(AbstractCharacter character, float initialEnergy, float energyGained) {
+    public GainEnergy(AbstractCharacter character, float initialEnergy, float currentEnergy, float energyGained) {
         this.character = character;
         this.initialEnergy = initialEnergy;
-        this.currentEnergy = this.character.currentEnergy;
+        this.currentEnergy = currentEnergy;
         this.energyGained = energyGained;
     }
 

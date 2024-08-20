@@ -1,11 +1,10 @@
 package battleLogic.log;
 
 import battleLogic.IBattle;
-import battleLogic.log.lines.battle.StringLine;
 
 import java.io.PrintStream;
 
-public class VoidLogger extends DefaultLogger {
+public class VoidLogger extends Logger {
     public VoidLogger(IBattle battle, PrintStream out) {
         super(battle, out);
     }
@@ -17,10 +16,5 @@ public class VoidLogger extends DefaultLogger {
     @Override
     protected void log(Loggable loggable) {
 
-    }
-
-    @Override
-    public void handle(StringLine line) {
-        super.handle(line);
     }
 }

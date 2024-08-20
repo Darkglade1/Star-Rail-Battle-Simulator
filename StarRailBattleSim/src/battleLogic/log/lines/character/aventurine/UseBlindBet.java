@@ -2,11 +2,12 @@ package battleLogic.log.lines.character.aventurine;
 
 import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
+import characters.AbstractCharacter;
 import characters.Aventurine;
 
 public class UseBlindBet implements Loggable {
 
-    private final Aventurine character;
+    private final AbstractCharacter character;
     private final int initialBlindBet;
     private final int blindBetCounter;
 

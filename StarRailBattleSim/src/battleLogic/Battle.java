@@ -14,6 +14,8 @@ import battleLogic.log.lines.battle.TriggerTechnique;
 import battleLogic.log.lines.battle.TurnStart;
 import battleLogic.log.lines.battle.UseSkillPoint;
 import battleLogic.log.lines.character.ConcertoEnd;
+import battleLogic.log.lines.metrics.EnemyMetrics;
+import battleLogic.log.lines.metrics.PlayerMetrics;
 import characters.AbstractCharacter;
 import characters.SwordMarch;
 import characters.Yunli;
@@ -297,15 +299,8 @@ public class Battle implements IBattle {
     private void generateMetrics() {
         addToLog("");
         addToLog("Player Metrics:");
-        for (AbstractCharacter character : playerTeam) {
-            addToLog(character.getMetrics());
-            addToLog("");
-        }
-        addToLog("Enemy Metrics:");
-        for (AbstractEnemy enemy : enemyTeam) {
-            addToLog(enemy.getMetrics());
-            addToLog("");
-        }
+        this.playerTeam.forEach(p -> addToLog(new PlayerMetrics(p)));
+        this.enemyTeam.forEach(e -> addToLog(new EnemyMetrics(e)));
         addToLog(String.format("Total player team damage: %d \nAction Value used: %.1f", totalPlayerDamage, initialBattleLength));
         finalDPAV = (float)totalPlayerDamage / initialBattleLength;
         addToLog("DPAV: " + finalDPAV);

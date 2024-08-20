@@ -1,5 +1,6 @@
 package battleLogic.log;
 
+import battleLogic.IBattle;
 import battleLogic.log.lines.battle.AdvanceEntity;
 import battleLogic.log.lines.battle.BattleEnd;
 import battleLogic.log.lines.battle.DelayEntity;
@@ -41,7 +42,10 @@ import battleLogic.log.lines.entity.LoseCharge;
 import battleLogic.log.lines.entity.LosePower;
 import battleLogic.log.lines.entity.RefreshPower;
 import battleLogic.log.lines.entity.StackPower;
+import battleLogic.log.lines.metrics.EnemyMetrics;
+import battleLogic.log.lines.metrics.PlayerMetrics;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +56,18 @@ import java.util.List;
  */
 public abstract class Logger {
 
+    protected final IBattle battle;
+    protected final PrintStream out;
     protected List<Loggable> events = new ArrayList<>();
+
+    public Logger(IBattle battle, PrintStream out) {
+        this.battle = battle;
+        this.out = out;
+    }
+
+    public Logger(IBattle battle) {
+        this(battle, System.out);
+    }
 
     public List<Loggable> getEvents() {
         return events;
@@ -227,6 +242,14 @@ public abstract class Logger {
 
     public void handle(UseBlindBet blindBet) {
         log(blindBet);
+    }
+
+    public void handle(PlayerMetrics playerMetrics) {
+        log(playerMetrics);
+    }
+
+    public void handle(EnemyMetrics enemyMetrics) {
+        log(enemyMetrics);
     }
 
 }

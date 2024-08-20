@@ -40,11 +40,11 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public boolean weaknessBroken = false;
     public final int doubleActionCooldown;
     public int doubleActionCounter;
-    private int numAttacksMetric = 0;
-    private int numSingleTargetMetric = 0;
-    private int numBlastMetric = 0;
-    private int numAoEMetric = 0;
-    private int timesBrokenMetric = 0;
+    public int numAttacksMetric = 0;
+    public int numSingleTargetMetric = 0;
+    public int numBlastMetric = 0;
+    public int numAoEMetric = 0;
+    public int timesBrokenMetric = 0;
 
     public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness, int doubleActionCooldown) {
         super();

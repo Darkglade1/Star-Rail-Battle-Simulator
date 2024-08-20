@@ -53,7 +53,6 @@ public abstract class AbstractCharacter extends AbstractEntity {
 
     public boolean isDPS = false;
 
-    public int numTurnsMetric;
     public int numSkillsMetric;
     public int numBasicsMetric;
     public int numUltsMetric;
@@ -66,7 +65,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public String leftoverEnergyMetricName = "Leftover Energy";
     protected boolean firstMove = true;
     public boolean hasAttackingUltimate;
-    protected ArrayList<MoveType> moveHistory;
+    public ArrayList<MoveType> moveHistory;
     public HashMap<String, String> statsMap = new HashMap<>();
     public ArrayList<String> statsOrder = new ArrayList<>();
     protected float TOUGHNESS_DAMAGE_HALF_UNIT = 5;
@@ -292,7 +291,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         if (currentEnergy > maxEnergy) {
             currentEnergy = maxEnergy;
         }
-        getBattle().addToLog(new GainEnergy(this, initialEnergy, energyGained));
+        getBattle().addToLog(new GainEnergy(this, initialEnergy,this.currentEnergy, energyGained));
     }
 
     public void increaseEnergy(float amount) {

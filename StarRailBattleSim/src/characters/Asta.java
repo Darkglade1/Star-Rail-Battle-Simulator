@@ -136,10 +136,10 @@ public class Asta extends AbstractCharacter {
 
     private class AstaTalentPower extends AbstractPower {
 
-        protected int stacks = 0;
         public AstaTalentPower() {
             this.name = TALENT_BUFF_NAME;
             this.lastsForever = true;
+            this.stacks = 0;
         }
 
         @Override

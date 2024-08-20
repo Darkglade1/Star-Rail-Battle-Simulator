@@ -2,11 +2,12 @@ package battleLogic.log.lines.character.yunli;
 
 import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
+import characters.AbstractCharacter;
 import characters.Yunli;
 
 public class UseCull implements Loggable {
 
-    private final Yunli yunli;
+    private final AbstractCharacter yunli;
 
     public UseCull(Yunli yunli) {
         this.yunli = yunli;
