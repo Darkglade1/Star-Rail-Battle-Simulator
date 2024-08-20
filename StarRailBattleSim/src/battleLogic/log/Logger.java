@@ -3,6 +3,7 @@ package battleLogic.log;
 import battleLogic.IBattle;
 import battleLogic.log.lines.battle.AdvanceEntity;
 import battleLogic.log.lines.battle.BattleEnd;
+import battleLogic.log.lines.battle.CombatStart;
 import battleLogic.log.lines.battle.DelayEntity;
 import battleLogic.log.lines.battle.LeftOverAV;
 import battleLogic.log.lines.battle.SpeedAdvanceEntity;
@@ -42,7 +43,9 @@ import battleLogic.log.lines.entity.LoseCharge;
 import battleLogic.log.lines.entity.LosePower;
 import battleLogic.log.lines.entity.RefreshPower;
 import battleLogic.log.lines.entity.StackPower;
+import battleLogic.log.lines.metrics.BattleMetrics;
 import battleLogic.log.lines.metrics.EnemyMetrics;
+import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import battleLogic.log.lines.metrics.PlayerMetrics;
 
 import java.io.PrintStream;
@@ -250,6 +253,18 @@ public abstract class Logger {
 
     public void handle(EnemyMetrics enemyMetrics) {
         log(enemyMetrics);
+    }
+
+    public void handle(BattleMetrics battleMetrics) {
+        log(battleMetrics);
+    }
+
+    public void handle(CombatStart combatStart) {
+        log(combatStart);
+    }
+
+    public void handle(FinalDmgMetrics finalDmgMetrics) {
+        log(finalDmgMetrics);
     }
 
 }

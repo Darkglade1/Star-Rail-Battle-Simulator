@@ -6,6 +6,7 @@ import battleLogic.log.LogSupplier;
 import battleLogic.log.Logger;
 import battleLogic.log.lines.battle.AdvanceEntity;
 import battleLogic.log.lines.battle.BattleEnd;
+import battleLogic.log.lines.battle.CombatStart;
 import battleLogic.log.lines.battle.LeftOverAV;
 import battleLogic.log.lines.battle.SpeedAdvanceEntity;
 import battleLogic.log.lines.battle.SpeedDelayEntity;
@@ -14,7 +15,9 @@ import battleLogic.log.lines.battle.TriggerTechnique;
 import battleLogic.log.lines.battle.TurnStart;
 import battleLogic.log.lines.battle.UseSkillPoint;
 import battleLogic.log.lines.character.ConcertoEnd;
+import battleLogic.log.lines.metrics.BattleMetrics;
 import battleLogic.log.lines.metrics.EnemyMetrics;
+import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import battleLogic.log.lines.metrics.PlayerMetrics;
 import characters.AbstractCharacter;
 import characters.SwordMarch;
@@ -180,7 +183,7 @@ public class Battle implements IBattle {
         initialBattleLength = initialLength;
         this.battleLength = initialLength;
         totalPlayerDamage = 0;
-        addToLog("Combat Start");
+        addToLog(new CombatStart());
         damageContributionMap = new HashMap<>();
         damageContributionMapPercent = new HashMap<>();
         numSkillPoints = INITIAL_SKILL_POINTS;
@@ -297,38 +300,11 @@ public class Battle implements IBattle {
     }
 
     private void generateMetrics() {
-        addToLog("");
-        addToLog("Player Metrics:");
         this.playerTeam.forEach(p -> addToLog(new PlayerMetrics(p)));
         this.enemyTeam.forEach(e -> addToLog(new EnemyMetrics(e)));
-        addToLog(String.format("Total player team damage: %d \nAction Value used: %.1f", totalPlayerDamage, initialBattleLength));
         finalDPAV = (float)totalPlayerDamage / initialBattleLength;
-        addToLog("DPAV: " + finalDPAV);
-        addToLog("Skill Points Used: " + totalSkillPointsUsed);
-        addToLog("Skill Points Generated: " + totalSkillPointsGenerated);
-        addToLog("Leftover AV: " + actionValueMap);
-        StringBuilder leftoverEnergy = new StringBuilder();
-        for (AbstractCharacter character : playerTeam) {
-            leftoverEnergy.append(String.format("| %s: %.2f | ", character.name, character.currentEnergy));
-            if (!damageContributionMap.containsKey(character)) {
-                damageContributionMap.put(character, 0.0f);
-            }
-        }
-        addToLog("Leftover Energy: " + leftoverEnergy);
-        addToLog("Damage Contribution: | " + calcPercentContributionString() + "Total Damage " + totalPlayerDamage);
-    }
-
-    public String calcPercentContributionString() {
-        StringBuilder log = new StringBuilder();
-        damageContributionMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .forEach(entry -> {
-                    float percent = entry.getValue() / totalPlayerDamage * 100;
-                    damageContributionMapPercent.put(entry.getKey(), percent);
-                    log.append(String.format("%s: %.3f DPAV (%.3f%%) | ", entry.getKey().name, entry.getValue() / initialBattleLength, percent));
-                });
-        return log.toString();
+        addToLog(new BattleMetrics(this));
+        addToLog(new FinalDmgMetrics(this));
     }
 
     private Yunli getYunli() {
@@ -419,17 +395,8 @@ public class Battle implements IBattle {
         return next;
     }
 
-    public void addToLog(String addition) {
-        this.logger.handle(new StringLine(addition));
-    }
-
     @Override
     public void addToLog(Loggable addition) {
-        /*String timestamp = String.format("(%.2f AV) - ", initialBattleLength - battleLength);
-        if (!isInCombat) {
-            timestamp = "";
-        }
-        log += timestamp + addition + "\n";*/
         this.logger.handle(addition);
     }
 
@@ -446,6 +413,31 @@ public class Battle implements IBattle {
     @Override
     public HashMap<AbstractEntity, Float> getActionValueMap() {
         return this.actionValueMap;
+    }
+
+    @Override
+    public int getTotalPlayerDmg() {
+        return this.totalPlayerDamage;
+    }
+
+    @Override
+    public float getActionValueUsed() {
+        return this.initialBattleLength;
+    }
+
+    @Override
+    public float getFinalDPAV() {
+        return this.finalDPAV;
+    }
+
+    @Override
+    public float getTotalSkillPointsUsed() {
+        return this.totalSkillPointsUsed;
+    }
+
+    @Override
+    public float getTotalSkillPointsGenerated() {
+        return this.totalSkillPointsGenerated;
     }
 
     @Override

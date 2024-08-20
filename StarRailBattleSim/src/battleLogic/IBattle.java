@@ -41,6 +41,11 @@ public interface IBattle {
     HashMap<AbstractCharacter, Float> getDamageContributionMap();
     HashMap<AbstractCharacter, Float> getDamageContributionMapPercent();
     HashMap<AbstractEntity, Float> getActionValueMap();
+    int getTotalPlayerDmg();
+    float getActionValueUsed();
+    float getFinalDPAV();
+    float getTotalSkillPointsUsed();
+    float getTotalSkillPointsGenerated();
     void updateContribution(AbstractCharacter character, float damageContribution);
     void increaseTotalPlayerDmg(float dmg);
     float initialLength();
@@ -59,5 +64,7 @@ public interface IBattle {
     Random getMilkyWayRng();
     Random getWeaveEffectRng();
     Random getAetherRng();
+
+
 
 }

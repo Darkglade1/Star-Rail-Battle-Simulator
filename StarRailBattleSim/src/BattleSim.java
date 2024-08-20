@@ -1,6 +1,7 @@
 import battleLogic.Battle;
-import battleLogic.log.DefaultLogger;
-import battleLogic.log.VoidLogger;
+import battleLogic.log.Loggable;
+import battleLogic.log.Logger;
+import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import enemies.FireWindImgLightningWeakEnemy;
@@ -8,9 +9,6 @@ import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
@@ -169,7 +167,15 @@ public class BattleSim {
                 .filter(Objects::nonNull)
                 .sorted(Comparator.comparing(team -> team.getClass().getSimpleName()))
                 .forEach(team -> {
-                    Battle battle = new Battle(VoidLogger::new);
+                    Battle battle = new Battle((b) -> new Logger(b) {
+                        @Override
+                        protected void log(Loggable loggable) {}
+
+                        @Override
+                        public void handle(FinalDmgMetrics finalDmgMetrics) {
+                            this.out.println(finalDmgMetrics.asString());
+                        }
+                    });
                     battle.setPlayerTeam(team);
 
                     ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();

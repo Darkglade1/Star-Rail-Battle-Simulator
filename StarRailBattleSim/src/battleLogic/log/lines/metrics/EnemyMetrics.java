@@ -31,6 +31,6 @@ public class EnemyMetrics implements Loggable {
 
     @Override
     public void handle(Logger logger) {
-
+        logger.handle(this);
     }
 }
