@@ -1,6 +1,7 @@
 package report;
 
 import battleLogic.Battle;
+import battleLogic.IBattle;
 import characters.AbstractCharacter;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
@@ -44,7 +45,6 @@ public class Report {
             HashMap<Float, PlayerTeam> DPAVtracker = new HashMap<>();
             HashMap<PlayerTeam, Float> diffTracker = new HashMap<>();
             Battle battle = new Battle();
-            Battle.battle = battle;
             battle.setPlayerTeam(baseline);
             battle.setEnemyTeam(enemyTeam.getTeam());
             battle.Start(AVLength);
@@ -52,12 +52,11 @@ public class Report {
             baselineDPAV = battle.finalDPAV;
             DPAVtracker.put(baselineDPAV, baselineTeam);
             diffTracker.put(baselineTeam, 100.0f);
-            updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, characterStatsMap, baseline, baselineTeam);
+            updateCharacterCSVs(battle, characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, characterStatsMap, baseline, baselineTeam);
 
             for (PlayerTeam playerTeam : otherTeams) {
                 ArrayList<AbstractCharacter> otherTeam = playerTeam.getTeam();
                 battle = new Battle();
-                Battle.battle = battle;
                 battle.setPlayerTeam(otherTeam);
                 battle.setEnemyTeam(enemyTeam.getTeam());
                 battle.Start(AVLength);
@@ -66,7 +65,7 @@ public class Report {
                 DPAVtracker.put(otherTeamDPAV, playerTeam);
                 float diff = otherTeamDPAV / baselineDPAV * 100;
                 diffTracker.put(playerTeam, diff);
-                updateCharacterCSVs(characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, characterStatsMap, otherTeam, playerTeam);
+                updateCharacterCSVs(battle, characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, characterStatsMap, otherTeam, playerTeam);
             }
             CSV.append(enemyTeam).append("\n\n");
             CSV.append("Team,DPAV,%DIFF\n");
@@ -121,7 +120,7 @@ public class Report {
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             pw.println(CSV);
         } catch (FileNotFoundException e) {
-            System.out.println("gg");
+            e.printStackTrace();
         }
 
         for (Map.Entry<String, String> entry : characterCSVs.entrySet()) {
@@ -129,12 +128,12 @@ public class Report {
             try (PrintWriter pw = new PrintWriter(characterCSV)) {
                 pw.println(entry.getValue());
             } catch (FileNotFoundException e) {
-                System.out.println("gg 2");
+                e.printStackTrace();
             }
         }
     }
 
-    public void updateCharacterCSVs(HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap, HashMap<String, ArrayList<String>> characterTeamList, HashMap<String, ArrayList<String>> characterMetricOrderList, HashMap<String, ArrayList<String>> damageContributionMap, HashMap<String, String> characterStatsMap, ArrayList<AbstractCharacter> team, PlayerTeam playerTeam) {
+    public void updateCharacterCSVs(IBattle battle, HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap, HashMap<String, ArrayList<String>> characterTeamList, HashMap<String, ArrayList<String>> characterMetricOrderList, HashMap<String, ArrayList<String>> damageContributionMap, HashMap<String, String> characterStatsMap, ArrayList<AbstractCharacter> team, PlayerTeam playerTeam) {
         for (AbstractCharacter character : team) {
             if (!characterMetricsMap.containsKey(character.name)) {
                 HashMap<String, ArrayList<String>> map = new HashMap<>();
@@ -163,9 +162,9 @@ public class Report {
                 damageContributionMap.put(character.name, damageContributionList);
             }
             ArrayList<String> damageList = damageContributionMap.get(character.name);
-            float damagePercent = Battle.battle.damageContributionMapPercent.get(character);
-            float rawDamage = Battle.battle.damageContributionMap.get(character);
-            float DPAV = rawDamage / Battle.battle.initialBattleLength;
+            float damagePercent = battle.getDamageContributionMapPercent().get(character);
+            float rawDamage = battle.getDamageContributionMap().get(character);
+            float DPAV = rawDamage / battle.initialLength();
             damageList.add(String.format("%.2f DPAV (%.1f%% of total)", DPAV, damagePercent));
 
             characterMetricOrderList.put(character.name, character.getOrderedCharacterSpecificMetricsKeys());

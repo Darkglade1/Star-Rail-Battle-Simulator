@@ -24,19 +24,19 @@ public class FlowingNightglow extends AbstractLightcone {
     @Override
     public void onCombatStart() {
         AbstractPower power = new FlowingNightglowPower();
-        Battle.battle.playerTeam.forEach(c -> c.addPower(power));
+        getBattle().getPlayers().forEach(c -> c.addPower(power));
     }
 
     @Override
     public void onEndTurn() {
-        Battle.battle.playerTeam.forEach(c -> c.removePower(cadenzaBuff));
+        getBattle().getPlayers().forEach(c -> c.removePower(cadenzaBuff));
     }
 
     @Override
     public void onUseUltimate() {
         owner.removePower(ERPowerName);
         this.owner.addPower(TempPower.create(PowerStat.ATK_PERCENT, 48, 1, "Flowing Nightglow ATK Boost"));
-        Battle.battle.playerTeam.forEach(c -> c.addPower(cadenzaBuff));
+        getBattle().getPlayers().forEach(c -> c.addPower(cadenzaBuff));
     }
 
     public class FlowingNightglowPower extends PermPower {

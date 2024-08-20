@@ -2,6 +2,8 @@ package powers;
 
 import battleLogic.AbstractEntity;
 import battleLogic.BattleEvents;
+import battleLogic.BattleParticipant;
+import battleLogic.IBattle;
 import characters.AbstractCharacter;
 import com.sun.istack.internal.NotNull;
 import enemies.AbstractEnemy;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractPower implements BattleEvents {
+public abstract class AbstractPower implements BattleEvents,BattleParticipant {
 
     // TODO: Implement DOT
     public enum PowerType {
@@ -35,6 +37,11 @@ public abstract class AbstractPower implements BattleEvents {
 
     public AbstractPower(String name) {
         this.name = name;
+    }
+
+    @Override
+    public IBattle getBattle() {
+        return this.owner.getBattle();
     }
 
     public float getConditionalAtkBonus(AbstractCharacter character) {

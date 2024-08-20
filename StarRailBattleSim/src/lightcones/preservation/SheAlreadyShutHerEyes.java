@@ -28,7 +28,7 @@ public class SheAlreadyShutHerEyes extends AbstractLightcone {
         // TODO: Check if owner has shield, and if it has more than the attack
         // if (...) return;
 
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 9, 2, "She Already Shut Her Eyes Damage Boost"));
         }
     }

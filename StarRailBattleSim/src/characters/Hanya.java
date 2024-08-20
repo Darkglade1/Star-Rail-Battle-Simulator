@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -16,7 +17,7 @@ public class Hanya extends AbstractCharacter {
     public static final String ULT_BUFF_NAME = "Hanya Ult Buff";
 
     public Hanya() {
-        super(NAME, 917, 564, 353, 110, 80, ElementType.PHYSICAL, 140, 100, Path.HARMONY);
+        super( NAME, 917, 564, 353, 110, 80, ElementType.PHYSICAL, 140, 100, Path.HARMONY);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.ATK_PERCENT, 28)
@@ -28,16 +29,10 @@ public class Hanya extends AbstractCharacter {
         super.useSkill();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 2.64f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 2.64f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
         AbstractPower burden = new BurdenPower();
         burden.owner = enemy;
         if (enemy.hasPower(burden.name)) {
@@ -47,40 +42,34 @@ public class Hanya extends AbstractCharacter {
 
         TempPower speedPower = TempPower.create(PowerStat.SPEED_PERCENT, 20, 1, "Hanya Skill Speed Power");
         speedPower.justApplied = true;
-        Battle.battle.IncreaseSpeed(this, speedPower);
+        getBattle().IncreaseSpeed(this, speedPower);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
     public void useBasicAttack() {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             if (character.isDPS) {
                 AbstractPower existingPower = character.getPower(ULT_BUFF_NAME);
                 if (existingPower != null) {
-                    Battle.battle.DecreaseSpeed(character, existingPower);
+                    getBattle().DecreaseSpeed(character, existingPower);
                 }
                 TempPower ultBuff = new TempPower(3, ULT_BUFF_NAME);
                 ultBuff.setStat(PowerStat.ATK_PERCENT, 65);
                 ultBuff.setStat(PowerStat.FLAT_SPEED, this.getFinalSpeed() * 0.21f);
-                Battle.battle.IncreaseSpeed(character, ultBuff);
+                getBattle().IncreaseSpeed(character, ultBuff);
                 break;
             }
         }
@@ -88,7 +77,7 @@ public class Hanya extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0) {
+        if (getBattle().getSkillPoints() > 0) {
             useSkill();
         } else {
             useBasicAttack();
@@ -118,15 +107,15 @@ public class Hanya extends AbstractCharacter {
         public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
             if (types.contains(DamageType.BASIC) || types.contains(DamageType.SKILL) || types.contains(DamageType.ULTIMATE)) {
                 hitCount++;
-                Battle.battle.addToLog(String.format("Burden is at %d/%d hits", hitCount, hitsToTrigger));
+                getBattle().addToLog(String.format("Burden is at %d/%d hits", hitCount, hitsToTrigger));
 
                 if (hitCount >= hitsToTrigger) {
                     triggersLeft--;
-                    Battle.battle.generateSkillPoint(character, 1);
+                    getBattle().generateSkillPoint(character, 1);
                     Hanya.this.increaseEnergy(2);
 
                     TempPower tracePower = TempPower.create(PowerStat.ATK_PERCENT, 10, 1, "Hanya Trace Atk Power");
-                    if (Battle.battle.nextUnit == character) {
+                    if (getBattle().getNextUnit() == character) {
                         tracePower.justApplied = true;
                     }
                     character.addPower(tracePower);

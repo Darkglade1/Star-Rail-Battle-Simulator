@@ -14,7 +14,7 @@ public class PlanetaryRendezvous extends AbstractLightcone {
 
     @Override
     public void onCombatStart() {
-        Battle.battle.playerTeam.stream()
+        getBattle().getPlayers().stream()
                 .filter(c -> c.elementType.equals(this.owner.elementType))
                 .forEach(c -> c.addPower(PermPower.create(PowerStat.DAMAGE_BONUS, 24, "Planetary Rendezvous DMG Boost")));
     }

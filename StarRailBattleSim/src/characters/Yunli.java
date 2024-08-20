@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import lightcones.destruction.DanceAtSunset;
 import powers.AbstractPower;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Yunli extends AbstractCharacter {
+    
+    public static String NAME = "Yunli";
 
     public boolean isParrying;
     AbstractPower cullPower = new CullCritDamageBuff();
@@ -31,7 +34,7 @@ public class Yunli extends AbstractCharacter {
     private String numSlashesMetricName = "Number of Slashes";
 
     public Yunli() {
-        super("Yunli", 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125, Path.DESTRUCTION);
+        super(NAME, 1358, 679, 461, 94, 80, ElementType.PHYSICAL, 240, 125, Path.DESTRUCTION);
 
         this.ultCost = 120;
         this.isDPS = true;
@@ -46,36 +49,31 @@ public class Yunli extends AbstractCharacter {
         super.useSkill();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 1.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex + 1), 0.6f, BattleHelpers.MultiplierStat.ATK,types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex - 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        if (getBattle().getEnemies().size() >= 3) {
+            int middleIndex = getBattle().getEnemies().size() / 2;
+            getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(middleIndex), 1.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+            getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(middleIndex + 1), 0.6f, BattleHelpers.MultiplierStat.ATK,types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(middleIndex - 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         } else {
-            AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, 1.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
-            if (Battle.battle.enemyTeam.size() == 2) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            AbstractEnemy enemy = getBattle().getEnemies().get(0);
+            getBattle().getHelper().hitEnemy(this, enemy, 1.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+            if (getBattle().getEnemies().size() == 2) {
+                getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
             }
         }
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
     public void useBasicAttack() {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        } else {
-            AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        }
-        BattleHelpers.PostAttackLogic(this, types);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
@@ -84,7 +82,7 @@ public class Yunli extends AbstractCharacter {
         addPower(cullPower);
 
         tauntPower.lastsForever = true; // used so I can manually remove later
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
             enemy.addPower(tauntPower);
         }
     }
@@ -95,26 +93,26 @@ public class Yunli extends AbstractCharacter {
             useCull(enemy);
             removePower(cullPower);
             isParrying = false;
-            for (AbstractEnemy e : Battle.battle.enemyTeam) {
+            for (AbstractEnemy e : getBattle().getEnemies()) {
                 e.removePower(tauntPower);
             }
         } else {
             numNormalCounters++;
-            Battle.battle.addToLog(name + " used Counter");
+            getBattle().addToLog(name + " used Counter");
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.FOLLOW_UP);
             increaseEnergy(5);
-            BattleHelpers.PreAttackLogic(this, types);
+            getBattle().getHelper().PreAttackLogic(this, types);
 
-            int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-            BattleHelpers.hitEnemy(this, enemy, 1.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-            if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            int enemyIndex = getBattle().getEnemies().indexOf(enemy);
+            getBattle().getHelper().hitEnemy(this, enemy, 1.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            if (enemyIndex + 1 < getBattle().getEnemies().size()) {
+                getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(enemyIndex + 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
             }
             if (enemyIndex - 1 >= 0) {
-                BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+                getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(enemyIndex - 1), 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
             }
-            BattleHelpers.PostAttackLogic(this, types);
+            getBattle().getHelper().PostAttackLogic(this, types);
         }
         increaseEnergy(15);
         super.onAttacked(character, enemy, t, energyFromAttacked);
@@ -122,10 +120,10 @@ public class Yunli extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (firstMove && Battle.battle.numSkillPoints > 0) {
+        if (firstMove && getBattle().getSkillPoints() > 0) {
             useSkill();
             firstMove = false;
-        } else if (Battle.battle.numSkillPoints > 1) {
+        } else if (getBattle().getSkillPoints() > 1) {
             useSkill();
         } else {
             useBasicAttack();
@@ -141,60 +139,60 @@ public class Yunli extends AbstractCharacter {
         } else {
             num1StackCulls++;
         }
-        Battle.battle.addToLog(name + " used Cull");
+        getBattle().addToLog(name + " used Cull");
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
         types.add(DamageType.ULTIMATE);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-        BattleHelpers.hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        int enemyIndex = getBattle().getEnemies().indexOf(enemy);
+        getBattle().getHelper().hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        if (enemyIndex + 1 < getBattle().getEnemies().size()) {
+            getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(enemyIndex + 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
         if (enemyIndex - 1 >= 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(enemyIndex - 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
 
         int numBounces = 6;
         while (numBounces > 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.72f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT / 4);
+            getBattle().getHelper().hitEnemy(this, getBattle().getRandomEnemy(), 0.72f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT / 4);
             numBounces--;
         }
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useSlash(AbstractEnemy enemy) {
         increaseEnergy(10);
         numSlashes++;
-        Battle.battle.addToLog(name + " used Slash");
+        getBattle().addToLog(name + " used Slash");
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
         types.add(DamageType.ULTIMATE);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        int enemyIndex = Battle.battle.enemyTeam.indexOf(enemy);
-        BattleHelpers.hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        if (enemyIndex + 1 < Battle.battle.enemyTeam.size()) {
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex + 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        int enemyIndex = getBattle().getEnemies().indexOf(enemy);
+        getBattle().getHelper().hitEnemy(this, enemy, 2.2f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        if (enemyIndex + 1 < getBattle().getEnemies().size()) {
+            getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(enemyIndex + 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
         if (enemyIndex - 1 >= 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(enemyIndex - 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            getBattle().getHelper().hitEnemy(this, getBattle().getEnemies().get(enemyIndex - 1), 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
 
         removePower(cullPower);
         isParrying = false;
-        for (AbstractEnemy e : Battle.battle.enemyTeam) {
+        for (AbstractEnemy e : getBattle().getEnemies()) {
             e.removePower(tauntPower);
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useTechnique() {
         addPower(getTrueSunderPower());
         addPower(techniqueDamageBonus);
-        useCull(Battle.battle.getRandomEnemy());
+        useCull(getBattle().getRandomEnemy());
         removePower(techniqueDamageBonus);
     }
 

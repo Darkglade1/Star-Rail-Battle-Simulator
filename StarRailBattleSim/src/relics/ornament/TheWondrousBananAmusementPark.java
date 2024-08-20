@@ -45,7 +45,7 @@ public class TheWondrousBananAmusementPark extends AbstractRelicSetBonus {
             }
 
             List<AbstractSummon> allSummons = ((AbstractSummoner) character).getSummons();
-            boolean activeSummon = Battle.battle.actionValueMap
+            boolean activeSummon = getBattle().getActionValueMap()
                     .keySet()
                     .stream()
                     .filter(c -> c instanceof AbstractSummon)

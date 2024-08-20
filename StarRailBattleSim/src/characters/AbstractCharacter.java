@@ -3,6 +3,7 @@ package characters;
 import battleLogic.AbstractEntity;
 import battleLogic.Battle;
 import battleLogic.BattleEvents;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
 import lightcones.DefaultLightcone;
@@ -100,18 +101,11 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public void useSkill() {
         moveHistory.add(MoveType.SKILL);
         numSkillsMetric++;
-        Battle.battle.addToLog(name + " used Skill");
-        Battle.battle.useSkillPoint(this, 1);
+        getBattle().addToLog(name + " used Skill");
+        getBattle().useSkillPoint(this, 1);
         increaseEnergy(skillEnergyGain);
-        boolean hasSparkle = false;
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
-            if (character instanceof Sparkle) {
-                hasSparkle = true;
-                break;
-            }
-        }
-        if (hasSparkle) {
-            for (AbstractCharacter character : Battle.battle.playerTeam) {
+        if (getBattle().hasCharacter(Sparkle.NAME)) {
+            for (AbstractCharacter character : getBattle().getPlayers()) {
                 character.addPower(new Sparkle.SparkleTalentPower());
             }
         }
@@ -121,8 +115,8 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public void useBasicAttack() {
         moveHistory.add(MoveType.BASIC);
         numBasicsMetric++;
-        Battle.battle.addToLog(name + " used Basic");
-        Battle.battle.generateSkillPoint(this, 1);
+        getBattle().addToLog(name + " used Basic");
+        getBattle().generateSkillPoint(this, 1);
         increaseEnergy(basicEnergyGain);
 
         this.emit(BattleEvents::onUseBasic);
@@ -132,7 +126,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         numUltsMetric++;
         float initialEnergy = currentEnergy;
         currentEnergy -= ultCost;
-        Battle.battle.addToLog(String.format("%s used Ultimate (%.3f -> %.3f)", name, initialEnergy, currentEnergy));
+        getBattle().addToLog(String.format("%s used Ultimate (%.3f -> %.3f)", name, initialEnergy, currentEnergy));
         increaseEnergy(ultEnergyGain);
 
         this.emit(BattleEvents::onUseUltimate);
@@ -300,7 +294,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         if (currentEnergy > maxEnergy) {
             currentEnergy = maxEnergy;
         }
-        Battle.battle.addToLog(String.format("%s gained %.3f Energy (%.3f -> %.3f)", name, energyGained, initialEnergy, currentEnergy));
+        getBattle().addToLog(String.format("%s gained %.3f Energy (%.3f -> %.3f)", name, energyGained, initialEnergy, currentEnergy));
     }
 
     public void increaseEnergy(float amount) {
@@ -454,7 +448,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public HashMap<String, String> addLeftoverCharacterAVMetric(HashMap<String, String> metricMap) {
-        metricMap.put(leftoverAVMetricName, String.format("%.2f", Battle.battle.actionValueMap.get(this)));
+        metricMap.put(leftoverAVMetricName, String.format("%.2f", getBattle().getActionValueMap().get(this)));
         return metricMap;
     }
 

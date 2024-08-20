@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -29,11 +30,11 @@ public class Sparkle extends AbstractCharacter {
     public void useSkill() {
         super.useSkill();
         AbstractPower skillPower = new SparkleSkillPower();
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             if (character.isDPS) {
                 character.removePower(skillPower.name); // remove the old power in case sparkle's crit damage changed so we get new snapshot of her buff
                 character.addPower(skillPower);
-                Battle.battle.AdvanceEntity(character, 50);
+                getBattle().AdvanceEntity(character, 50);
                 lightcone.onSpecificTrigger(character, null);
             }
         }
@@ -42,22 +43,17 @@ public class Sparkle extends AbstractCharacter {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        } else {
-            AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        }
-        BattleHelpers.PostAttackLogic(this, types);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
-        Battle.battle.generateSkillPoint(this, 4);
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        getBattle().generateSkillPoint(this, 4);
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             AbstractPower ultPower = new SparkleUltPower();
             character.addPower(ultPower);
         }
@@ -65,7 +61,7 @@ public class Sparkle extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0) {
+        if (getBattle().getSkillPoints() > 0) {
             useSkill();
         } else {
             useBasicAttack();
@@ -73,9 +69,9 @@ public class Sparkle extends AbstractCharacter {
     }
 
     public void onCombatStart() {
-        Battle.battle.MAX_SKILL_POINTS += 2;
+        getBattle().increaseMaxSkillPoints(2);
         int numQuantumAllies = 0;
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             PermPower nocturne = PermPower.create(PowerStat.ATK_PERCENT, 15, "Sparkle Atk Bonus");
             character.addPower(nocturne);
             if (character.elementType == ElementType.QUANTUM) {
@@ -90,7 +86,7 @@ public class Sparkle extends AbstractCharacter {
         } else {
             quantumAtkBonus = 5;
         }
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             if (character.elementType == ElementType.QUANTUM) {
                 PermPower quantumNocturne = PermPower.create(PowerStat.ATK_PERCENT, quantumAtkBonus, "Sparkle Quantum Atk Bonus");
                 character.addPower(quantumNocturne);
@@ -99,7 +95,7 @@ public class Sparkle extends AbstractCharacter {
     }
 
     public void useTechnique() {
-        Battle.battle.generateSkillPoint(this, 3);
+        getBattle().generateSkillPoint(this, 3);
     }
 
     private class SparkleSkillPower extends PermPower {

@@ -20,6 +20,6 @@ public class AfterTheCharmonyFall extends AbstractLightcone {
 
     @Override
     public void onUseUltimate() {
-        Battle.battle.IncreaseSpeed(this.owner, TempPower.create(PowerStat.SPEED_PERCENT, 16, 2, "After the Charmony Fall Speed Boost"));
+        getBattle().IncreaseSpeed(this.owner, TempPower.create(PowerStat.SPEED_PERCENT, 16, 2, "After the Charmony Fall Speed Boost"));
     }
 }

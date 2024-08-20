@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -45,7 +46,7 @@ public class Feixiao extends AbstractCharacter {
     public void increaseStack(int amount) {
         int initialStack = stackCount;
         stackCount += amount;
-        Battle.battle.addToLog(String.format("%s gained %d Stack (%d -> %d)", name, amount, initialStack, stackCount));
+        getBattle().addToLog(String.format("%s gained %d Stack (%d -> %d)", name, amount, initialStack, stackCount));
         if (stackCount >= stackThreshold) {
             int energyGain = stackCount / stackThreshold;
             gainStackEnergy(energyGain);
@@ -61,31 +62,25 @@ public class Feixiao extends AbstractCharacter {
             wastedStacks += energyGain;
         }
         stackCount = stackCount % stackThreshold;
-        Battle.battle.addToLog(String.format("%s gained %d Energy (%.1f -> %.1f)", name, energyGain, initialEnergy, currentEnergy));
+        getBattle().addToLog(String.format("%s gained %d Energy (%.1f -> %.1f)", name, energyGain, initialEnergy, currentEnergy));
     }
 
     public void useSkill() {
         super.useSkill();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
         this.addPower(TempPower.create(PowerStat.ATK_PERCENT, 48, 3,"Fei Atk Bonus"));
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
 
         float totalMult = 2.0f;
-        BattleHelpers.hitEnemy(this, enemy, totalMult * 0.34f, BattleHelpers.MultiplierStat.ATK, types, 0);
-        BattleHelpers.hitEnemy(this, enemy, totalMult * 0.33f, BattleHelpers.MultiplierStat.ATK, types, 0);
-        BattleHelpers.hitEnemy(this, enemy, totalMult * 0.33f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+        getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.34f, BattleHelpers.MultiplierStat.ATK, types, 0);
+        getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.33f, BattleHelpers.MultiplierStat.ATK, types, 0);
+        getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.33f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
 
         ArrayList<AbstractEnemy> enemiesHit = new ArrayList<>();
         enemiesHit.add(enemy);
@@ -95,18 +90,12 @@ public class Feixiao extends AbstractCharacter {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useFollowUp(ArrayList<AbstractEnemy> enemiesHit) {
@@ -114,73 +103,67 @@ public class Feixiao extends AbstractCharacter {
         AbstractEnemy enemy = enemiesHit.get(middleIndex);
         moveHistory.add(MoveType.FOLLOW_UP);
         numFUAs++;
-        Battle.battle.addToLog(name + " used Follow Up");
+        getBattle().addToLog(name + " used Follow Up");
 
         addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 60, 2, "Fei Damage Bonus"));
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+        getBattle().getHelper().hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
 
         boolean shouldUlt = true;
 
-        if (Battle.battle.hasCharacter(Robin.NAME)) {
+        if (getBattle().hasCharacter(Robin.NAME)) {
             if (!this.hasPower(Robin.ULT_POWER_NAME)) {
                 shouldUlt = false;
             }
         }
 
-        if (Battle.battle.hasCharacter(Sparkle.NAME)) {
+        if (getBattle().hasCharacter(Sparkle.NAME)) {
             if (!this.hasPower(Sparkle.SKILL_POWER_NAME) || !this.hasPower(Sparkle.ULT_POWER_NAME)) {
                 shouldUlt = false;
             }
         }
 
-        if (Battle.battle.hasCharacter(Bronya.NAME)) {
+        if (getBattle().hasCharacter(Bronya.NAME)) {
             if (!this.hasPower(Bronya.SKILL_POWER_NAME) || !this.hasPower(Bronya.ULT_POWER_NAME)) {
                 shouldUlt = false;
             }
         }
 
-        if (Battle.battle.hasCharacter(RuanMei.NAME)) {
+        if (getBattle().hasCharacter(RuanMei.NAME)) {
             if (!this.hasPower(RuanMei.ULT_POWER_NAME)) {
                 shouldUlt = false;
             }
         }
 
-        if (Battle.battle.hasCharacter(Pela.NAME)) {
+        if (getBattle().hasCharacter(Pela.NAME)) {
             if (!enemy.hasPower(Pela.ULT_DEBUFF_NAME)) {
                 shouldUlt = false;
             }
         }
 
-        if (Battle.battle.hasCharacter(Hanya.NAME)) {
+        if (getBattle().hasCharacter(Hanya.NAME)) {
             if (!this.hasPower(Hanya.ULT_BUFF_NAME)) {
                 shouldUlt = false;
             }
         }
 
-        if (Battle.battle.hasCharacter(Bronya.NAME) && Battle.battle.hasCharacter(Robin.NAME)) {
+        if (getBattle().hasCharacter(Bronya.NAME) && getBattle().hasCharacter(Robin.NAME)) {
             if (this.hasPower(Bronya.SKILL_POWER_NAME) && this.hasPower(Bronya.ULT_POWER_NAME)) {
                 shouldUlt = true;
             }
         }
 
-        if (Battle.battle.isBattleAboutToEnd()) {
+        if (getBattle().isAboutToEnd()) {
             shouldUlt = true;
         }
 
@@ -195,37 +178,37 @@ public class Feixiao extends AbstractCharacter {
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.ULTIMATE);
         types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
         float totalMult = 0.9f;
         for (int i = 0; i < numHits; i++) {
-            BattleHelpers.hitEnemy(this, enemy, totalMult * 0.1f, BattleHelpers.MultiplierStat.ATK, types, 0);
-            BattleHelpers.hitEnemy(this, enemy, totalMult * 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.1f, BattleHelpers.MultiplierStat.ATK, types, 0);
+            getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
         }
-        BattleHelpers.hitEnemy(this, enemy, 1.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+        getBattle().getHelper().hitEnemy(this, enemy, 1.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
         removePower(ultBreakEffBuff);
     }
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.hasCharacter(Bronya.NAME)) {
+        if (getBattle().hasCharacter(Bronya.NAME)) {
             if (!this.hasPower(Bronya.SKILL_POWER_NAME)) {
-                if (Battle.battle.numSkillPoints >= 4) {
+                if (getBattle().getSkillPoints() >= 4) {
                     useSkill();
                 } else {
                     useBasicAttack();
                 }
             } else {
-                if (Battle.battle.numSkillPoints > 1) {
+                if (getBattle().getSkillPoints() > 1) {
                     useSkill();
                 } else {
                     useBasicAttack();
                 }
             }
         } else {
-            if (Battle.battle.numSkillPoints > 1) {
+            if (getBattle().getSkillPoints() > 1) {
                 useSkill();
             } else {
                 useBasicAttack();
@@ -246,7 +229,7 @@ public class Feixiao extends AbstractCharacter {
 
     public void onCombatStart() {
         gainStackEnergy(3);
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             AbstractPower feiPower = new FeiTalentPower();
             character.addPower(feiPower);
         }
@@ -254,19 +237,19 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void useTechnique() {
-        if (Battle.battle.usedEntryTechnique) {
+        if (getBattle().usedEntryTechnique()) {
             return;
         } else {
-            Battle.battle.usedEntryTechnique = true;
+            getBattle().setUsedEntryTechnique(true);
         }
         ArrayList<DamageType> types = new ArrayList<>();
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            BattleHelpers.hitEnemy(this, enemy, 2.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
+            getBattle().getHelper().hitEnemy(this, enemy, 2.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
         gainStackEnergy(1);
     }
 

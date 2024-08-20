@@ -1,6 +1,5 @@
 package characters;
 
-import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SwordMarch extends AbstractCharacter {
+    public static String NAME = "Sword March";
 
     public AbstractCharacter master;
 
@@ -32,7 +32,7 @@ public class SwordMarch extends AbstractCharacter {
     private boolean FUAReady = true;
 
     public SwordMarch() {
-        super("Sword March", 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75, Path.HUNT);
+        super(NAME, 1058, 564, 441, 102, 80, ElementType.IMAGINARY, 110, 75, Path.HUNT);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.ATK_PERCENT, 28)
@@ -43,12 +43,12 @@ public class SwordMarch extends AbstractCharacter {
 
     public void useSkill() {
         super.useSkill();
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             if (character.isDPS) {
                 master = character;
                 AbstractPower masterPower = new MarchMasterPower();
-                Battle.battle.IncreaseSpeed(master, masterPower);
-                Battle.battle.IncreaseSpeed(this, PermPower.create(PowerStat.SPEED_PERCENT, 10, "March Speed Boost"));
+                getBattle().IncreaseSpeed(master, masterPower);
+                getBattle().IncreaseSpeed(this, PermPower.create(PowerStat.SPEED_PERCENT, 10, "March Speed Boost"));
             }
         }
     }
@@ -56,41 +56,29 @@ public class SwordMarch extends AbstractCharacter {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         if (master != null) {
-            BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
+            getBattle().getHelper().hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
         }
         gainCharge(1);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useEnhancedBasicAttack() {
         moveHistory.add(MoveType.ENHANCED_BASIC);
         numEBA++;
-        Battle.battle.addToLog(name + " used Enhanced Basic");
+        getBattle().addToLog(name + " used Enhanced Basic");
         increaseEnergy(30);
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
         int initialHits = 3;
         int numExtraHits = 0;
         int procChance = 60;
@@ -109,7 +97,7 @@ public class SwordMarch extends AbstractCharacter {
             addPower(ultCritDmgBuff);
         }
         for (int i = 0; i < 3; i++) {
-            double roll = Battle.battle.procChanceRng.nextDouble() * 100 + 1;
+            double roll = getBattle().getProcChanceRng().nextDouble() * 100 + 1;
             if (roll < procChance) {
                 numExtraHits++;
             } else {
@@ -117,10 +105,10 @@ public class SwordMarch extends AbstractCharacter {
             }
         }
         totalNumExtraHits += numExtraHits;
-        Battle.battle.addToLog(String.format("%s rolled %d extra hits", name, numExtraHits));
+        getBattle().addToLog(String.format("%s rolled %d extra hits", name, numExtraHits));
         for (int i = 0; i < initialHits + numExtraHits; i++) {
-            BattleHelpers.hitEnemy(this, enemy, 0.88f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
-            BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
+            getBattle().getHelper().hitEnemy(this, enemy, 0.88f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            getBattle().getHelper().hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
         }
         if (hasUltEnhancement) {
             hasUltEnhancement = false;
@@ -131,7 +119,7 @@ public class SwordMarch extends AbstractCharacter {
 
         master.addPower(TempPower.create(PowerStat.CRIT_DAMAGE, 60, 2,"Enhanced Basic Master Buff"));
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useFollowUp(ArrayList<AbstractEnemy> enemiesHit) {
@@ -141,18 +129,18 @@ public class SwordMarch extends AbstractCharacter {
             FUAReady = false;
             moveHistory.add(MoveType.FOLLOW_UP);
             numFUAs++;
-            Battle.battle.addToLog(name + " used Follow Up");
+            getBattle().addToLog(name + " used Follow Up");
             increaseEnergy(5);
 
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.FOLLOW_UP);
-            BattleHelpers.PreAttackLogic(this, types);
+            getBattle().getHelper().PreAttackLogic(this, types);
 
-            BattleHelpers.hitEnemy(this, enemy, 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-            BattleHelpers.hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
+            getBattle().getHelper().hitEnemy(this, enemy, 0.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            getBattle().getHelper().hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
             gainCharge(1);
 
-            BattleHelpers.PostAttackLogic(this, types);
+            getBattle().getHelper().PostAttackLogic(this, types);
         }
     }
 
@@ -160,24 +148,18 @@ public class SwordMarch extends AbstractCharacter {
         super.useUltimate();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.ULTIMATE);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 2.59f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_THREE_UNITs);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 2.59f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_THREE_UNITs);
         hasUltEnhancement = true;
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0 && firstMove) {
+        if (getBattle().getSkillPoints() > 0 && firstMove) {
             firstMove = false;
             useSkill();
         } else {
@@ -199,7 +181,7 @@ public class SwordMarch extends AbstractCharacter {
     }
 
     public void onCombatStart() {
-        Battle.battle.AdvanceEntity(this, 25);
+        getBattle().AdvanceEntity(this, 25);
     }
 
     public void useTechnique() {
@@ -210,10 +192,10 @@ public class SwordMarch extends AbstractCharacter {
     public void gainCharge(int amount) {
         int initialCharge = this.chargeCount;
         this.chargeCount += amount;
-        Battle.battle.addToLog(String.format("%s gained %d Charge (%d -> %d)", name, amount, initialCharge, chargeCount));
+        getBattle().addToLog(String.format("%s gained %d Charge (%d -> %d)", name, amount, initialCharge, chargeCount));
         if (this.chargeCount >= chargeThreshold) {
             this.chargeCount -= chargeThreshold;
-            Battle.battle.AdvanceEntity(this, 100);
+            getBattle().AdvanceEntity(this, 100);
             isEnhanced = true;
         }
     }

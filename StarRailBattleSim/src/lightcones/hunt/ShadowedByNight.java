@@ -24,14 +24,14 @@ public class ShadowedByNight extends AbstractLightcone {
 
     @Override
     public void onCombatStart() {
-        Battle.battle.IncreaseSpeed(this.owner, new ShadowedByNightPower());
+        getBattle().IncreaseSpeed(this.owner, new ShadowedByNightPower());
     }
 
     @Override
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.BREAK)) return;
 
-        Battle.battle.IncreaseSpeed(this.owner, new ShadowedByNightPower());
+        getBattle().IncreaseSpeed(this.owner, new ShadowedByNightPower());
     }
 
     public static class ShadowedByNightPower extends TempPower {

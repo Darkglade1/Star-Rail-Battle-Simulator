@@ -2,6 +2,7 @@ package characters;
 
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
+import battleLogic.IBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -36,7 +37,7 @@ public class RuanMei extends AbstractCharacter {
     public void useSkill() {
         super.useSkill();
         skillCounter = 3;
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(skillPower);
         }
     }
@@ -44,22 +45,17 @@ public class RuanMei extends AbstractCharacter {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        } else {
-            AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        }
-        BattleHelpers.PostAttackLogic(this, types);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
         ultCounter = 2;
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(ultPower);
         }
     }
@@ -70,7 +66,7 @@ public class RuanMei extends AbstractCharacter {
         if (skillCounter > 0) {
             skillCounter--;
             if (skillCounter <= 0) {
-                for (AbstractCharacter character : Battle.battle.playerTeam) {
+                for (AbstractCharacter character : getBattle().getPlayers()) {
                     character.removePower(skillPower);
                 }
             }
@@ -78,7 +74,7 @@ public class RuanMei extends AbstractCharacter {
         if (ultCounter > 0) {
             ultCounter--;
             if (ultCounter <= 0) {
-                for (AbstractCharacter character : Battle.battle.playerTeam) {
+                for (AbstractCharacter character : getBattle().getPlayers()) {
                     character.removePower(ultPower);
                 }
             }
@@ -87,7 +83,7 @@ public class RuanMei extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0 && skillCounter <= 0) {
+        if (getBattle().getSkillPoints() > 0 && skillCounter <= 0) {
             useSkill();
         } else {
             useBasicAttack();
@@ -95,7 +91,7 @@ public class RuanMei extends AbstractCharacter {
     }
 
     public void onCombatStart() {
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(PermPower.create(PowerStat.BREAK_EFFECT, 20, "Ruan Mei Break Buff"));
 
             if (character != this) {
@@ -105,12 +101,12 @@ public class RuanMei extends AbstractCharacter {
     }
 
     public void onWeaknessBreak(AbstractEnemy enemy) {
-        BattleHelpers.breakDamageHitEnemy(this, enemy, 1.2f);
+        getBattle().getHelper().breakDamageHitEnemy(this, enemy, 1.2f);
     }
 
     public void useTechnique() {
         useSkill();
-        Battle.battle.generateSkillPoint(this, 1);
+        getBattle().generateSkillPoint(this, 1);
     }
 
     public static class RuanMeiUltDebuff extends AbstractPower {

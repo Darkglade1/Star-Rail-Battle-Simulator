@@ -29,6 +29,6 @@ public class EagleOfTwilightLine extends AbstractRelicSetBonus {
     public void onUseUltimate() {
         if (!this.isFullSet) return;
 
-        Battle.battle.AdvanceEntity(this.owner, 25);
+        getBattle().AdvanceEntity(this.owner, 25);
     }
 }

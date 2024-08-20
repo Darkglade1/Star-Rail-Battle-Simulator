@@ -23,7 +23,7 @@ public class SpringhtlyVonwacq extends AbstractRelicSetBonus {
     @Override
     public void onCombatStart() {
         if (this.owner.getFinalSpeed() >= 120) {
-            Battle.battle.AdvanceEntity(this.owner, 40);
+            getBattle().AdvanceEntity(this.owner, 40);
         }
     }
 }

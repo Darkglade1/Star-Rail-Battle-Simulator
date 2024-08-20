@@ -40,7 +40,7 @@ public class Robin extends AbstractCharacter {
     public void useSkill() {
         super.useSkill();
         skillCounter = 3;
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(skillPower);
         }
     }
@@ -48,22 +48,17 @@ public class Robin extends AbstractCharacter {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            BattleHelpers.hitEnemy(this, Battle.battle.enemyTeam.get(middleIndex), 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        } else {
-            AbstractEnemy enemy = Battle.battle.enemyTeam.get(0);
-            BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        }
-        BattleHelpers.PostAttackLogic(this, types);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
-        if (Battle.battle.hasCharacter(Feixiao.NAME)) {
-            if (Battle.battle.hasCharacter(Bronya.NAME)) {
-                for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+        if (getBattle().hasCharacter(Feixiao.NAME)) {
+            if (getBattle().hasCharacter(Bronya.NAME)) {
+                for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
                     if (entry.getKey().name.equals(Bronya.NAME)) {
                         if (entry.getValue() < entry.getKey().getBaseAV() * 0.7) {
                             return;
@@ -71,7 +66,7 @@ public class Robin extends AbstractCharacter {
                     }
                 }
             } else {
-                for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+                for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
                     if (entry.getKey().name.equals(Feixiao.NAME)) {
                         if (entry.getValue() < entry.getKey().getBaseAV() * 0.7) {
                             return;
@@ -80,8 +75,8 @@ public class Robin extends AbstractCharacter {
                 }
             }
         }
-        if (Battle.battle.hasCharacter(Topaz.NAME)) {
-            for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+        if (getBattle().hasCharacter(Topaz.NAME)) {
+            for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
                 if (entry.getKey().name.equals(Numby.NAME)) {
                     if (entry.getValue() <= 0) {
                         return;
@@ -90,7 +85,7 @@ public class Robin extends AbstractCharacter {
             }
         }
         // don't ult if someone on the team is at 0 AV
-        for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+        for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
             if (entry.getKey() instanceof AbstractCharacter && entry.getValue() <= 0) {
                 return;
             }
@@ -101,7 +96,7 @@ public class Robin extends AbstractCharacter {
         AbstractEntity fastestAlly = null;
         float fastestAV = -1;
         AbstractEntity middleAlly = null;
-        for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+        for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
             if (entry.getKey() instanceof AbstractCharacter && !(entry.getKey() instanceof Robin)) {
                 if (slowestAlly == null) {
                     slowestAlly = entry.getKey();
@@ -120,7 +115,7 @@ public class Robin extends AbstractCharacter {
                 }
             }
         }
-        for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+        for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
             if (entry.getKey() instanceof AbstractCharacter && !(entry.getKey() instanceof Robin)) {
                 if (entry.getKey() != fastestAlly && entry.getKey() != slowestAlly) {
                     middleAlly = entry.getKey();
@@ -130,21 +125,21 @@ public class Robin extends AbstractCharacter {
 
         // preserves the order in which allies go next based on their original AVs
         // most recently advanced ally will go first
-        Battle.battle.AdvanceEntity(slowestAlly, 100);
-        Battle.battle.AdvanceEntity(middleAlly, 100);
-        Battle.battle.AdvanceEntity(fastestAlly, 100);
+        getBattle().AdvanceEntity(slowestAlly, 100);
+        getBattle().AdvanceEntity(middleAlly, 100);
+        getBattle().AdvanceEntity(fastestAlly, 100);
 
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(ultPower);
         }
         this.addPower(fixedCritPower);
-        Battle.battle.actionValueMap.remove(this);
-        Battle.battle.actionValueMap.put(concerto, concerto.getBaseAV());
+        getBattle().getActionValueMap().remove(this);
+        getBattle().getActionValueMap().put(concerto, concerto.getBaseAV());
     }
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0 && skillCounter <= 0) {
+        if (getBattle().getSkillPoints() > 0 && skillCounter <= 0) {
             useSkill();
         } else {
             useBasicAttack();
@@ -152,8 +147,8 @@ public class Robin extends AbstractCharacter {
     }
 
     public void onCombatStart() {
-        Battle.battle.AdvanceEntity(this, 25);
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        getBattle().AdvanceEntity(this, 25);
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(new RobinTalentPower());
         }
     }
@@ -162,7 +157,7 @@ public class Robin extends AbstractCharacter {
         if (skillCounter > 0) {
             skillCounter--;
             if (skillCounter <= 0) {
-                for (AbstractCharacter character : Battle.battle.playerTeam) {
+                for (AbstractCharacter character : getBattle().getPlayers()) {
                     character.removePower(skillPower);
                 }
             }
@@ -181,7 +176,7 @@ public class Robin extends AbstractCharacter {
     }
 
     public void onConcertoEnd() {
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.removePower(ultPower);
         }
         this.removePower(fixedCritPower);
@@ -202,9 +197,9 @@ public class Robin extends AbstractCharacter {
     }
 
     public HashMap<String, String> addLeftoverCharacterAVMetric(HashMap<String, String> metricMap) {
-        Float leftoverAV = Battle.battle.actionValueMap.get(this);
+        Float leftoverAV = getBattle().getActionValueMap().get(this);
         if (leftoverAV == null) {
-            leftoverAV = Battle.battle.actionValueMap.get(concerto);
+            leftoverAV = getBattle().getActionValueMap().get(concerto);
             metricMap.put(leftoverAVMetricName, String.format("%.2f (Concerto)", leftoverAV));
         } else {
             return super.addLeftoverCharacterAVMetric(metricMap);
@@ -243,8 +238,8 @@ public class Robin extends AbstractCharacter {
 
         @Override
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
-            AbstractEnemy target = enemiesHit.get(Battle.battle.getRandomEnemyRng.nextInt(enemiesHit.size()));
-            BattleHelpers.additionalDamageHitEnemy(Robin.this, target, 1.2f, BattleHelpers.MultiplierStat.ATK);
+            AbstractEnemy target = enemiesHit.get(getBattle().getGetRandomEnemyRng().nextInt(enemiesHit.size()));
+            getBattle().getHelper().additionalDamageHitEnemy(Robin.this, target, 1.2f, BattleHelpers.MultiplierStat.ATK);
             concertoProcs++;
         }
 

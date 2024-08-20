@@ -20,7 +20,7 @@ public class BrokenKeel extends AbstractRelicSetBonus {
     }
 
     public void onCombatStart() {
-        Battle.battle.playerTeam.forEach(character -> character.addPower(new BrokenKeelStackPower()));
+        getBattle().getPlayers().forEach(character -> character.addPower(new BrokenKeelStackPower()));
     }
 
     public String toString() {

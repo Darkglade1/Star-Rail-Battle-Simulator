@@ -12,8 +12,8 @@ public class DanceDanceDance extends AbstractLightcone {
 
     @Override
     public void onUseUltimate() {
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
-            Battle.battle.AdvanceEntity(character, 24);
+        for (AbstractCharacter character : getBattle().getPlayers()) {
+            getBattle().AdvanceEntity(character, 24);
         }
     }
 }

@@ -29,7 +29,7 @@ public class WatchMakerMasterOfDreamMachinations extends AbstractRelicSetBonus {
     public void onUseUltimate() {
         if (!this.isFullSet) return;
 
-        Battle.battle.playerTeam.forEach(c -> {
+        getBattle().getPlayers().forEach(c -> {
             TempPower ultPower = TempPower.create(PowerStat.BREAK_EFFECT, 30, 2, "Watch Maker's Master of Dream Machinations 4PC Ult");
             c.addPower(ultPower);
         });

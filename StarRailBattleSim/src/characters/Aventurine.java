@@ -1,6 +1,5 @@
 package characters;
 
-import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -12,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Aventurine extends AbstractCharacter {
+    public static String NAME = "Aventurine";
+
     AventurineTalentPower talentPower = new AventurineTalentPower();
     private int numFollowUps = 0;
     private int numBlindBetGained = 0;
@@ -27,7 +28,7 @@ public class Aventurine extends AbstractCharacter {
     private String numBlindBetFromFUAMetricName = "Blind Bet gained from Ally FUA";
 
     public Aventurine(boolean SPNeutral) {
-        super("Aventurine", 1203, 446, 655, 106, 80, ElementType.IMAGINARY, 110, 150, Path.PRESERVATION);
+        super(NAME, 1203, 446, 655, 106, 80, ElementType.IMAGINARY, 110, 150, Path.PRESERVATION);
 
         this.SPNeutral = SPNeutral;
         this.addPower(new TracePower()
@@ -45,37 +46,25 @@ public class Aventurine extends AbstractCharacter {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.DEF, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
-        BattleHelpers.PostAttackLogic(this, types);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.DEF, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.ULTIMATE);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
         enemy.addPower(new AventurineUltDebuff());
-        BattleHelpers.hitEnemy(this, enemy, 2.7f, BattleHelpers.MultiplierStat.DEF, types, TOUGHNESS_DAMAGE_THREE_UNITs);
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().hitEnemy(this, enemy, 2.7f, BattleHelpers.MultiplierStat.DEF, types, TOUGHNESS_DAMAGE_THREE_UNITs);
+        getBattle().getHelper().PostAttackLogic(this, types);
 
-        int blindBetGain = Battle.battle.gambleChanceRng.nextInt(7) + 1;
+        int blindBetGain = getBattle().getGambleChanceRng().nextInt(7) + 1;
         increaseBlindBet(blindBetGain);
     }
 
@@ -83,25 +72,25 @@ public class Aventurine extends AbstractCharacter {
         numFollowUps++;
         int initialBlindBet = this.blindBetCounter;
         this.blindBetCounter -= BLIND_BET_THRESHOLD;
-        Battle.battle.addToLog(String.format("%s used Follow Up (%d -> %d)", name, initialBlindBet, this.blindBetCounter));
+        getBattle().addToLog(String.format("%s used Follow Up (%d -> %d)", name, initialBlindBet, this.blindBetCounter));
         increaseEnergy(7);
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
         int numBounces = 7;
         while (numBounces > 0) {
-            BattleHelpers.hitEnemy(this, Battle.battle.getRandomEnemy(), 0.25f, BattleHelpers.MultiplierStat.DEF, types, 3.3333333333333335f);
+            getBattle().getHelper().hitEnemy(this, getBattle().getRandomEnemy(), 0.25f, BattleHelpers.MultiplierStat.DEF, types, 3.3333333333333335f);
             numBounces--;
         }
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void takeTurn() {
         super.takeTurn();
         if (SPNeutral) {
-            if (Battle.battle.numSkillPoints > 0) {
+            if (getBattle().getSkillPoints() > 0) {
                 if (lastMove(MoveType.BASIC) || firstMove) {
                     useSkill();
                     firstMove = false;
@@ -117,7 +106,7 @@ public class Aventurine extends AbstractCharacter {
     }
 
     public void onCombatStart() {
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(talentPower);
         }
         addPower(PermPower.create(PowerStat.CRIT_CHANCE, 48, "Aventurine Crit Chance Bonus"));
@@ -134,7 +123,7 @@ public class Aventurine extends AbstractCharacter {
         if (this.blindBetCounter > BLIND_BET_CAP) {
             this.blindBetCounter = BLIND_BET_CAP;
         }
-        Battle.battle.addToLog(String.format("%s gained %d Blind Bet (%d -> %d)", name, amount, initialBlindBet, this.blindBetCounter));
+        getBattle().addToLog(String.format("%s gained %d Blind Bet (%d -> %d)", name, amount, initialBlindBet, this.blindBetCounter));
         if (this.blindBetCounter >= BLIND_BET_THRESHOLD) {
             useFollowUp();
         }

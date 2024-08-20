@@ -1,6 +1,5 @@
 package characters;
 
-import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -12,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Tingyun extends AbstractCharacter {
+    public static String NAME = "Tingyun";
+
     private AbstractCharacter benefactor;
     public int skillProcs = 0;
     public int talentProcs = 0;
@@ -19,7 +20,7 @@ public class Tingyun extends AbstractCharacter {
     private String talentProcsMetricName = "Talent Extra Damage Procs";
 
     public Tingyun() {
-        super("Tingyun", 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100, Path.HARMONY);
+        super(NAME, 847, 529, 397, 112, 80, ElementType.LIGHTNING, 130, 100, Path.HARMONY);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.ATK_PERCENT, 28)
@@ -30,7 +31,7 @@ public class Tingyun extends AbstractCharacter {
     public void useSkill() {
         super.useSkill();
         TingyunSkillPower skillPower = new TingyunSkillPower();
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             if (character.isDPS) {
                 benefactor = character;
                 character.addPower(skillPower);
@@ -39,33 +40,27 @@ public class Tingyun extends AbstractCharacter {
 
         TempPower speedPower = TempPower.create(PowerStat.SPEED_PERCENT, 20, 1, "Tingyun Skill Speed Power");
         speedPower.justApplied = true;
-        Battle.battle.IncreaseSpeed(this, speedPower);
+        getBattle().IncreaseSpeed(this, speedPower);
     }
     public void useBasicAttack() {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.1f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         if (benefactor != null) {
             talentProcs++;
-            BattleHelpers.tingyunSkillHitEnemy(benefactor, enemy, 0.66f, BattleHelpers.MultiplierStat.ATK);
+            getBattle().getHelper().tingyunSkillHitEnemy(benefactor, enemy, 0.66f, BattleHelpers.MultiplierStat.ATK);
         }
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         super.useUltimate();
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             if (character.isDPS && character.currentEnergy < character.maxEnergy) {
                 character.increaseEnergy(60, false);
                 character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 56, 2, "Tingyun Ult Damage Bonus"));
@@ -76,7 +71,7 @@ public class Tingyun extends AbstractCharacter {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0 && (benefactor == null || (lastMove(MoveType.BASIC) && lastMoveBefore(MoveType.BASIC)))) {
+        if (getBattle().getSkillPoints() > 0 && (benefactor == null || (lastMove(MoveType.BASIC) && lastMoveBefore(MoveType.BASIC)))) {
             useSkill();
         } else {
             useBasicAttack();
@@ -123,13 +118,13 @@ public class Tingyun extends AbstractCharacter {
 
         public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             skillProcs++;
-            AbstractEnemy target = enemiesHit.get(Battle.battle.getRandomEnemyRng.nextInt(enemiesHit.size()));
-            BattleHelpers.tingyunSkillHitEnemy(character, target, 0.64f, BattleHelpers.MultiplierStat.ATK);
+            AbstractEnemy target = enemiesHit.get(getBattle().getGetRandomEnemyRng().nextInt(enemiesHit.size()));
+            getBattle().getHelper().tingyunSkillHitEnemy(character, target, 0.64f, BattleHelpers.MultiplierStat.ATK);
         }
 
         public void onUseUltimate() {
             if (benefactor != null) {
-                Battle.battle.IncreaseSpeed(benefactor, TempPower.create(PowerStat.SPEED_PERCENT, 20, 1, "Tingyun E1 Speed Power"));
+                getBattle().IncreaseSpeed(benefactor, TempPower.create(PowerStat.SPEED_PERCENT, 20, 1, "Tingyun E1 Speed Power"));
             }
         }
 

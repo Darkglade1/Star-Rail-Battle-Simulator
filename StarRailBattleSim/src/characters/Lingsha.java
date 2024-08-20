@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Lingsha extends AbstractSummoner {
+    public static String NAME = "Lingsha";
+
     FuYuan fuYuan;
     AbstractPower damageTrackerPower;
     private static final int fuYuanMaxHitCount = 5;
@@ -29,7 +31,7 @@ public class Lingsha extends AbstractSummoner {
     private String leftoverAVFuYuanMetricName = "Leftover AV (Fu Yuan)";
 
     public Lingsha() {
-        super("Lingsha", 1358, 679, 437, 98, 80, ElementType.FIRE, 110, 100, Path.ABUNDANCE);
+        super(NAME, 1358, 679, 437, 98, 80, ElementType.FIRE, 110, 100, Path.ABUNDANCE);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.HP_PERCENT, 18)
@@ -45,7 +47,7 @@ public class Lingsha extends AbstractSummoner {
 
     @Override
     public float getFinalAttack() {
-        if (!Battle.battle.isInCombat) {
+        if (!getBattle().inCombat()) {
             return super.getFinalAttack();
         } else {
             float atkBonus = 0.25f * getTotalBreakEffect();
@@ -60,41 +62,35 @@ public class Lingsha extends AbstractSummoner {
         super.useBasicAttack();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        AbstractEnemy enemy;
-        if (Battle.battle.enemyTeam.size() >= 3) {
-            int middleIndex = Battle.battle.enemyTeam.size() / 2;
-            enemy = Battle.battle.enemyTeam.get(middleIndex);
-        } else {
-            enemy = Battle.battle.enemyTeam.get(0);
-        }
-        BattleHelpers.hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        AbstractEnemy enemy = getBattle().getMiddleEnemy();
+        getBattle().getHelper().hitEnemy(this, enemy, 1.0f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useSkill() {
         super.useSkill();
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.SKILL);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            BattleHelpers.hitEnemy(this, enemy, 0.8f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
+            getBattle().getHelper().hitEnemy(this, enemy, 0.8f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
         increaseHitCount(skillHitCountGain);
-        Battle.battle.AdvanceEntity(fuYuan, 20);
+        getBattle().AdvanceEntity(fuYuan, 20);
         fuYuan.speedPriority = 1;
         resetDamageTracker();
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     public void useUltimate() {
         // don't ult if numby is about to attack
-        if (Battle.battle.hasCharacter(Topaz.NAME)) {
-            for (Map.Entry<AbstractEntity,Float> entry : Battle.battle.actionValueMap.entrySet()) {
+        if (getBattle().hasCharacter(Topaz.NAME)) {
+            for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
                 if (entry.getKey().name.equals(Numby.NAME)) {
                     if (entry.getValue() <= 0) {
                         return;
@@ -103,21 +99,21 @@ public class Lingsha extends AbstractSummoner {
             }
         }
         // only ult if fu yuan isn't about to attack so we don't waste action forward as much
-        if (Battle.battle.actionValueMap.get(fuYuan) >= fuYuan.getBaseAV() * 0.5) {
+        if (getBattle().getActionValueMap().get(fuYuan) >= fuYuan.getBaseAV() * 0.5) {
             super.useUltimate();
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.ULTIMATE);
-            BattleHelpers.PreAttackLogic(this, types);
+            getBattle().getHelper().PreAttackLogic(this, types);
 
-            for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
+            for (AbstractEnemy enemy : getBattle().getEnemies()) {
                 AbstractPower besotted = new Befog();
                 enemy.addPower(besotted);
-                BattleHelpers.hitEnemy(this, enemy, 1.5f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
+                getBattle().getHelper().hitEnemy(this, enemy, 1.5f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
             }
-            Battle.battle.AdvanceEntity(fuYuan, 100);
+            getBattle().AdvanceEntity(fuYuan, 100);
             fuYuan.speedPriority = 1;
 
-            BattleHelpers.PostAttackLogic(this, types);
+            getBattle().getHelper().PostAttackLogic(this, types);
         }
     }
 
@@ -126,29 +122,29 @@ public class Lingsha extends AbstractSummoner {
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
-        BattleHelpers.PreAttackLogic(this, types);
+        getBattle().getHelper().PreAttackLogic(this, types);
 
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
-            BattleHelpers.hitEnemy(this, enemy, 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
+            getBattle().getHelper().hitEnemy(this, enemy, 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
         if (useHitCount) {
             decreaseHitCount(1);
         }
         resetDamageTracker();
 
-        BattleHelpers.PostAttackLogic(this, types);
+        getBattle().getHelper().PostAttackLogic(this, types);
     }
 
     private void increaseHitCount(int amount) {
         if (fuYuanMaxHitCount <= 0) {
-            Battle.battle.actionValueMap.put(fuYuan, fuYuan.getBaseAV());
+            getBattle().getActionValueMap().put(fuYuan, fuYuan.getBaseAV());
         }
         int initalStack = fuYuanCurrentHitCount;
         fuYuanCurrentHitCount += amount;
         if (fuYuanCurrentHitCount > fuYuanMaxHitCount) {
             fuYuanCurrentHitCount = fuYuanMaxHitCount;
         }
-        Battle.battle.addToLog(String.format("Fu Yuan gained %d hits (%d -> %d)", amount, initalStack, fuYuanCurrentHitCount));
+        getBattle().addToLog(String.format("Fu Yuan gained %d hits (%d -> %d)", amount, initalStack, fuYuanCurrentHitCount));
     }
 
     private void decreaseHitCount(int amount) {
@@ -156,9 +152,9 @@ public class Lingsha extends AbstractSummoner {
         fuYuanCurrentHitCount -= amount;
         if (fuYuanCurrentHitCount <= 0) {
             fuYuanCurrentHitCount = 0;
-            Battle.battle.actionValueMap.remove(fuYuan);
+            getBattle().getActionValueMap().remove(fuYuan);
         }
-        Battle.battle.addToLog(String.format("Fu Yuan hits left decreased by %d (%d -> %d)", amount, initalStack, fuYuanCurrentHitCount));
+        getBattle().addToLog(String.format("Fu Yuan hits left decreased by %d (%d -> %d)", amount, initalStack, fuYuanCurrentHitCount));
     }
 
     public void onTurnStart() {
@@ -169,9 +165,9 @@ public class Lingsha extends AbstractSummoner {
 
     public void takeTurn() {
         super.takeTurn();
-        if (Battle.battle.numSkillPoints > 0 && fuYuanCurrentHitCount <= fuYuanMaxHitCount - skillHitCountGain) {
+        if (getBattle().getSkillPoints() > 0 && fuYuanCurrentHitCount <= fuYuanMaxHitCount - skillHitCountGain) {
             useSkill();
-        } else if (Battle.battle.numSkillPoints >= 4) {
+        } else if (getBattle().getSkillPoints() >= 4) {
             useSkill();
         } else {
             useBasicAttack();
@@ -179,23 +175,23 @@ public class Lingsha extends AbstractSummoner {
     }
 
     public void onCombatStart() {
-        Battle.battle.actionValueMap.put(fuYuan, fuYuan.getBaseAV());
+        getBattle().getActionValueMap().put(fuYuan, fuYuan.getBaseAV());
         increaseHitCount(skillHitCountGain);
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             characterTimesDamageTakenMap.put(character, 0);
             character.addPower(damageTrackerPower);
         }
     }
 
     public void useTechnique() {
-        for (AbstractEnemy enemy : Battle.battle.enemyTeam) {
+        for (AbstractEnemy enemy : getBattle().getEnemies()) {
             AbstractPower befog = new Befog();
             enemy.addPower(befog);
         }
     }
 
     public void resetDamageTracker() {
-        Battle.battle.addToLog("Resetting Lingsha damage tracker due to healing");
+        getBattle().addToLog("Resetting Lingsha damage tracker due to healing");
         for (Map.Entry<AbstractCharacter, Integer> entry : characterTimesDamageTakenMap.entrySet()) {
             entry.setValue(0);
         }
@@ -203,7 +199,7 @@ public class Lingsha extends AbstractSummoner {
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {
         HashMap<String, String> map = super.getCharacterSpecificMetricMap();
-        map.put(leftoverAVFuYuanMetricName, String.valueOf(Battle.battle.actionValueMap.get(fuYuan)));
+        map.put(leftoverAVFuYuanMetricName, String.valueOf(getBattle().getActionValueMap().get(fuYuan)));
         map.put(fuYuanAttacksMetricName, String.valueOf(fuYuanAttacksMetric));
         map.put(numEmergencyHealsMetricName, String.valueOf(numEmergencyHeals));
         return map;
@@ -247,9 +243,9 @@ public class Lingsha extends AbstractSummoner {
         public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyToGain) {
             int timesHit = characterTimesDamageTakenMap.get(character);
             timesHit++;
-            Battle.battle.addToLog(String.format("%s has been hit %d times since last heal", character.name, timesHit));
+            getBattle().addToLog(String.format("%s has been hit %d times since last heal", character.name, timesHit));
             if (timesHit >= 2 && currentEmergencyHealCD <= 0) {
-                Battle.battle.addToLog("Triggering Lingsha Emergency Heal");
+                getBattle().addToLog("Triggering Lingsha Emergency Heal");
                 numEmergencyHeals++;
                 currentEmergencyHealCD = emergencyHealCooldown;
                 Lingsha.this.FuYuanAttack(false);

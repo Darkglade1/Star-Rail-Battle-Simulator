@@ -22,7 +22,7 @@ public interface BattleEvents {
     default void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {}
 
     /**
-     * Called from BattleHelpers#PreAttackLogic
+     * Called from getBattle().getHelper()#PreAttackLogic
      * @param damageTypes The types of damage that will be dealt
      */
     default void onBeforeUseAttack(ArrayList<AbstractCharacter.DamageType> damageTypes) {}

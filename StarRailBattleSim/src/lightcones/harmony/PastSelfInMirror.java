@@ -20,18 +20,18 @@ public class PastSelfInMirror extends AbstractLightcone {
 
     @Override
     public void onCombatStart() {
-        Battle.battle.playerTeam.stream()
+        getBattle().getPlayers().stream()
                 .filter(c -> c.usesEnergy)
                 .forEach(c -> c.increaseEnergy(10));
     }
 
     @Override
     public void onUseUltimate() {
-        for (AbstractCharacter character : Battle.battle.playerTeam) {
+        for (AbstractCharacter character : getBattle().getPlayers()) {
             character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 24, 3, "Past Self in Mirror Damage Boost"));
         }
         if (this.owner.getTotalBreakEffect() > 150) {
-            Battle.battle.generateSkillPoint(this.owner, 1);
+            getBattle().generateSkillPoint(this.owner, 1);
         }
     }
 }
