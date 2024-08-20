@@ -2,7 +2,6 @@ import battleLogic.Battle;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import enemies.FireWindImgLightningWeakEnemy;
-import enemies.PhysWeakEnemy;
 import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
@@ -42,7 +41,7 @@ public class BattleSim {
 
         battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());
@@ -70,6 +69,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaMarch().getTeam());
+        battle.setPlayerTeam(new PelaFeixiaoGallagherMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         //enemyTeam.add(new WindWeakEnemy(0, 0));
@@ -80,7 +80,7 @@ public class BattleSim {
     }
 
     public static void generateReportFeixiao() {
-        PlayerTeam baselineTeam = new FeixiaoPelaGallagherMarch();
+        PlayerTeam baselineTeam = new PelaFeixiaoGallagherMarch();
         ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
         otherTeams.add(new FeixiaoRobinAventurineTopaz());
         otherTeams.add(new FeixiaoRobinAventurineMarch());
@@ -115,8 +115,8 @@ public class BattleSim {
         otherTeams.add(new AstaFeixiaoAventurineTopaz());
         otherTeams.add(new AstaFeixiaoAventurineMarch());
         otherTeams.add(new AstaFeixiaoGallagherMarch());
-        otherTeams.add(new FeixiaoPelaAventurineTopaz());
-        otherTeams.add(new FeixiaoPelaAventurineMarch());
+        otherTeams.add(new PelaFeixiaoAventurineTopaz());
+        otherTeams.add(new PelaFeixiaoAventurineMarch());
         otherTeams.add(new FeixiaoTopazAventurineMarch());
         otherTeams.add(new FeixiaoMozeAventurineMarch());
 

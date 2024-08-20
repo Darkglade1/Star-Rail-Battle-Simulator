@@ -295,36 +295,36 @@ public class PlayerTeam {
         }
     }
 
-    public static class FeixiaoPelaAventurineTopaz extends PlayerTeam {
+    public static class PelaFeixiaoAventurineTopaz extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
             ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
             playerTeam.add(getPrebuiltTopazSpeed());
             return playerTeam;
         }
     }
 
-    public static class FeixiaoPelaAventurineMarch extends PlayerTeam {
+    public static class PelaFeixiaoAventurineMarch extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
             ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
             playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
     }
 
-    public static class FeixiaoPelaGallagherMarch extends PlayerTeam {
+    public static class PelaFeixiaoGallagherMarch extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
             ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltGallagher());
             playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
