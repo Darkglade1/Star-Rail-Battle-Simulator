@@ -182,8 +182,12 @@ public class Feixiao extends AbstractCharacter {
 
         float totalMult = 0.9f;
         for (int i = 0; i < numHits; i++) {
-            getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.1f, BattleHelpers.MultiplierStat.ATK, types, 0);
-            getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            if (enemy.weaknessBroken) {
+                getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.1f, BattleHelpers.MultiplierStat.ATK, types, 0);
+                getBattle().getHelper().hitEnemy(this, enemy, totalMult * 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            } else {
+                getBattle().getHelper().hitEnemy(this, enemy, totalMult, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
+            }
         }
         getBattle().getHelper().hitEnemy(this, enemy, 1.6f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
 
@@ -217,7 +221,6 @@ public class Feixiao extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        
         if (currentEnergy >= ultCost) {
             useUltimate(); // check for ultimate activation at start of turn as well
         }

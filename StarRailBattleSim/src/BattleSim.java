@@ -60,7 +60,7 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoRobinTopazFuXuan().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinMarchFuXuan().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
-        battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new AstaFeixiaoGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
