@@ -1,6 +1,7 @@
 package teams;
 
 import characters.*;
+import lightcones.AbstractLightcone;
 import lightcones.abundance.Multiplication;
 import lightcones.abundance.PostOpConversation;
 import lightcones.abundance.WhatIsReal;
@@ -19,6 +20,7 @@ import relics.ornament.RutilentArena;
 import relics.relics.*;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class PlayerTeam {
 
@@ -959,6 +961,95 @@ public class PlayerTeam {
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
         relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static class FeixiaoTeamLightconeCompareBaseline extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(Swordplay::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareVenture extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(IVentureForthToHunt::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareWorrisome extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(WorrisomeBlissful::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareBaptism extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(BaptismOfPureThought::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareCruising extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(CruisingInTheStellarSea::new);
+        }
+    }
+
+//    public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
+//        ArrayList<AbstractCharacter> team = new ArrayList<>();
+//        team.add(FeixiaoLightconeCompare(lightconeSupplier));
+//        team.add(getPrebuiltRobin());
+//        team.add(getPrebuiltAventurineSpeed());
+//        team.add(getPrebuiltTopazSpeed());
+//
+//        return team;
+//    }
+
+    public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
+        ArrayList<AbstractCharacter> team = new ArrayList<>();
+        team.add(getPrebuiltPela());
+        team.add(FeixiaoLightconeCompare(lightconeSupplier));
+        team.add(getPrebuiltGallagher());
+        team.add(getPrebuiltSwordMarchFei());
+
+        return team;
+    }
+
+    private static AbstractCharacter FeixiaoLightconeCompare(Function<AbstractCharacter,AbstractLightcone> lightconeSupplier) {
+        AbstractCharacter character = new Feixiao();
+        character.EquipLightcone(lightconeSupplier.apply(character));
+        character.EquipRelicSet(new TheWindSoaringValorous(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
+
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 9).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 15);
         relicStats.equipTo(character);
         return character;
     }
