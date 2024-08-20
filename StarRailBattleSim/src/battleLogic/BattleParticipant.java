@@ -5,7 +5,7 @@ public interface BattleParticipant {
     IBattle getBattle();
 
     default boolean inBattle() {
-        return getBattle() != null;
+        return getBattle() != null && getBattle().inCombat();
     }
 
 }

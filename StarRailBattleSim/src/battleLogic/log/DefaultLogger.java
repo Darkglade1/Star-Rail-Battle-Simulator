@@ -2,7 +2,6 @@ package battleLogic.log;
 
 import battleLogic.BattleParticipant;
 import battleLogic.IBattle;
-import battleLogic.log.lines.battle.StringLine;
 
 import java.io.PrintStream;
 
@@ -35,10 +34,5 @@ public class DefaultLogger extends Logger implements BattleParticipant {
     @Override
     protected void log(Loggable loggable) {
         this.out.println(prefix() + loggable.asString());
-    }
-
-    @Override
-    public void handle(StringLine line) {
-        this.out.println(line.asString());
     }
 }
