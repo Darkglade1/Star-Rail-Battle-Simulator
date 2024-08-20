@@ -44,12 +44,14 @@ public class BattleSim {
 
         battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoPelaAventurineMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoPelaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurinePela().getTeam());
         //battle.setPlayerTeam(new FeixiaoTopazAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaAventurineTopaz().getTeam());
@@ -65,12 +67,12 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
-        //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherBronya().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaMarch().getTeam());
+        //battle.setPlayerTeam(new PelaFeixiaoGallagherMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         //enemyTeam.add(new WindWeakEnemy(0, 0));
@@ -80,8 +82,24 @@ public class BattleSim {
         battle.Start(550);
     }
 
+    public static void generateReportFeixiaoLightconeReport() {
+        PlayerTeam baselineTeam = new FeixiaoTeamLightconeCompareBaseline();
+        ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
+        otherTeams.add(new FeixiaoTeamLightconeCompareVenture());
+        otherTeams.add(new FeixiaoTeamLightconeCompareWorrisome());
+        otherTeams.add(new FeixiaoTeamLightconeCompareBaptism());
+        otherTeams.add(new FeixiaoTeamLightconeCompareCruising());
+
+        ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
+        enemyTeams.add(new FireWindImgLightningWeakTarget1());
+
+        String notes = "E0S0 other 5 stars. E6 4 stars. Maxed out traces and levels. Enemies are level 95. Relics are +15 with relatively relatable rolls. Simulations run for 5 cycles. \n Feixiao will wait until the team's buffs or debuffs are present before using Ultimate. This results in wasting some stacks but waiting to maximize each ultimate's damage is more damage in the long term.";
+        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 550, notes);
+        report.generateCSV();
+    }
+
     public static void generateReportFeixiao() {
-        PlayerTeam baselineTeam = new FeixiaoHanyaGallagherMarch();
+        PlayerTeam baselineTeam = new PelaFeixiaoGallagherMarch();
         ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
         otherTeams.add(new FeixiaoRobinAventurineTopaz());
         otherTeams.add(new FeixiaoRobinAventurineMarch());
@@ -112,11 +130,12 @@ public class BattleSim {
         otherTeams.add(new FeixiaoHanyaAventurineTopaz());
         otherTeams.add(new FeixiaoHanyaAventurineMarch());
         otherTeams.add(new FeixiaoHanyaGallagherMoze());
+        otherTeams.add(new FeixiaoHanyaGallagherMarch());
         otherTeams.add(new AstaFeixiaoAventurineTopaz());
         otherTeams.add(new AstaFeixiaoAventurineMarch());
         otherTeams.add(new AstaFeixiaoGallagherMarch());
-        otherTeams.add(new FeixiaoPelaAventurineTopaz());
-        otherTeams.add(new FeixiaoPelaAventurineMarch());
+        otherTeams.add(new PelaFeixiaoAventurineTopaz());
+        otherTeams.add(new PelaFeixiaoAventurineMarch());
         otherTeams.add(new FeixiaoTopazAventurineMarch());
         otherTeams.add(new FeixiaoMozeAventurineMarch());
 

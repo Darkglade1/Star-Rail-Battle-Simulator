@@ -116,7 +116,6 @@ public class Lingsha extends AbstractSummoner {
                 getBattle().getHelper().hitEnemy(this, enemy, 1.5f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_TWO_UNITS);
             }
             getBattle().AdvanceEntity(fuYuan, 100);
-            fuYuan.speedPriority = 1;
 
             getBattle().getHelper().PostAttackLogic(this, types);
         }

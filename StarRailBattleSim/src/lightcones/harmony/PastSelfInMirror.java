@@ -22,7 +22,7 @@ public class PastSelfInMirror extends AbstractLightcone {
     public void onCombatStart() {
         getBattle().getPlayers().stream()
                 .filter(c -> c.usesEnergy)
-                .forEach(c -> c.increaseEnergy(10));
+                .forEach(c -> c.increaseEnergy(10, false));
     }
 
     @Override

@@ -56,12 +56,13 @@ public class Robin extends AbstractCharacter {
     }
 
     public void useUltimate() {
+        boolean shouldUlt = true;
         if (getBattle().hasCharacter(Feixiao.NAME)) {
             if (getBattle().hasCharacter(Bronya.NAME)) {
                 for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
                     if (entry.getKey().name.equals(Bronya.NAME)) {
                         if (entry.getValue() < entry.getKey().getBaseAV() * 0.7) {
-                            return;
+                            shouldUlt = false;
                         }
                     }
                 }
@@ -69,7 +70,7 @@ public class Robin extends AbstractCharacter {
                 for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
                     if (entry.getKey().name.equals(Feixiao.NAME)) {
                         if (entry.getValue() < entry.getKey().getBaseAV() * 0.7) {
-                            return;
+                            shouldUlt = false;
                         }
                     }
                 }
@@ -79,7 +80,7 @@ public class Robin extends AbstractCharacter {
             for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
                 if (entry.getKey().name.equals(Numby.NAME)) {
                     if (entry.getValue() <= 0) {
-                        return;
+                        shouldUlt = false;
                     }
                 }
             }
@@ -87,8 +88,14 @@ public class Robin extends AbstractCharacter {
         // don't ult if someone on the team is at 0 AV
         for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
             if (entry.getKey() instanceof AbstractCharacter && entry.getValue() <= 0) {
-                return;
+                shouldUlt = false;
             }
+        }
+        if (getBattle().isAboutToEnd()) {
+            shouldUlt = true;
+        }
+        if (!shouldUlt) {
+            return;
         }
         super.useUltimate();
         AbstractEntity slowestAlly = null;

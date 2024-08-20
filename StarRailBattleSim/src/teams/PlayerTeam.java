@@ -1,6 +1,7 @@
 package teams;
 
 import characters.*;
+import lightcones.AbstractLightcone;
 import lightcones.abundance.Multiplication;
 import lightcones.abundance.PostOpConversation;
 import lightcones.abundance.WhatIsReal;
@@ -16,15 +17,10 @@ import relics.RelicStats;
 import relics.ornament.BrokenKeel;
 import relics.ornament.DuranDynastyOfRunningWolves;
 import relics.ornament.RutilentArena;
-import relics.relics.KnightOfPurityPalace;
-import relics.relics.LongevousDisciple;
-import relics.relics.MusketeerOfWildWheat;
-import relics.relics.PasserbyOfWanderingCloud;
-import relics.relics.TheAshblazingGrandDuke;
-import relics.relics.TheWindSoaringValorous;
-import relics.relics.ThiefOfShootingMeteor;
+import relics.relics.*;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class PlayerTeam {
 
@@ -295,25 +291,37 @@ public class PlayerTeam {
         }
     }
 
-    public static class FeixiaoPelaAventurineTopaz extends PlayerTeam {
+    public static class PelaFeixiaoAventurineTopaz extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
             ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
             playerTeam.add(getPrebuiltTopazSpeed());
             return playerTeam;
         }
     }
 
-    public static class FeixiaoPelaAventurineMarch extends PlayerTeam {
+    public static class PelaFeixiaoAventurineMarch extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter> getTeam() {
             ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
-            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltSwordMarchFei());
+            return playerTeam;
+        }
+    }
+
+    public static class PelaFeixiaoGallagherMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltPela());
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltGallagher());
             playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
@@ -687,7 +695,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltAsta() {
         AbstractCharacter character = new Asta();
         character.EquipLightcone(new MemoriesOfThePast(character));
-        character.EquipRelicSet(new MusketeerOfWildWheat(character));
+        character.EquipRelicSet(new MessengerTraversingHackerspace(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
@@ -953,6 +961,95 @@ public class PlayerTeam {
         relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.ATK_PER).
                 addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
         relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 13).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 11);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static class FeixiaoTeamLightconeCompareBaseline extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(Swordplay::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareVenture extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(IVentureForthToHunt::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareWorrisome extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(WorrisomeBlissful::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareBaptism extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(BaptismOfPureThought::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareCruising extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(CruisingInTheStellarSea::new);
+        }
+    }
+
+//    public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
+//        ArrayList<AbstractCharacter> team = new ArrayList<>();
+//        team.add(FeixiaoLightconeCompare(lightconeSupplier));
+//        team.add(getPrebuiltRobin());
+//        team.add(getPrebuiltAventurineSpeed());
+//        team.add(getPrebuiltTopazSpeed());
+//
+//        return team;
+//    }
+
+    public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
+        ArrayList<AbstractCharacter> team = new ArrayList<>();
+        team.add(getPrebuiltPela());
+        team.add(FeixiaoLightconeCompare(lightconeSupplier));
+        team.add(getPrebuiltGallagher());
+        team.add(getPrebuiltSwordMarchFei());
+
+        return team;
+    }
+
+    private static AbstractCharacter FeixiaoLightconeCompare(Function<AbstractCharacter,AbstractLightcone> lightconeSupplier) {
+        AbstractCharacter character = new Feixiao();
+        character.EquipLightcone(lightconeSupplier.apply(character));
+        character.EquipRelicSet(new TheWindSoaringValorous(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
+
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 9).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 15);
         relicStats.equipTo(character);
         return character;
     }
