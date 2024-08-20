@@ -16,13 +16,7 @@ import relics.RelicStats;
 import relics.ornament.BrokenKeel;
 import relics.ornament.DuranDynastyOfRunningWolves;
 import relics.ornament.RutilentArena;
-import relics.relics.KnightOfPurityPalace;
-import relics.relics.LongevousDisciple;
-import relics.relics.MusketeerOfWildWheat;
-import relics.relics.PasserbyOfWanderingCloud;
-import relics.relics.TheAshblazingGrandDuke;
-import relics.relics.TheWindSoaringValorous;
-import relics.relics.ThiefOfShootingMeteor;
+import relics.relics.*;
 
 import java.util.ArrayList;
 
@@ -699,7 +693,7 @@ public class PlayerTeam {
     public static AbstractCharacter getPrebuiltAsta() {
         AbstractCharacter character = new Asta();
         character.EquipLightcone(new MemoriesOfThePast(character));
-        character.EquipRelicSet(new MusketeerOfWildWheat(character));
+        character.EquipRelicSet(new MessengerTraversingHackerspace(character));
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(RelicStats.Stats.HP_PER).addMainStat(RelicStats.Stats.SPEED).
