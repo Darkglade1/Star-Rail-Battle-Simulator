@@ -67,12 +67,12 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
-        //battle.setPlayerTeam(new FeixiaoRobinGallagherBronya().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinGallagherBronya().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaMarch().getTeam());
-        battle.setPlayerTeam(new PelaFeixiaoGallagherMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoMozeGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new PelaFeixiaoGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoMozeGallagherMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         //enemyTeam.add(new WindWeakEnemy(0, 0));

@@ -232,7 +232,7 @@ public class Feixiao extends AbstractCharacter {
             useUltimate(); // check for ultimate activation at start of turn as well
         }
         if (FUAReady) {
-            gainStackEnergy(1);
+            increaseStack(1);
         }
         FUAReady = true;
     }
