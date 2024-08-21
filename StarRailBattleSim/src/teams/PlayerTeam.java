@@ -6,10 +6,7 @@ import lightcones.abundance.Multiplication;
 import lightcones.abundance.PostOpConversation;
 import lightcones.abundance.WhatIsReal;
 import lightcones.destruction.DanceAtSunset;
-import lightcones.harmony.DreamvilleAdventure;
-import lightcones.harmony.ForTomorrowsJourney;
-import lightcones.harmony.MemoriesOfThePast;
-import lightcones.harmony.PastAndFuture;
+import lightcones.harmony.*;
 import lightcones.hunt.*;
 import lightcones.nihility.ResolutionShinesAsPearlsOfSweat;
 import lightcones.preservation.ConcertForTwo;
@@ -347,6 +344,18 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltMoze());
             playerTeam.add(getPrebuiltAventurineSpeed());
+            playerTeam.add(getPrebuiltSwordMarchFei());
+            return playerTeam;
+        }
+    }
+
+    public static class FeixiaoMozeGallagherMarch extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltFeixiao());
+            playerTeam.add(getPrebuiltMoze());
+            playerTeam.add(getPrebuiltGallagher());
             playerTeam.add(getPrebuiltSwordMarchFei());
             return playerTeam;
         }
@@ -776,31 +785,31 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltFeixiao() {
-        AbstractCharacter character = new Feixiao();
-        character.EquipLightcone(new IVentureForthToHunt(character));
-        character.EquipRelicSet(new TheWindSoaringValorous(character));
-        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
-        RelicStats relicStats = new RelicStats();
-        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
-                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
-        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 6).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 18);
-        relicStats.equipTo(character);
-        return character;
-    }
-
 //    public static AbstractCharacter getPrebuiltFeixiao() {
 //        AbstractCharacter character = new Feixiao();
-//        character.EquipLightcone(new Swordplay(character));
+//        character.EquipLightcone(new IVentureForthToHunt(character));
 //        character.EquipRelicSet(new TheWindSoaringValorous(character));
 //        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
 //        RelicStats relicStats = new RelicStats();
 //        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
 //                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
-//        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 11).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13);
+//        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 6).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 18);
 //        relicStats.equipTo(character);
 //        return character;
 //    }
+
+    public static AbstractCharacter getPrebuiltFeixiao() {
+        AbstractCharacter character = new Feixiao();
+        character.EquipLightcone(new Swordplay(character));
+        character.EquipRelicSet(new TheWindSoaringValorous(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 11).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 13);
+        relicStats.equipTo(character);
+        return character;
+    }
 
     public static AbstractCharacter getPrebuiltTopazSpeed() {
         AbstractCharacter character = new Topaz();
