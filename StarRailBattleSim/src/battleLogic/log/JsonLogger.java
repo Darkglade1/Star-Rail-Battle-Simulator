@@ -40,6 +40,7 @@ public class JsonLogger extends Logger {
     protected void log(Loggable loggable) {
         try {
             this.out.println(gson.toJson(loggable));
+            this.out.println();
         } catch (Exception e) {
             throw new RuntimeException("Failed to log " + loggable, e);
         }

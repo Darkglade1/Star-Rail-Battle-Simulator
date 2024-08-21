@@ -51,7 +51,7 @@ public class Feixiao extends AbstractCharacter {
     public void increaseStack(int amount) {
         int initialStack = stackCount;
         stackCount += amount;
-        getBattle().addToLog(new GainCharge(this, amount, initialStack, stackCount, "Stacks"));
+        getBattle().addToLog(new GainCharge(this, amount, initialStack, stackCount, "Stack"));
         if (stackCount >= stackThreshold) {
             int energyGain = stackCount / stackThreshold;
             gainStackEnergy(energyGain);
@@ -67,7 +67,7 @@ public class Feixiao extends AbstractCharacter {
             wastedStacks += energyGain;
         }
         stackCount = stackCount % stackThreshold;
-        getBattle().addToLog(new GainEnergy(this, energyGain, this.currentEnergy, initialEnergy));
+        getBattle().addToLog(new GainEnergy(this, initialEnergy, this.currentEnergy, energyGain));
     }
 
     public void useSkill() {

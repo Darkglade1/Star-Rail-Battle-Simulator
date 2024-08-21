@@ -6,10 +6,10 @@ import battleLogic.log.lines.battle.AdvanceEntity;
 import battleLogic.log.lines.battle.BattleEnd;
 import battleLogic.log.lines.battle.CombatStart;
 import battleLogic.log.lines.battle.DelayEntity;
+import battleLogic.log.lines.battle.GenerateSkillPoint;
 import battleLogic.log.lines.battle.LeftOverAV;
 import battleLogic.log.lines.battle.SpeedAdvanceEntity;
 import battleLogic.log.lines.battle.SpeedDelayEntity;
-import battleLogic.log.lines.battle.StringLine;
 import battleLogic.log.lines.battle.TriggerTechnique;
 import battleLogic.log.lines.battle.TurnStart;
 import battleLogic.log.lines.battle.UseSkillPoint;
@@ -89,13 +89,13 @@ public abstract class Logger implements BattleParticipant {
     }
 
     protected abstract void log(Loggable loggable);
-    
-    public void handle(StringLine line) {
-        log(line);
-    }
 
     public void handle(UseSkillPoint useSkillPoint) {
         log(useSkillPoint);
+    }
+
+    public void handle(GenerateSkillPoint generateSkillPoint) {
+        log(generateSkillPoint);
     }
 
     public void handle(TriggerTechnique triggerTechnique) {

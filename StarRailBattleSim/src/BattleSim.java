@@ -1,4 +1,5 @@
 import battleLogic.Battle;
+import battleLogic.log.DefaultLogger;
 import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
@@ -9,6 +10,9 @@ import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
@@ -28,7 +32,13 @@ public class BattleSim {
     }
 
     public static void debugTeam() {
-        Battle battle = new Battle();
+        Battle battle = new Battle(b -> {
+            try {
+                return new DefaultLogger(b, new PrintStream(new FileOutputStream("battle.log")));
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
 //        battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
@@ -82,7 +92,7 @@ public class BattleSim {
         enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(550);
+        battle.Start(150);
     }
 
     public static void generateReportFeixiaoLightconeReport() {

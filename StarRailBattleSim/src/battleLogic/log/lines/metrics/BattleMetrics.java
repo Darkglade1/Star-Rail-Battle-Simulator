@@ -16,8 +16,8 @@ public class BattleMetrics implements Loggable {
     private final int totalPlayerDmg;
     private final float actionValueUsed;
     private final float finalDPAV;
-    private final float totalSkillPointsUsed;
-    private final float totalSkillPointsGenerated;
+    private final int totalSkillPointsUsed;
+    private final int totalSkillPointsGenerated;
     private final Map<AbstractEntity, Float> finalActionValue;
     private final Map<AbstractCharacter, Float> leftOverEnergy;
 
@@ -38,14 +38,20 @@ public class BattleMetrics implements Loggable {
     @Override
     public String asString() {
         String out = String.format("Total player team damage: %d \nAction Value used: %.1f\n", totalPlayerDmg, actionValueUsed);
-        out += String.format("Final DPAV: %.1f\nSkill Points Used: %.1f\nSkill Points Generated: %.1f\n", finalDPAV, totalSkillPointsUsed, totalSkillPointsGenerated);
-        out += "Leftover AV: " + finalActionValue + "\n";
-        out += "Leftover Energy: " + leftOverEnergy
+        out += String.format("Final DPAV: %.3f\nSkill Points Used: %d\nSkill Points Generated: %d\n", finalDPAV, totalSkillPointsUsed, totalSkillPointsGenerated);
+        out += "Leftover AV: " + finalActionValue
                 .entrySet()
                 .stream()
+                .sorted(Map.Entry.comparingByValue())
                 .map(e -> String.format("| %s: %.2f | ", e.getKey().name, e.getValue()))
                 .collect(Collectors.joining())
                 + "\n";
+        out += "Leftover Energy: " + leftOverEnergy
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .map(e -> String.format("| %s: %.2f | ", e.getKey().name, e.getValue()))
+                .collect(Collectors.joining());
         return out;
     }
 

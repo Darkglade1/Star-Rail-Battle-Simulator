@@ -45,8 +45,8 @@ public interface IBattle {
     int getTotalPlayerDmg();
     float getActionValueUsed();
     float getFinalDPAV();
-    float getTotalSkillPointsUsed();
-    float getTotalSkillPointsGenerated();
+    int getTotalSkillPointsUsed();
+    int getTotalSkillPointsGenerated();
     void updateContribution(AbstractCharacter character, float damageContribution);
     void increaseTotalPlayerDmg(float dmg);
     float initialLength();

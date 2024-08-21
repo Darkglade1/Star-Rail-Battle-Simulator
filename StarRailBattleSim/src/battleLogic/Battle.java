@@ -7,6 +7,8 @@ import battleLogic.log.Logger;
 import battleLogic.log.lines.battle.AdvanceEntity;
 import battleLogic.log.lines.battle.BattleEnd;
 import battleLogic.log.lines.battle.CombatStart;
+import battleLogic.log.lines.battle.DelayEntity;
+import battleLogic.log.lines.battle.GenerateSkillPoint;
 import battleLogic.log.lines.battle.LeftOverAV;
 import battleLogic.log.lines.battle.SpeedAdvanceEntity;
 import battleLogic.log.lines.battle.SpeedDelayEntity;
@@ -18,6 +20,7 @@ import battleLogic.log.lines.metrics.BattleMetrics;
 import battleLogic.log.lines.metrics.EnemyMetrics;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import battleLogic.log.lines.metrics.PostCombatPlayerMetrics;
+import battleLogic.log.lines.metrics.PreCombatPlayerMetrics;
 import characters.AbstractCharacter;
 import characters.SwordMarch;
 import characters.Yunli;
@@ -164,7 +167,7 @@ public class Battle implements IBattle {
         if (numSkillPoints > MAX_SKILL_POINTS) {
             numSkillPoints = MAX_SKILL_POINTS;
         }
-        addToLog(new UseSkillPoint(character, amount, initialSkillPoints, numSkillPoints));
+        addToLog(new GenerateSkillPoint(character, amount, initialSkillPoints, numSkillPoints));
     }
 
     @Override
@@ -182,6 +185,7 @@ public class Battle implements IBattle {
         this.battleLength = initialLength;
         totalPlayerDamage = 0;
         addToLog(new CombatStart());
+        this.playerTeam.forEach(c -> addToLog(new PreCombatPlayerMetrics(c)));
         damageContributionMap = new HashMap<>();
         damageContributionMapPercent = new HashMap<>();
         numSkillPoints = INITIAL_SKILL_POINTS;
@@ -438,12 +442,12 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public float getTotalSkillPointsUsed() {
+    public int getTotalSkillPointsUsed() {
         return this.totalSkillPointsUsed;
     }
 
     @Override
-    public float getTotalSkillPointsGenerated() {
+    public int getTotalSkillPointsGenerated() {
         return this.totalSkillPointsGenerated;
     }
 
@@ -475,7 +479,7 @@ public class Battle implements IBattle {
                 float originalAV = entry.getValue();
                 float newAV = originalAV + AVIncrease;
                 entry.setValue(newAV);
-                addToLog(new AdvanceEntity(entity, delayAmount, originalAV, newAV));
+                addToLog(new DelayEntity(entity, delayAmount, originalAV, newAV));
             }
         }
     }

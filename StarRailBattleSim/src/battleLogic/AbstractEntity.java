@@ -60,7 +60,7 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
                 if (ownedPowers.maxStacks > 0 && ownedPowers.stacks < ownedPowers.maxStacks) {
                     ownedPowers.stacks++;
                     ownedPowers.turnDuration = power.turnDuration;
-                    getBattle().addToLog(new StackPower(this, ownedPowers, power.stacks));
+                    getBattle().addToLog(new StackPower(this, ownedPowers, ownedPowers.stacks));
                 } else {
                     if (!ownedPowers.lastsForever) {
                         ownedPowers.turnDuration = power.turnDuration;

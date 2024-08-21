@@ -38,7 +38,7 @@ public class CritHitResult implements Loggable {
 
     @Override
     public String asString() {
-        return String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f, Expected Crit Damage Multiplier: %.3f",
+        return String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f Expected Crit Damage Multiplier: %.3f",
                 this.source.name, this.target.name, calculatedDamage, baseDamage, dmgMultiplier, defMultiplier, resMultiplier,
                 damageTakenMultiplier, toughnessMultiplier, critMultiplier, expectedCritMultiplier);
     }
