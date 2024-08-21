@@ -18,7 +18,7 @@ public class PostCombatPlayerMetrics implements Loggable {
     private final int skills;
     private final int ultimates;
     private final List<AbstractCharacter.MoveType> rotation;
-    private final Map<String, String> characterSpecificMetrics = new HashMap<>();
+    private final Map<String, String> characterSpecificMetrics;
 
     public PostCombatPlayerMetrics(AbstractCharacter player) {
         this.player = player;
@@ -41,7 +41,7 @@ public class PostCombatPlayerMetrics implements Loggable {
         this.skills = player.numSkillsMetric;
         this.ultimates = player.numUltsMetric;
         this.rotation = player.moveHistory;
-        this.characterSpecificMetrics.putAll(player.getCharacterSpecificMetricMap());
+        this.characterSpecificMetrics = new HashMap<>(player.getCharacterSpecificMetricMap());
     }
 
     @Override
@@ -54,9 +54,8 @@ public class PostCombatPlayerMetrics implements Loggable {
 
         StringBuilder metrics = new StringBuilder(statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d \nRotation: %s",
                turnsTaken, basics, skills, ultimates, rotation));
-        HashMap<String, String> metricsMap = player.getCharacterSpecificMetricMap();
         for (Map.Entry<String, String> entry : this.characterSpecificMetrics.entrySet()) {
-            metrics.append("\n").append(entry.getKey()).append(": ").append(metricsMap.get(entry.getValue()));
+            metrics.append("\n").append(entry.getKey()).append(": ").append(entry.getValue());
         }
         return metrics.toString();
     }
