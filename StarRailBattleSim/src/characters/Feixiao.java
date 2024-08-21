@@ -1,8 +1,6 @@
 package characters;
 
-import battleLogic.Battle;
-import battleLogic.BattleHelpers;
-import battleLogic.IBattle;
+import battleLogic.*;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -12,6 +10,7 @@ import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Feixiao extends AbstractCharacter {
 
@@ -120,6 +119,17 @@ public class Feixiao extends AbstractCharacter {
         AbstractEnemy enemy = getBattle().getMiddleEnemy();
 
         boolean shouldUlt = true;
+
+        // don't ult if numby is about to attack
+        if (getBattle().hasCharacter(Topaz.NAME)) {
+            for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
+                if (entry.getKey().name.equals(Numby.NAME)) {
+                    if (entry.getValue() <= 0) {
+                        shouldUlt = false;
+                    }
+                }
+            }
+        }
 
         if (getBattle().hasCharacter(Robin.NAME)) {
             if (!this.hasPower(Robin.ULT_POWER_NAME)) {
