@@ -122,7 +122,7 @@ public class Asta extends AbstractCharacter {
         if (talentPower.stacks > MAX_STACKS) {
             talentPower.stacks = MAX_STACKS;
         }
-        getBattle().addToLog(new GainCharge(this, amount, initalStack, talentPower.stacks, "Stacks"));
+        getBattle().addToLog(new GainCharge(this, amount, initalStack, talentPower.stacks, "Stack"));
     }
 
     public void decreaseStacks(int amount) {
@@ -131,7 +131,7 @@ public class Asta extends AbstractCharacter {
         if (talentPower.stacks < 0) {
             talentPower.stacks = 0;
         }
-        getBattle().addToLog(new GainCharge(this, amount, initalStack, talentPower.stacks, "Stacks"));
+        getBattle().addToLog(new GainCharge(this, amount, initalStack, talentPower.stacks, "Stack"));
     }
 
     private class AstaTalentPower extends AbstractPower {

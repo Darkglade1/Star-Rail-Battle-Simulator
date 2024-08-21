@@ -1,5 +1,6 @@
 package battleLogic.log;
 
+import battleLogic.BattleParticipant;
 import battleLogic.IBattle;
 import battleLogic.log.lines.battle.AdvanceEntity;
 import battleLogic.log.lines.battle.BattleEnd;
@@ -46,7 +47,8 @@ import battleLogic.log.lines.entity.StackPower;
 import battleLogic.log.lines.metrics.BattleMetrics;
 import battleLogic.log.lines.metrics.EnemyMetrics;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
-import battleLogic.log.lines.metrics.PlayerMetrics;
+import battleLogic.log.lines.metrics.PostCombatPlayerMetrics;
+import battleLogic.log.lines.metrics.PreCombatPlayerMetrics;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ import java.util.List;
  * Overriding the log method will by default do the same thing for every LogLine.
  * You may override a specific handle method to handle a specific LogLine differently.
  */
-public abstract class Logger {
+public abstract class Logger implements BattleParticipant {
 
     protected final IBattle battle;
     protected final PrintStream out;
@@ -70,6 +72,11 @@ public abstract class Logger {
 
     public Logger(IBattle battle) {
         this(battle, System.out);
+    }
+
+    @Override
+    public IBattle getBattle() {
+        return battle;
     }
 
     public List<Loggable> getEvents() {
@@ -247,8 +254,12 @@ public abstract class Logger {
         log(blindBet);
     }
 
-    public void handle(PlayerMetrics playerMetrics) {
-        log(playerMetrics);
+    public void handle(PreCombatPlayerMetrics preCombatPlayerMetrics) {
+        log(preCombatPlayerMetrics);
+    }
+
+    public void handle(PostCombatPlayerMetrics postCombatPlayerMetrics) {
+        log(postCombatPlayerMetrics);
     }
 
     public void handle(EnemyMetrics enemyMetrics) {

@@ -10,6 +10,9 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class InertSalsotto extends AbstractRelicSetBonus {
+    public InertSalsotto(AbstractCharacter owner, boolean fullSet) {
+        super(owner, fullSet);
+    }
     public InertSalsotto(AbstractCharacter owner) {
         super(owner);
     }

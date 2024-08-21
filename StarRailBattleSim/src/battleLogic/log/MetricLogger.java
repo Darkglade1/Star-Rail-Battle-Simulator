@@ -4,7 +4,7 @@ import battleLogic.IBattle;
 import battleLogic.log.lines.metrics.BattleMetrics;
 import battleLogic.log.lines.metrics.EnemyMetrics;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
-import battleLogic.log.lines.metrics.PlayerMetrics;
+import battleLogic.log.lines.metrics.PostCombatPlayerMetrics;
 
 import java.io.PrintStream;
 
@@ -23,8 +23,8 @@ public class MetricLogger extends JsonLogger {
     }
 
     @Override
-    public void handle(PlayerMetrics playerMetrics) {
-        super.log(playerMetrics);
+    public void handle(PostCombatPlayerMetrics postCombatPlayerMetrics) {
+        super.log(postCombatPlayerMetrics);
     }
 
     @Override

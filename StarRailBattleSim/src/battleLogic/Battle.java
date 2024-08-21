@@ -10,7 +10,6 @@ import battleLogic.log.lines.battle.CombatStart;
 import battleLogic.log.lines.battle.LeftOverAV;
 import battleLogic.log.lines.battle.SpeedAdvanceEntity;
 import battleLogic.log.lines.battle.SpeedDelayEntity;
-import battleLogic.log.lines.battle.StringLine;
 import battleLogic.log.lines.battle.TriggerTechnique;
 import battleLogic.log.lines.battle.TurnStart;
 import battleLogic.log.lines.battle.UseSkillPoint;
@@ -18,7 +17,7 @@ import battleLogic.log.lines.character.ConcertoEnd;
 import battleLogic.log.lines.metrics.BattleMetrics;
 import battleLogic.log.lines.metrics.EnemyMetrics;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
-import battleLogic.log.lines.metrics.PlayerMetrics;
+import battleLogic.log.lines.metrics.PostCombatPlayerMetrics;
 import characters.AbstractCharacter;
 import characters.SwordMarch;
 import characters.Yunli;
@@ -27,7 +26,6 @@ import powers.AbstractPower;
 import powers.PowerStat;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -300,7 +298,7 @@ public class Battle implements IBattle {
     }
 
     private void generateMetrics() {
-        this.playerTeam.forEach(p -> addToLog(new PlayerMetrics(p)));
+        this.playerTeam.forEach(p -> addToLog(new PostCombatPlayerMetrics(p)));
         this.enemyTeam.forEach(e -> addToLog(new EnemyMetrics(e)));
         finalDPAV = (float)totalPlayerDamage / initialBattleLength;
         addToLog(new BattleMetrics(this));
@@ -348,6 +346,15 @@ public class Battle implements IBattle {
             }
         }
         return false;
+    }
+    @Override
+    public AbstractCharacter getCharacter(String name) {
+        for (AbstractCharacter character : playerTeam) {
+            if (character.name.equals(name)) {
+                return character;
+            }
+        }
+        return null;
     }
 
     @Override

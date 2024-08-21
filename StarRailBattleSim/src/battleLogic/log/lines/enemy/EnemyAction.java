@@ -23,7 +23,7 @@ public class EnemyAction implements Loggable {
             return this.enemy.name + " used AOE attack";
         }
 
-        return this.enemy.name + " uses " + this.attackType + " attack on " + this.hit.name;
+        return this.enemy.name + " uses " + this.attackType + " attack against " + this.hit.name;
     }
 
     @Override

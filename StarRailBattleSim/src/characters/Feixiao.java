@@ -6,6 +6,7 @@ import battleLogic.IBattle;
 import battleLogic.log.lines.character.DoMove;
 import battleLogic.log.lines.character.GainEnergy;
 import battleLogic.log.lines.entity.GainCharge;
+import battleLogic.*;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -15,6 +16,7 @@ import powers.TracePower;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Feixiao extends AbstractCharacter {
 
@@ -124,6 +126,17 @@ public class Feixiao extends AbstractCharacter {
 
         boolean shouldUlt = true;
 
+        // don't ult if numby is about to attack
+        if (getBattle().hasCharacter(Topaz.NAME)) {
+            for (Map.Entry<AbstractEntity,Float> entry : getBattle().getActionValueMap().entrySet()) {
+                if (entry.getKey().name.equals(Numby.NAME)) {
+                    if (entry.getValue() <= 0) {
+                        shouldUlt = false;
+                    }
+                }
+            }
+        }
+
         if (getBattle().hasCharacter(Robin.NAME)) {
             if (!this.hasPower(Robin.ULT_POWER_NAME)) {
                 shouldUlt = false;
@@ -167,7 +180,14 @@ public class Feixiao extends AbstractCharacter {
         }
 
         if (getBattle().isAboutToEnd()) {
-            shouldUlt = true;
+            AbstractCharacter robin = getBattle().getCharacter(Robin.NAME);
+            if (robin != null) {
+                if (robin.currentEnergy >= robin.maxEnergy) {
+                    shouldUlt = false;
+                }
+            } else {
+                shouldUlt = true;
+            }
         }
 
         if (!shouldUlt) {
@@ -228,7 +248,7 @@ public class Feixiao extends AbstractCharacter {
             useUltimate(); // check for ultimate activation at start of turn as well
         }
         if (FUAReady) {
-            gainStackEnergy(1);
+            increaseStack(1);
         }
         FUAReady = true;
     }
