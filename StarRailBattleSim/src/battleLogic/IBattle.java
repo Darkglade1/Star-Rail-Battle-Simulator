@@ -15,6 +15,7 @@ public interface IBattle {
 
     List<AbstractCharacter> getPlayers();
     boolean hasCharacter(String name);
+    AbstractCharacter getCharacter(String name);
 
     List<AbstractEnemy> getEnemies();
     AbstractEnemy getMiddleEnemy();

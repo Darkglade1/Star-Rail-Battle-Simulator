@@ -354,6 +354,15 @@ public class Battle implements IBattle {
         }
         return false;
     }
+    @Override
+    public AbstractCharacter getCharacter(String name) {
+        for (AbstractCharacter character : playerTeam) {
+            if (character.name.equals(name)) {
+                return character;
+            }
+        }
+        return null;
+    }
 
     @Override
     public List<AbstractEnemy> getEnemies() {

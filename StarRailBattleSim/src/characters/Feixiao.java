@@ -164,7 +164,14 @@ public class Feixiao extends AbstractCharacter {
         }
 
         if (getBattle().isAboutToEnd()) {
-            shouldUlt = true;
+            AbstractCharacter robin = getBattle().getCharacter(Robin.NAME);
+            if (robin != null) {
+                if (robin.currentEnergy >= robin.maxEnergy) {
+                    shouldUlt = false;
+                }
+            } else {
+                shouldUlt = true;
+            }
         }
 
         if (!shouldUlt) {
