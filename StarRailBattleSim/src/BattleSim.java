@@ -1,5 +1,4 @@
 import battleLogic.Battle;
-import battleLogic.log.DefaultLogger;
 import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
@@ -83,7 +82,7 @@ public class BattleSim {
         enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(150);
+        battle.Start(550);
     }
 
     public static void generateReportFeixiaoLightconeReport() {
