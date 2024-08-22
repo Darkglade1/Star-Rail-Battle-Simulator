@@ -85,6 +85,8 @@ public class Sparkle extends AbstractCharacter<Sparkle> {
                 character.addPower(quantumNocturne);
             }
         }
+
+        getBattle().getPlayers().forEach(c -> c.addPower(new SparkleTalentPowerTracker()));
     }
 
     public void useTechnique() {
@@ -105,6 +107,17 @@ public class Sparkle extends AbstractCharacter<Sparkle> {
             } else {
                 owner.removePower(this);
             }
+        }
+    }
+
+    public static class SparkleTalentPowerTracker extends PermPower {
+        public SparkleTalentPowerTracker() {
+            super("SparkleTalentPowerTracker");
+        }
+
+        @Override
+        public void onUseSkill() {
+            getBattle().getPlayers().forEach(c -> c.addPower(new SparkleTalentPower()));
         }
     }
 
