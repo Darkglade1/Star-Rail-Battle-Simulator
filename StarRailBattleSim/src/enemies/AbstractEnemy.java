@@ -1,6 +1,12 @@
 package enemies;
 
 import battleLogic.AbstractEntity;
+import battleLogic.log.lines.enemy.EnemyAction;
+import battleLogic.log.lines.enemy.ForcedAttack;
+import battleLogic.log.lines.enemy.ReduceToughness;
+import battleLogic.log.lines.enemy.RuanMeiDelay;
+import battleLogic.log.lines.enemy.SecondAction;
+import battleLogic.log.lines.enemy.WeaknessBreakRecover;
 import characters.AbstractCharacter;
 import characters.Moze;
 import characters.RuanMei;
@@ -34,11 +40,11 @@ public abstract class AbstractEnemy extends AbstractEntity {
     public boolean weaknessBroken = false;
     public final int doubleActionCooldown;
     public int doubleActionCounter;
-    private int numAttacksMetric = 0;
-    private int numSingleTargetMetric = 0;
-    private int numBlastMetric = 0;
-    private int numAoEMetric = 0;
-    private int timesBrokenMetric = 0;
+    public int numAttacksMetric = 0;
+    public int numSingleTargetMetric = 0;
+    public int numBlastMetric = 0;
+    public int numAoEMetric = 0;
+    public int timesBrokenMetric = 0;
 
     public AbstractEnemy(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, int toughness, int doubleActionCooldown) {
         super();
@@ -106,7 +112,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
         }
         attack();
         if (doubleActionCounter == 0) {
-            getBattle().addToLog(name + " takes a second action");
+            getBattle().addToLog(new SecondAction(this));
             attack();
             doubleActionCounter = doubleActionCooldown;
         } else {
@@ -119,7 +125,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
         EnemyAttackType attackType = rollAttackType();
         if (attackType == EnemyAttackType.AOE) {
             numAoEMetric++;
-            getBattle().addToLog(String.format("%s uses AoE attack", name));
+            getBattle().addToLog(new EnemyAction(this, null, EnemyAttackType.AOE));
             for (AbstractCharacter character : getBattle().getPlayers()) {
                 getBattle().getHelper().attackCharacter(this, character, 10);
             }
@@ -129,7 +135,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
             int idx = -99;
             if (taunt instanceof TauntPower) {
                 target = ((TauntPower) taunt).taunter;
-                getBattle().addToLog(name + " forced to attack " + target.name);
+                getBattle().addToLog(new ForcedAttack(this, target));
                 for (int i = 0; i < getBattle().getPlayers().size(); i++) {
                     if (getBattle().getPlayers().get(i) == target) {
                         idx = i;
@@ -161,11 +167,11 @@ public abstract class AbstractEnemy extends AbstractEntity {
 
             if (attackType == EnemyAttackType.SINGLE) {
                 numSingleTargetMetric++;
-                getBattle().addToLog(String.format("%s uses single target attack against %s", name, target.name));
+                getBattle().addToLog(new EnemyAction(this, target, EnemyAttackType.SINGLE));
                 getBattle().getHelper().attackCharacter(this, target, 10);
             } else {
                 numBlastMetric++;
-                getBattle().addToLog(String.format("%s uses blast attack against %s", name, target.name));
+                getBattle().addToLog(new EnemyAction(this, target, EnemyAttackType.BLAST));
                 getBattle().getHelper().attackCharacter(this, target, 10);
                 if (idx + 1 < getBattle().getPlayers().size()) {
                     getBattle().getHelper().attackCharacter(this, getBattle().getPlayers().get(idx + 1), 5);
@@ -196,7 +202,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
         if (this.weaknessBroken) {
             RuanMei.RuanMeiUltDebuff ruanMeiDebuff = (RuanMei.RuanMeiUltDebuff) this.getPower(RuanMei.ULT_DEBUFF_NAME);
             if (ruanMeiDebuff != null && !ruanMeiDebuff.triggered) {
-                getBattle().addToLog("Ruan Mei Ult Delay Triggered");
+                getBattle().addToLog(new RuanMeiDelay());
                 float delay = ruanMeiDebuff.owner.getTotalBreakEffect() * 0.2f + 10;
                 getBattle().DelayEntity(this, delay);
                 ruanMeiDebuff.triggered = true;
@@ -206,7 +212,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
                     this.removePower(RuanMei.ULT_DEBUFF_NAME);
                 }
                 this.weaknessBroken = false;
-                getBattle().addToLog(String.format("%s recovered from weakness break (%.3f -> %.3f)", name, toughness, maxToughness));
+                getBattle().addToLog(new WeaknessBreakRecover(this, this.toughness, this.maxToughness));
                 this.toughness = maxToughness;
             }
         }
@@ -222,7 +228,7 @@ public abstract class AbstractEnemy extends AbstractEntity {
             this.toughness = 0;
             this.weaknessBroken = true;
         }
-        getBattle().addToLog(String.format("%s's toughness reduced by %.3f (%.3f -> %.3f)", name, amount, initialToughness, toughness));
+        getBattle().addToLog(new ReduceToughness(this, amount, initialToughness, this.toughness));
         if (this.weaknessBroken) {
             timesBrokenMetric++;
             getBattle().DelayEntity(this, 25);

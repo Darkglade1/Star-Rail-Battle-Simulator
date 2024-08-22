@@ -3,6 +3,9 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import battleLogic.IBattle;
+import battleLogic.log.lines.character.UseCounter;
+import battleLogic.log.lines.character.yunli.UseCull;
+import battleLogic.log.lines.character.yunli.UseSlash;
 import enemies.AbstractEnemy;
 import lightcones.destruction.DanceAtSunset;
 import powers.AbstractPower;
@@ -98,7 +101,7 @@ public class Yunli extends AbstractCharacter {
             }
         } else {
             numNormalCounters++;
-            getBattle().addToLog(name + " used Counter");
+            getBattle().addToLog(new UseCounter(this));
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.FOLLOW_UP);
             increaseEnergy(5);
@@ -139,7 +142,7 @@ public class Yunli extends AbstractCharacter {
         } else {
             num1StackCulls++;
         }
-        getBattle().addToLog(name + " used Cull");
+        getBattle().addToLog(new UseCull(this));
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
         types.add(DamageType.ULTIMATE);
@@ -165,7 +168,7 @@ public class Yunli extends AbstractCharacter {
     public void useSlash(AbstractEnemy enemy) {
         increaseEnergy(10);
         numSlashes++;
-        getBattle().addToLog(name + " used Slash");
+        getBattle().addToLog(new UseSlash(this));
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
         types.add(DamageType.ULTIMATE);

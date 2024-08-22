@@ -3,6 +3,8 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import battleLogic.IBattle;
+import battleLogic.log.lines.character.DoMove;
+import battleLogic.log.lines.entity.GainCharge;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -93,7 +95,7 @@ public class Moze extends AbstractCharacter {
         AbstractEnemy enemy = (AbstractEnemy) preyPower.owner;
         moveHistory.add(MoveType.FOLLOW_UP);
         FUAs++;
-        getBattle().addToLog(name + " used Follow Up");
+        getBattle().addToLog(new DoMove(this, MoveType.FOLLOW_UP));
         increaseEnergy(10);
 
         ArrayList<DamageType> types = new ArrayList<>();
@@ -142,7 +144,7 @@ public class Moze extends AbstractCharacter {
         if (chargeCount > MAX_CHARGE) {
             chargeCount = MAX_CHARGE;
         }
-        getBattle().addToLog(String.format("Moze gained %d Charge (%d -> %d)", amount, initalStack, chargeCount));
+        getBattle().addToLog(new GainCharge(this, amount, initalStack, chargeCount));
     }
 
     public void decreaseCharge(int amount) {
@@ -153,7 +155,7 @@ public class Moze extends AbstractCharacter {
             if (chargeCount < 0) {
                 chargeCount = 0;
             }
-            getBattle().addToLog(String.format("Moze decremented %d Charge (%d -> %d)", amount, initalStack, chargeCount));
+            getBattle().addToLog(new GainCharge(this, amount, initalStack, chargeCount));
             if (chargeLost >= CHARGE_ATTACK_THRESHOLD) {
                 chargeLost -= CHARGE_ATTACK_THRESHOLD;
                 useFollowUp();

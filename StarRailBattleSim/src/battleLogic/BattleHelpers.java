@@ -1,12 +1,16 @@
 package battleLogic;
 
+import battleLogic.log.lines.character.Attacked;
+import battleLogic.log.lines.character.BreakDamageHitResult;
+import battleLogic.log.lines.character.CritHitResult;
+import battleLogic.log.lines.character.HitResult;
+import battleLogic.log.lines.character.TotalDamage;
 import characters.AbstractCharacter;
 import characters.Moze;
 import characters.SwordMarch;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
-import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 
@@ -112,11 +116,9 @@ public class BattleHelpers implements BattleParticipant {
 
         float calculatedDamage = baseDamage * dmgMultiplierFloat * defMultiplierFloat * resMultiplierFloat * damageTakenMultiplier * toughnessMultiplier * expectedCritMultiplier;
         if (wasCrit) {
-            getBattle().addToLog(String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f Expected Crit Damage Multiplier: %.3f",
-                    source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier, critMultiplier, expectedCritMultiplier));
+            getBattle().addToLog(new CritHitResult(source, target, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier, critMultiplier, expectedCritMultiplier));
         } else {
-            getBattle().addToLog(String.format("%s hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f",
-                    source.name, target.name, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
+            getBattle().addToLog(new HitResult(source, target, calculatedDamage, baseDamage, dmgMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
         }
         return calculatedDamage;
     }
@@ -159,8 +161,7 @@ public class BattleHelpers implements BattleParticipant {
         }
 
         float calculatedDamage = baseDamage * breakEffectMultiplierFloat * defMultiplierFloat * resMultiplierFloat * damageTakenMultiplier * toughnessMultiplier;
-        getBattle().addToLog(String.format("%s hit %s for %.3f Break damage - Base Damage: %.3f, Break Effect Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f",
-                source.name, target.name, calculatedDamage, baseDamage, breakEffectMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
+        getBattle().addToLog(new BreakDamageHitResult(source, target, calculatedDamage, baseDamage, breakEffectMultiplierFloat, defMultiplierFloat, resMultiplierFloat, damageTakenMultiplier, toughnessMultiplier));
         return calculatedDamage;
     }
 
@@ -210,7 +211,7 @@ public class BattleHelpers implements BattleParticipant {
 
     public void PostAttackLogic(AbstractCharacter character, ArrayList<AbstractCharacter.DamageType> types) {
         int damageTotal = (int) attackDamageTotal;
-        getBattle().addToLog(String.format("Total Damage: %d", damageTotal));
+        getBattle().addToLog(new TotalDamage(character, types, damageTotal));
 
         character.emit(l -> {
             l.onAttack(character, enemiesHit, types);
@@ -232,7 +233,7 @@ public class BattleHelpers implements BattleParticipant {
                 return;
             }
         }
-        getBattle().addToLog(source.name + " attacked " + target.name);
+        getBattle().addToLog(new Attacked(source, target));
         target.emit(l -> {
             l.onAttacked(target, source, new ArrayList<>(), energyToGain);
         });

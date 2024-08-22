@@ -1,6 +1,9 @@
 package characters;
 
 import battleLogic.BattleHelpers;
+import battleLogic.log.lines.character.DoMove;
+import battleLogic.log.lines.character.ExtraHits;
+import battleLogic.log.lines.entity.GainCharge;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -71,7 +74,7 @@ public class SwordMarch extends AbstractCharacter {
     public void useEnhancedBasicAttack() {
         moveHistory.add(MoveType.ENHANCED_BASIC);
         numEBA++;
-        getBattle().addToLog(name + " used Enhanced Basic");
+        getBattle().addToLog(new DoMove(this, MoveType.ENHANCED_BASIC));
         increaseEnergy(30);
 
         ArrayList<DamageType> types = new ArrayList<>();
@@ -105,7 +108,7 @@ public class SwordMarch extends AbstractCharacter {
             }
         }
         totalNumExtraHits += numExtraHits;
-        getBattle().addToLog(String.format("%s rolled %d extra hits", name, numExtraHits));
+        getBattle().addToLog(new ExtraHits(this, numExtraHits));
         for (int i = 0; i < initialHits + numExtraHits; i++) {
             getBattle().getHelper().hitEnemy(this, enemy, 0.88f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_HALF_UNIT);
             getBattle().getHelper().hitEnemy(this, enemy, 0.22f, BattleHelpers.MultiplierStat.ATK, new ArrayList<>(), 0, master.elementType);
@@ -129,7 +132,7 @@ public class SwordMarch extends AbstractCharacter {
             FUAReady = false;
             moveHistory.add(MoveType.FOLLOW_UP);
             numFUAs++;
-            getBattle().addToLog(name + " used Follow Up");
+            getBattle().addToLog(new DoMove(this, MoveType.FOLLOW_UP));
             increaseEnergy(5);
 
             ArrayList<DamageType> types = new ArrayList<>();
@@ -192,7 +195,7 @@ public class SwordMarch extends AbstractCharacter {
     public void gainCharge(int amount) {
         int initialCharge = this.chargeCount;
         this.chargeCount += amount;
-        getBattle().addToLog(String.format("%s gained %d Charge (%d -> %d)", name, amount, initialCharge, chargeCount));
+        getBattle().addToLog(new GainCharge(this, amount, initialCharge, this.chargeCount));
         if (this.chargeCount >= chargeThreshold) {
             this.chargeCount -= chargeThreshold;
             getBattle().AdvanceEntity(this, 100);

@@ -30,6 +30,10 @@ public abstract class AbstractRelicSetBonus implements BattleEvents,BattlePartic
 
     }
 
+    public boolean isFullSet() {
+        return isFullSet;
+    }
+
     public String toString() {
         return this.getClass().getSimpleName();
     }

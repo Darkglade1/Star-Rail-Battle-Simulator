@@ -1,4 +1,7 @@
 import battleLogic.Battle;
+import battleLogic.log.Loggable;
+import battleLogic.log.Logger;
+import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import enemies.FireWindImgLightningWeakEnemy;
@@ -21,7 +24,7 @@ public class BattleSim {
         //generateReportFeixiao();
         //generateReportFeixiaoLightconeReport();
         //generateReportFeixiaoRelicReport();
-        //ameliasSuperDump();
+        //ameliasSanityCheck();
     }
 
     public static void debugTeam() {
@@ -199,7 +202,7 @@ public class BattleSim {
         report.generateCSV();
     }
 
-    public static void ameliasSuperDump() {
+    public static void ameliasSanityCheck() {
         TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
                 .stream()
                 .map(c -> TestHelper.callMethodOnClasses(c, "getTeam"))
@@ -207,14 +210,22 @@ public class BattleSim {
                 .filter(Objects::nonNull)
                 .sorted(Comparator.comparing(team -> team.getClass().getSimpleName()))
                 .forEach(team -> {
-                    Battle battle = new Battle();
+                    Battle battle = new Battle((b) -> new Logger(b) {
+                        @Override
+                        protected void log(Loggable loggable) {}
+
+                        @Override
+                        public void handle(FinalDmgMetrics finalDmgMetrics) {
+                            this.out.println(finalDmgMetrics.asString());
+                        }
+                    });
                     battle.setPlayerTeam(team);
 
                     ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
                     enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
                     battle.setEnemyTeam(enemyTeam);
 
-                    battle.Start(500, true);
+                    battle.Start(500);
                 });
     }
 

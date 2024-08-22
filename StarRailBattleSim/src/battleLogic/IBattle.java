@@ -1,5 +1,6 @@
 package battleLogic;
 
+import battleLogic.log.Loggable;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -36,14 +37,20 @@ public interface IBattle {
     void increaseMaxSkillPoints(int maxSkillPoints);
     int getSkillPoints();
 
-    void addToLog(String addition);
+    void addToLog(Loggable addition);
 
     HashMap<AbstractCharacter, Float> getDamageContributionMap();
     HashMap<AbstractCharacter, Float> getDamageContributionMapPercent();
     HashMap<AbstractEntity, Float> getActionValueMap();
+    int getTotalPlayerDmg();
+    float getActionValueUsed();
+    float getFinalDPAV();
+    int getTotalSkillPointsUsed();
+    int getTotalSkillPointsGenerated();
     void updateContribution(AbstractCharacter character, float damageContribution);
     void increaseTotalPlayerDmg(float dmg);
     float initialLength();
+    float battleLength();
 
     BattleHelpers getHelper();
 
@@ -58,5 +65,7 @@ public interface IBattle {
     Random getMilkyWayRng();
     Random getWeaveEffectRng();
     Random getAetherRng();
+
+
 
 }

@@ -3,6 +3,7 @@ package characters;
 import battleLogic.Battle;
 import battleLogic.BattleHelpers;
 import battleLogic.IBattle;
+import battleLogic.log.lines.character.hanya.BurdenLog;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -107,7 +108,7 @@ public class Hanya extends AbstractCharacter {
         public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
             if (types.contains(DamageType.BASIC) || types.contains(DamageType.SKILL) || types.contains(DamageType.ULTIMATE)) {
                 hitCount++;
-                getBattle().addToLog(String.format("Burden is at %d/%d hits", hitCount, hitsToTrigger));
+                getBattle().addToLog(new BurdenLog(hitCount, hitsToTrigger));
 
                 if (hitCount >= hitsToTrigger) {
                     triggersLeft--;

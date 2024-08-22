@@ -1,5 +1,9 @@
 package battleLogic;
 
+import battleLogic.log.lines.entity.GainPower;
+import battleLogic.log.lines.entity.LosePower;
+import battleLogic.log.lines.entity.RefreshPower;
+import battleLogic.log.lines.entity.StackPower;
 import powers.AbstractPower;
 
 import java.util.ArrayList;
@@ -15,7 +19,7 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
     public ArrayList<AbstractPower> powerList = new ArrayList<>();
     public static final int SPEED_PRIORITY_DEFAULT = 99;
     public int speedPriority = SPEED_PRIORITY_DEFAULT;
-    protected int numTurnsMetric = 0;
+    public int numTurnsMetric = 0;
     private IBattle battle;
 
     public void setBattle(IBattle battle) {
@@ -56,14 +60,14 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
                 if (ownedPowers.maxStacks > 0 && ownedPowers.stacks < ownedPowers.maxStacks) {
                     ownedPowers.stacks++;
                     ownedPowers.turnDuration = power.turnDuration;
-                    getBattle().addToLog(name + " stacked " + power.name + " to " + ownedPowers.stacks);
+                    getBattle().addToLog(new StackPower(this, ownedPowers, ownedPowers.stacks));
                 } else {
                     if (!ownedPowers.lastsForever) {
                         ownedPowers.turnDuration = power.turnDuration;
                         if (power.justApplied) {
                             ownedPowers.justApplied = true;
                         }
-                        getBattle().addToLog(name + " refreshed " + power.name + " (" + power.turnDuration + " turn(s))");
+                        getBattle().addToLog(new RefreshPower(this, ownedPowers, power.turnDuration));
                     }
                 }
                 return;
@@ -72,7 +76,7 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
         powerList.add(power);
         power.owner = this;
         if (inBattle()) {
-            getBattle().addToLog(name + " gained " + power.name);
+            getBattle().addToLog(new GainPower(this, power));
         }
         this.listeners.add(power);
     }
@@ -80,7 +84,7 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
     public void removePower(AbstractPower power) {
         power.onRemove();
         powerList.remove(power);
-        getBattle().addToLog(name + " lost " + power.name);
+        getBattle().addToLog(new LosePower(this, power));
         this.listeners.remove(power);
     }
 

@@ -1,6 +1,8 @@
 package characters;
 
 import battleLogic.BattleHelpers;
+import battleLogic.log.lines.character.aventurine.UseBlindBet;
+import battleLogic.log.lines.entity.GainCharge;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -72,7 +74,7 @@ public class Aventurine extends AbstractCharacter {
         numFollowUps++;
         int initialBlindBet = this.blindBetCounter;
         this.blindBetCounter -= BLIND_BET_THRESHOLD;
-        getBattle().addToLog(String.format("%s used Follow Up (%d -> %d)", name, initialBlindBet, this.blindBetCounter));
+        getBattle().addToLog(new UseBlindBet(this, initialBlindBet, this.blindBetCounter));
         increaseEnergy(7);
 
         ArrayList<DamageType> types = new ArrayList<>();
@@ -123,7 +125,7 @@ public class Aventurine extends AbstractCharacter {
         if (this.blindBetCounter > BLIND_BET_CAP) {
             this.blindBetCounter = BLIND_BET_CAP;
         }
-        getBattle().addToLog(String.format("%s gained %d Blind Bet (%d -> %d)", name, amount, initialBlindBet, this.blindBetCounter));
+        getBattle().addToLog(new GainCharge(this, amount, initialBlindBet, this.blindBetCounter, "Blind Bet"));
         if (this.blindBetCounter >= BLIND_BET_THRESHOLD) {
             useFollowUp();
         }

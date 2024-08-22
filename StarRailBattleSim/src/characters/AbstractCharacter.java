@@ -1,9 +1,9 @@
 package characters;
 
 import battleLogic.AbstractEntity;
-import battleLogic.Battle;
 import battleLogic.BattleEvents;
-import battleLogic.IBattle;
+import battleLogic.log.lines.character.GainEnergy;
+import battleLogic.log.lines.character.DoMove;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
 import lightcones.DefaultLightcone;
@@ -12,9 +12,7 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public abstract class AbstractCharacter extends AbstractEntity {
 
@@ -55,7 +53,6 @@ public abstract class AbstractCharacter extends AbstractEntity {
 
     public boolean isDPS = false;
 
-    public int numTurnsMetric;
     public int numSkillsMetric;
     public int numBasicsMetric;
     public int numUltsMetric;
@@ -68,7 +65,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public String leftoverEnergyMetricName = "Leftover Energy";
     protected boolean firstMove = true;
     public boolean hasAttackingUltimate;
-    protected ArrayList<MoveType> moveHistory;
+    public ArrayList<MoveType> moveHistory;
     public HashMap<String, String> statsMap = new HashMap<>();
     public ArrayList<String> statsOrder = new ArrayList<>();
     protected float TOUGHNESS_DAMAGE_HALF_UNIT = 5;
@@ -101,7 +98,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public void useSkill() {
         moveHistory.add(MoveType.SKILL);
         numSkillsMetric++;
-        getBattle().addToLog(name + " used Skill");
+        getBattle().addToLog(new DoMove(this, MoveType.SKILL));
         getBattle().useSkillPoint(this, 1);
         increaseEnergy(skillEnergyGain);
         if (getBattle().hasCharacter(Sparkle.NAME)) {
@@ -115,7 +112,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public void useBasicAttack() {
         moveHistory.add(MoveType.BASIC);
         numBasicsMetric++;
-        getBattle().addToLog(name + " used Basic");
+        getBattle().addToLog(new DoMove(this, MoveType.BASIC));
         getBattle().generateSkillPoint(this, 1);
         increaseEnergy(basicEnergyGain);
 
@@ -126,7 +123,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         numUltsMetric++;
         float initialEnergy = currentEnergy;
         currentEnergy -= ultCost;
-        getBattle().addToLog(String.format("%s used Ultimate (%.3f -> %.3f)", name, initialEnergy, currentEnergy));
+        getBattle().addToLog(new DoMove(this, MoveType.ULTIMATE, initialEnergy, currentEnergy));
         increaseEnergy(ultEnergyGain);
 
         this.emit(BattleEvents::onUseUltimate);
@@ -294,7 +291,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
         if (currentEnergy > maxEnergy) {
             currentEnergy = maxEnergy;
         }
-        getBattle().addToLog(String.format("%s gained %.3f Energy (%.3f -> %.3f)", name, energyGained, initialEnergy, currentEnergy));
+        getBattle().addToLog(new GainEnergy(this, initialEnergy,this.currentEnergy, energyGained));
     }
 
     public void increaseEnergy(float amount) {
