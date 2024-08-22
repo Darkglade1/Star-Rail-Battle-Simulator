@@ -7,7 +7,7 @@ import enemies.AbstractEnemy;
 
 public class CritHitResult implements Loggable {
 
-    public final AbstractCharacter source;
+    public final AbstractCharacter<?> source;
     public final AbstractEnemy target;
     public final double calculatedDamage;
     public final double baseDamage;
@@ -19,7 +19,7 @@ public class CritHitResult implements Loggable {
     public final double critMultiplier;
     public final double expectedCritMultiplier;
 
-    public CritHitResult(AbstractCharacter source, AbstractEnemy target, double calculatedDamage, double baseDamage,
+    public CritHitResult(AbstractCharacter<?> source, AbstractEnemy target, double calculatedDamage, double baseDamage,
                          double dmgMultiplier, double defMultiplier, double resMultiplier,
                          double damageTakenMultiplier, double toughnessMultiplier,
                          double critMultiplier, double expectedCritMultiplier) {

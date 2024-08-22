@@ -1,6 +1,6 @@
 package battleLogic;
 
-import characters.Topaz;
+import characters.topaz.Topaz;
 
 import java.util.ArrayList;
 

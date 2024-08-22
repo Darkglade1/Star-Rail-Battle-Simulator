@@ -7,7 +7,7 @@ import powers.PowerStat;
 
 public class ReturnToDarkness extends AbstractLightcone {
 
-    public ReturnToDarkness(AbstractCharacter owner) {
+    public ReturnToDarkness(AbstractCharacter<?> owner) {
         super(847, 529, 331, owner);
     }
 

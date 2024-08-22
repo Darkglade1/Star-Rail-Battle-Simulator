@@ -5,13 +5,13 @@ import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import enemies.FireWindImgLightningWeakEnemy;
+import javafx.util.Pair;
 import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Objects;
 
 import static teams.EnemyTeam.*;
 import static teams.PlayerTeam.*;
@@ -19,18 +19,18 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        debugTeam();
+        //debugTeam();
         //generateReportYunli();
         //generateReportFeixiao();
         //generateReportFeixiaoLightconeReport();
         //generateReportFeixiaoRelicReport();
-        //ameliasSanityCheck();
+        ameliasSanityCheck();
     }
 
     public static void debugTeam() {
         Battle battle = new Battle();
 
-//        battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
+        battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new MarchYunliRobinHuohuoTeam().getTeam());
 //       battle.setPlayerTeam(new SparkleYunliRobinHuohuoTeam().getTeam());
@@ -44,7 +44,7 @@ public class BattleSim {
 //        enemyTeam.add(new PhysWeakEnemy(2, 2));
 //        battle.setEnemyTeam(enemyTeam);
 
-        battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
@@ -69,20 +69,20 @@ public class BattleSim {
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoBronyaAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
-        //battle.setPlayerTeam(new FeixiaoHanyaGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinGallagherBronya().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiLingshaTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinLingshaMarch().getTeam());
         //battle.setPlayerTeam(new PelaFeixiaoGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoMozeGallagherMarch().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         //enemyTeam.add(new WindWeakEnemy(0, 0));
         enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(550);
+        battle.Start(500);
     }
 
     public static void generateReportFeixiaoLightconeReport() {
@@ -205,11 +205,9 @@ public class BattleSim {
     public static void ameliasSanityCheck() {
         TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
                 .stream()
-                .map(c -> TestHelper.callMethodOnClasses(c, "getTeam"))
-                .map(l -> (ArrayList<AbstractCharacter>) l)
-                .filter(Objects::nonNull)
-                .sorted(Comparator.comparing(team -> team.getClass().getSimpleName()))
-                .forEach(team -> {
+                .map(c -> new Pair<>(c.getSimpleName(), (ArrayList<AbstractCharacter<?>>) TestHelper.callMethodOnClasses(c, "getTeam")))
+                .sorted(Comparator.comparing(Pair::getKey))
+                .forEach(p -> {
                     Battle battle = new Battle((b) -> new Logger(b) {
                         @Override
                         protected void log(Loggable loggable) {}
@@ -219,7 +217,8 @@ public class BattleSim {
                             this.out.println(finalDmgMetrics.asString());
                         }
                     });
-                    battle.setPlayerTeam(team);
+                    System.out.println(p.getKey());
+                    battle.setPlayerTeam(p.getValue());
 
                     ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
                     enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));

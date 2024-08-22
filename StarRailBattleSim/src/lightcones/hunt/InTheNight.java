@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class InTheNight extends AbstractLightcone {
 
-    public InTheNight(AbstractCharacter owner) {
+    public InTheNight(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
     }
 
@@ -26,7 +26,7 @@ public class InTheNight extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.SKILL) && !damageTypes.contains(AbstractCharacter.DamageType.BASIC)) return 0;
             if (owner != character) return 0;
             if (character.getFinalSpeed() < 100) return 0;
@@ -35,7 +35,7 @@ public class InTheNight extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritDamage(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.ULTIMATE)) return 0;
             if (owner != character) return 0;
             if (character.getFinalSpeed() < 100) return 0;

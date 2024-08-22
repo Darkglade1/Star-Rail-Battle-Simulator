@@ -6,9 +6,9 @@ import characters.AbstractCharacter;
 
 public class EmergencyHeal implements Loggable {
 
-    public final AbstractCharacter character;
+    public final AbstractCharacter<?> character;
 
-    public EmergencyHeal(AbstractCharacter character) {
+    public EmergencyHeal(AbstractCharacter<?> character) {
         this.character = character;
     }
 

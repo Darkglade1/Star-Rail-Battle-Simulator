@@ -6,7 +6,7 @@ import powers.PermPower;
 import powers.PowerStat;
 
 public class NowhereToRun extends AbstractLightcone {
-    public NowhereToRun(AbstractCharacter owner) {
+    public NowhereToRun(AbstractCharacter<?> owner) {
         super(953, 529, 265, owner);
     }
 

@@ -13,12 +13,12 @@ import java.util.ArrayList;
  */
 public class OnTheFallOfAnAeon extends AbstractLightcone {
 
-    public OnTheFallOfAnAeon(AbstractCharacter owner) {
+    public OnTheFallOfAnAeon(AbstractCharacter<?> owner) {
         super(1058, 529, 397, owner);
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         this.owner.addPower(new OnTheFallOfAnAeonATKBoost());
     }
 

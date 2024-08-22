@@ -7,7 +7,7 @@ import powers.PowerStat;
 
 public class LandausChoice extends AbstractLightcone {
 
-    public LandausChoice(AbstractCharacter owner) {
+    public LandausChoice(AbstractCharacter<?> owner) {
         super(953, 423, 397, owner);
     }
 

@@ -4,6 +4,8 @@ import battleLogic.AbstractEntity;
 import battleLogic.BattleEvents;
 import battleLogic.log.lines.character.GainEnergy;
 import battleLogic.log.lines.character.DoMove;
+import characters.goal.TurnGoal;
+import characters.goal.UltGoal;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
 import lightcones.DefaultLightcone;
@@ -13,8 +15,10 @@ import relics.AbstractRelicSetBonus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
-public abstract class AbstractCharacter extends AbstractEntity {
+public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends AbstractEntity {
 
     public enum ElementType {
         FIRE, ICE, WIND, LIGHTNING, PHYSICAL, QUANTUM, IMAGINARY
@@ -63,7 +67,7 @@ public abstract class AbstractCharacter extends AbstractEntity {
     public String numUltsMetricName = "Ultimates Used";
     public String leftoverAVMetricName = "Leftover AV";
     public String leftoverEnergyMetricName = "Leftover Energy";
-    protected boolean firstMove = true;
+    public boolean firstMove = true;
     public boolean hasAttackingUltimate;
     public ArrayList<MoveType> moveHistory;
     public HashMap<String, String> statsMap = new HashMap<>();
@@ -72,6 +76,9 @@ public abstract class AbstractCharacter extends AbstractEntity {
     protected float TOUGHNESS_DAMAGE_SINGLE_UNIT = 10;
     protected float TOUGHNESS_DAMAGE_TWO_UNITS = 20;
     protected float TOUGHNESS_DAMAGE_THREE_UNITs = 30;
+
+    private final SortedMap<Integer, UltGoal<C>> ultGoals = new TreeMap<>();
+    private final SortedMap<Integer, TurnGoal<C>> turnGoals = new TreeMap<>();
 
     public AbstractCharacter(String name, int baseHP, int baseAtk, int baseDef, int baseSpeed, int level, ElementType elementType, float maxEnergy, int tauntValue, Path path) {
         super();
@@ -95,41 +102,113 @@ public abstract class AbstractCharacter extends AbstractEntity {
         this.lightcone = new DefaultLightcone(this);
     }
 
-    public void useSkill() {
+    public void registerGoal(int priority, UltGoal<C> ultGoal) {
+        if (ultGoals.containsKey(priority)) {
+            throw new IllegalArgumentException("Priority already exists, " + priority);
+        }
+        ultGoals.put(priority, ultGoal);
+    }
+
+    public void registerGoal(int priority, TurnGoal<C> turnGoal) {
+        if (turnGoals.containsKey(priority)) {
+            throw new IllegalArgumentException("Priority already exists, " + priority);
+        }
+        turnGoals.put(priority, turnGoal);
+    }
+
+    public final void tryUltimate() {
+        if (currentEnergy < ultCost) {
+            return;
+        }
+
+        for (UltGoal<C> ultGoal : this.ultGoals.values()) {
+            UltGoal.UltGoalResult result = ultGoal.determineAction();
+            switch (result) {
+                case DO: {
+                    this.ultimateSequence();
+                    return;
+                }
+                case DONT: {
+                    return;
+                }
+                case PASS: {
+                    continue;
+                }
+                default: {
+                    throw new IllegalStateException("Unexpected value: " + result);
+                }
+            }
+        }
+    }
+
+    @Override
+    public final void takeTurn() {
+        super.takeTurn();
+        numTurnsMetric++;
+
+        tryUltimate();
+        for (TurnGoal<C> turnGoal : this.turnGoals.values()) {
+            TurnGoal.TurnGoalResult result = turnGoal.determineAction();
+            switch (result) {
+                case BASIC: {
+                    this.basicSequence();
+                    return;
+                }
+                case SKILL: {
+                    this.skillSequence();
+                    return;
+                }
+                case PASS: {
+                    continue;
+                }
+                default: {
+                    throw new IllegalStateException("Unexpected value: " + result);
+                }
+            }
+        }
+
+        throw new IllegalStateException("No valid turn goal found for: " + this.name);
+    }
+
+    protected void skillSequence() {
         moveHistory.add(MoveType.SKILL);
         numSkillsMetric++;
         getBattle().addToLog(new DoMove(this, MoveType.SKILL));
         getBattle().useSkillPoint(this, 1);
         increaseEnergy(skillEnergyGain);
-        if (getBattle().hasCharacter(Sparkle.NAME)) {
-            for (AbstractCharacter character : getBattle().getPlayers()) {
-                character.addPower(new Sparkle.SparkleTalentPower());
-            }
-        }
-
         this.emit(BattleEvents::onUseSkill);
+        this.useSkill();
+        this.emit(BattleEvents::afterUseSkill);
     }
-    public void useBasicAttack() {
+
+    protected void basicSequence() {
         moveHistory.add(MoveType.BASIC);
         numBasicsMetric++;
         getBattle().addToLog(new DoMove(this, MoveType.BASIC));
         getBattle().generateSkillPoint(this, 1);
         increaseEnergy(basicEnergyGain);
-
         this.emit(BattleEvents::onUseBasic);
+        this.useBasic();
+        this.emit(BattleEvents::afterUseBasic);
     }
-    public void useUltimate() {
+
+    protected void ultimateSequence() {
         moveHistory.add(MoveType.ULTIMATE);
         numUltsMetric++;
         float initialEnergy = currentEnergy;
         currentEnergy -= ultCost;
         getBattle().addToLog(new DoMove(this, MoveType.ULTIMATE, initialEnergy, currentEnergy));
         increaseEnergy(ultEnergyGain);
-
         this.emit(BattleEvents::onUseUltimate);
+        this.useUltimate();
+        this.emit(BattleEvents::afterUseSkill);
     }
 
-    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+    protected abstract void useSkill();
+    protected abstract void useBasic();
+    protected abstract void useUltimate();
+
+    public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         increaseEnergy(energyFromAttacked);
     }
 
@@ -347,12 +426,6 @@ public abstract class AbstractCharacter extends AbstractEntity {
     }
 
     public void useTechnique() {
-    }
-
-    @Override
-    public void takeTurn() {
-        super.takeTurn();
-        numTurnsMetric++;
     }
 
     public void onWeaknessBreak(AbstractEnemy enemy) {

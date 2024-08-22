@@ -8,7 +8,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class FinalVictor extends AbstractLightcone {
 
-    public FinalVictor(AbstractCharacter owner) {
+    public FinalVictor(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 

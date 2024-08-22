@@ -22,8 +22,8 @@ import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import battleLogic.log.lines.metrics.PostCombatPlayerMetrics;
 import battleLogic.log.lines.metrics.PreCombatPlayerMetrics;
 import characters.AbstractCharacter;
-import characters.SwordMarch;
-import characters.Yunli;
+import characters.march.SwordMarch;
+import characters.yunli.Yunli;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Battle implements IBattle {
-    public ArrayList<AbstractCharacter> playerTeam;
+    public ArrayList<AbstractCharacter<?>> playerTeam;
     public ArrayList<AbstractEnemy> enemyTeam;
 
     private final BattleHelpers battleHelpers;
@@ -56,8 +56,8 @@ public class Battle implements IBattle {
     public boolean isInCombat = false;
     public int actionForwardPriorityCounter = AbstractEntity.SPEED_PRIORITY_DEFAULT;
 
-    public HashMap<AbstractCharacter, Float> damageContributionMap;
-    public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
+    public HashMap<AbstractCharacter<?>, Float> damageContributionMap;
+    public HashMap<AbstractCharacter<?>, Float> damageContributionMapPercent;
     public HashMap<AbstractEntity, Float> actionValueMap;
 
     protected static long seed = 154172837382L;
@@ -82,7 +82,7 @@ public class Battle implements IBattle {
         this.logger = logger.get(this);
     }
 
-    public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
+    public void setPlayerTeam(ArrayList<AbstractCharacter<?>> playerTeam) {
         this.playerTeam = playerTeam;
         this.playerTeam.forEach(character -> character.setBattle(this));
     }
@@ -118,7 +118,7 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public void updateContribution(AbstractCharacter character, float damageContribution) {
+    public void updateContribution(AbstractCharacter<?> character, float damageContribution) {
         if (damageContributionMap.containsKey(character)) {
             float existingTotal = damageContributionMap.get(character);
             float updatedTotal = existingTotal + damageContribution;
@@ -149,7 +149,7 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public void useSkillPoint(AbstractCharacter character, int amount) {
+    public void useSkillPoint(AbstractCharacter<?> character, int amount) {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints -= amount;
         totalSkillPointsUsed += amount;
@@ -160,7 +160,7 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public void generateSkillPoint(AbstractCharacter character, int amount) {
+    public void generateSkillPoint(AbstractCharacter<?> character, int amount) {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints += amount;
         totalSkillPointsGenerated += amount;
@@ -195,18 +195,18 @@ public class Battle implements IBattle {
         for (AbstractEnemy enemy : enemyTeam) {
             actionValueMap.put(enemy, enemy.getBaseAV());
         }
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             character.generateStatsString();
             character.generateStatsReport();
         }
         isInCombat = true;
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             actionValueMap.put(character, character.getBaseAV());
             character.emit(BattleEvents::onCombatStart);
         }
 
         addToLog(new TriggerTechnique(this.playerTeam));
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character.useTechnique) {
                 character.useTechnique();
             }
@@ -229,7 +229,7 @@ public class Battle implements IBattle {
                 break;
             }
             if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
-                yunli.useUltimate();
+                yunli.tryUltimate();
                 if (march != null && march.chargeCount >= march.chargeThreshold) {
                     nextUnit = march;
                     nextAV = actionValueMap.get(nextUnit);
@@ -274,15 +274,15 @@ public class Battle implements IBattle {
                 yunli.useSlash(getRandomEnemy());
             }
 
-            for (AbstractCharacter character : playerTeam) {
+            for (AbstractCharacter<?> character : playerTeam) {
                 if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.useUltimate();
+                    character.tryUltimate();
                 }
             }
             // check again in case of energy regen ultimates
-            for (AbstractCharacter character : playerTeam) {
+            for (AbstractCharacter<?> character : playerTeam) {
                 if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.useUltimate();
+                    character.tryUltimate();
                 }
             }
 
@@ -291,9 +291,9 @@ public class Battle implements IBattle {
             }
 
             // check again for optimizing robin's ult around numby
-            for (AbstractCharacter character : playerTeam) {
+            for (AbstractCharacter<?> character : playerTeam) {
                 if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.useUltimate();
+                    character.tryUltimate();
                 }
             }
         }
@@ -310,7 +310,7 @@ public class Battle implements IBattle {
     }
 
     private Yunli getYunli() {
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character instanceof Yunli) {
                 return (Yunli) character;
             }
@@ -319,7 +319,7 @@ public class Battle implements IBattle {
     }
 
     private SwordMarch getSwordMarch() {
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character instanceof SwordMarch) {
                 return (SwordMarch) character;
             }
@@ -338,13 +338,13 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public List<AbstractCharacter> getPlayers() {
+    public List<AbstractCharacter<?>> getPlayers() {
         return this.playerTeam;
     }
 
     @Override
     public boolean hasCharacter(String name) {
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character.name.equals(name)) {
                 return true;
             }
@@ -352,8 +352,8 @@ public class Battle implements IBattle {
         return false;
     }
     @Override
-    public AbstractCharacter getCharacter(String name) {
-        for (AbstractCharacter character : playerTeam) {
+    public AbstractCharacter<?> getCharacter(String name) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character.name.equals(name)) {
                 return character;
             }
@@ -412,12 +412,12 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public HashMap<AbstractCharacter, Float> getDamageContributionMap() {
+    public HashMap<AbstractCharacter<?>, Float> getDamageContributionMap() {
         return this.damageContributionMap;
     }
 
     @Override
-    public HashMap<AbstractCharacter, Float> getDamageContributionMapPercent() {
+    public HashMap<AbstractCharacter<?>, Float> getDamageContributionMapPercent() {
         return this.damageContributionMapPercent;
     }
 

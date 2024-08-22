@@ -10,11 +10,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class HunterOfTheGlacialForest extends AbstractRelicSetBonus {
-    public HunterOfTheGlacialForest(AbstractCharacter owner) {
+    public HunterOfTheGlacialForest(AbstractCharacter<?> owner) {
         super(owner);
     }
 
-    public HunterOfTheGlacialForest(AbstractCharacter owner, boolean fullSet) {
+    public HunterOfTheGlacialForest(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
@@ -27,7 +27,7 @@ public class HunterOfTheGlacialForest extends AbstractRelicSetBonus {
 
     // TODO: onAfterUseUltimate
     @Override
-    public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void afterAttackFinish(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.ULTIMATE)) return;
 
         TempPower ultPower = TempPower.create(PowerStat.CRIT_DAMAGE, 25, 2, "Hunter of the Glacial Forest Ultimate CD Boost");

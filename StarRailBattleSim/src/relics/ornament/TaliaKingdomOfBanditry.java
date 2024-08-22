@@ -6,11 +6,11 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class TaliaKingdomOfBanditry extends AbstractRelicSetBonus {
-    public TaliaKingdomOfBanditry(AbstractCharacter owner, boolean fullSet) {
+    public TaliaKingdomOfBanditry(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public TaliaKingdomOfBanditry(AbstractCharacter owner) {
+    public TaliaKingdomOfBanditry(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -30,7 +30,7 @@ public class TaliaKingdomOfBanditry extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalBreakEffectBonus(AbstractCharacter character) {
+        public float getConditionalBreakEffectBonus(AbstractCharacter<?> character) {
             if (character.getFinalSpeed() >= 145) {
                 return 20;
             }

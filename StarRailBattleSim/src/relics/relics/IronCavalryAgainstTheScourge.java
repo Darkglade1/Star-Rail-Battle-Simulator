@@ -9,11 +9,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class IronCavalryAgainstTheScourge extends AbstractRelicSetBonus {
-    public IronCavalryAgainstTheScourge(AbstractCharacter owner, boolean fullSet) {
+    public IronCavalryAgainstTheScourge(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public IronCavalryAgainstTheScourge(AbstractCharacter owner) {
+    public IronCavalryAgainstTheScourge(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -32,7 +32,7 @@ public class IronCavalryAgainstTheScourge extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionDefenseIgnore(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionDefenseIgnore(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (damageTypes.contains(AbstractCharacter.DamageType.SUPER_BREAK)) {
                 return 25;
             }

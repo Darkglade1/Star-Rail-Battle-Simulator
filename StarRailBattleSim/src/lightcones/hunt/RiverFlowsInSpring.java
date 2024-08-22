@@ -10,7 +10,7 @@ import powers.PowerStat;
  */
 public class RiverFlowsInSpring extends AbstractLightcone {
 
-    public RiverFlowsInSpring(AbstractCharacter owner) {
+    public RiverFlowsInSpring(AbstractCharacter<?> owner) {
         super(847, 476, 397, owner);
     }
 

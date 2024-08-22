@@ -9,11 +9,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class PrisonerInDeepConfinement extends AbstractRelicSetBonus {
-    public PrisonerInDeepConfinement(AbstractCharacter owner, boolean fullSet) {
+    public PrisonerInDeepConfinement(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public PrisonerInDeepConfinement(AbstractCharacter owner) {
+    public PrisonerInDeepConfinement(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -32,7 +32,7 @@ public class PrisonerInDeepConfinement extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionDefenseIgnore(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionDefenseIgnore(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             int mul = (int) Math.min(3, enemy.powerList
                     .stream()
                     .filter(p -> p.type == PowerType.DOT)

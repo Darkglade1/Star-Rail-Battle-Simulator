@@ -14,7 +14,7 @@ public class IShallBeMyOwnSword extends AbstractLightcone {
 
     private int eclipse = 0;
 
-    public IShallBeMyOwnSword(AbstractCharacter owner) {
+    public IShallBeMyOwnSword(AbstractCharacter<?> owner) {
         super(1164, 582, 397, owner);
     }
 
@@ -29,7 +29,7 @@ public class IShallBeMyOwnSword extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         eclipse = 0;
     }
 
@@ -43,21 +43,21 @@ public class IShallBeMyOwnSword extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (character != lightcone.owner) return 0;
 
             return eclipse * 14;
         }
 
         @Override
-        public float getConditionDefenseIgnore(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionDefenseIgnore(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (character != lightcone.owner) return 0;
 
             return eclipse == 3 ? 12 : 0;
         }
 
         @Override
-        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+        public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
             eclipse = Math.min(3, eclipse + 1);
         }
     }

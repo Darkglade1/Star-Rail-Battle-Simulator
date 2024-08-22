@@ -12,11 +12,11 @@ import relics.AbstractRelicSetBonus;
  */
 public class WatchMakerMasterOfDreamMachinations extends AbstractRelicSetBonus {
 
-    public WatchMakerMasterOfDreamMachinations(AbstractCharacter owner, boolean fullSet) {
+    public WatchMakerMasterOfDreamMachinations(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public WatchMakerMasterOfDreamMachinations(AbstractCharacter owner) {
+    public WatchMakerMasterOfDreamMachinations(AbstractCharacter<?> owner) {
         super(owner);
     }
 

@@ -7,7 +7,7 @@ import powers.PowerStat;
 import powers.TempPower;
 
 public class IndeliblePromise extends AbstractLightcone {
-    public IndeliblePromise(AbstractCharacter owner) {
+    public IndeliblePromise(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 

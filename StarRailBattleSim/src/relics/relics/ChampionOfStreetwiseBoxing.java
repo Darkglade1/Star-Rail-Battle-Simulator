@@ -9,11 +9,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class ChampionOfStreetwiseBoxing extends AbstractRelicSetBonus {
-    public ChampionOfStreetwiseBoxing(AbstractCharacter owner, boolean fullSet) {
+    public ChampionOfStreetwiseBoxing(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public ChampionOfStreetwiseBoxing(AbstractCharacter owner) {
+    public ChampionOfStreetwiseBoxing(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -37,17 +37,17 @@ public class ChampionOfStreetwiseBoxing extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalAtkBonus(AbstractCharacter character) {
+        public float getConditionalAtkBonus(AbstractCharacter<?> character) {
             return 5 * this.stacks;
         }
 
         @Override
-        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+        public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
             this.stacks = Math.min(this.stacks + 1, 5);
         }
 
         @Override
-        public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+        public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             this.stacks = Math.min(this.stacks + 1, 5);
         }
     }

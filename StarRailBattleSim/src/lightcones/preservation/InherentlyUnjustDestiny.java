@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class InherentlyUnjustDestiny extends AbstractLightcone {
 
-    public InherentlyUnjustDestiny(AbstractCharacter owner) {
+    public InherentlyUnjustDestiny(AbstractCharacter<?> owner) {
         super(1058, 423, 662, owner);
     }
 
@@ -26,7 +26,7 @@ public class InherentlyUnjustDestiny extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.FOLLOW_UP)) return;
 
         // TODO: Take EHR into account

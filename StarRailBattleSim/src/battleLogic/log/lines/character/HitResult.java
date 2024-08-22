@@ -7,7 +7,7 @@ import enemies.AbstractEnemy;
 
 public class HitResult implements Loggable {
 
-    public final AbstractCharacter source;
+    public final AbstractCharacter<?> source;
     public final AbstractEnemy target;
     public final double calculatedDamage;
     public final double baseDamage;
@@ -17,7 +17,7 @@ public class HitResult implements Loggable {
     public final double damageTakenMultiplier;
     public final double toughnessMultiplier;
 
-    public HitResult(AbstractCharacter source, AbstractEnemy target, double calculatedDamage, double baseDamage,
+    public HitResult(AbstractCharacter<?> source, AbstractEnemy target, double calculatedDamage, double baseDamage,
                       double dmgMultiplier, double defMultiplier, double resMultiplier,
                       double damageTakenMultiplier, double toughnessMultiplier) {
         this.source = source;

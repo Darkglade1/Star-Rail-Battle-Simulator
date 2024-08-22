@@ -1,6 +1,6 @@
 package battleLogic;
 
-import characters.Robin;
+import characters.robin.Robin;
 
 public class Concerto extends AbstractEntity {
     Robin owner;

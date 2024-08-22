@@ -10,7 +10,7 @@ import powers.PowerStat;
  */
 public class PostOpConversation extends AbstractLightcone {
 
-    public PostOpConversation(AbstractCharacter owner) {
+    public PostOpConversation(AbstractCharacter<?> owner) {
         super(1058, 423, 331, owner);
     }
 

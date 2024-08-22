@@ -15,11 +15,11 @@ public class NightOnTheMilkyWay extends AbstractLightcone {
     /**
      * Constructor for NightOnTheMilkyWay, with a default weakness boost uptime of 50%
      */
-    public NightOnTheMilkyWay(AbstractCharacter owner) {
+    public NightOnTheMilkyWay(AbstractCharacter<?> owner) {
         this(owner, 50);
     }
 
-    public NightOnTheMilkyWay(AbstractCharacter owner, int weaknessBoostUptime) {
+    public NightOnTheMilkyWay(AbstractCharacter<?> owner, int weaknessBoostUptime) {
         super(1164, 582, 397, owner);
         this.weaknessBoostUptime = weaknessBoostUptime;
     }
@@ -36,12 +36,12 @@ public class NightOnTheMilkyWay extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalAtkBonus(AbstractCharacter character) {
+        public float getConditionalAtkBonus(AbstractCharacter<?> character) {
             return 15 * getBattle().getEnemies().size();
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (getBattle().getMilkyWayRng().nextInt(100) < weaknessBoostUptime) {
                 return 50;
             }

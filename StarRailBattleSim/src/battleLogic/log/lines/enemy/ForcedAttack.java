@@ -8,9 +8,9 @@ import enemies.AbstractEnemy;
 public class ForcedAttack implements Loggable {
 
     public final AbstractEnemy enemy;
-    public final AbstractCharacter hit;
+    public final AbstractCharacter<?> hit;
 
-    public ForcedAttack(AbstractEnemy enemy, AbstractCharacter hit) {
+    public ForcedAttack(AbstractEnemy enemy, AbstractCharacter<?> hit) {
         this.enemy = enemy;
         this.hit = hit;
     }

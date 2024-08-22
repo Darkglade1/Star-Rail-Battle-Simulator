@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class IVentureForthToHunt extends AbstractLightcone {
 
-    public IVentureForthToHunt(AbstractCharacter owner) {
+    public IVentureForthToHunt(AbstractCharacter<?> owner) {
         super(953, 635, 463, owner);
     }
 
@@ -37,7 +37,7 @@ public class IVentureForthToHunt extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionDefenseIgnore(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionDefenseIgnore(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (damageTypes.contains(AbstractCharacter.DamageType.ULTIMATE) && this.stacks > 0) {
                 return 27 * this.stacks;
             }

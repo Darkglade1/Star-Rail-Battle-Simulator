@@ -8,7 +8,7 @@ import powers.TempPower;
 
 public class ThisIsMe extends AbstractLightcone {
 
-    public ThisIsMe(AbstractCharacter owner) {
+    public ThisIsMe(AbstractCharacter<?> owner) {
         super(847, 370, 529, owner);
     }
 

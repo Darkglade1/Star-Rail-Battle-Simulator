@@ -14,9 +14,9 @@ public interface IBattle {
     boolean usedEntryTechnique();
     void setUsedEntryTechnique(boolean usedEntryTechnique);
 
-    List<AbstractCharacter> getPlayers();
+    List<AbstractCharacter<?>> getPlayers();
     boolean hasCharacter(String name);
-    AbstractCharacter getCharacter(String name);
+    AbstractCharacter<?> getCharacter(String name);
 
     List<AbstractEnemy> getEnemies();
     AbstractEnemy getMiddleEnemy();
@@ -32,22 +32,22 @@ public interface IBattle {
     void IncreaseSpeed(AbstractEntity entity, AbstractPower speedPower);
     void DecreaseSpeed(AbstractEntity entity, AbstractPower speedPower);
 
-    void useSkillPoint(AbstractCharacter character, int amount);
-    void generateSkillPoint(AbstractCharacter character, int amount);
+    void useSkillPoint(AbstractCharacter<?> character, int amount);
+    void generateSkillPoint(AbstractCharacter<?> character, int amount);
     void increaseMaxSkillPoints(int maxSkillPoints);
     int getSkillPoints();
 
     void addToLog(Loggable addition);
 
-    HashMap<AbstractCharacter, Float> getDamageContributionMap();
-    HashMap<AbstractCharacter, Float> getDamageContributionMapPercent();
+    HashMap<AbstractCharacter<?>, Float> getDamageContributionMap();
+    HashMap<AbstractCharacter<?>, Float> getDamageContributionMapPercent();
     HashMap<AbstractEntity, Float> getActionValueMap();
     int getTotalPlayerDmg();
     float getActionValueUsed();
     float getFinalDPAV();
     int getTotalSkillPointsUsed();
     int getTotalSkillPointsGenerated();
-    void updateContribution(AbstractCharacter character, float damageContribution);
+    void updateContribution(AbstractCharacter<?> character, float damageContribution);
     void increaseTotalPlayerDmg(float dmg);
     float initialLength();
     float battleLength();

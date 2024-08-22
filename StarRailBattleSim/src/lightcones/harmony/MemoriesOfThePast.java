@@ -12,7 +12,7 @@ public class MemoriesOfThePast extends AbstractLightcone {
 
     private boolean canRegen = true;
 
-    public MemoriesOfThePast(AbstractCharacter owner) {
+    public MemoriesOfThePast(AbstractCharacter<?> owner) {
         super(953, 423, 397, owner);
     }
 
@@ -27,7 +27,7 @@ public class MemoriesOfThePast extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!this.canRegen) return;
 
         this.owner.increaseEnergy(8);

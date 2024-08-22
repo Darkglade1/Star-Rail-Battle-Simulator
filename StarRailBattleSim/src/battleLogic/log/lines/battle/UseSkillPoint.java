@@ -6,12 +6,12 @@ import characters.AbstractCharacter;
 
 public class UseSkillPoint implements Loggable {
 
-    public final AbstractCharacter character;
+    public final AbstractCharacter<?> character;
     public final int amount;
     public final int from;
     public final int to;
 
-    public UseSkillPoint(AbstractCharacter character, int amount, int from, int to) {
+    public UseSkillPoint(AbstractCharacter<?> character, int amount, int from, int to) {
         this.character = character;
         this.amount = amount;
         this.from = from;

@@ -9,11 +9,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class GeniusOfBrilliantStars extends AbstractRelicSetBonus {
-    public GeniusOfBrilliantStars(AbstractCharacter owner, boolean fullSet) {
+    public GeniusOfBrilliantStars(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public GeniusOfBrilliantStars(AbstractCharacter owner) {
+    public GeniusOfBrilliantStars(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -34,7 +34,7 @@ public class GeniusOfBrilliantStars extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionDefenseIgnore(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionDefenseIgnore(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (enemy.weaknessMap.contains(AbstractCharacter.ElementType.QUANTUM)) {
                 return 10 * 2;
             }

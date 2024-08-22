@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * 4PC CD bonus is currently not working, need to implement a more complete weakness break for it
  */
 public class WastelandOfBanditryDesert extends AbstractRelicSetBonus {
-    public WastelandOfBanditryDesert(AbstractCharacter owner, boolean fullSet) {
+    public WastelandOfBanditryDesert(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public WastelandOfBanditryDesert(AbstractCharacter owner) {
+    public WastelandOfBanditryDesert(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -28,12 +28,12 @@ public class WastelandOfBanditryDesert extends AbstractRelicSetBonus {
     }
 
     public static class WastelandOfBanditryDesert4PC extends PermPower {
-        public WastelandOfBanditryDesert4PC(AbstractCharacter owner) {
+        public WastelandOfBanditryDesert4PC(AbstractCharacter<?> owner) {
             super("Wasteland of Banditry Desert 4PC bonus");
         }
 
         @Override
-        public float getConditionalCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritRate(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (enemy.powerList.stream().noneMatch(p -> p.type == PowerType.DEBUFF)) {
                 return 0;
             }
@@ -42,7 +42,7 @@ public class WastelandOfBanditryDesert extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritDamage(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             //if (enemy.powerList.stream().noneMatch(p -> p.name.equals(WeaknessBreak.IMPRISONED))) {
             //    return 0;
             //}

@@ -13,7 +13,7 @@ public class DreamvilleAdventure extends AbstractLightcone {
     private AbstractCharacter.DamageType currBenefit;
     AbstractPower childishness = new Childishness();
 
-    public DreamvilleAdventure(AbstractCharacter owner) {
+    public DreamvilleAdventure(AbstractCharacter<?> owner) {
         super(953, 423, 397, owner);
     }
 
@@ -42,7 +42,7 @@ public class DreamvilleAdventure extends AbstractLightcone {
             this.name = this.getClass().getSimpleName();
         }
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (currBenefit == null) {
                 return 0;
             }

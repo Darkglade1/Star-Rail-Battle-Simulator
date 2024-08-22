@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class TheBirthOfTheSelf extends AbstractLightcone {
 
-    public TheBirthOfTheSelf(AbstractCharacter owner) {
+    public TheBirthOfTheSelf(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
@@ -24,7 +24,7 @@ public class TheBirthOfTheSelf extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) return 0;
             // if (enemy.getCurrentHp() < enemy.baseHP / 2) {
             //    return 96;

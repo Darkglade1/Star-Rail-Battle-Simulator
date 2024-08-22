@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class PatienceIsAllYouNeed extends AbstractLightcone {
 
-    public PatienceIsAllYouNeed(AbstractCharacter owner) {
+    public PatienceIsAllYouNeed(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
         throw new UnsupportedOperationException("Not implemented, stacking speed buffs currently doesn't work.");
     }
@@ -21,7 +21,7 @@ public class PatienceIsAllYouNeed extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (character == null) return;
         character.addPower(new PatienceIsAllYouNeedSpeedBoost());
     }

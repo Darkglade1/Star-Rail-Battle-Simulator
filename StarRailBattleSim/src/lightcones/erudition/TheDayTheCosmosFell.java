@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class TheDayTheCosmosFell extends AbstractLightcone {
 
-    public TheDayTheCosmosFell(AbstractCharacter owner) {
+    public TheDayTheCosmosFell(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
@@ -21,7 +21,7 @@ public class TheDayTheCosmosFell extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (enemiesHit.stream()
                 .filter(e -> e.weaknessMap.contains(this.owner.elementType))
                 .count() < 2) return;

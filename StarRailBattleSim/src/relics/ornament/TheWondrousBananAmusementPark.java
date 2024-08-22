@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TheWondrousBananAmusementPark extends AbstractRelicSetBonus {
-    public TheWondrousBananAmusementPark(AbstractCharacter owner, boolean fullSet) {
+    public TheWondrousBananAmusementPark(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public TheWondrousBananAmusementPark(AbstractCharacter owner) {
+    public TheWondrousBananAmusementPark(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -39,17 +39,17 @@ public class TheWondrousBananAmusementPark extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritDamage(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!(character instanceof AbstractSummoner)) {
                 return 0;
             }
 
-            List<AbstractSummon> allSummons = ((AbstractSummoner) character).getSummons();
+            List<? extends AbstractSummon<?>> allSummons = ((AbstractSummoner<?>) character).getSummons();
             boolean activeSummon = getBattle().getActionValueMap()
                     .keySet()
                     .stream()
                     .filter(c -> c instanceof AbstractSummon)
-                    .map(c -> (AbstractSummon) c)
+                    .map(c -> (AbstractSummon<?>) c)
                     .anyMatch(allSummons::contains);
 
             if (activeSummon) {

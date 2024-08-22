@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * Energy generation is not implemented yet, so this relic is not complete.
  */
 public class ThiefOfShootingMeteor extends AbstractRelicSetBonus {
-    public ThiefOfShootingMeteor(AbstractCharacter owner, boolean fullSet) {
+    public ThiefOfShootingMeteor(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public ThiefOfShootingMeteor(AbstractCharacter owner) {
+    public ThiefOfShootingMeteor(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -30,7 +30,7 @@ public class ThiefOfShootingMeteor extends AbstractRelicSetBonus {
     }
 
     @Override
-    public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void afterAttackFinish(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         // TODO: Generate 3 energy after weakness breaking, don't see a way to check if an enemy was broken this turn
     }
 }

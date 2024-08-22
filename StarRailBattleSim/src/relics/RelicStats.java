@@ -24,7 +24,7 @@ public class RelicStats {
         this.addMainStat(Stats.HP_FLAT).addMainStat(Stats.ATK_FLAT);
     }
 
-    public void equipTo(AbstractCharacter character) {
+    public void equipTo(AbstractCharacter<?> character) {
         PermPower relicBonus = new PermPower();
 
         relicBonus.setStat(PowerStat.FLAT_HP, getTotalBonus(Stats.HP_FLAT));

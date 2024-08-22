@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class OnlySilenceRemains extends AbstractLightcone {
 
-    public OnlySilenceRemains(AbstractCharacter owner) {
+    public OnlySilenceRemains(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
@@ -27,7 +27,7 @@ public class OnlySilenceRemains extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritRate(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (getBattle().getEnemies().size() < 3) {
                 return 24;
             }

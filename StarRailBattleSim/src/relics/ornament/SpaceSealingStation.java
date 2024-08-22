@@ -6,11 +6,11 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class SpaceSealingStation extends AbstractRelicSetBonus {
-    public SpaceSealingStation(AbstractCharacter owner, boolean fullSet) {
+    public SpaceSealingStation(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public SpaceSealingStation(AbstractCharacter owner) {
+    public SpaceSealingStation(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -30,7 +30,7 @@ public class SpaceSealingStation extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalAtkBonus(AbstractCharacter character) {
+        public float getConditionalAtkBonus(AbstractCharacter<?> character) {
             if (character.getFinalSpeed() >= 120) {
                 return 12;
             }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Fermata extends AbstractLightcone {
 
-    public Fermata(AbstractCharacter owner) {
+    public Fermata(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
@@ -26,7 +26,7 @@ public class Fermata extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             // TODO: Check for Wind & Shock
 
             return 32;

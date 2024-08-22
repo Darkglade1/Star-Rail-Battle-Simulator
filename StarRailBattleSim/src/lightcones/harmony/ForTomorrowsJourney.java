@@ -8,7 +8,7 @@ import powers.TempPower;
 
 public class ForTomorrowsJourney extends AbstractLightcone {
 
-    public ForTomorrowsJourney(AbstractCharacter owner) {
+    public ForTomorrowsJourney(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 

@@ -14,12 +14,15 @@ public class FinalDmgMetrics implements Loggable {
 
     public final int totalPlayerDmg;
     public final float actionValueUsed;
-    public final Map<AbstractCharacter, Float> totalDamageDealt;
+    public final Map<AbstractCharacter<?>, Float> totalDamageDealt;
 
     public FinalDmgMetrics(IBattle battle) {
         this.totalPlayerDmg = battle.getTotalPlayerDmg();
         this.actionValueUsed = battle.getActionValueUsed();
         this.totalDamageDealt = new HashMap<>(battle.getDamageContributionMap());
+        battle.getPlayers().forEach(p -> {
+            this.totalDamageDealt.putIfAbsent(p, 0f);
+        });
     }
 
     @Override

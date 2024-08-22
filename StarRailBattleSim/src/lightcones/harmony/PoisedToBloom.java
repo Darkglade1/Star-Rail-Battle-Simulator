@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class PoisedToBloom extends AbstractLightcone {
 
-    public PoisedToBloom(AbstractCharacter owner) {
+    public PoisedToBloom(AbstractCharacter<?> owner) {
         super(953, 423, 397, owner);
     }
 

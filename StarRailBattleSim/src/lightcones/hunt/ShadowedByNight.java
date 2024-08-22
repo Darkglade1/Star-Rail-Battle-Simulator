@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ShadowedByNight extends AbstractLightcone {
 
-    public ShadowedByNight(AbstractCharacter owner) {
+    public ShadowedByNight(AbstractCharacter<?> owner) {
         super(847, 476, 397, owner);
     }
 
@@ -28,7 +28,7 @@ public class ShadowedByNight extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.BREAK)) return;
 
         getBattle().IncreaseSpeed(this.owner, new ShadowedByNightPower());

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class EyesOfThePrey extends AbstractLightcone {
 
-    public EyesOfThePrey(AbstractCharacter owner) {
+    public EyesOfThePrey(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
@@ -26,7 +26,7 @@ public class EyesOfThePrey extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.DOT)) return 0;
 
             return 48;

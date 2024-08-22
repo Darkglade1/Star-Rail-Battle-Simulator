@@ -10,7 +10,7 @@ import powers.PowerStat;
  */
 public class TheSeriousnessOfBreakfast extends AbstractLightcone {
 
-    public TheSeriousnessOfBreakfast(AbstractCharacter owner) {
+    public TheSeriousnessOfBreakfast(AbstractCharacter<?> owner) {
         super(847, 476, 397, owner);
     }
 

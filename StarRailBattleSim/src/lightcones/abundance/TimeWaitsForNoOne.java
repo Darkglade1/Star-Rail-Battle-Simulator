@@ -10,7 +10,7 @@ import powers.PowerStat;
  */
 public class TimeWaitsForNoOne extends AbstractLightcone {
 
-    public TimeWaitsForNoOne(AbstractCharacter owner) {
+    public TimeWaitsForNoOne(AbstractCharacter<?> owner) {
         super(1270, 476, 463, owner);
     }
 

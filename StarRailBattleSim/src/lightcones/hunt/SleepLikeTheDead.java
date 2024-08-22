@@ -16,7 +16,7 @@ public class SleepLikeTheDead extends AbstractLightcone {
 
     private int cooldown = 0;
 
-    public SleepLikeTheDead(AbstractCharacter owner) {
+    public SleepLikeTheDead(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
     }
 
@@ -26,7 +26,7 @@ public class SleepLikeTheDead extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (this.cooldown == 0) {
             this.owner.addPower(TempPower.create(PowerStat.CRIT_CHANCE, 36, 1, "Sleep Like The Dead Crit Chance Boost"));
         }

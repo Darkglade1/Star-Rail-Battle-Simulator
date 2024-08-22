@@ -7,7 +7,7 @@ import powers.PowerStat;
 
 public class SharedFeeling extends AbstractLightcone {
 
-    public SharedFeeling( AbstractCharacter owner) {
+    public SharedFeeling( AbstractCharacter<?> owner) {
         super(953, 423, 397, owner);
     }
 

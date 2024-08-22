@@ -12,11 +12,11 @@ public class Swordplay extends AbstractLightcone {
 
     private AbstractEnemy target;
 
-    public Swordplay(AbstractCharacter owner) {
+    public Swordplay(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
-    public void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onBeforeHitEnemy(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types) {
         AbstractPower swordPlayDamagePower = new SwordplayDamagePower();
         if (target != enemy) {
             owner.removePower(swordPlayDamagePower.name);
@@ -35,7 +35,7 @@ public class Swordplay extends AbstractLightcone {
             this.maxStacks = 5;
         }
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             return 16 * stacks;
         }
     }

@@ -9,7 +9,7 @@ import powers.TempPower;
 
 public class AfterTheCharmonyFall extends AbstractLightcone {
 
-    public AfterTheCharmonyFall(AbstractCharacter owner) {
+    public AfterTheCharmonyFall(AbstractCharacter<?> owner) {
         super(847, 476, 397, owner);
     }
 

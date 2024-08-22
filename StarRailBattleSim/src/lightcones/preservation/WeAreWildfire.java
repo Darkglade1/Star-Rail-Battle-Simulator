@@ -5,7 +5,7 @@ import lightcones.AbstractLightcone;
 
 public class WeAreWildfire extends AbstractLightcone {
 
-    public WeAreWildfire(AbstractCharacter owner) {
+    public WeAreWildfire(AbstractCharacter<?> owner) {
         super(741, 476, 463, owner);
     }
 

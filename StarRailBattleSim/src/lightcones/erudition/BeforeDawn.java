@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class BeforeDawn extends AbstractLightcone {
 
-    public BeforeDawn(AbstractCharacter owner) {
+    public BeforeDawn(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
     }
 
@@ -30,7 +30,7 @@ public class BeforeDawn extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP) && hasSomnusCorpus) {
                 this.hasSomnusCorpus = false;
                 return 48;

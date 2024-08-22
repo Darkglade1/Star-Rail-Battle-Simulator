@@ -12,11 +12,11 @@ import relics.AbstractRelicSetBonus;
  */
 public class MessengerTraversingHackerspace extends AbstractRelicSetBonus {
 
-    public MessengerTraversingHackerspace(AbstractCharacter owner, boolean fullSet) {
+    public MessengerTraversingHackerspace(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public MessengerTraversingHackerspace(AbstractCharacter owner) {
+    public MessengerTraversingHackerspace(AbstractCharacter<?> owner) {
         super(owner);
     }
 

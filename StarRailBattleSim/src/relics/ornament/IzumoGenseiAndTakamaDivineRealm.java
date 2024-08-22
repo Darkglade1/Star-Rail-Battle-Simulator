@@ -7,11 +7,11 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class IzumoGenseiAndTakamaDivineRealm extends AbstractRelicSetBonus {
-    public IzumoGenseiAndTakamaDivineRealm(AbstractCharacter owner, boolean fullSet) {
+    public IzumoGenseiAndTakamaDivineRealm(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public IzumoGenseiAndTakamaDivineRealm(AbstractCharacter owner) {
+    public IzumoGenseiAndTakamaDivineRealm(AbstractCharacter<?> owner) {
         super(owner);
     }
 

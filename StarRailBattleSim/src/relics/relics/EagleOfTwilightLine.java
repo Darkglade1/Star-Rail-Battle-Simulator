@@ -10,11 +10,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class EagleOfTwilightLine extends AbstractRelicSetBonus {
-    public EagleOfTwilightLine(AbstractCharacter owner, boolean fullSet) {
+    public EagleOfTwilightLine(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public EagleOfTwilightLine(AbstractCharacter owner) {
+    public EagleOfTwilightLine(AbstractCharacter<?> owner) {
         super(owner);
     }
 

@@ -10,7 +10,7 @@ import powers.PowerStat;
  */
 public class WhatIsReal extends AbstractLightcone {
 
-    public WhatIsReal(AbstractCharacter owner) {
+    public WhatIsReal(AbstractCharacter<?> owner) {
         super(1058, 423, 331, owner);
     }
 

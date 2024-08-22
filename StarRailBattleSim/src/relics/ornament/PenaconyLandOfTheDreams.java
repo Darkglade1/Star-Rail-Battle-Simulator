@@ -7,11 +7,11 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class PenaconyLandOfTheDreams extends AbstractRelicSetBonus {
-    public PenaconyLandOfTheDreams(AbstractCharacter owner, boolean fullSet) {
+    public PenaconyLandOfTheDreams(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public PenaconyLandOfTheDreams(AbstractCharacter owner) {
+    public PenaconyLandOfTheDreams(AbstractCharacter<?> owner) {
         super(owner);
     }
 

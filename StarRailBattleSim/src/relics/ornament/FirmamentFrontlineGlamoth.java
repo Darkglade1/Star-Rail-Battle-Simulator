@@ -9,11 +9,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class FirmamentFrontlineGlamoth extends AbstractRelicSetBonus {
-    public FirmamentFrontlineGlamoth(AbstractCharacter owner, boolean fullSet) {
+    public FirmamentFrontlineGlamoth(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public FirmamentFrontlineGlamoth(AbstractCharacter owner) {
+    public FirmamentFrontlineGlamoth(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -33,7 +33,7 @@ public class FirmamentFrontlineGlamoth extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (FirmamentFrontlineGlamoth.this.owner.getFinalSpeed() > 160) {
                 return 18;
             }

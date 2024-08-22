@@ -13,7 +13,7 @@ import java.util.ArrayList;
 // TODO: The wave boost isn't implemented yet, doesn't seem like Battle has a concept of waves
 public class SheAlreadyShutHerEyes extends AbstractLightcone {
 
-    public SheAlreadyShutHerEyes(AbstractCharacter owner) {
+    public SheAlreadyShutHerEyes(AbstractCharacter<?> owner) {
         super(1270, 423, 529, owner);
     }
 
@@ -24,11 +24,11 @@ public class SheAlreadyShutHerEyes extends AbstractLightcone {
     }
 
     @Override
-    public void onAttacked(AbstractCharacter c, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+    public void onAttacked(AbstractCharacter<?> c, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         // TODO: Check if owner has shield, and if it has more than the attack
         // if (...) return;
 
-        for (AbstractCharacter character : getBattle().getPlayers()) {
+        for (AbstractCharacter<?> character : getBattle().getPlayers()) {
             character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 9, 2, "She Already Shut Her Eyes Damage Boost"));
         }
     }

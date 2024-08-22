@@ -44,25 +44,25 @@ public abstract class AbstractPower implements BattleEvents,BattleParticipant {
         return this.owner.getBattle();
     }
 
-    public float getConditionalAtkBonus(AbstractCharacter character) {
+    public float getConditionalAtkBonus(AbstractCharacter<?> character) {
         return 0;
     }
 
-    public float getConditionalERR(AbstractCharacter character) {
+    public float getConditionalERR(AbstractCharacter<?> character) {
         return 0;
     }
 
     /**
      * Increase damage dealt by the character when attacking the enemy
      */
-    public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+    public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
 
     /**
      * Increases incoming damage
      */
-    public float getConditionalDamageTaken(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+    public float getConditionalDamageTaken(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
 
@@ -70,43 +70,43 @@ public abstract class AbstractPower implements BattleEvents,BattleParticipant {
      * Increase damage dealt by the character when attacking the enemy
      * Use this for DMG Boosts, that are applied as a debug on targets
      */
-    public float receiveConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+    public float receiveConditionalDamageBonus(AbstractCharacter<?>  character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
 
-    public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+    public float getConditionalCritDamage(AbstractCharacter<?>  character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
-    public float getConditionalCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+    public float getConditionalCritRate(AbstractCharacter<?>  character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
-    public float receiveConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-        return 0;
-    }
-
-    public float getConditionDefenseIgnore(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+    public float receiveConditionalCritDamage(AbstractCharacter<?>  character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
         return 0;
     }
 
-    public float setFixedCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes, float currentCrit) {
+    public float getConditionDefenseIgnore(AbstractCharacter<?>  character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        return 0;
+    }
+
+    public float setFixedCritRate(AbstractCharacter<?>  character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes, float currentCrit) {
         return currentCrit;
     }
 
-    public float setFixedCritDmg(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes, float currentCritDmg) {
+    public float setFixedCritDmg(AbstractCharacter<?>  character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes, float currentCritDmg) {
         return currentCritDmg;
     }
 
     /**
      * @return A def% bonus
      */
-    public float getConditionalDefenseBonus(AbstractCharacter character) {
+    public float getConditionalDefenseBonus(AbstractCharacter<?>  character) {
         return 0;
     }
 
     /**
      * @return A break% bonus
      */
-    public float getConditionalBreakEffectBonus(AbstractCharacter character) {
+    public float getConditionalBreakEffectBonus(AbstractCharacter<?>  character) {
         return 0;
     }
 

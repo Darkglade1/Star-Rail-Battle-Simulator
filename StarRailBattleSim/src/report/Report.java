@@ -40,7 +40,7 @@ public class Report {
             HashMap<String, ArrayList<String>> damageContributionMap = new HashMap<>();
             HashMap<String, ArrayList<String>> characterMetricOrderList = new HashMap<>();
 
-            ArrayList<AbstractCharacter> baseline = baselineTeam.getTeam();
+            ArrayList<AbstractCharacter<?>> baseline = baselineTeam.getTeam();
             float baselineDPAV;
             HashMap<Float, PlayerTeam> DPAVtracker = new HashMap<>();
             HashMap<PlayerTeam, Float> diffTracker = new HashMap<>();
@@ -55,7 +55,7 @@ public class Report {
             updateCharacterCSVs(battle, characterMetricsMap, characterTeamList, characterMetricOrderList, damageContributionMap, characterStatsMap, baseline, baselineTeam);
 
             for (PlayerTeam playerTeam : otherTeams) {
-                ArrayList<AbstractCharacter> otherTeam = playerTeam.getTeam();
+                ArrayList<AbstractCharacter<?>> otherTeam = playerTeam.getTeam();
                 battle = new Battle();
                 battle.setPlayerTeam(otherTeam);
                 battle.setEnemyTeam(enemyTeam.getTeam());
@@ -133,8 +133,8 @@ public class Report {
         }
     }
 
-    public void updateCharacterCSVs(IBattle battle, HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap, HashMap<String, ArrayList<String>> characterTeamList, HashMap<String, ArrayList<String>> characterMetricOrderList, HashMap<String, ArrayList<String>> damageContributionMap, HashMap<String, String> characterStatsMap, ArrayList<AbstractCharacter> team, PlayerTeam playerTeam) {
-        for (AbstractCharacter character : team) {
+    public void updateCharacterCSVs(IBattle battle, HashMap<String, HashMap<String, ArrayList<String>>> characterMetricsMap, HashMap<String, ArrayList<String>> characterTeamList, HashMap<String, ArrayList<String>> characterMetricOrderList, HashMap<String, ArrayList<String>> damageContributionMap, HashMap<String, String> characterStatsMap, ArrayList<AbstractCharacter<?>> team, PlayerTeam playerTeam) {
+        for (AbstractCharacter<?> character : team) {
             if (!characterMetricsMap.containsKey(character.name)) {
                 HashMap<String, ArrayList<String>> map = new HashMap<>();
                 characterMetricsMap.put(character.name, map);
