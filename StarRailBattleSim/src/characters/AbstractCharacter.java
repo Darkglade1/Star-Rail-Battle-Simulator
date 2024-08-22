@@ -127,7 +127,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
             UltGoal.UltGoalResult result = ultGoal.determineAction();
             switch (result) {
                 case DO: {
-                    getBattle().addToLog(new UltDecision(this, ultGoal.getClass(), result));
+                    getBattle().addToLog(new UltDecision(this, ultGoal.getClass()));
                     this.ultimateSequence();
                     return;
                 }

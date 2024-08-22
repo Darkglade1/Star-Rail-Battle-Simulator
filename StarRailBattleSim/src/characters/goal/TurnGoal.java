@@ -4,7 +4,7 @@ import battleLogic.BattleParticipant;
 import battleLogic.IBattle;
 import characters.AbstractCharacter;
 
-public abstract class TurnGoal<C extends AbstractCharacter> implements BattleParticipant {
+public abstract class TurnGoal<C extends AbstractCharacter<C>> implements BattleParticipant {
 
     protected final C character;
 
