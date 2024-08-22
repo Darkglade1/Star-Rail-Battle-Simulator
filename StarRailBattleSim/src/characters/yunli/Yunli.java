@@ -48,7 +48,8 @@ public class Yunli extends AbstractCharacter<Yunli> {
                 .setStat(PowerStat.CRIT_CHANCE, 6.7f)
                 .setStat(PowerStat.HP_PERCENT, 18));
 
-        this.registerGoal(0, new AlwaysUltGoal<>(this));
+        this.registerGoal(0, new YunliEmergancyUlt(this));
+        this.registerGoal(10, new UltIfNextIsEnemy(this));
         this.registerGoal(0, new YunliTurnGoal(this));
     }
 

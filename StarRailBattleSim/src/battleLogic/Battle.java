@@ -108,8 +108,28 @@ public class Battle implements IBattle {
     }
 
     @Override
+    public AbstractEntity getUnit(int index) {
+        if (index > this.actionValueMap.size()) {
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for actionValueMap size " + this.actionValueMap.size());
+        }
+
+        return this.actionValueMap
+                .entrySet()
+                .stream()
+                .sorted((e1, e2) -> {
+                    if (e1.getValue().equals(e2.getValue())) {
+                        return e1.getKey().speedPriority - e2.getKey().speedPriority;
+                    }
+                    return (int) (e1.getValue() - e2.getValue());
+                })
+                .collect(Collectors.toList())
+                .get(index)
+                .getKey();
+    }
+
+    @Override
     public boolean isAboutToEnd() {
-        AbstractEntity next = findLowestAVUnit(actionValueMap);
+        AbstractEntity next = findLowestAVUnit();
         return actionValueMap.get(next) > battleLength;
     }
 
@@ -221,7 +241,7 @@ public class Battle implements IBattle {
 
         while (battleLength > 0) {
             addToLog(new LeftOverAV(this.battleLength));
-            nextUnit = findLowestAVUnit(actionValueMap);
+            nextUnit = findLowestAVUnit();
             float nextAV = actionValueMap.get(nextUnit);
             if (nextAV > battleLength) {
                 for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
@@ -382,7 +402,7 @@ public class Battle implements IBattle {
         return enemy;
     }
 
-    private AbstractEntity findLowestAVUnit(HashMap<AbstractEntity, Float> actionValueMap) {
+    private AbstractEntity findLowestAVUnit() {
         AbstractEntity next = null;
         float nextAV = 999.0f;
         ArrayList<AbstractEntity> speedTieList = new ArrayList<>();
