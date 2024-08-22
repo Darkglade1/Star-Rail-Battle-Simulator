@@ -252,6 +252,8 @@ public class Battle implements IBattle {
                 isInCombat = false;
                 break;
             }
+            // TODO: Find a way to remove Yunli logic from here
+            // Ideally the battle loop does not care about the specifics of the characters
             if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
                 yunli.tryUltimate();
                 if (march != null && march.chargeCount >= march.chargeThreshold) {
@@ -265,6 +267,8 @@ public class Battle implements IBattle {
                 float newAV = entry.getValue() - nextAV;
                 entry.setValue(newAV);
             }
+            // TODO: Add event for PreTurnStart, this way Concerto could hook into it, and do it themselves
+            // Not sure if this is ideal
             if (nextUnit instanceof Concerto) {
                 addToLog(new ConcertoEnd());
                 actionValueMap.remove(nextUnit);
@@ -272,6 +276,7 @@ public class Battle implements IBattle {
                 nextUnit = ((Concerto) nextUnit).owner;
                 actionValueMap.put(nextUnit, 0.0f);
             }
+
             nextUnit.emit(BattleEvents::onTurnStart);
             if (nextUnit instanceof AbstractEnemy || nextUnit instanceof AbstractCharacter) {
                 if (actionValueMap.get(nextUnit) <= 0) {
@@ -298,28 +303,20 @@ public class Battle implements IBattle {
                 yunli.useSlash(getRandomEnemy());
             }
 
-            for (AbstractCharacter<?> character : playerTeam) {
-                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.tryUltimate();
-                }
-            }
-            // check again in case of energy regen ultimates
-            for (AbstractCharacter<?> character : playerTeam) {
-                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.tryUltimate();
-                }
-            }
+            getPlayers().stream()
+                    .filter(p -> !(p instanceof Yunli))
+                    .forEach(AbstractCharacter::tryUltimate);
+            getPlayers().stream()
+                    .filter(p -> !(p instanceof Yunli))
+                    .forEach(AbstractCharacter::tryUltimate);
 
             if (nextUnit instanceof AbstractSummon) {
                 actionValueMap.put(nextUnit, nextUnit.getBaseAV());
             }
 
-            // check again for optimizing robin's ult around numby
-            for (AbstractCharacter<?> character : playerTeam) {
-                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.tryUltimate();
-                }
-            }
+            getPlayers().stream()
+                    .filter(p -> !(p instanceof Yunli))
+                    .forEach(AbstractCharacter::tryUltimate);
         }
 
         this.generateMetrics();
