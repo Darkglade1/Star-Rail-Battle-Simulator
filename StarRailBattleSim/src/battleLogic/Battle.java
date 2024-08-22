@@ -54,6 +54,7 @@ public class Battle implements IBattle {
     public AbstractEntity nextUnit;
     public boolean usedEntryTechnique = false;
     public boolean isInCombat = false;
+    public boolean lessMetrics = false;
     public int actionForwardPriorityCounter = AbstractEntity.SPEED_PRIORITY_DEFAULT;
 
     public HashMap<AbstractCharacter, Float> damageContributionMap;
@@ -76,7 +77,6 @@ public class Battle implements IBattle {
         this.battleHelpers = new BattleHelpers(this);
         this.logger = new DefaultLogger(this);
     }
-
     public Battle(LogSupplier logger) {
         this.battleHelpers = new BattleHelpers(this);
         this.logger = logger.get(this);
@@ -302,8 +302,10 @@ public class Battle implements IBattle {
     }
 
     private void generateMetrics() {
-        this.playerTeam.forEach(p -> addToLog(new PostCombatPlayerMetrics(p)));
-        this.enemyTeam.forEach(e -> addToLog(new EnemyMetrics(e)));
+        this.playerTeam.forEach(p -> addToLog(new PostCombatPlayerMetrics(p, lessMetrics)));
+        if (!lessMetrics) {
+            this.enemyTeam.forEach(e -> addToLog(new EnemyMetrics(e)));
+        }
         finalDPAV = (float)totalPlayerDamage / initialBattleLength;
         addToLog(new BattleMetrics(this));
         addToLog(new FinalDmgMetrics(this));
