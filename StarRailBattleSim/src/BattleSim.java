@@ -10,9 +10,6 @@ import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
@@ -28,17 +25,11 @@ public class BattleSim {
         //generateReportFeixiao();
         //generateReportFeixiaoLightconeReport();
         //generateReportFeixiaoRelicReport();
-        //ameliasSuperDump();
+        //ameliasSanityCheck();
     }
 
     public static void debugTeam() {
-        Battle battle = new Battle(b -> {
-            try {
-                return new DefaultLogger(b, new PrintStream(new FileOutputStream("battle.log")));
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        Battle battle = new Battle();
 
 //        battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
