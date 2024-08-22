@@ -102,6 +102,7 @@ public class BattleSim {
         PlayerTeam baselineTeam = new FeixiaoTeamRelicCompareBaseline();
         ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
         otherTeams.add(new FeixiaoTeamRelicCompareDuke());
+        otherTeams.add(new FeixiaoTeamRelicCompareGenius());
         otherTeams.add(new FeixiaoTeamRelicCompare2PCDuke2PCAtk());
         otherTeams.add(new FeixiaoTeamRelicCompare2PCDuke2PCWind());
         otherTeams.add(new FeixiaoTeamRelicCompareIzumo());
