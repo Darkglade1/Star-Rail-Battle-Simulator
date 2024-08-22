@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Battle implements IBattle {
     public ArrayList<AbstractCharacter<?>> playerTeam;
@@ -205,7 +206,10 @@ public class Battle implements IBattle {
             character.emit(BattleEvents::onCombatStart);
         }
 
-        addToLog(new TriggerTechnique(this.playerTeam));
+        addToLog(new TriggerTechnique(this.playerTeam
+                .stream()
+                .filter(c -> c.useTechnique)
+                .collect(Collectors.toList())));
         for (AbstractCharacter<?> character : playerTeam) {
             if (character.useTechnique) {
                 character.useTechnique();
