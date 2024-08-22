@@ -1086,6 +1086,17 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoTeamRelicCompareGenius extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamRelicCompare(GeniusOfBrilliantStars::new, DuranDynastyOfRunningWolves::new, null);
+        }
+    }
+
     public static class FeixiaoTeamRelicCompare2PCDuke2PCAtk extends PlayerTeam {
         @Override
         public String toString() {

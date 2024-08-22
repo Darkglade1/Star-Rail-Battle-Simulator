@@ -115,6 +115,7 @@ public class BattleSim {
         PlayerTeam baselineTeam = new FeixiaoTeamRelicCompareBaseline();
         ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
         otherTeams.add(new FeixiaoTeamRelicCompareDuke());
+        otherTeams.add(new FeixiaoTeamRelicCompareGenius());
         otherTeams.add(new FeixiaoTeamRelicCompare2PCDuke2PCAtk());
         otherTeams.add(new FeixiaoTeamRelicCompare2PCDuke2PCWind());
         otherTeams.add(new FeixiaoTeamRelicCompareIzumo());
@@ -170,6 +171,7 @@ public class BattleSim {
         otherTeams.add(new PelaFeixiaoAventurineMarch());
         otherTeams.add(new FeixiaoTopazAventurineMarch());
         otherTeams.add(new FeixiaoMozeAventurineMarch());
+        otherTeams.add(new FeixiaoMozeGallagherMarch());
 
         ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
         enemyTeams.add(new FireWindImgLightningWeakTarget1());
