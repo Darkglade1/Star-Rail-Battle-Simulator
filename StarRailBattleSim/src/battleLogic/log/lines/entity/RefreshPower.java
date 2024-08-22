@@ -7,9 +7,9 @@ import powers.AbstractPower;
 
 public class RefreshPower implements Loggable {
 
-    private final AbstractEntity entity;
-    private final AbstractPower power;
-    private final int turns;
+    public final AbstractEntity entity;
+    public final AbstractPower power;
+    public final int turns;
 
     public RefreshPower(AbstractEntity entity, AbstractPower power, int turns) {
         this.entity = entity;

@@ -6,10 +6,10 @@ import battleLogic.log.Logger;
 
 public class LoseCharge implements Loggable {
 
-    private final AbstractEntity character;
-    private final int amount;
-    private final int initialCharge;
-    private final int chargeCount;
+    public final AbstractEntity character;
+    public final int amount;
+    public final int initialCharge;
+    public final int chargeCount;
 
     public LoseCharge(AbstractEntity character, int amount, int initialCharge, int chargeCount) {
         this.character = character;

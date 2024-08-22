@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 
 public class BattleMetrics implements Loggable {
 
-    private final int totalPlayerDmg;
-    private final float actionValueUsed;
-    private final float finalDPAV;
-    private final int totalSkillPointsUsed;
-    private final int totalSkillPointsGenerated;
-    private final Map<AbstractEntity, Float> finalActionValue;
-    private final Map<AbstractCharacter, Float> leftOverEnergy;
+    public final int totalPlayerDmg;
+    public final float actionValueUsed;
+    public final float finalDPAV;
+    public final int totalSkillPointsUsed;
+    public final int totalSkillPointsGenerated;
+    public final Map<AbstractEntity, Float> finalActionValue;
+    public final Map<AbstractCharacter, Float> leftOverEnergy;
 
     public BattleMetrics(IBattle battle) {
         this.totalPlayerDmg = battle.getTotalPlayerDmg();

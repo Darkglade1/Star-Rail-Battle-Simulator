@@ -7,7 +7,7 @@ import characters.Yunli;
 
 public class UseCull implements Loggable {
 
-    private final AbstractCharacter yunli;
+    public final AbstractCharacter yunli;
 
     public UseCull(Yunli yunli) {
         this.yunli = yunli;

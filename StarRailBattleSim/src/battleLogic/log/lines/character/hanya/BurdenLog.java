@@ -5,8 +5,8 @@ import battleLogic.log.Logger;
 
 public class BurdenLog implements Loggable {
 
-    private final int hitCount;
-    private final int hitsToTrigger;
+    public final int hitCount;
+    public final int hitsToTrigger;
 
     public BurdenLog(int hitCount, int hitsToTrigger) {
         this.hitCount = hitCount;

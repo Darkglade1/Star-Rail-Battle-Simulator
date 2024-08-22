@@ -5,9 +5,9 @@ import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 
 public class SpeedDelayEntity implements Loggable {
-    private final AbstractEntity entity;
-    private final float from;
-    private final float to;
+    public final AbstractEntity entity;
+    public final float from;
+    public final float to;
 
     public SpeedDelayEntity(AbstractEntity entity, float from, float to) {
         this.entity = entity;

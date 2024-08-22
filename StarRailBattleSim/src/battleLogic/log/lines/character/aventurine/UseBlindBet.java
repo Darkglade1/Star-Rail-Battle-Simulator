@@ -7,9 +7,9 @@ import characters.Aventurine;
 
 public class UseBlindBet implements Loggable {
 
-    private final AbstractCharacter character;
-    private final int initialBlindBet;
-    private final int blindBetCounter;
+    public final AbstractCharacter character;
+    public final int initialBlindBet;
+    public final int blindBetCounter;
 
     public UseBlindBet(Aventurine aventurine, int initialBlindBet, int blindBetCounter) {
         this.character = aventurine;

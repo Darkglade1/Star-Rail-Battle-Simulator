@@ -7,15 +7,15 @@ import enemies.AbstractEnemy;
 
 public class BreakDamageHitResult implements Loggable {
 
-    private final AbstractCharacter source;
-    private final AbstractEnemy target;
-    private final double calculatedDamage;
-    private final double baseDamage;
-    private final double breakEffectMultiplier;
-    private final double defMultiplier;
-    private final double resMultiplier;
-    private final double damageTakenMultiplier;
-    private final double toughnessMultiplier;
+    public final AbstractCharacter source;
+    public final AbstractEnemy target;
+    public final double calculatedDamage;
+    public final double baseDamage;
+    public final double breakEffectMultiplier;
+    public final double defMultiplier;
+    public final double resMultiplier;
+    public final double damageTakenMultiplier;
+    public final double toughnessMultiplier;
 
     public BreakDamageHitResult(AbstractCharacter source, AbstractEnemy target, double calculatedDamage, double baseDamage,
                                 double breakEffectMultiplier, double defMultiplier, double resMultiplier,

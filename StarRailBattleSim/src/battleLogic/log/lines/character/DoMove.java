@@ -5,10 +5,10 @@ import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
 public class DoMove implements Loggable {
-    private final AbstractCharacter character;
-    private final AbstractCharacter.MoveType moveType;
-    private final float initialEnergy;
-    private final float currentEnergy;
+    public final AbstractCharacter character;
+    public final AbstractCharacter.MoveType moveType;
+    public final float initialEnergy;
+    public final float currentEnergy;
 
     public DoMove(AbstractCharacter character, AbstractCharacter.MoveType moveType) {
         this.character = character;

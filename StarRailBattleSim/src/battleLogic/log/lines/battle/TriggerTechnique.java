@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class TriggerTechnique implements Loggable {
 
-    private final List<AbstractCharacter> characters;
+    public final List<AbstractCharacter> characters;
 
     public TriggerTechnique(List<AbstractCharacter> characters) {
         this.characters = characters;

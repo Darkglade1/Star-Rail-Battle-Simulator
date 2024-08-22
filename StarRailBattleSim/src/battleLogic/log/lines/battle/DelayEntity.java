@@ -6,10 +6,10 @@ import battleLogic.log.Logger;
 
 public class DelayEntity implements Loggable {
 
-    private final AbstractEntity entity;
-    private final float avDelta;
-    private final float from;
-    private final float to;
+    public final AbstractEntity entity;
+    public final float avDelta;
+    public final float from;
+    public final float to;
 
     public DelayEntity(AbstractEntity entity, float avDelta, float from, float to) {
         this.entity = entity;

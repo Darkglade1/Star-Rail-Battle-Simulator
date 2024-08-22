@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class PreCombatPlayerMetrics implements Loggable {
 
-    private final AbstractCharacter player;
-    private final Map<StatType, Float> outOfCombatStats = new HashMap<>();
-    private final Map<String, Boolean> relicSets = new HashMap<>();
+    public final AbstractCharacter player;
+    public final Map<StatType, Float> outOfCombatStats = new HashMap<>();
+    public final Map<String, Boolean> relicSets = new HashMap<>();
 
     public PreCombatPlayerMetrics(AbstractCharacter player) {
         this.player = player;

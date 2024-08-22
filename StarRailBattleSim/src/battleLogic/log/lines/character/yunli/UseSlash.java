@@ -7,7 +7,7 @@ import characters.Yunli;
 
 public class UseSlash implements Loggable {
 
-    private final AbstractCharacter yunli;
+    public final AbstractCharacter yunli;
 
     public UseSlash(Yunli yunli) {
         this.yunli = yunli;

@@ -6,7 +6,7 @@ import enemies.AbstractEnemy;
 
 public class SecondAction implements Loggable {
 
-    private final AbstractEnemy enemy;
+    public final AbstractEnemy enemy;
 
     public SecondAction(AbstractEnemy enemy) {
         this.enemy = enemy;

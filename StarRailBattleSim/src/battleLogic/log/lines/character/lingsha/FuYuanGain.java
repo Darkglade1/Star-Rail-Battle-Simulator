@@ -5,9 +5,9 @@ import battleLogic.log.Logger;
 
 public class FuYuanGain implements Loggable {
 
-    private final int amount;
-    private final int initalStack;
-    private final int fuYuanCurrentHitCount;
+    public final int amount;
+    public final int initalStack;
+    public final int fuYuanCurrentHitCount;
 
     public FuYuanGain(int amount, int initalStack, int fuYuanCurrentHitCount) {
         this.amount = amount;

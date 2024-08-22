@@ -7,9 +7,9 @@ import powers.AbstractPower;
 
 public class StackPower implements Loggable {
 
-    private final AbstractEntity entity;
-    private final AbstractPower power;
-    private final int stack;
+    public final AbstractEntity entity;
+    public final AbstractPower power;
+    public final int stack;
 
     public StackPower(AbstractEntity entity, AbstractPower power, int stack) {
         this.entity = entity;

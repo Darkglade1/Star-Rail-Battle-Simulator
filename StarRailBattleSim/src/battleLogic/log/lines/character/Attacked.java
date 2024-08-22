@@ -7,8 +7,8 @@ import enemies.AbstractEnemy;
 
 public class Attacked implements Loggable {
 
-    private final AbstractEnemy source;
-    private final AbstractCharacter target;
+    public final AbstractEnemy source;
+    public final AbstractCharacter target;
 
     public Attacked(AbstractEnemy source, AbstractCharacter target) {
         this.source = source;

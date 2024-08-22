@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class FinalDmgMetrics implements Loggable {
 
-    private final int totalPlayerDmg;
-    private final float actionValueUsed;
-    private final Map<AbstractCharacter, Float> totalDamageDealt;
+    public final int totalPlayerDmg;
+    public final float actionValueUsed;
+    public final Map<AbstractCharacter, Float> totalDamageDealt;
 
     public FinalDmgMetrics(IBattle battle) {
         this.totalPlayerDmg = battle.getTotalPlayerDmg();

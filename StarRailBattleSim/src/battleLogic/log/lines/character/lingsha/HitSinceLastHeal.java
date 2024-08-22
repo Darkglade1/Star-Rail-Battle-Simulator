@@ -6,8 +6,8 @@ import characters.AbstractCharacter;
 
 public class HitSinceLastHeal implements Loggable {
 
-    private final AbstractCharacter character;
-    private final int timesHit;
+    public final AbstractCharacter character;
+    public final int timesHit;
 
     public HitSinceLastHeal(AbstractCharacter character, int timesHit) {
         this.character = character;

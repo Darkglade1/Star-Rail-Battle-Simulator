@@ -6,8 +6,8 @@ import characters.AbstractCharacter;
 
 public class ExtraHits implements Loggable {
 
-    private final AbstractCharacter character;
-    private final int numExtraHits;
+    public final AbstractCharacter character;
+    public final int numExtraHits;
 
     public ExtraHits(AbstractCharacter character, int numExtraHits) {
         this.character = character;

@@ -5,10 +5,10 @@ import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 
 public class GainEnergy implements Loggable {
-    private final AbstractCharacter character;
-    private final float initialEnergy;
-    private final float currentEnergy;
-    private final float energyGained;
+    public final AbstractCharacter character;
+    public final float initialEnergy;
+    public final float currentEnergy;
+    public final float energyGained;
 
     public GainEnergy(AbstractCharacter character, float initialEnergy, float currentEnergy, float energyGained) {
         this.character = character;

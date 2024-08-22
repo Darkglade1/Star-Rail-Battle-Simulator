@@ -7,8 +7,8 @@ import powers.AbstractPower;
 
 public class GainPower implements Loggable {
 
-    private final AbstractEntity entity;
-    private final AbstractPower power;
+    public final AbstractEntity entity;
+    public final AbstractPower power;
 
     public GainPower(AbstractEntity entity, AbstractPower power) {
         this.entity = entity;

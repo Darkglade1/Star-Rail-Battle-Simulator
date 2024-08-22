@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class TurnStart implements Loggable {
 
-    private final AbstractEntity next;
-    private final float atAV;
-    private final HashMap<AbstractEntity, Float> actionValueMap;
+    public final AbstractEntity next;
+    public final float atAV;
+    public final HashMap<AbstractEntity, Float> actionValueMap;
 
     public TurnStart(AbstractEntity next, float atAV, HashMap<AbstractEntity, Float> actionValueMap) {
         this.next = next;

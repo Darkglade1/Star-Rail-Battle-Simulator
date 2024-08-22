@@ -5,7 +5,7 @@ import battleLogic.log.Logger;
 
 public class LeftOverAV implements Loggable {
 
-    private final float AV;
+    public final float AV;
 
     public LeftOverAV(float AV) {
         this.AV = AV;

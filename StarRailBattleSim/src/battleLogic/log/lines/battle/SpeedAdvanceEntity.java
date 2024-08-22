@@ -6,9 +6,9 @@ import battleLogic.log.Logger;
 
 public class SpeedAdvanceEntity implements Loggable {
 
-    private final AbstractEntity entity;
-    private final float from;
-    private final float to;
+    public final AbstractEntity entity;
+    public final float from;
+    public final float to;
 
     public SpeedAdvanceEntity(AbstractEntity entity, float from, float to) {
         this.entity = entity;

@@ -6,9 +6,9 @@ import enemies.AbstractEnemy;
 
 public class WeaknessBreakRecover implements Loggable {
 
-    private final AbstractEnemy enemy;
-    private final float from;
-    private final float to;
+    public final AbstractEnemy enemy;
+    public final float from;
+    public final float to;
 
     public WeaknessBreakRecover(AbstractEnemy enemy, float from, float to) {
         this.enemy = enemy;

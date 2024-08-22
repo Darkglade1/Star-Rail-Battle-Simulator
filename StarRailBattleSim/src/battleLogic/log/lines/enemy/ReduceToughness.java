@@ -6,10 +6,10 @@ import enemies.AbstractEnemy;
 
 public class ReduceToughness implements Loggable {
 
-    private final AbstractEnemy enemy;
-    private final float tDelta;
-    private final float from;
-    private final float to;
+    public final AbstractEnemy enemy;
+    public final float tDelta;
+    public final float from;
+    public final float to;
 
     public ReduceToughness(AbstractEnemy enemy, float tDelta, float from, float to) {
         this.enemy = enemy;

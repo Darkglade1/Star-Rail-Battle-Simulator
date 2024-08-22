@@ -6,14 +6,14 @@ import enemies.AbstractEnemy;
 
 public class EnemyMetrics implements Loggable {
 
-    private final AbstractEnemy enemy;
-    private final int speed;
-    private final int turnsTaken;
-    private final int totalAttacks;
-    private final int singleTargetAttacks;
-    private final int blastAttacks;
-    private final int AoEAttacks;
-    private final int weaknessBroken;
+    public final AbstractEnemy enemy;
+    public final int speed;
+    public final int turnsTaken;
+    public final int totalAttacks;
+    public final int singleTargetAttacks;
+    public final int blastAttacks;
+    public final int AoEAttacks;
+    public final int weaknessBroken;
 
     public EnemyMetrics(AbstractEnemy enemy) {
         this.enemy = enemy;
