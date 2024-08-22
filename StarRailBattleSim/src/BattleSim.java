@@ -157,6 +157,7 @@ public class BattleSim {
         otherTeams.add(new PelaFeixiaoAventurineMarch());
         otherTeams.add(new FeixiaoTopazAventurineMarch());
         otherTeams.add(new FeixiaoMozeAventurineMarch());
+        otherTeams.add(new FeixiaoMozeGallagherMarch());
 
         ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
         enemyTeams.add(new FireWindImgLightningWeakTarget1());
