@@ -4,6 +4,8 @@ import battleLogic.AbstractEntity;
 import battleLogic.BattleEvents;
 import battleLogic.log.lines.character.GainEnergy;
 import battleLogic.log.lines.character.DoMove;
+import battleLogic.log.lines.character.TurnDecision;
+import battleLogic.log.lines.character.UltDecision;
 import characters.goal.TurnGoal;
 import characters.goal.UltGoal;
 import enemies.AbstractEnemy;
@@ -125,6 +127,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
             UltGoal.UltGoalResult result = ultGoal.determineAction();
             switch (result) {
                 case DO: {
+                    getBattle().addToLog(new UltDecision(this, ultGoal.getClass(), result));
                     this.ultimateSequence();
                     return;
                 }
@@ -151,10 +154,12 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
             TurnGoal.TurnGoalResult result = turnGoal.determineAction();
             switch (result) {
                 case BASIC: {
+                    getBattle().addToLog(new TurnDecision(this, turnGoal.getClass(), result));
                     this.basicSequence();
                     return;
                 }
                 case SKILL: {
+                    getBattle().addToLog(new TurnDecision(this, turnGoal.getClass(), result));
                     this.skillSequence();
                     return;
                 }
