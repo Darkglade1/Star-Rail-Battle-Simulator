@@ -20,6 +20,7 @@ public class FinalDmgMetrics implements Loggable {
         this.totalPlayerDmg = battle.getTotalPlayerDmg();
         this.actionValueUsed = battle.getActionValueUsed();
         this.totalDamageDealt = new HashMap<>(battle.getDamageContributionMap());
+        battle.getPlayers().forEach(p -> this.totalDamageDealt.putIfAbsent(p, 0f));
     }
 
     @Override
