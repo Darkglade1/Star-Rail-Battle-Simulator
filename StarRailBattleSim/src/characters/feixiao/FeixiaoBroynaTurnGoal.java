@@ -21,7 +21,7 @@ public class FeixiaoBroynaTurnGoal extends TurnGoal<Feixiao> {
             return TurnGoalResult.BASIC;
         }
 
-        if (getBattle().getSkillPoints() >= 1) {
+        if (getBattle().getSkillPoints() > 1) {
             return TurnGoalResult.SKILL;
         }
         return TurnGoalResult.BASIC;
