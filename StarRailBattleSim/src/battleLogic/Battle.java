@@ -28,11 +28,7 @@ import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Battle implements IBattle {
     public ArrayList<AbstractCharacter> playerTeam;
@@ -298,6 +294,7 @@ public class Battle implements IBattle {
             }
         }
 
+        calcPercentContribution();
         this.generateMetrics();
     }
 
@@ -309,6 +306,19 @@ public class Battle implements IBattle {
         finalDPAV = (float)totalPlayerDamage / initialBattleLength;
         addToLog(new BattleMetrics(this));
         addToLog(new FinalDmgMetrics(this));
+    }
+
+    public void calcPercentContribution() {
+        for (AbstractCharacter character : playerTeam) {
+            Float damage = damageContributionMap.get(character);
+            if (damage == null) {
+                damageContributionMap.put(character, 0.0f);
+                damageContributionMapPercent.put(character, 0.0f);
+            } else {
+                float percent = damage / totalPlayerDamage * 100;
+                damageContributionMapPercent.put(character, percent);
+            }
+        }
     }
 
     private Yunli getYunli() {
