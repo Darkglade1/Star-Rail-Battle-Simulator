@@ -1,4 +1,5 @@
 import battleLogic.Battle;
+import battleLogic.IBattle;
 import battleLogic.log.DefaultLogger;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import characters.AbstractCharacter;
@@ -14,6 +15,9 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static teams.EnemyTeam.*;
 import static teams.PlayerTeam.*;
@@ -21,12 +25,12 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        //debugTeam();
+        debugTeam();
         //generateReportYunli();
         //generateReportFeixiao();
         //generateReportFeixiaoLightconeReport();
         //generateReportFeixiaoRelicReport();
-        ameliasSanityCheck();
+        //ameliasSanityCheck();
     }
 
     public static void debugTeam() {
@@ -85,7 +89,7 @@ public class BattleSim {
         enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
         battle.setEnemyTeam(enemyTeam);
 
-        battle.Start(500);
+        battle.Start(550);
     }
 
     public static void generateReportFeixiaoLightconeReport() {
@@ -206,35 +210,48 @@ public class BattleSim {
     }
 
     public static void ameliasSanityCheck() {
-        TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
+        AtomicInteger length = new AtomicInteger();
+
+        List<Pair<String, ArrayList<AbstractCharacter<?>>>> teams = TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
                 .stream()
                 .map(c -> new Pair<>(c.getSimpleName(), (ArrayList<AbstractCharacter<?>>) TestHelper.callMethodOnClasses(c, "getTeam")))
                 .sorted(Comparator.comparing(Pair::getKey))
-                .forEach(p -> {
-                    PrintStream printStream;
-                    try {
-                        printStream = new PrintStream(new FileOutputStream("export/" + p.getKey() + ".log"));
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+                .peek(p -> length.set(Math.max(length.get(), p.getKey().length()+3)))
+                .collect(Collectors.toList());
 
-                    Battle battle = new Battle((b) -> new DefaultLogger(b, printStream) {
+        for (Pair<String, ArrayList<AbstractCharacter<?>>> p : teams) {
+            IBattle battle = constructBattle(p);
+            StringBuilder Prefix = new StringBuilder();
+            Prefix.append(p.getKey()).append(":");
+            for (int i = p.getKey().length() + 1; i < length.get(); i++) {
+                Prefix.append(' ');
+            }
 
-                        @Override
-                        public void handle(FinalDmgMetrics finalDmgMetrics) {
-                            System.out.println(finalDmgMetrics.asString());
-                            this.log(finalDmgMetrics);
-                        }
-                    });
-                    System.out.println(p.getKey());
-                    battle.setPlayerTeam(p.getValue());
+            battle.setPlayerTeam(p.getValue());
+            ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
+            enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
+            battle.setEnemyTeam(enemyTeam);
 
-                    ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
-                    enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
-                    battle.setEnemyTeam(enemyTeam);
+            System.out.print(Prefix);
+            battle.Start(550);
+        }
+    }
 
-                    battle.Start(500);
-                });
+    private static IBattle constructBattle(Pair<String, ArrayList<AbstractCharacter<?>>> p) {
+        PrintStream printStream;
+        try {
+            printStream = new PrintStream(new FileOutputStream("export/" + p.getKey() + ".log"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return new Battle((b) -> new DefaultLogger(b, printStream) {
+            @Override
+            public void handle(FinalDmgMetrics finalDmgMetrics) {
+                System.out.println(finalDmgMetrics.asString());
+                this.log(finalDmgMetrics);
+            }
+        });
     }
 
 

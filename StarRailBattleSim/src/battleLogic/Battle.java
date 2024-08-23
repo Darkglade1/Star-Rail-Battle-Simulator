@@ -36,8 +36,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Battle implements IBattle {
-    public ArrayList<AbstractCharacter<?>> playerTeam;
-    public ArrayList<AbstractEnemy> enemyTeam;
+    public List<AbstractCharacter<?>> playerTeam;
+    public List<AbstractEnemy> enemyTeam;
 
     private final BattleHelpers battleHelpers;
     private final Logger logger;
@@ -84,12 +84,14 @@ public class Battle implements IBattle {
         this.logger = logger.get(this);
     }
 
-    public void setPlayerTeam(ArrayList<AbstractCharacter<?>> playerTeam) {
+    @Override
+    public void setPlayerTeam(List<AbstractCharacter<?>> playerTeam) {
         this.playerTeam = playerTeam;
         this.playerTeam.forEach(character -> character.setBattle(this));
     }
 
-    public void setEnemyTeam(ArrayList<AbstractEnemy> enemyTeam) {
+    @Override
+    public void setEnemyTeam(List<AbstractEnemy> enemyTeam) {
         this.enemyTeam = enemyTeam;
         this.enemyTeam.forEach(enemy -> enemy.setBattle(this));
     }
@@ -208,6 +210,7 @@ public class Battle implements IBattle {
         return this.numSkillPoints;
     }
 
+    @Override
     public void Start(float initialLength) {
         initialBattleLength = initialLength;
         this.battleLength = initialLength;

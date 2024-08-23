@@ -11,6 +11,10 @@ import java.util.Random;
 
 public interface IBattle {
 
+    void setPlayerTeam(List<AbstractCharacter<?>> players);
+    void setEnemyTeam(List<AbstractEnemy> enemies);
+    void Start(float AV);
+
     boolean usedEntryTechnique();
     void setUsedEntryTechnique(boolean usedEntryTechnique);
 
