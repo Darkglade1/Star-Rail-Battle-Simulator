@@ -1,11 +1,11 @@
 package teams;
 
 import characters.*;
-import characters.Adventurine.Aventurine;
-import characters.Feixiao.Feixiao;
-import characters.FuXuan.FuXuan;
-import characters.Gallagher.Gallagher;
-import characters.Pela.Pela;
+import characters.adventurine.Aventurine;
+import characters.feixiao.Feixiao;
+import characters.fuxuan.FuXuan;
+import characters.gallagher.Gallagher;
+import characters.pela.Pela;
 import characters.asta.Asta;
 import characters.bronya.Bronya;
 import characters.hanya.Hanya;

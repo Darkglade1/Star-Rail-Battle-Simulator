@@ -1,4 +1,4 @@
-package characters.Adventurine;
+package characters.adventurine;
 
 import characters.AbstractCharacter;
 import characters.goal.TurnGoal;

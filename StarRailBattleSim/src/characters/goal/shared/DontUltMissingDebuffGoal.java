@@ -1,7 +1,7 @@
 package characters.goal.shared;
 
 import characters.AbstractCharacter;
-import characters.Pela.Pela;
+import characters.pela.Pela;
 import characters.goal.UltGoal;
 import enemies.AbstractEnemy;
 

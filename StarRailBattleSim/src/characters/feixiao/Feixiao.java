@@ -1,4 +1,4 @@
-package characters.Feixiao;
+package characters.feixiao;
 
 import battleLogic.BattleHelpers;
 import battleLogic.log.lines.character.DoMove;

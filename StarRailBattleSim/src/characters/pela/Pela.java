@@ -1,4 +1,4 @@
-package characters.Pela;
+package characters.pela;
 
 import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;

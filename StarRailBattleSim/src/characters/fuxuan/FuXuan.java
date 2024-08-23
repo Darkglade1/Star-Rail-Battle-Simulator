@@ -1,4 +1,4 @@
-package characters.FuXuan;
+package characters.fuxuan;
 
 import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;

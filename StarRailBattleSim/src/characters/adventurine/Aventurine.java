@@ -1,4 +1,4 @@
-package characters.Adventurine;
+package characters.adventurine;
 
 import battleLogic.BattleHelpers;
 import battleLogic.log.lines.character.aventurine.UseBlindBet;

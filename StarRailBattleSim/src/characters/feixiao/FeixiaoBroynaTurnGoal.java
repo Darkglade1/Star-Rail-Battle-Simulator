@@ -1,4 +1,4 @@
-package characters.Feixiao;
+package characters.feixiao;
 
 import characters.bronya.Bronya;
 import characters.goal.TurnGoal;

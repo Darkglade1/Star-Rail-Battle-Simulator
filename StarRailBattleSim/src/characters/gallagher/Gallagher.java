@@ -1,4 +1,4 @@
-package characters.Gallagher;
+package characters.gallagher;
 
 import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;
