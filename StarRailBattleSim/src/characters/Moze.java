@@ -30,7 +30,7 @@ public class Moze extends AbstractCharacter {
     public boolean isDeparted = false;
 
     public Moze() {
-        super(NAME, 811, 547, 353, 114, 80, ElementType.LIGHTNING, 120, 75, Path.HUNT);
+        super(NAME, 811, 600, 353, 111, 80, ElementType.LIGHTNING, 120, 75, Path.HUNT);
 
         this.addPower(new TracePower()
                 .setStat(PowerStat.ATK_PERCENT, 18)
@@ -84,7 +84,7 @@ public class Moze extends AbstractCharacter {
         addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 30, 2, "Moze Damage Bonus"));
 
         AbstractEnemy enemy = getBattle().getMiddleEnemy();
-        getBattle().getHelper().hitEnemy(this, enemy, 2.7f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_THREE_UNITs);
+        getBattle().getHelper().hitEnemy(this, enemy, 2.92f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_THREE_UNITs);
 
         getBattle().getHelper().PostAttackLogic(this, types);
 
@@ -133,7 +133,6 @@ public class Moze extends AbstractCharacter {
     }
 
     public void onTurnStart() {
-        
         skillPointRecovered = false;
     }
 
@@ -235,7 +234,7 @@ public class Moze extends AbstractCharacter {
         @Override
         public void onRemove() {
             getBattle().getActionValueMap().put(Moze.this, Moze.this.getBaseAV());
-            getBattle().AdvanceEntity(Moze.this, 30);
+            getBattle().AdvanceEntity(Moze.this, 20);
             isDeparted = false;
         }
     }

@@ -26,7 +26,7 @@ public class LushakaTheSunkenSeas extends AbstractRelicSetBonus {
 
         AbstractCharacter firstAlly = getBattle().getPlayers().get(0);
         if (firstAlly != this.owner) {
-            firstAlly.addPower(PermPower.create(PowerStat.ATK_PERCENT, 15, "Lushaka The Sunken Seas ATK Bonus"));
+            firstAlly.addPower(PermPower.create(PowerStat.ATK_PERCENT, 12, "Lushaka The Sunken Seas ATK Bonus"));
         }
     }
 }
