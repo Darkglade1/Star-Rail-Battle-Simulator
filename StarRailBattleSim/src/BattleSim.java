@@ -222,6 +222,7 @@ public class BattleSim {
                         @Override
                         public void handle(FinalDmgMetrics finalDmgMetrics) {
                             System.out.println(finalDmgMetrics.asString());
+                            this.log(finalDmgMetrics);
                         }
                     });
                     System.out.println(p.getKey());
