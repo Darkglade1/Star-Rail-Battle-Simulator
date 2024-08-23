@@ -19,8 +19,9 @@ public class PostCombatPlayerMetrics implements Loggable {
     public final int ultimates;
     public final List<AbstractCharacter.MoveType> rotation;
     public final Map<String, String> characterSpecificMetrics;
+    public boolean lessMetrics;
 
-    public PostCombatPlayerMetrics(AbstractCharacter<?> player) {
+    public PostCombatPlayerMetrics(AbstractCharacter<?> player, boolean lessMetrics) {
         this.player = player;
 
         finalStats.put(StatType.ATK, player.getFinalAttack());
@@ -42,6 +43,7 @@ public class PostCombatPlayerMetrics implements Loggable {
         this.ultimates = player.numUltsMetric;
         this.rotation = player.moveHistory;
         this.characterSpecificMetrics = new HashMap<>(player.getCharacterSpecificMetricMap());
+        this.lessMetrics = lessMetrics;
     }
 
     @Override
@@ -49,15 +51,19 @@ public class PostCombatPlayerMetrics implements Loggable {
         String statsString = "";
         String gearString = String.format("Metrics for %s \nLightcone: %s \nRelic Set Bonuses: ", player.name, player.lightcone);
         gearString += player.relicSetBonus;
-        statsString = gearString + String.format("\nAfter combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%% \nBreak Effect: %.3f%%",
-                finalStats.get(StatType.ATK), finalStats.get(StatType.DEF), finalStats.get(StatType.HP), finalStats.get(StatType.SPD), finalStats.get(StatType.DMG), finalStats.get(StatType.CRIT), finalStats.get(StatType.CRITDMG), finalStats.get(StatType.BREAK));
-
-        StringBuilder metrics = new StringBuilder(statsString + String.format("\nCombat Metrics \nTurns taken: %d \nBasics: %d \nSkills: %d \nUltimates: %d \nRotation: %s",
-               turnsTaken, basics, skills, ultimates, rotation));
-        for (Map.Entry<String, String> entry : this.characterSpecificMetrics.entrySet()) {
-            metrics.append("\n").append(entry.getKey()).append(": ").append(entry.getValue());
+        statsString = gearString;
+        if (!lessMetrics) {
+            statsString += String.format("\nAfter combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%% \nBreak Effect: %.3f%%",
+                    finalStats.get(StatType.ATK), finalStats.get(StatType.DEF), finalStats.get(StatType.HP), finalStats.get(StatType.SPD), finalStats.get(StatType.DMG), finalStats.get(StatType.CRIT), finalStats.get(StatType.CRITDMG), finalStats.get(StatType.BREAK));
         }
-        return metrics.toString();
+        StringBuilder metrics = new StringBuilder(statsString + "\nCombat Metrics");
+        if (!lessMetrics) {
+            metrics.append(String.format("\n Rotation: %s", rotation));
+        }
+        for (String metric : player.getOrderedCharacterSpecificMetricsKeys()) {
+            metrics.append("\n").append(metric).append(": ").append(characterSpecificMetrics.get(metric));
+        }
+        return metrics + "\n";
     }
 
     @Override

@@ -120,8 +120,18 @@ public class Lingsha extends AbstractSummoner<Lingsha> {
         types.add(DamageType.FOLLOW_UP);
         getBattle().getHelper().PreAttackLogic(this, types);
 
+        ArrayList<AbstractEnemy> nonBrokenEnemies = new ArrayList<>();
         for (AbstractEnemy enemy : getBattle().getEnemies()) {
-            getBattle().getHelper().hitEnemy(this, enemy, 0.9f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            getBattle().getHelper().hitEnemy(this, enemy, 0.75f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+            if (!enemy.weaknessBroken) {
+                nonBrokenEnemies.add(enemy);
+            }
+        }
+        if (nonBrokenEnemies.isEmpty()) {
+            getBattle().getHelper().hitEnemy(this, getBattle().getRandomEnemy(), 0.75f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
+        } else {
+            AbstractEnemy randomNonBrokenEnemy = nonBrokenEnemies.get(getBattle().getGetRandomEnemyRng().nextInt(nonBrokenEnemies.size()));
+            getBattle().getHelper().hitEnemy(this, randomNonBrokenEnemy, 0.75f, BattleHelpers.MultiplierStat.ATK, types, TOUGHNESS_DAMAGE_SINGLE_UNIT);
         }
         if (useHitCount) {
             decreaseHitCount(1);

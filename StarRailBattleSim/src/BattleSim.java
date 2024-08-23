@@ -31,6 +31,7 @@ public class BattleSim {
 
     public static void debugTeam() {
         Battle battle = new Battle();
+        battle.lessMetrics = true;
 
         battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
@@ -48,7 +49,7 @@ public class BattleSim {
 
         //battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
-        //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());

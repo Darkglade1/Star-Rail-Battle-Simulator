@@ -55,6 +55,7 @@ public class Battle implements IBattle {
     public AbstractEntity nextUnit;
     public boolean usedEntryTechnique = false;
     public boolean isInCombat = false;
+    public boolean lessMetrics = false;
     public int actionForwardPriorityCounter = AbstractEntity.SPEED_PRIORITY_DEFAULT;
 
     public HashMap<AbstractCharacter<?>, Float> damageContributionMap;
@@ -316,15 +317,31 @@ public class Battle implements IBattle {
                     .forEach(AbstractCharacter::tryUltimate);
         }
 
+        calcPercentContribution();
         this.generateMetrics();
     }
 
     private void generateMetrics() {
-        this.playerTeam.forEach(p -> addToLog(new PostCombatPlayerMetrics(p)));
-        this.enemyTeam.forEach(e -> addToLog(new EnemyMetrics(e)));
+        this.playerTeam.forEach(p -> addToLog(new PostCombatPlayerMetrics(p, lessMetrics)));
+        if (!lessMetrics) {
+            this.enemyTeam.forEach(e -> addToLog(new EnemyMetrics(e)));
+        }
         finalDPAV = (float)totalPlayerDamage / initialBattleLength;
         addToLog(new BattleMetrics(this));
         addToLog(new FinalDmgMetrics(this));
+    }
+
+    public void calcPercentContribution() {
+        for (AbstractCharacter<?> character : playerTeam) {
+            Float damage = damageContributionMap.get(character);
+            if (damage == null) {
+                damageContributionMap.put(character, 0.0f);
+                damageContributionMapPercent.put(character, 0.0f);
+            } else {
+                float percent = damage / totalPlayerDamage * 100;
+                damageContributionMapPercent.put(character, percent);
+            }
+        }
     }
 
     private Yunli getYunli() {
