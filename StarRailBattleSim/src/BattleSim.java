@@ -1,6 +1,5 @@
 import battleLogic.Battle;
-import battleLogic.log.Loggable;
-import battleLogic.log.Logger;
+import battleLogic.log.DefaultLogger;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
@@ -10,6 +9,9 @@ import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -208,13 +210,18 @@ public class BattleSim {
                 .map(c -> new Pair<>(c.getSimpleName(), (ArrayList<AbstractCharacter<?>>) TestHelper.callMethodOnClasses(c, "getTeam")))
                 .sorted(Comparator.comparing(Pair::getKey))
                 .forEach(p -> {
-                    Battle battle = new Battle((b) -> new Logger(b) {
-                        @Override
-                        protected void log(Loggable loggable) {}
+                    PrintStream printStream;
+                    try {
+                        printStream = new PrintStream(new FileOutputStream("export/" + p.getKey() + ".log"));
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    Battle battle = new Battle((b) -> new DefaultLogger(b, printStream) {
 
                         @Override
                         public void handle(FinalDmgMetrics finalDmgMetrics) {
-                            this.out.println(finalDmgMetrics.asString());
+                            System.out.println(finalDmgMetrics.asString());
                         }
                     });
                     System.out.println(p.getKey());
