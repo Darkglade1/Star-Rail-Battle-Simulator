@@ -108,6 +108,12 @@ public class Battle implements IBattle {
     }
 
     @Override
+    public void setNextUnit(AbstractEntity entity) {
+        this.nextUnit = entity;
+        this.actionValueMap.put(entity, 0.0F);
+    }
+
+    @Override
     public AbstractEntity getUnit(int index) {
         if (index > this.actionValueMap.size()) {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for actionValueMap size " + this.actionValueMap.size());
@@ -266,15 +272,6 @@ public class Battle implements IBattle {
             for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                 float newAV = entry.getValue() - nextAV;
                 entry.setValue(newAV);
-            }
-            // TODO: Add event for PreTurnStart, this way Concerto could hook into it, and do it themselves
-            // Not sure if this is ideal
-            if (nextUnit instanceof Concerto) {
-                addToLog(new ConcertoEnd());
-                actionValueMap.remove(nextUnit);
-                ((Concerto) nextUnit).owner.onConcertoEnd();
-                nextUnit = ((Concerto) nextUnit).owner;
-                actionValueMap.put(nextUnit, 0.0f);
             }
 
             nextUnit.emit(BattleEvents::onTurnStart);

@@ -23,6 +23,7 @@ public interface IBattle {
     AbstractEnemy getRandomEnemy();
 
     AbstractEntity getNextUnit();
+    void setNextUnit(AbstractEntity entity);
     AbstractEntity getUnit(int index);
 
     boolean isAboutToEnd();
