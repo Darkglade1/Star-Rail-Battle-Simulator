@@ -43,15 +43,15 @@ public class BattleMetrics implements Loggable {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
-                .map(e -> String.format("| %s: %.2f | ", e.getKey().name, e.getValue()))
-                .collect(Collectors.joining())
+                .map(e -> String.format("%s: %.2f", e.getKey().name, e.getValue()))
+                .collect(Collectors.joining(" | "))
                 + "\n";
         out += "Leftover Energy: " + leftOverEnergy
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
-                .map(e -> String.format("| %s: %.2f | ", e.getKey().name, e.getValue()))
-                .collect(Collectors.joining());
+                .map(e -> String.format("%s: %.2f", e.getKey().name, e.getValue()))
+                .collect(Collectors.joining(" | "));
         return out;
     }
 
