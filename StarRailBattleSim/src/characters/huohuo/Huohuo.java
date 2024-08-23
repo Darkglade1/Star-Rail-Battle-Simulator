@@ -4,6 +4,7 @@ import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;
 import characters.Path;
 import characters.goal.shared.AlwaysUltGoal;
+import characters.goal.shared.SkillCounterTurnGoal;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -13,7 +14,7 @@ import powers.TracePower;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Huohuo extends AbstractCharacter<Huohuo> {
+public class Huohuo extends AbstractCharacter<Huohuo> implements SkillCounterTurnGoal.SkillCounterCharacter {
     private static String NAME = "Huohuo";
     
     HuohuoTalentPower talentPower = new HuohuoTalentPower();
@@ -30,7 +31,7 @@ public class Huohuo extends AbstractCharacter<Huohuo> {
                 .setStat(PowerStat.EFFECT_RES, 18));
 
         this.registerGoal(0, new AlwaysUltGoal<>(this));
-        this.registerGoal(0, new HuoHuoTurnGoal(this));
+        this.registerGoal(0, new SkillCounterTurnGoal<>(this));
     }
 
     public void useSkill() {
@@ -86,6 +87,11 @@ public class Huohuo extends AbstractCharacter<Huohuo> {
         ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
         list.add(numTalentProcsMetricName);
         return list;
+    }
+
+    @Override
+    public int getSkillCounter() {
+        return talentCounter;
     }
 
     private class HuohuoTalentPower extends AbstractPower {

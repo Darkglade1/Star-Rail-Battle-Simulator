@@ -4,6 +4,7 @@ import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;
 import characters.Path;
 import characters.goal.shared.AlwaysUltGoal;
+import characters.goal.shared.SkillCounterTurnGoal;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -11,7 +12,7 @@ import powers.PowerStat;
 
 import java.util.ArrayList;
 
-public class FuXuan extends AbstractCharacter<FuXuan> {
+public class FuXuan extends AbstractCharacter<FuXuan> implements SkillCounterTurnGoal.SkillCounterCharacter {
     public static String NAME = "Fu Xuan";
     
     AbstractPower skillPower = PermPower.create(PowerStat.CRIT_CHANCE, 12, "Fu Xuan Skill Power");
@@ -29,7 +30,7 @@ public class FuXuan extends AbstractCharacter<FuXuan> {
         this.hasAttackingUltimate = true;
 
         this.registerGoal(0, new AlwaysUltGoal<>(this));
-        this.registerGoal(0, new FuXuanTurnGoal(this));
+        this.registerGoal(0, new SkillCounterTurnGoal<>(this, 1));
     }
 
     public void useSkill() {
@@ -78,5 +79,10 @@ public class FuXuan extends AbstractCharacter<FuXuan> {
         for (AbstractCharacter<?> character : getBattle().getPlayers()) {
             character.addPower(skillPower);
         }
+    }
+
+    @Override
+    public int getSkillCounter() {
+        return skillCounter;
     }
 }
