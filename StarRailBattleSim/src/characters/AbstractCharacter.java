@@ -149,7 +149,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         super.takeTurn();
         numTurnsMetric++;
 
-        tryUltimate();
+        //tryUltimate();
         for (TurnGoal<C> turnGoal : this.turnGoals.values()) {
             TurnGoal.TurnGoalResult result = turnGoal.determineAction();
             switch (result) {

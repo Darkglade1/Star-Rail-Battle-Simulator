@@ -74,11 +74,8 @@ public class Tingyun extends AbstractCharacter<Tingyun> {
     }
 
     public void onTurnStart() {
-        
         increaseEnergy(5);
-        if (currentEnergy >= ultCost) {
-            useUltimate();
-        }
+        tryUltimate();
     }
 
     public void useTechnique() {
