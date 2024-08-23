@@ -73,9 +73,7 @@ public class Huohuo extends AbstractCharacter<Huohuo> {
                 character.removePower(talentPower);
             }
         }
-        if (currentEnergy >= ultCost) {
-            useUltimate();
-        }
+        tryUltimate();
     }
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {
