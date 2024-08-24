@@ -10,6 +10,7 @@ import characters.AbstractCharacter;
 import characters.AbstractSummoner;
 import characters.Path;
 import characters.goal.shared.DontUltNumby;
+import characters.goal.shared.UseExcessSkillPointsGoal;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -55,7 +56,9 @@ public class Lingsha extends AbstractSummoner<Lingsha> {
 
         this.registerGoal(0, new DontUltNumby<>(this));
         this.registerGoal(10, new LingshaUltGoal(this));
-        this.registerGoal(0, new LingshaTurnGoal(this));
+
+        this.registerGoal(0, new UseExcessSkillPointsGoal<>(this));
+        this.registerGoal(10, new LingshaTurnGoal(this));
     }
 
     @Override

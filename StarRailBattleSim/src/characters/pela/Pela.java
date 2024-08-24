@@ -3,7 +3,10 @@ package characters.pela;
 import battleLogic.BattleHelpers;
 import characters.AbstractCharacter;
 import characters.Path;
+import characters.goal.shared.AlwaysBasicGoal;
 import characters.goal.shared.AlwaysUltGoal;
+import characters.goal.shared.SkillFirstTurnGoal;
+import characters.goal.shared.UseExcessSkillPointsGoal;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -12,7 +15,7 @@ import powers.TracePower;
 
 import java.util.ArrayList;
 
-public class Pela extends AbstractCharacter<Pela> {
+public class Pela extends AbstractCharacter<Pela> implements SkillFirstTurnGoal.FirstTurnTracked {
 
     public static final String NAME = "Pela";
     public static final String ULT_DEBUFF_NAME = "Pela Ult Def Reduction";
@@ -26,7 +29,10 @@ public class Pela extends AbstractCharacter<Pela> {
                 .setStat(PowerStat.EFFECT_HIT, 10));
         this.hasAttackingUltimate = true;
 
-        this.registerGoal(0, new PelaTurnGoal(this));
+        this.registerGoal(0, new SkillFirstTurnGoal<>(this));
+        this.registerGoal(10, new UseExcessSkillPointsGoal<>(this));
+        this.registerGoal(20, new AlwaysBasicGoal<>(this));
+
         this.registerGoal(0, new AlwaysUltGoal<>(this));
     }
 
@@ -89,6 +95,16 @@ public class Pela extends AbstractCharacter<Pela> {
     public void onCombatStart() {
         addPower(new PelaTalentPower());
         addPower(new PelaBonusDamageAgainstDebuffPower());
+    }
+
+    @Override
+    public boolean isFirstTurn() {
+        return firstMove;
+    }
+
+    @Override
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstMove = firstTurn;
     }
 
     private class PelaTalentPower extends AbstractPower {

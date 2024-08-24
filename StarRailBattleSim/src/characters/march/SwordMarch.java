@@ -7,7 +7,9 @@ import battleLogic.log.lines.character.ExtraHits;
 import battleLogic.log.lines.entity.GainCharge;
 import characters.AbstractCharacter;
 import characters.Path;
+import characters.goal.shared.AlwaysBasicGoal;
 import characters.goal.shared.AlwaysUltGoal;
+import characters.goal.shared.SkillFirstTurnGoal;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -18,7 +20,7 @@ import powers.TracePower;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SwordMarch extends AbstractCharacter<SwordMarch> {
+public class SwordMarch extends AbstractCharacter<SwordMarch> implements SkillFirstTurnGoal.FirstTurnTracked {
     public static String NAME = "Sword March";
 
     public AbstractCharacter<?> master;
@@ -47,7 +49,8 @@ public class SwordMarch extends AbstractCharacter<SwordMarch> {
                 .setStat(PowerStat.DEF_PERCENT, 12.5f));
         this.hasAttackingUltimate = true;
 
-        this.registerGoal(0, new SwordMarchTurnGoal(this));
+        this.registerGoal(0, new SkillFirstTurnGoal<>(this));
+        this.registerGoal(10, new AlwaysBasicGoal<>(this));
         this.registerGoal(0, new AlwaysUltGoal<>(this));
     }
 
@@ -224,6 +227,16 @@ public class SwordMarch extends AbstractCharacter<SwordMarch> {
         list.add(numUltEnhancedEBAUsed);
         list.add(numExtraHitsMetricName);
         return list;
+    }
+
+    @Override
+    public boolean isFirstTurn() {
+        return firstMove;
+    }
+
+    @Override
+    public void setFirstTurn(boolean firstTurn) {
+        firstMove = firstTurn;
     }
 
     private class MarchMasterPower extends PermPower {

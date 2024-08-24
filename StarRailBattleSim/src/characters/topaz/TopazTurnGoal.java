@@ -9,19 +9,10 @@ public class TopazTurnGoal extends TurnGoal<Topaz> {
 
     @Override
     public TurnGoalResult determineAction() {
-        if (getBattle().getSkillPoints() == 0) {
-            return TurnGoalResult.BASIC;
-        }
-
-        if (character.firstMove) {
-            character.firstMove = false;
-            return TurnGoalResult.SKILL;
-        }
-
         if (getBattle().getSkillPoints() <= 3 || character.ultCounter > 0) {
             return TurnGoalResult.BASIC;
         }
 
-        return TurnGoalResult.SKILL;
+        return TurnGoalResult.PASS;
     }
 }

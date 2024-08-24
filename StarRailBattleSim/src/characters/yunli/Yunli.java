@@ -6,7 +6,9 @@ import battleLogic.log.lines.character.yunli.UseCull;
 import battleLogic.log.lines.character.yunli.UseSlash;
 import characters.AbstractCharacter;
 import characters.Path;
+import characters.goal.shared.AlwaysSkillGoal;
 import characters.goal.shared.AlwaysUltGoal;
+import characters.goal.shared.SkillFirstTurnGoal;
 import enemies.AbstractEnemy;
 import lightcones.destruction.DanceAtSunset;
 import powers.AbstractPower;
@@ -19,7 +21,7 @@ import powers.TracePower;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Yunli extends AbstractCharacter<Yunli> {
+public class Yunli extends AbstractCharacter<Yunli> implements SkillFirstTurnGoal.FirstTurnTracked {
     
     public static String NAME = "Yunli";
 
@@ -50,7 +52,8 @@ public class Yunli extends AbstractCharacter<Yunli> {
 
         this.registerGoal(0, new YunliEmergancyUlt(this));
         this.registerGoal(10, new UltIfNextIsEnemy(this));
-        this.registerGoal(0, new YunliTurnGoal(this));
+        this.registerGoal(0, new SkillFirstTurnGoal<>(this));
+        this.registerGoal(10, new AlwaysSkillGoal<>(this, 1));
     }
 
     public void useSkill() {
@@ -209,6 +212,16 @@ public class Yunli extends AbstractCharacter<Yunli> {
         list.add(num2StackCullsMetricName);
         list.add(numSlashesMetricName);
         return list;
+    }
+
+    @Override
+    public boolean isFirstTurn() {
+        return firstMove;
+    }
+
+    @Override
+    public void setFirstTurn(boolean firstTurn) {
+        firstMove = firstTurn;
     }
 
     private static class CullCritDamageBuff extends AbstractPower {

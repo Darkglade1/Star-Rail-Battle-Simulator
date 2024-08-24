@@ -6,8 +6,10 @@ import battleLogic.Numby;
 import characters.AbstractCharacter;
 import characters.AbstractSummoner;
 import characters.Path;
+import characters.goal.shared.AlwaysSkillGoal;
 import characters.goal.shared.AlwaysUltGoal;
 import characters.goal.shared.DontUltMissingPowerGoal;
+import characters.goal.shared.SkillFirstTurnGoal;
 import characters.robin.Robin;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
@@ -20,7 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class Topaz extends AbstractSummoner<Topaz> {
+public class Topaz extends AbstractSummoner<Topaz> implements SkillFirstTurnGoal.FirstTurnTracked {
     AbstractPower proofOfDebt = new ProofOfDebt();
     Numby numby;
     PermPower stonksPower;
@@ -53,7 +55,10 @@ public class Topaz extends AbstractSummoner<Topaz> {
         this.registerGoal(0, DontUltMissingPowerGoal.robin(this));
         this.registerGoal(10, new TopazUltGoal(this));
         this.registerGoal(20, new AlwaysUltGoal<>(this));
-        this.registerGoal(0, new TopazTurnGoal(this));
+
+        this.registerGoal(0, new SkillFirstTurnGoal<>(this));
+        this.registerGoal(10, new TopazTurnGoal(this));
+        this.registerGoal(20, new AlwaysSkillGoal<>(this));
     }
 
     public void useSkill() {
@@ -176,6 +181,16 @@ public class Topaz extends AbstractSummoner<Topaz> {
     @Override
     public List<AbstractSummon<Topaz>> getSummons() {
         return Collections.singletonList(numby);
+    }
+
+    @Override
+    public boolean isFirstTurn() {
+        return firstMove;
+    }
+
+    @Override
+    public void setFirstTurn(boolean firstTurn) {
+        firstMove = firstTurn;
     }
 
     private class ProofOfDebt extends AbstractPower {
