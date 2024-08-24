@@ -285,19 +285,6 @@ public class Battle implements IBattle {
             currentUnit.emit(BattleEvents::onTurnStart);
             currentUnit.takeTurn();
             currentUnit.emit(BattleEvents::onEndTurn);
-            ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
-            for (AbstractPower power : currentUnit.powerList) {
-                if (!power.lastsForever && power.turnDuration <= 0) {
-                    powersToRemove.add(power);
-                }
-            }
-            for (AbstractPower power : powersToRemove) {
-                if (power.getStat(PowerStat.SPEED_PERCENT) > 0 || power.getStat(PowerStat.FLAT_SPEED) > 0) {
-                    DecreaseSpeed(currentUnit, power);
-                } else {
-                    currentUnit.removePower(power);
-                }
-            }
 
             if (yunli != null && yunli.isParrying) {
                 yunli.useSlash(getRandomEnemy());

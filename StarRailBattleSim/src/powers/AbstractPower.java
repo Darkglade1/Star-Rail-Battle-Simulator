@@ -119,6 +119,14 @@ public abstract class AbstractPower implements BattleEvents,BattleParticipant {
                 turnDuration--;
             }
         }
+
+        if (!lastsForever && turnDuration <= 0) {
+            if (getStat(PowerStat.SPEED_PERCENT) > 0 || getStat(PowerStat.FLAT_SPEED) > 0) {
+                getBattle().DecreaseSpeed(this.owner, this);
+            } else {
+                this.owner.removePower(this);
+            }
+        }
     }
 
     public void onRemove() {
