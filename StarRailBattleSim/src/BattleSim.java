@@ -52,7 +52,7 @@ public class BattleSim {
 
         //battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
-        battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
+        //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineTopaz().getTeam());
@@ -98,6 +98,8 @@ public class BattleSim {
         otherTeams.add(new FeixiaoTeamLightconeCompareWorrisome());
         otherTeams.add(new FeixiaoTeamLightconeCompareBaptism());
         otherTeams.add(new FeixiaoTeamLightconeCompareCruising());
+        otherTeams.add(new FeixiaoTeamLightconeCompareInTheNight());
+        otherTeams.add(new FeixiaoTeamLightconeCompareSleepDead());
 
         ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
         enemyTeams.add(new FireWindImgLightningWeakTarget1());

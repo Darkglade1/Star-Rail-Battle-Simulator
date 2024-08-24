@@ -1,24 +1,7 @@
 package teams;
 
 import characters.*;
-import characters.adventurine.Aventurine;
 import characters.feixiao.Feixiao;
-import characters.fuxuan.FuXuan;
-import characters.gallagher.Gallagher;
-import characters.pela.Pela;
-import characters.asta.Asta;
-import characters.bronya.Bronya;
-import characters.hanya.Hanya;
-import characters.huohuo.Huohuo;
-import characters.lingsha.Lingsha;
-import characters.march.SwordMarch;
-import characters.moze.Moze;
-import characters.robin.Robin;
-import characters.ruanmei.RuanMei;
-import characters.sparkle.Sparkle;
-import characters.tingyun.Tingyun;
-import characters.topaz.Topaz;
-import characters.yunli.Yunli;
 import lightcones.AbstractLightcone;
 import lightcones.abundance.Multiplication;
 import lightcones.abundance.PostOpConversation;
@@ -1048,6 +1031,30 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoTeamLightconeCompareInTheNight extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            return FeixiaoTeamLightconeCompare(InTheNight::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareSleepDead extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            return FeixiaoTeamLightconeCompare(SleepLikeTheDead::new);
+        }
+    }
+
+    public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
+        ArrayList<AbstractCharacter> team = new ArrayList<>();
     public static ArrayList<AbstractCharacter<?>> FeixiaoTeamLightconeCompare(Function<AbstractCharacter<?>, AbstractLightcone> lightconeSupplier) {
         ArrayList<AbstractCharacter<?>> team = new ArrayList<>();
         team.add(FeixiaoLightconeCompare(lightconeSupplier));
