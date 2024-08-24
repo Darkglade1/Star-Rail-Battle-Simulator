@@ -29,7 +29,6 @@ import powers.AbstractPower;
 import powers.PowerStat;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,18 +122,18 @@ public class Battle implements IBattle {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for actionValueMap size " + this.actionValueMap.size());
         }
 
-        float minAV = actionValueMap.values()
+        return this.actionValueMap
+                .entrySet()
                 .stream()
-                .min(Float::compare)
-                .orElseThrow(() -> new RuntimeException("ERROR - NO NEXT UNIT FOUND"));
-
-        List<AbstractEntity> candidates = actionValueMap.entrySet().stream()
-                .filter(entry -> entry.getValue() == minAV)
-                .map(Map.Entry::getKey)
-                .sorted(Comparator.comparingInt(e -> e.speedPriority))
-                .collect(Collectors.toList());
-
-        return candidates.get(index);
+                .sorted((e1, e2) -> {
+                    if (e1.getValue().equals(e2.getValue())) {
+                        return Integer.compare(e1.getKey().speedPriority, e2.getKey().speedPriority);
+                    }
+                    return Float.compare(e1.getValue(), e2.getValue());
+                })
+                .collect(Collectors.toList())
+                .get(index)
+                .getKey();
     }
 
     @Override
