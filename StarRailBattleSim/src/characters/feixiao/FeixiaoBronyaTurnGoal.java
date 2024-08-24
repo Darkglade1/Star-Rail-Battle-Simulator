@@ -3,8 +3,8 @@ package characters.feixiao;
 import characters.bronya.Bronya;
 import characters.goal.TurnGoal;
 
-public class FeixiaoBroynaTurnGoal extends TurnGoal<Feixiao> {
-    public FeixiaoBroynaTurnGoal(Feixiao character) {
+public class FeixiaoBronyaTurnGoal extends TurnGoal<Feixiao> {
+    public FeixiaoBronyaTurnGoal(Feixiao character) {
         super(character);
     }
 

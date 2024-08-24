@@ -206,7 +206,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         increaseEnergy(ultEnergyGain);
         this.emit(BattleEvents::onUseUltimate);
         this.useUltimate();
-        this.emit(BattleEvents::afterUseSkill);
+        this.emit(BattleEvents::afterUseUltimate);
     }
 
     protected abstract void useSkill();

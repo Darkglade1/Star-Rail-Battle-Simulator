@@ -8,6 +8,7 @@ import characters.Path;
 import characters.goal.shared.AlwaysSkillGoal;
 import characters.goal.shared.AlwaysUltGoal;
 import characters.goal.shared.DontUltMissingPowerGoal;
+import characters.goal.shared.UltAtEndOfBattle;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
@@ -43,8 +44,9 @@ public class Moze extends AbstractCharacter<Moze> {
 
         preyPower = new MozePreyPower();
 
-        this.registerGoal(0, DontUltMissingPowerGoal.robin(this));
-        this.registerGoal(10, new AlwaysUltGoal<>(this));
+        this.registerGoal(0, new UltAtEndOfBattle<>(this));
+        this.registerGoal(10, DontUltMissingPowerGoal.robin(this));
+        this.registerGoal(20, new AlwaysUltGoal<>(this));
         this.registerGoal(0, new AlwaysSkillGoal<>(this));
     }
 

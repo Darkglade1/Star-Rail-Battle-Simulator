@@ -51,7 +51,7 @@ public class Feixiao extends AbstractCharacter<Feixiao> {
                 .setStat(PowerStat.CRIT_CHANCE, 12)
                 .setStat(PowerStat.DEF_PERCENT, 12.5f));
 
-        this.registerGoal(0, new FeixiaoBroynaTurnGoal(this));
+        this.registerGoal(0, new FeixiaoBronyaTurnGoal(this));
         this.registerGoal(10, new AlwaysSkillGoal<>(this, 1));
 
         this.registerGoal(0, new UltAtEndOfBattle<>(this));

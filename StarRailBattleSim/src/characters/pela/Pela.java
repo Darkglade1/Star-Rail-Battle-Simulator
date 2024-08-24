@@ -66,18 +66,6 @@ public class Pela extends AbstractCharacter<Pela> {
         getBattle().getHelper().PostAttackLogic(this, types);
     }
 
-    /*public void takeTurn() {
-        super.takeTurn();
-        if (getBattle().getSkillPoints() > 0 && firstMove) {
-            useSkill();
-            firstMove = false;
-        } else if (getBattle().getSkillPoints() >= 4) {
-            useSkill();
-        } else {
-            useBasic();
-        }
-    }*/
-
     public void useTechnique() {
         if (getBattle().usedEntryTechnique()) {
             return;
