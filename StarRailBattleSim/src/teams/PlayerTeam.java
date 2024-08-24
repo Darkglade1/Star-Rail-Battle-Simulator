@@ -1,7 +1,24 @@
 package teams;
 
-import characters.*;
+import characters.AbstractCharacter;
+import characters.adventurine.Aventurine;
+import characters.asta.Asta;
+import characters.bronya.Bronya;
 import characters.feixiao.Feixiao;
+import characters.fuxuan.FuXuan;
+import characters.gallagher.Gallagher;
+import characters.hanya.Hanya;
+import characters.huohuo.Huohuo;
+import characters.lingsha.Lingsha;
+import characters.march.SwordMarch;
+import characters.moze.Moze;
+import characters.pela.Pela;
+import characters.robin.Robin;
+import characters.ruanmei.RuanMei;
+import characters.sparkle.Sparkle;
+import characters.tingyun.Tingyun;
+import characters.topaz.Topaz;
+import characters.yunli.Yunli;
 import lightcones.AbstractLightcone;
 import lightcones.abundance.Multiplication;
 import lightcones.abundance.PostOpConversation;
@@ -1053,8 +1070,6 @@ public class PlayerTeam {
         }
     }
 
-    public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
-        ArrayList<AbstractCharacter> team = new ArrayList<>();
     public static ArrayList<AbstractCharacter<?>> FeixiaoTeamLightconeCompare(Function<AbstractCharacter<?>, AbstractLightcone> lightconeSupplier) {
         ArrayList<AbstractCharacter<?>> team = new ArrayList<>();
         team.add(FeixiaoLightconeCompare(lightconeSupplier));
