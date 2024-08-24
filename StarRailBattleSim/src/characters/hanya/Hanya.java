@@ -109,7 +109,7 @@ public class Hanya extends AbstractCharacter<Hanya> {
                     Hanya.this.increaseEnergy(2);
 
                     TempPower tracePower = TempPower.create(PowerStat.ATK_PERCENT, 10, 1, "Hanya Trace Atk Power");
-                    if (getBattle().getNextUnit() == character) {
+                    if (getBattle().getCurrentUnit() == character) {
                         tracePower.justApplied = true;
                     }
                     character.addPower(tracePower);

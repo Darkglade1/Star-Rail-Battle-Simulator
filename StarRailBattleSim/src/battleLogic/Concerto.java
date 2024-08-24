@@ -29,7 +29,7 @@ public class Concerto extends AbstractEntity {
             getBattle().addToLog(new ConcertoEnd());
             getBattle().getActionValueMap().remove(this.owner);
             Concerto.this.owner.onConcertoEnd();
-            getBattle().setNextUnit(Concerto.this.owner);
+            getBattle().setCurrentUnit(Concerto.this.owner);
             Concerto.this.owner.emit(BattleEvents::onTurnStart);
         }
     }

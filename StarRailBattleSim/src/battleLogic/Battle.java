@@ -15,7 +15,6 @@ import battleLogic.log.lines.battle.SpeedDelayEntity;
 import battleLogic.log.lines.battle.TriggerTechnique;
 import battleLogic.log.lines.battle.TurnStart;
 import battleLogic.log.lines.battle.UseSkillPoint;
-import battleLogic.log.lines.character.ConcertoEnd;
 import battleLogic.log.lines.metrics.BattleMetrics;
 import battleLogic.log.lines.metrics.EnemyMetrics;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
@@ -52,7 +51,7 @@ public class Battle implements IBattle {
     public String log = "";
     public float initialBattleLength;
     public float battleLength;
-    public AbstractEntity nextUnit;
+    public AbstractEntity currentUnit;
     public boolean usedEntryTechnique = false;
     public boolean isInCombat = false;
     public boolean lessMetrics = false;
@@ -106,18 +105,18 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public AbstractEntity getNextUnit() {
-        return this.nextUnit;
+    public AbstractEntity getCurrentUnit() {
+        return this.currentUnit;
     }
 
     @Override
-    public void setNextUnit(AbstractEntity entity) {
-        this.nextUnit = entity;
+    public void setCurrentUnit(AbstractEntity entity) {
+        this.currentUnit = entity;
         this.actionValueMap.put(entity, 0.0F);
     }
 
     @Override
-    public AbstractEntity getUnit(int index) {
+    public AbstractEntity getNextUnit(int index) {
         if (index >= this.actionValueMap.size()) {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for actionValueMap size " + this.actionValueMap.size());
         }
@@ -138,7 +137,7 @@ public class Battle implements IBattle {
 
     @Override
     public boolean isAboutToEnd() {
-        AbstractEntity next = this.getUnit(0);
+        AbstractEntity next = this.getNextUnit(0);
         return actionValueMap.get(next) > battleLength;
     }
 
@@ -251,8 +250,8 @@ public class Battle implements IBattle {
 
         while (battleLength > 0) {
             addToLog(new LeftOverAV(this.battleLength));
-            nextUnit = this.getUnit(0);
-            float nextAV = actionValueMap.get(nextUnit);
+            currentUnit = this.getNextUnit(0);
+            float nextAV = actionValueMap.get(currentUnit);
             if (nextAV > battleLength) {
                 for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                     float newAV = entry.getValue() - battleLength;
@@ -264,39 +263,39 @@ public class Battle implements IBattle {
             }
             // TODO: Find a way to remove Yunli logic from here
             // Ideally the battle loop does not care about the specifics of the characters
-            if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
+            if (yunli != null && currentUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
                 yunli.tryUltimate();
                 if (march != null && march.chargeCount >= march.chargeThreshold) {
-                    nextUnit = march;
-                    nextAV = actionValueMap.get(nextUnit);
+                    currentUnit = march;
+                    nextAV = actionValueMap.get(currentUnit);
                 }
             }
-            addToLog(new TurnStart(nextUnit, nextAV, actionValueMap));
+            addToLog(new TurnStart(currentUnit, nextAV, actionValueMap));
             battleLength -= nextAV;
             for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                 float newAV = entry.getValue() - nextAV;
                 entry.setValue(newAV);
             }
 
-            nextUnit.emit(BattleEvents::onTurnStart);
-            if (nextUnit instanceof AbstractEnemy || nextUnit instanceof AbstractCharacter) {
-                if (actionValueMap.get(nextUnit) <= 0) {
-                    actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+            if (currentUnit instanceof AbstractEnemy || currentUnit instanceof AbstractCharacter) {
+                if (actionValueMap.get(currentUnit) <= 0) {
+                    actionValueMap.put(currentUnit, currentUnit.getBaseAV());
                 }
             }
-            nextUnit.takeTurn();
-            nextUnit.emit(BattleEvents::onEndTurn);
+            currentUnit.emit(BattleEvents::onTurnStart);
+            currentUnit.takeTurn();
+            currentUnit.emit(BattleEvents::onEndTurn);
             ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
-            for (AbstractPower power : nextUnit.powerList) {
+            for (AbstractPower power : currentUnit.powerList) {
                 if (!power.lastsForever && power.turnDuration <= 0) {
                     powersToRemove.add(power);
                 }
             }
             for (AbstractPower power : powersToRemove) {
                 if (power.getStat(PowerStat.SPEED_PERCENT) > 0 || power.getStat(PowerStat.FLAT_SPEED) > 0) {
-                    DecreaseSpeed(nextUnit, power);
+                    DecreaseSpeed(currentUnit, power);
                 } else {
-                    nextUnit.removePower(power);
+                    currentUnit.removePower(power);
                 }
             }
 
@@ -311,8 +310,8 @@ public class Battle implements IBattle {
                     .filter(p -> !(p instanceof Yunli))
                     .forEach(AbstractCharacter::tryUltimate);
 
-            if (nextUnit instanceof AbstractSummon) {
-                actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+            if (currentUnit instanceof AbstractSummon) {
+                actionValueMap.put(currentUnit, currentUnit.getBaseAV());
             }
 
             getPlayers().stream()

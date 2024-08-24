@@ -11,7 +11,7 @@ public class UltIfNextIsEnemy extends UltGoal<Yunli> {
 
     @Override
     public UltGoalResult determineAction() {
-        AbstractEntity next = getBattle().getNextUnit();
+        AbstractEntity next = getBattle().getCurrentUnit();
         if (next instanceof AbstractEnemy) {
             return UltGoalResult.DO;
         }

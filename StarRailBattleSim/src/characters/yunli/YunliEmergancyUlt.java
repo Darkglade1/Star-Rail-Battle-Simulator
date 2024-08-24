@@ -10,10 +10,10 @@ public class YunliEmergancyUlt extends UltGoal<Yunli> {
 
     @Override
     public UltGoalResult determineAction() {
-        AbstractEntity first = getBattle().getUnit(0);
+        AbstractEntity first = getBattle().getNextUnit(0);
         float firstAV = getBattle().getActionValueMap().get(first);
 
-        AbstractEntity second = getBattle().getUnit(1);
+        AbstractEntity second = getBattle().getNextUnit(1);
         float secondAV = getBattle().getActionValueMap().get(second);
 
         if (secondAV > getBattle().battleLength() && firstAV < getBattle().battleLength()) {

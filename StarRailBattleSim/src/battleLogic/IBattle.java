@@ -26,9 +26,9 @@ public interface IBattle {
     AbstractEnemy getMiddleEnemy();
     AbstractEnemy getRandomEnemy();
 
-    AbstractEntity getNextUnit();
-    void setNextUnit(AbstractEntity entity);
-    AbstractEntity getUnit(int index);
+    AbstractEntity getCurrentUnit();
+    void setCurrentUnit(AbstractEntity entity);
+    AbstractEntity getNextUnit(int index);
 
     boolean isAboutToEnd();
     boolean inCombat();
