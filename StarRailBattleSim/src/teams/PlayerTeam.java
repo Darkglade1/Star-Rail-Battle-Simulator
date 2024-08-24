@@ -1030,6 +1030,28 @@ public class PlayerTeam {
         }
     }
 
+    public static class FeixiaoTeamLightconeCompareInTheNight extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(InTheNight::new);
+        }
+    }
+
+    public static class FeixiaoTeamLightconeCompareSleepDead extends PlayerTeam {
+        @Override
+        public String toString() {
+            return this.getClass().getSimpleName();
+        }
+        @Override
+        public ArrayList<AbstractCharacter> getTeam() {
+            return FeixiaoTeamLightconeCompare(SleepLikeTheDead::new);
+        }
+    }
+
     public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
         ArrayList<AbstractCharacter> team = new ArrayList<>();
         team.add(FeixiaoLightconeCompare(lightconeSupplier));

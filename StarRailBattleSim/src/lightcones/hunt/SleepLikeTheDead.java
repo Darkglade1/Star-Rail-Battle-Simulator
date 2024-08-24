@@ -3,6 +3,7 @@ package lightcones.hunt;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 import lightcones.AbstractLightcone;
+import powers.AbstractPower;
 import powers.PermPower;
 import powers.PowerStat;
 import powers.TempPower;
@@ -27,8 +28,11 @@ public class SleepLikeTheDead extends AbstractLightcone {
 
     @Override
     public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
-        if (this.cooldown == 0) {
-            this.owner.addPower(TempPower.create(PowerStat.CRIT_CHANCE, 36, 1, "Sleep Like The Dead Crit Chance Boost"));
+        if (this.cooldown <= 0 && (types.contains(AbstractCharacter.DamageType.SKILL) || types.contains(AbstractCharacter.DamageType.BASIC))) {
+            AbstractPower critPower = TempPower.create(PowerStat.CRIT_CHANCE, 36, 1, "Sleep Like The Dead Crit Chance Boost");
+            critPower.justApplied = true;
+            this.owner.addPower(critPower);
+            cooldown = 3;
         }
     }
 
