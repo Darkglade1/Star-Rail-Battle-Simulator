@@ -111,11 +111,19 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         ultGoals.put(priority, ultGoal);
     }
 
+    public void clearUltGoals() {
+        ultGoals.clear();
+    }
+
     public void registerGoal(int priority, TurnGoal<C> turnGoal) {
         if (turnGoals.containsKey(priority)) {
             throw new IllegalArgumentException("Priority already exists, " + priority);
         }
         turnGoals.put(priority, turnGoal);
+    }
+
+    public void clearTurnGoals() {
+        turnGoals.clear();
     }
 
     public final void tryUltimate() {
@@ -149,6 +157,9 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         super.takeTurn();
         numTurnsMetric++;
 
+        // TODO: Ulting at the start of the turn makes the dmg higher in some places, but lowers in a few
+        // Should investigate why this is happening, and add the needed goals to make it increase at all times
+        // Time to read a bunch of logs
         //tryUltimate();
         for (TurnGoal<C> turnGoal : this.turnGoals.values()) {
             TurnGoal.TurnGoalResult result = turnGoal.determineAction();
