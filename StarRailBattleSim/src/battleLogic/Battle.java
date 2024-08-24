@@ -29,6 +29,7 @@ import powers.AbstractPower;
 import powers.PowerStat;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,27 +119,27 @@ public class Battle implements IBattle {
 
     @Override
     public AbstractEntity getUnit(int index) {
-        if (index > this.actionValueMap.size()) {
+        if (index >= this.actionValueMap.size()) {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for actionValueMap size " + this.actionValueMap.size());
         }
 
-        return this.actionValueMap
-                .entrySet()
+        float minAV = actionValueMap.values()
                 .stream()
-                .sorted((e1, e2) -> {
-                    if (e1.getValue().equals(e2.getValue())) {
-                        return e1.getKey().speedPriority - e2.getKey().speedPriority;
-                    }
-                    return (int) (e1.getValue() - e2.getValue());
-                })
-                .collect(Collectors.toList())
-                .get(index)
-                .getKey();
+                .min(Float::compare)
+                .orElseThrow(() -> new RuntimeException("ERROR - NO NEXT UNIT FOUND"));
+
+        List<AbstractEntity> candidates = actionValueMap.entrySet().stream()
+                .filter(entry -> entry.getValue() == minAV)
+                .map(Map.Entry::getKey)
+                .sorted(Comparator.comparingInt(e -> e.speedPriority))
+                .collect(Collectors.toList());
+
+        return candidates.get(index);
     }
 
     @Override
     public boolean isAboutToEnd() {
-        AbstractEntity next = findLowestAVUnit();
+        AbstractEntity next = this.getUnit(0);
         return actionValueMap.get(next) > battleLength;
     }
 
@@ -251,7 +252,7 @@ public class Battle implements IBattle {
 
         while (battleLength > 0) {
             addToLog(new LeftOverAV(this.battleLength));
-            nextUnit = findLowestAVUnit();
+            nextUnit = this.getUnit(0);
             float nextAV = actionValueMap.get(nextUnit);
             if (nextAV > battleLength) {
                 for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
@@ -414,34 +415,6 @@ public class Battle implements IBattle {
             enemy = this.enemyTeam.get(0);
         }
         return enemy;
-    }
-
-    private AbstractEntity findLowestAVUnit() {
-        AbstractEntity next = null;
-        float nextAV = 999.0f;
-        ArrayList<AbstractEntity> speedTieList = new ArrayList<>();
-        for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
-            if (entry.getValue() < nextAV) {
-                next = entry.getKey();
-                nextAV = entry.getValue();
-                speedTieList.clear();
-            } else if (entry.getValue() == nextAV) {
-                speedTieList.add(entry.getKey());
-            }
-        }
-        if (next == null) {
-            throw new RuntimeException("ERROR - NO NEXT UNIT FOUND");
-        }
-        if (!speedTieList.isEmpty()) {
-            int lowestSpeedTie = next.speedPriority;
-            for (AbstractEntity entity : speedTieList) {
-                if (entity.speedPriority < lowestSpeedTie) {
-                    next = entity;
-                    lowestSpeedTie = entity.speedPriority;
-                }
-            }
-        }
-        return next;
     }
 
     @Override
