@@ -5,6 +5,11 @@ import battleLogic.log.Logger;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class CritHitResult implements Loggable {
 
     public final AbstractCharacter<?> source;
@@ -18,11 +23,21 @@ public class CritHitResult implements Loggable {
     public final double toughnessMultiplier;
     public final double critMultiplier;
     public final double expectedCritMultiplier;
+    private HashMap<String, Float> damageBonusMultiConstituents;
+    private HashMap<String, Float> defenseMultiConstituents;
+    private HashMap<String, Float> resMultiConstituents;
+    private HashMap<String, Float> damageVulnMultiConstituents;
+    private HashMap<String, Float> critDmgMultiConstituents;
 
     public CritHitResult(AbstractCharacter<?> source, AbstractEnemy target, double calculatedDamage, double baseDamage,
                          double dmgMultiplier, double defMultiplier, double resMultiplier,
                          double damageTakenMultiplier, double toughnessMultiplier,
-                         double critMultiplier, double expectedCritMultiplier) {
+                         double critMultiplier, double expectedCritMultiplier,
+                         HashMap<String, Float> damageBonusMultiConstituents,
+                         HashMap<String, Float> defenseMultiConstituents,
+                         HashMap<String, Float> resMultiConstituents,
+                         HashMap<String, Float> damageVulnMultiConstituents,
+                         HashMap<String, Float> critDmgMultiConstituents) {
         this.source = source;
         this.target = target;
         this.calculatedDamage = calculatedDamage;
@@ -34,13 +49,29 @@ public class CritHitResult implements Loggable {
         this.toughnessMultiplier = toughnessMultiplier;
         this.critMultiplier = critMultiplier;
         this.expectedCritMultiplier = expectedCritMultiplier;
+        this.damageBonusMultiConstituents = damageBonusMultiConstituents;
+        this.defenseMultiConstituents = defenseMultiConstituents;
+        this.resMultiConstituents = resMultiConstituents;
+        this.damageVulnMultiConstituents = damageVulnMultiConstituents;
+        this.critDmgMultiConstituents = critDmgMultiConstituents;
     }
 
     @Override
     public String asString() {
-        return String.format("%s critically hit %s for %.3f damage - Base Damage: %.3f, Damage Multiplier: %.3f, Defense Multiplier: %.3f, Res Multiplier: %.3f, Damage Vuln Multiplier: %.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %.3f Expected Crit Damage Multiplier: %.3f",
-                this.source.name, this.target.name, calculatedDamage, baseDamage, dmgMultiplier, defMultiplier, resMultiplier,
-                damageTakenMultiplier, toughnessMultiplier, critMultiplier, expectedCritMultiplier);
+        return String.format("%s hit %s for expected crit result of %.3f damage - Base Damage: %.3f, Damage Bonus Multiplier: %s%.3f, Defense Multiplier: %s%.3f, Res Multiplier: %s%.3f, Damage Vuln Multiplier: %s%.3f, Toughness Multiplier: %.3f, Crit Damage Multiplier: %s%.3f Expected Crit Damage Multiplier: %.3f",
+                this.source.name, this.target.name, calculatedDamage, baseDamage, parseConstituents(damageBonusMultiConstituents), dmgMultiplier, parseConstituents(defenseMultiConstituents), defMultiplier, parseConstituents(resMultiConstituents), resMultiplier,
+                parseConstituents(damageVulnMultiConstituents), damageTakenMultiplier, toughnessMultiplier, parseConstituents(critDmgMultiConstituents), critMultiplier, expectedCritMultiplier);
+    }
+
+    private String parseConstituents(HashMap<String, Float> multConstituents) {
+        String result = multConstituents.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .map(entry -> {
+                    return String.format("[%s, %.1f]", entry.getKey(), entry.getValue());
+                })
+                .collect(Collectors.joining("+"));
+        return String.format("(%s)=", result);
     }
 
     @Override

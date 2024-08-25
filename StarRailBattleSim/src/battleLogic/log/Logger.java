@@ -2,55 +2,19 @@ package battleLogic.log;
 
 import battleLogic.BattleParticipant;
 import battleLogic.IBattle;
-import battleLogic.log.lines.battle.AdvanceEntity;
-import battleLogic.log.lines.battle.BattleEnd;
-import battleLogic.log.lines.battle.CombatStart;
-import battleLogic.log.lines.battle.DelayEntity;
-import battleLogic.log.lines.battle.GenerateSkillPoint;
-import battleLogic.log.lines.battle.LeftOverAV;
-import battleLogic.log.lines.battle.SpeedAdvanceEntity;
-import battleLogic.log.lines.battle.SpeedDelayEntity;
-import battleLogic.log.lines.battle.TriggerTechnique;
-import battleLogic.log.lines.battle.TurnStart;
-import battleLogic.log.lines.battle.UseSkillPoint;
-import battleLogic.log.lines.character.Attacked;
-import battleLogic.log.lines.character.BreakDamageHitResult;
-import battleLogic.log.lines.character.ConcertoEnd;
-import battleLogic.log.lines.character.CritHitResult;
-import battleLogic.log.lines.character.EmergencyHeal;
-import battleLogic.log.lines.character.ExtraHits;
-import battleLogic.log.lines.character.TurnDecision;
-import battleLogic.log.lines.character.UltDecision;
+import battleLogic.log.lines.battle.*;
+import battleLogic.log.lines.character.*;
 import battleLogic.log.lines.character.aventurine.UseBlindBet;
 import battleLogic.log.lines.character.hanya.BurdenLog;
 import battleLogic.log.lines.character.lingsha.FuYuanGain;
 import battleLogic.log.lines.character.lingsha.FuYuanLose;
 import battleLogic.log.lines.character.lingsha.HitSinceLastHeal;
 import battleLogic.log.lines.character.lingsha.ResetTracker;
-import battleLogic.log.lines.entity.GainCharge;
-import battleLogic.log.lines.character.GainEnergy;
-import battleLogic.log.lines.character.HitResult;
-import battleLogic.log.lines.character.TotalDamage;
-import battleLogic.log.lines.character.DoMove;
-import battleLogic.log.lines.character.UseCounter;
 import battleLogic.log.lines.character.yunli.UseCull;
 import battleLogic.log.lines.character.yunli.UseSlash;
-import battleLogic.log.lines.enemy.EnemyAction;
-import battleLogic.log.lines.enemy.ForcedAttack;
-import battleLogic.log.lines.enemy.ReduceToughness;
-import battleLogic.log.lines.enemy.RuanMeiDelay;
-import battleLogic.log.lines.enemy.SecondAction;
-import battleLogic.log.lines.enemy.WeaknessBreakRecover;
-import battleLogic.log.lines.entity.GainPower;
-import battleLogic.log.lines.entity.LoseCharge;
-import battleLogic.log.lines.entity.LosePower;
-import battleLogic.log.lines.entity.RefreshPower;
-import battleLogic.log.lines.entity.StackPower;
-import battleLogic.log.lines.metrics.BattleMetrics;
-import battleLogic.log.lines.metrics.EnemyMetrics;
-import battleLogic.log.lines.metrics.FinalDmgMetrics;
-import battleLogic.log.lines.metrics.PostCombatPlayerMetrics;
-import battleLogic.log.lines.metrics.PreCombatPlayerMetrics;
+import battleLogic.log.lines.enemy.*;
+import battleLogic.log.lines.entity.*;
+import battleLogic.log.lines.metrics.*;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -185,10 +149,6 @@ public abstract class Logger implements BattleParticipant {
     }
 
     public void handle(CritHitResult hit) {
-        log(hit);
-    }
-
-    public void handle(HitResult hit) {
         log(hit);
     }
 
