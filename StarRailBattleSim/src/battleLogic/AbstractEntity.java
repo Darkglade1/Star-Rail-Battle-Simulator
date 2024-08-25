@@ -60,14 +60,18 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
                 if (ownedPowers.maxStacks > 0 && ownedPowers.stacks < ownedPowers.maxStacks) {
                     ownedPowers.stacks++;
                     ownedPowers.turnDuration = power.turnDuration;
-                    getBattle().addToLog(new StackPower(this, ownedPowers, ownedPowers.stacks));
+                    if (!getBattle().getLessMetrics()) {
+                        getBattle().addToLog(new StackPower(this, ownedPowers, ownedPowers.stacks));
+                    }
                 } else {
                     if (!ownedPowers.lastsForever) {
                         ownedPowers.turnDuration = power.turnDuration;
                         if (power.justApplied) {
                             ownedPowers.justApplied = true;
                         }
-                        getBattle().addToLog(new RefreshPower(this, ownedPowers, power.turnDuration));
+                        if (!getBattle().getLessMetrics()) {
+                            getBattle().addToLog(new RefreshPower(this, ownedPowers, power.turnDuration));
+                        }
                     }
                 }
                 return;
@@ -76,7 +80,9 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
         powerList.add(power);
         power.owner = this;
         if (inBattle()) {
-            getBattle().addToLog(new GainPower(this, power));
+            if (!getBattle().getLessMetrics()) {
+                getBattle().addToLog(new GainPower(this, power));
+            }
         }
         this.listeners.add(power);
     }
@@ -84,7 +90,9 @@ public abstract class AbstractEntity implements BattleEvents,BattleParticipant {
     public void removePower(AbstractPower power) {
         power.onRemove();
         powerList.remove(power);
-        getBattle().addToLog(new LosePower(this, power));
+        if (!getBattle().getLessMetrics()) {
+            getBattle().addToLog(new LosePower(this, power));
+        }
         this.listeners.remove(power);
     }
 

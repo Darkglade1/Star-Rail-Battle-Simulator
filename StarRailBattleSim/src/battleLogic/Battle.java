@@ -354,6 +354,11 @@ public class Battle implements IBattle {
     }
 
     @Override
+    public boolean getLessMetrics() {
+        return this.lessMetrics;
+    }
+
+    @Override
     public boolean usedEntryTechnique() {
         return this.usedEntryTechnique;
     }

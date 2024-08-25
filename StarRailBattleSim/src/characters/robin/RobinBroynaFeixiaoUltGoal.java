@@ -13,7 +13,6 @@ public class RobinBroynaFeixiaoUltGoal extends UltGoal<Robin> {
 
     @Override
     public UltGoalResult determineAction() {
-
         if (!getBattle().hasCharacter(Feixiao.NAME)) {
             return UltGoalResult.PASS;
         }
@@ -22,18 +21,18 @@ public class RobinBroynaFeixiaoUltGoal extends UltGoal<Robin> {
         if (bronya != null) {
             if (getBattle().getActionValueMap().get(bronya) < bronya.getBaseAV() * 0.7) {
                 return UltGoalResult.DONT;
+            } else {
+                return UltGoalResult.DO;
             }
-
-            return UltGoalResult.PASS;
         }
 
         AbstractCharacter<?> feixiao = getBattle().getCharacter(Feixiao.NAME);
         if (feixiao != null) {
             if (getBattle().getActionValueMap().get(feixiao) < feixiao.getBaseAV() * 0.7) {
                 return UltGoalResult.DONT;
+            } else {
+                return UltGoalResult.DO;
             }
-
-            return UltGoalResult.PASS;
         }
 
         return UltGoalResult.PASS;

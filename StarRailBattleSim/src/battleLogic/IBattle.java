@@ -15,6 +15,8 @@ public interface IBattle {
     void setEnemyTeam(List<AbstractEnemy> enemies);
     void Start(float AV);
 
+    boolean getLessMetrics();
+
     boolean usedEntryTechnique();
     void setUsedEntryTechnique(boolean usedEntryTechnique);
 
