@@ -14,7 +14,7 @@ import powers.TempPower;
  */
 public class ButTheBattleIsntOver extends AbstractLightcone  {
 
-    public ButTheBattleIsntOver(AbstractCharacter owner) {
+    public ButTheBattleIsntOver(AbstractCharacter<?> owner) {
         super(1164, 529, 463, owner);
     }
 
@@ -23,7 +23,7 @@ public class ButTheBattleIsntOver extends AbstractLightcone  {
         this.owner.addPower(PermPower.create(PowerStat.ENERGY_REGEN, 10, "But The Battle Isn't Over Energy Regen Boost"));
     }
 
-    public void onSpecificTrigger(AbstractCharacter character, AbstractEnemy enemy) {
+    public void onSpecificTrigger(AbstractCharacter<?> character, AbstractEnemy enemy) {
         if (character == null) return;
 
         character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 30, 1, "But The Battle Isn't Over Damage Boost"));

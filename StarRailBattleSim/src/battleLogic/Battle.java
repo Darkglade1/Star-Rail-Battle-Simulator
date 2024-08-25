@@ -15,24 +15,28 @@ import battleLogic.log.lines.battle.SpeedDelayEntity;
 import battleLogic.log.lines.battle.TriggerTechnique;
 import battleLogic.log.lines.battle.TurnStart;
 import battleLogic.log.lines.battle.UseSkillPoint;
-import battleLogic.log.lines.character.ConcertoEnd;
 import battleLogic.log.lines.metrics.BattleMetrics;
 import battleLogic.log.lines.metrics.EnemyMetrics;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import battleLogic.log.lines.metrics.PostCombatPlayerMetrics;
 import battleLogic.log.lines.metrics.PreCombatPlayerMetrics;
 import characters.AbstractCharacter;
-import characters.SwordMarch;
-import characters.Yunli;
+import characters.march.SwordMarch;
+import characters.yunli.Yunli;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PowerStat;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Battle implements IBattle {
-    public ArrayList<AbstractCharacter> playerTeam;
-    public ArrayList<AbstractEnemy> enemyTeam;
+    public List<AbstractCharacter<?>> playerTeam;
+    public List<AbstractEnemy> enemyTeam;
 
     private final BattleHelpers battleHelpers;
     private final Logger logger;
@@ -47,14 +51,14 @@ public class Battle implements IBattle {
     public String log = "";
     public float initialBattleLength;
     public float battleLength;
-    public AbstractEntity nextUnit;
+    public AbstractEntity currentUnit;
     public boolean usedEntryTechnique = false;
     public boolean isInCombat = false;
     public boolean lessMetrics = false;
     public int actionForwardPriorityCounter = AbstractEntity.SPEED_PRIORITY_DEFAULT;
 
-    public HashMap<AbstractCharacter, Float> damageContributionMap;
-    public HashMap<AbstractCharacter, Float> damageContributionMapPercent;
+    public HashMap<AbstractCharacter<?>, Float> damageContributionMap;
+    public HashMap<AbstractCharacter<?>, Float> damageContributionMapPercent;
     public HashMap<AbstractEntity, Float> actionValueMap;
 
     protected static long seed = 154172837382L;
@@ -73,17 +77,20 @@ public class Battle implements IBattle {
         this.battleHelpers = new BattleHelpers(this);
         this.logger = new DefaultLogger(this);
     }
+
     public Battle(LogSupplier logger) {
         this.battleHelpers = new BattleHelpers(this);
         this.logger = logger.get(this);
     }
 
-    public void setPlayerTeam(ArrayList<AbstractCharacter> playerTeam) {
+    @Override
+    public void setPlayerTeam(List<AbstractCharacter<?>> playerTeam) {
         this.playerTeam = playerTeam;
         this.playerTeam.forEach(character -> character.setBattle(this));
     }
 
-    public void setEnemyTeam(ArrayList<AbstractEnemy> enemyTeam) {
+    @Override
+    public void setEnemyTeam(List<AbstractEnemy> enemyTeam) {
         this.enemyTeam = enemyTeam;
         this.enemyTeam.forEach(enemy -> enemy.setBattle(this));
     }
@@ -98,13 +105,39 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public AbstractEntity getNextUnit() {
-        return this.nextUnit;
+    public AbstractEntity getCurrentUnit() {
+        return this.currentUnit;
+    }
+
+    @Override
+    public void setCurrentUnit(AbstractEntity entity) {
+        this.currentUnit = entity;
+        this.actionValueMap.put(entity, 0.0F);
+    }
+
+    @Override
+    public AbstractEntity getNextUnit(int index) {
+        if (index >= this.actionValueMap.size()) {
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for actionValueMap size " + this.actionValueMap.size());
+        }
+
+        return this.actionValueMap
+                .entrySet()
+                .stream()
+                .sorted((e1, e2) -> {
+                    if (e1.getValue().equals(e2.getValue())) {
+                        return Integer.compare(e1.getKey().speedPriority, e2.getKey().speedPriority);
+                    }
+                    return Float.compare(e1.getValue(), e2.getValue());
+                })
+                .collect(Collectors.toList())
+                .get(index)
+                .getKey();
     }
 
     @Override
     public boolean isAboutToEnd() {
-        AbstractEntity next = findLowestAVUnit(actionValueMap);
+        AbstractEntity next = this.getNextUnit(0);
         return actionValueMap.get(next) > battleLength;
     }
 
@@ -114,7 +147,7 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public void updateContribution(AbstractCharacter character, float damageContribution) {
+    public void updateContribution(AbstractCharacter<?> character, float damageContribution) {
         if (damageContributionMap.containsKey(character)) {
             float existingTotal = damageContributionMap.get(character);
             float updatedTotal = existingTotal + damageContribution;
@@ -145,7 +178,7 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public void useSkillPoint(AbstractCharacter character, int amount) {
+    public void useSkillPoint(AbstractCharacter<?> character, int amount) {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints -= amount;
         totalSkillPointsUsed += amount;
@@ -156,7 +189,7 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public void generateSkillPoint(AbstractCharacter character, int amount) {
+    public void generateSkillPoint(AbstractCharacter<?> character, int amount) {
         int initialSkillPoints = numSkillPoints;
         numSkillPoints += amount;
         totalSkillPointsGenerated += amount;
@@ -176,6 +209,7 @@ public class Battle implements IBattle {
         return this.numSkillPoints;
     }
 
+    @Override
     public void Start(float initialLength) {
         initialBattleLength = initialLength;
         this.battleLength = initialLength;
@@ -191,18 +225,21 @@ public class Battle implements IBattle {
         for (AbstractEnemy enemy : enemyTeam) {
             actionValueMap.put(enemy, enemy.getBaseAV());
         }
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             character.generateStatsString();
             character.generateStatsReport();
         }
         isInCombat = true;
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             actionValueMap.put(character, character.getBaseAV());
             character.emit(BattleEvents::onCombatStart);
         }
 
-        addToLog(new TriggerTechnique(this.playerTeam));
-        for (AbstractCharacter character : playerTeam) {
+        addToLog(new TriggerTechnique(this.playerTeam
+                .stream()
+                .filter(c -> c.useTechnique)
+                .collect(Collectors.toList())));
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character.useTechnique) {
                 character.useTechnique();
             }
@@ -213,8 +250,8 @@ public class Battle implements IBattle {
 
         while (battleLength > 0) {
             addToLog(new LeftOverAV(this.battleLength));
-            nextUnit = findLowestAVUnit(actionValueMap);
-            float nextAV = actionValueMap.get(nextUnit);
+            currentUnit = this.getNextUnit(0);
+            float nextAV = actionValueMap.get(currentUnit);
             if (nextAV > battleLength) {
                 for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                     float newAV = entry.getValue() - battleLength;
@@ -224,74 +261,49 @@ public class Battle implements IBattle {
                 isInCombat = false;
                 break;
             }
-            if (yunli != null && nextUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
-                yunli.useUltimate();
+            // TODO: Find a way to remove Yunli logic from here
+            // Ideally the battle loop does not care about the specifics of the characters
+            if (yunli != null && currentUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
+                yunli.tryUltimate();
                 if (march != null && march.chargeCount >= march.chargeThreshold) {
-                    nextUnit = march;
-                    nextAV = actionValueMap.get(nextUnit);
+                    currentUnit = march;
+                    nextAV = actionValueMap.get(currentUnit);
                 }
             }
-            addToLog(new TurnStart(nextUnit, nextAV, actionValueMap));
+            addToLog(new TurnStart(currentUnit, nextAV, actionValueMap));
             battleLength -= nextAV;
             for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
                 float newAV = entry.getValue() - nextAV;
                 entry.setValue(newAV);
             }
-            if (nextUnit instanceof Concerto) {
-                addToLog(new ConcertoEnd());
-                actionValueMap.remove(nextUnit);
-                ((Concerto) nextUnit).owner.onConcertoEnd();
-                nextUnit = ((Concerto) nextUnit).owner;
-                actionValueMap.put(nextUnit, 0.0f);
-            }
-            nextUnit.emit(BattleEvents::onTurnStart);
-            if (nextUnit instanceof AbstractEnemy || nextUnit instanceof AbstractCharacter) {
-                if (actionValueMap.get(nextUnit) <= 0) {
-                    actionValueMap.put(nextUnit, nextUnit.getBaseAV());
+
+            if (currentUnit instanceof AbstractEnemy || currentUnit instanceof AbstractCharacter) {
+                if (actionValueMap.get(currentUnit) <= 0) {
+                    actionValueMap.put(currentUnit, currentUnit.getBaseAV());
                 }
             }
-            nextUnit.takeTurn();
-            nextUnit.emit(BattleEvents::onEndTurn);
-            ArrayList<AbstractPower> powersToRemove = new ArrayList<>();
-            for (AbstractPower power : nextUnit.powerList) {
-                if (!power.lastsForever && power.turnDuration <= 0) {
-                    powersToRemove.add(power);
-                }
-            }
-            for (AbstractPower power : powersToRemove) {
-                if (power.getStat(PowerStat.SPEED_PERCENT) > 0 || power.getStat(PowerStat.FLAT_SPEED) > 0) {
-                    DecreaseSpeed(nextUnit, power);
-                } else {
-                    nextUnit.removePower(power);
-                }
-            }
+            currentUnit.emit(BattleEvents::onTurnStart);
+            currentUnit.takeTurn();
+            currentUnit.emit(BattleEvents::onEndTurn);
 
             if (yunli != null && yunli.isParrying) {
                 yunli.useSlash(getRandomEnemy());
             }
 
-            for (AbstractCharacter character : playerTeam) {
-                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.useUltimate();
-                }
-            }
-            // check again in case of energy regen ultimates
-            for (AbstractCharacter character : playerTeam) {
-                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.useUltimate();
-                }
+            getPlayers().stream()
+                    .filter(p -> !(p instanceof Yunli))
+                    .forEach(AbstractCharacter::tryUltimate);
+            getPlayers().stream()
+                    .filter(p -> !(p instanceof Yunli))
+                    .forEach(AbstractCharacter::tryUltimate);
+
+            if (currentUnit instanceof AbstractSummon) {
+                actionValueMap.put(currentUnit, currentUnit.getBaseAV());
             }
 
-            if (nextUnit instanceof AbstractSummon) {
-                actionValueMap.put(nextUnit, nextUnit.getBaseAV());
-            }
-
-            // check again for optimizing robin's ult around numby
-            for (AbstractCharacter character : playerTeam) {
-                if (character.currentEnergy >= character.ultCost && !(character instanceof Yunli)) {
-                    character.useUltimate();
-                }
-            }
+            getPlayers().stream()
+                    .filter(p -> !(p instanceof Yunli))
+                    .forEach(AbstractCharacter::tryUltimate);
         }
 
         calcPercentContribution();
@@ -309,7 +321,7 @@ public class Battle implements IBattle {
     }
 
     public void calcPercentContribution() {
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             Float damage = damageContributionMap.get(character);
             if (damage == null) {
                 damageContributionMap.put(character, 0.0f);
@@ -322,7 +334,7 @@ public class Battle implements IBattle {
     }
 
     private Yunli getYunli() {
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character instanceof Yunli) {
                 return (Yunli) character;
             }
@@ -331,7 +343,7 @@ public class Battle implements IBattle {
     }
 
     private SwordMarch getSwordMarch() {
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character instanceof SwordMarch) {
                 return (SwordMarch) character;
             }
@@ -350,13 +362,13 @@ public class Battle implements IBattle {
     }
 
     @Override
-    public List<AbstractCharacter> getPlayers() {
+    public List<AbstractCharacter<?>> getPlayers() {
         return this.playerTeam;
     }
 
     @Override
     public boolean hasCharacter(String name) {
-        for (AbstractCharacter character : playerTeam) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character.name.equals(name)) {
                 return true;
             }
@@ -364,8 +376,8 @@ public class Battle implements IBattle {
         return false;
     }
     @Override
-    public AbstractCharacter getCharacter(String name) {
-        for (AbstractCharacter character : playerTeam) {
+    public AbstractCharacter<?> getCharacter(String name) {
+        for (AbstractCharacter<?> character : playerTeam) {
             if (character.name.equals(name)) {
                 return character;
             }
@@ -390,46 +402,18 @@ public class Battle implements IBattle {
         return enemy;
     }
 
-    private AbstractEntity findLowestAVUnit(HashMap<AbstractEntity, Float> actionValueMap) {
-        AbstractEntity next = null;
-        float nextAV = 999.0f;
-        ArrayList<AbstractEntity> speedTieList = new ArrayList<>();
-        for (Map.Entry<AbstractEntity,Float> entry : actionValueMap.entrySet()) {
-            if (entry.getValue() < nextAV) {
-                next = entry.getKey();
-                nextAV = entry.getValue();
-                speedTieList.clear();
-            } else if (entry.getValue() == nextAV) {
-                speedTieList.add(entry.getKey());
-            }
-        }
-        if (next == null) {
-            throw new RuntimeException("ERROR - NO NEXT UNIT FOUND");
-        }
-        if (!speedTieList.isEmpty()) {
-            int lowestSpeedTie = next.speedPriority;
-            for (AbstractEntity entity : speedTieList) {
-                if (entity.speedPriority < lowestSpeedTie) {
-                    next = entity;
-                    lowestSpeedTie = entity.speedPriority;
-                }
-            }
-        }
-        return next;
-    }
-
     @Override
     public void addToLog(Loggable addition) {
         this.logger.handle(addition);
     }
 
     @Override
-    public HashMap<AbstractCharacter, Float> getDamageContributionMap() {
+    public HashMap<AbstractCharacter<?>, Float> getDamageContributionMap() {
         return this.damageContributionMap;
     }
 
     @Override
-    public HashMap<AbstractCharacter, Float> getDamageContributionMapPercent() {
+    public HashMap<AbstractCharacter<?>, Float> getDamageContributionMapPercent() {
         return this.damageContributionMapPercent;
     }
 

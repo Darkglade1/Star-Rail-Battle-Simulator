@@ -7,11 +7,11 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class SpringhtlyVonwacq extends AbstractRelicSetBonus {
-    public SpringhtlyVonwacq(AbstractCharacter owner, boolean fullSet) {
+    public SpringhtlyVonwacq(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public SpringhtlyVonwacq(AbstractCharacter owner) {
+    public SpringhtlyVonwacq(AbstractCharacter<?> owner) {
         super(owner);
     }
 

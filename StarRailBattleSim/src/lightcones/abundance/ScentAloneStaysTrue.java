@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ScentAloneStaysTrue extends AbstractLightcone {
 
-    public ScentAloneStaysTrue(AbstractCharacter owner) {
+    public ScentAloneStaysTrue(AbstractCharacter<?> owner) {
         super(1058, 529, 529, owner);
     }
 
@@ -21,7 +21,7 @@ public class ScentAloneStaysTrue extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.ULTIMATE)) return;
 
         enemiesHit.forEach(e -> {

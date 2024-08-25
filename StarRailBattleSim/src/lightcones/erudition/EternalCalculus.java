@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class EternalCalculus extends AbstractLightcone {
 
-    public EternalCalculus(AbstractCharacter owner) {
+    public EternalCalculus(AbstractCharacter<?> owner) {
         super(1058, 529, 397, owner);
     }
 
@@ -31,7 +31,7 @@ public class EternalCalculus extends AbstractLightcone {
         }
 
         @Override
-        public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+        public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             this.stacks = Math.min(5, enemiesHit.size());
             if (this.stacks > 3) {
                 getBattle().IncreaseSpeed(this.owner, TempPower.create(PowerStat.SPEED_PERCENT, 16, 1, "Eternal Calculus Speed Boost"));
@@ -39,7 +39,7 @@ public class EternalCalculus extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalAtkBonus(AbstractCharacter character) {
+        public float getConditionalAtkBonus(AbstractCharacter<?> character) {
             return 8 * this.stacks;
         }
     }

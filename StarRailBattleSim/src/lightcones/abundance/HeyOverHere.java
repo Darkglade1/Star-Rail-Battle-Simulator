@@ -10,7 +10,7 @@ import powers.PowerStat;
  */
 public class HeyOverHere extends AbstractLightcone {
 
-    public HeyOverHere(AbstractCharacter owner) {
+    public HeyOverHere(AbstractCharacter<?> owner) {
         super(953, 423, 397, owner);
     }
 

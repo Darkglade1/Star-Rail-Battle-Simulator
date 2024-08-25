@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class AlongThePassingShore extends AbstractLightcone {
 
-    public AlongThePassingShore(AbstractCharacter owner) {
+    public AlongThePassingShore(AbstractCharacter<?> owner) {
         super(1058, 635, 397, owner);
     }
 
@@ -20,7 +20,7 @@ public class AlongThePassingShore extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         for (AbstractEnemy enemy : enemiesHit) {
             enemy.addPower(new MirageFizzle(this));
         }
@@ -37,7 +37,7 @@ public class AlongThePassingShore extends AbstractLightcone {
         }
 
         @Override
-        public float receiveConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float receiveConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (character != this.lightcone.owner) return 0;
 
             if (damageTypes.contains(AbstractCharacter.DamageType.ULTIMATE)) {

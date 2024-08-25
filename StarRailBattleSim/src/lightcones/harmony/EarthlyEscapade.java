@@ -10,14 +10,14 @@ import powers.PowerStat;
 public class EarthlyEscapade extends AbstractLightcone {
     private final boolean mask;
 
-    public EarthlyEscapade(AbstractCharacter owner) {
+    public EarthlyEscapade(AbstractCharacter<?> owner) {
         this(owner, true);
     }
 
     /**
      * @param mask if mask can be refreshed during the game, will assume each ult
      */
-    public EarthlyEscapade(AbstractCharacter owner, boolean mask) {
+    public EarthlyEscapade(AbstractCharacter<?> owner, boolean mask) {
         super(1164, 529, 463, owner);
         this.mask = mask;
     }
@@ -29,7 +29,7 @@ public class EarthlyEscapade extends AbstractLightcone {
 
     @Override
     public void onCombatStart() {
-        for (AbstractCharacter character : getBattle().getPlayers()) {
+        for (AbstractCharacter<?> character : getBattle().getPlayers()) {
             character.addPower(new Mask(mask));
         }
     }

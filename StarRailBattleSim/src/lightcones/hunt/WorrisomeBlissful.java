@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class WorrisomeBlissful extends AbstractLightcone {
 
-    public WorrisomeBlissful(AbstractCharacter owner) {
+    public WorrisomeBlissful(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
     }
 
@@ -20,7 +20,7 @@ public class WorrisomeBlissful extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (character != owner) return;
         if (enemiesHit.isEmpty()) return;
 
@@ -38,7 +38,7 @@ public class WorrisomeBlissful extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) return 0;
 
             return 30;
@@ -52,7 +52,7 @@ public class WorrisomeBlissful extends AbstractLightcone {
         }
 
         @Override
-        public float receiveConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float receiveConditionalCritDamage(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             return 12 * this.stacks;
         }
     }

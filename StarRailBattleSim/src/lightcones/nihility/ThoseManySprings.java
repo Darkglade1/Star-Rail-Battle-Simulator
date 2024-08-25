@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ThoseManySprings extends AbstractLightcone {
 
-    public ThoseManySprings(AbstractCharacter owner) {
+    public ThoseManySprings(AbstractCharacter<?> owner) {
         super(953, 582, 529, owner);
     }
 
@@ -21,7 +21,7 @@ public class ThoseManySprings extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.BASIC)
                 && !types.contains(AbstractCharacter.DamageType.SKILL)
                 && !types.contains(AbstractCharacter.DamageType.ULTIMATE)) {

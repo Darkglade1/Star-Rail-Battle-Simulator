@@ -19,7 +19,7 @@ public class BattleMetrics implements Loggable {
     public final int totalSkillPointsUsed;
     public final int totalSkillPointsGenerated;
     public final Map<AbstractEntity, Float> finalActionValue;
-    public final Map<AbstractCharacter, Float> leftOverEnergy;
+    public final Map<AbstractCharacter<?>, Float> leftOverEnergy;
 
     public BattleMetrics(IBattle battle) {
         this.totalPlayerDmg = battle.getTotalPlayerDmg();

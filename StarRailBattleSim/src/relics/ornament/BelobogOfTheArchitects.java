@@ -6,11 +6,11 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class BelobogOfTheArchitects extends AbstractRelicSetBonus {
-    public BelobogOfTheArchitects(AbstractCharacter owner, boolean fullSet) {
+    public BelobogOfTheArchitects(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public BelobogOfTheArchitects(AbstractCharacter owner) {
+    public BelobogOfTheArchitects(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -30,7 +30,7 @@ public class BelobogOfTheArchitects extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalDefenseBonus(AbstractCharacter character) {
+        public float getConditionalDefenseBonus(AbstractCharacter<?> character) {
             if (character.getTotalEHR() >= 50) {
                 return 15;
             }

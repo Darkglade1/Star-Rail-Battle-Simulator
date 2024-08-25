@@ -9,10 +9,10 @@ import enemies.AbstractEnemy;
 import java.util.ArrayList;
 
 public abstract class AbstractRelicSetBonus implements BattleEvents,BattleParticipant {
-    public AbstractCharacter owner;
+    public AbstractCharacter<?> owner;
     protected boolean isFullSet;
 
-    public AbstractRelicSetBonus(AbstractCharacter owner, boolean fullSet) {
+    public AbstractRelicSetBonus(AbstractCharacter<?> owner, boolean fullSet) {
         this.owner = owner;
         this.isFullSet = fullSet;
     }
@@ -22,7 +22,7 @@ public abstract class AbstractRelicSetBonus implements BattleEvents,BattlePartic
         return this.owner.getBattle();
     }
 
-    public AbstractRelicSetBonus(AbstractCharacter owner) {
+    public AbstractRelicSetBonus(AbstractCharacter<?> owner) {
         this(owner, true);
     }
 

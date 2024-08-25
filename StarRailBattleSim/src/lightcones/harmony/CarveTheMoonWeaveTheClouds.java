@@ -9,14 +9,14 @@ import java.util.NoSuchElementException;
 
 public class CarveTheMoonWeaveTheClouds extends AbstractLightcone {
 
-    public CarveTheMoonWeaveTheClouds(AbstractCharacter owner) {
+    public CarveTheMoonWeaveTheClouds(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
     private void refreshEffects() {
         int type = getBattle().getWeaveEffectRng().nextInt(3) + 1;
         CarveTheMoonWeaveTheCloudsEffect effect = new CarveTheMoonWeaveTheCloudsEffect(type);
-        for (AbstractCharacter character : getBattle().getPlayers()) {
+        for (AbstractCharacter<?> character : getBattle().getPlayers()) {
             character.removePower(effect.name);
             character.addPower(effect);
         }

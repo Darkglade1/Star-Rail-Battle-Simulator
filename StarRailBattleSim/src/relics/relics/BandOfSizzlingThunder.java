@@ -7,11 +7,11 @@ import powers.TempPower;
 import relics.AbstractRelicSetBonus;
 
 public class BandOfSizzlingThunder extends AbstractRelicSetBonus {
-    public BandOfSizzlingThunder(AbstractCharacter owner, boolean fullSet) {
+    public BandOfSizzlingThunder(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public BandOfSizzlingThunder(AbstractCharacter owner) {
+    public BandOfSizzlingThunder(AbstractCharacter<?> owner) {
         super(owner);
     }
 

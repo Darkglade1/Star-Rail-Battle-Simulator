@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class MakeTheWorldClamor extends AbstractLightcone {
 
-    public MakeTheWorldClamor(AbstractCharacter owner) {
+    public MakeTheWorldClamor(AbstractCharacter<?> owner) {
         super(847, 476, 397, owner);
     }
 
@@ -30,7 +30,7 @@ public class MakeTheWorldClamor extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.ULTIMATE)) return 0;
 
             return 64;

@@ -11,7 +11,7 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class BrokenKeel extends AbstractRelicSetBonus {
-    public BrokenKeel(AbstractCharacter owner) {
+    public BrokenKeel(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -34,7 +34,7 @@ public class BrokenKeel extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritDamage(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (BrokenKeel.this.owner.getTotalEffectRes() < 30) {
                 return 0;
             }

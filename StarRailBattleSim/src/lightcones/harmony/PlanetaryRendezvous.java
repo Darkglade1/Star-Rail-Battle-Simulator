@@ -8,7 +8,7 @@ import powers.PowerStat;
 
 public class PlanetaryRendezvous extends AbstractLightcone {
 
-    public PlanetaryRendezvous(AbstractCharacter owner) {
+    public PlanetaryRendezvous(AbstractCharacter<?> owner) {
         super(1058, 423, 331, owner);
     }
 

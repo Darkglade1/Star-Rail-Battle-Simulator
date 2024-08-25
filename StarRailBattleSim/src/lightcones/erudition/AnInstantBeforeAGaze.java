@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class AnInstantBeforeAGaze extends AbstractLightcone {
 
-    public AnInstantBeforeAGaze(AbstractCharacter owner) {
+    public AnInstantBeforeAGaze(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
     }
 
@@ -28,7 +28,7 @@ public class AnInstantBeforeAGaze extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.ULTIMATE)) return 0;
             if (character != owner) return 0;
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class TextureOfMemories extends AbstractLightcone {
 
-    public TextureOfMemories(AbstractCharacter owner) {
+    public TextureOfMemories(AbstractCharacter<?> owner) {
         super(1058, 423, 529, owner);
     }
 
@@ -20,7 +20,7 @@ public class TextureOfMemories extends AbstractLightcone {
     }
 
     @Override
-    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+    public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         // TODO: Check shield
         // TODO: Reduce dmg taken power
     }

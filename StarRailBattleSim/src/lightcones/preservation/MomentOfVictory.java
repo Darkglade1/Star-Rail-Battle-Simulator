@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class MomentOfVictory extends AbstractLightcone {
 
-    public MomentOfVictory(AbstractCharacter owner) {
+    public MomentOfVictory(AbstractCharacter<?> owner) {
         super(1058, 476, 595, owner);
     }
 
@@ -23,7 +23,7 @@ public class MomentOfVictory extends AbstractLightcone {
     }
 
     @Override
-    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+    public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         this.owner.addPower(TempPower.create(PowerStat.DEF_PERCENT, 24, 1, "Moment Of Victory Defense Boost"));
     }
 }

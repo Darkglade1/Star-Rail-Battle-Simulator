@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class TrendOfTheUniversalMarket extends AbstractLightcone {
 
-    public TrendOfTheUniversalMarket(AbstractCharacter owner) {
+    public TrendOfTheUniversalMarket(AbstractCharacter<?> owner) {
         super(1058, 370, 397, owner);
     }
 
@@ -20,7 +20,7 @@ public class TrendOfTheUniversalMarket extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         double dmg = character.getFinalDefense() * 0.8;
         // TODO: Add dot to enemies
         // for (AbstractEnemy enemy : enemiesHit) {

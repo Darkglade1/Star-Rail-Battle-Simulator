@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class EchoesOftheCoffin extends AbstractLightcone {
 
-    public EchoesOftheCoffin(AbstractCharacter owner) {
+    public EchoesOftheCoffin(AbstractCharacter<?> owner) {
         super(1164, 582, 397, owner);
     }
 
@@ -29,7 +29,7 @@ public class EchoesOftheCoffin extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         int stacks = Math.min(3, enemiesHit.size());
         this.owner.increaseEnergy(3*stacks);
     }

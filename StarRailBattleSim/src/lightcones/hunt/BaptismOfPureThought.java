@@ -16,11 +16,11 @@ public class BaptismOfPureThought extends AbstractLightcone {
 
     private final int enemyDebugs;
 
-    public BaptismOfPureThought(AbstractCharacter owner) {
+    public BaptismOfPureThought(AbstractCharacter<?> owner) {
         this(owner, 3);
     }
 
-    public BaptismOfPureThought(AbstractCharacter owner, int enemyDebugs) {
+    public BaptismOfPureThought(AbstractCharacter<?> owner, int enemyDebugs) {
         super(953, 582, 529, owner);
         this.enemyDebugs = Math.min(3, enemyDebugs);
     }
@@ -43,7 +43,7 @@ public class BaptismOfPureThought extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionDefenseIgnore(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionDefenseIgnore(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.FOLLOW_UP)) return 0;
 
             return 24;

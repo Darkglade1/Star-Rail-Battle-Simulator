@@ -7,7 +7,7 @@ import powers.PowerStat;
 
 public class ConcertForTwo extends AbstractLightcone {
 
-    public ConcertForTwo(AbstractCharacter owner) {
+    public ConcertForTwo(AbstractCharacter<?> owner) {
         super(953, 370, 463, owner);
     }
 

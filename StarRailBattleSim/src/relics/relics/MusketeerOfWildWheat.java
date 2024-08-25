@@ -10,10 +10,10 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class MusketeerOfWildWheat extends AbstractRelicSetBonus {
-    public MusketeerOfWildWheat(AbstractCharacter owner) {
+    public MusketeerOfWildWheat(AbstractCharacter<?> owner) {
         super(owner);
     }
-    public MusketeerOfWildWheat(AbstractCharacter owner, boolean isFullSet) {
+    public MusketeerOfWildWheat(AbstractCharacter<?> owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 
@@ -47,7 +47,7 @@ public class MusketeerOfWildWheat extends AbstractRelicSetBonus {
             this.lastsForever = true;
         }
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             for (AbstractCharacter.DamageType type : damageTypes) {
                 if (type == AbstractCharacter.DamageType.BASIC) {
                     return 10;

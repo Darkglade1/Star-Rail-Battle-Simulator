@@ -19,6 +19,8 @@ import battleLogic.log.lines.character.ConcertoEnd;
 import battleLogic.log.lines.character.CritHitResult;
 import battleLogic.log.lines.character.EmergencyHeal;
 import battleLogic.log.lines.character.ExtraHits;
+import battleLogic.log.lines.character.TurnDecision;
+import battleLogic.log.lines.character.UltDecision;
 import battleLogic.log.lines.character.aventurine.UseBlindBet;
 import battleLogic.log.lines.character.hanya.BurdenLog;
 import battleLogic.log.lines.character.lingsha.FuYuanGain;
@@ -276,6 +278,14 @@ public abstract class Logger implements BattleParticipant {
 
     public void handle(FinalDmgMetrics finalDmgMetrics) {
         log(finalDmgMetrics);
+    }
+
+    public void handle(UltDecision ultDecision) {
+        log(ultDecision);
+    }
+
+    public void handle(TurnDecision turnDecision) {
+        log(turnDecision);
     }
 
 }

@@ -1,6 +1,24 @@
 package teams;
 
-import characters.*;
+import characters.AbstractCharacter;
+import characters.adventurine.Aventurine;
+import characters.asta.Asta;
+import characters.bronya.Bronya;
+import characters.feixiao.Feixiao;
+import characters.fuxuan.FuXuan;
+import characters.gallagher.Gallagher;
+import characters.hanya.Hanya;
+import characters.huohuo.Huohuo;
+import characters.lingsha.Lingsha;
+import characters.march.SwordMarch;
+import characters.moze.Moze;
+import characters.pela.Pela;
+import characters.robin.Robin;
+import characters.ruanmei.RuanMei;
+import characters.sparkle.Sparkle;
+import characters.tingyun.Tingyun;
+import characters.topaz.Topaz;
+import characters.yunli.Yunli;
 import lightcones.AbstractLightcone;
 import lightcones.abundance.Multiplication;
 import lightcones.abundance.PostOpConversation;
@@ -22,11 +40,11 @@ import java.util.function.Function;
 
 public class PlayerTeam {
 
-    public ArrayList<AbstractCharacter> getTeam() {
+    public ArrayList<AbstractCharacter<?>> getTeam() {
         return null;
     }
     public String toString() {
-        ArrayList<AbstractCharacter> team = getTeam();
+        ArrayList<AbstractCharacter<?>> team = getTeam();
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < team.size(); i++) {
             result.append(team.get(i).name);
@@ -39,8 +57,8 @@ public class PlayerTeam {
 
     public static class PelaYunliRobinHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltPela());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltRobin());
@@ -51,8 +69,8 @@ public class PlayerTeam {
 
     public static class PelaYunliSparkleHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltPela());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltSparkle());
@@ -63,8 +81,8 @@ public class PlayerTeam {
 
     public static class MarchYunliTingyunHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltSwordMarch());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltTingyun());
@@ -75,8 +93,8 @@ public class PlayerTeam {
 
     public static class TopazYunliTingyunHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltTopaz());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltTingyun());
@@ -87,8 +105,8 @@ public class PlayerTeam {
 
     public static class TingyunYunliRobinAventurineTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltTingyun());
             playerTeam.add(getPrebuiltAventurine());
             playerTeam.add(getPrebuiltYunli());
@@ -99,8 +117,8 @@ public class PlayerTeam {
 
     public static class MarchYunliRobinAventurineTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltSwordMarch());
             playerTeam.add(getPrebuiltAventurine());
             playerTeam.add(getPrebuiltYunli());
@@ -111,8 +129,8 @@ public class PlayerTeam {
 
     public static class TopazYunliRobinAventurineTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltTopaz());
             playerTeam.add(getPrebuiltAventurine());
             playerTeam.add(getPrebuiltYunli());
@@ -123,8 +141,8 @@ public class PlayerTeam {
 
     public static class PelaYunliTingyunHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltPela());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltTingyun());
@@ -135,8 +153,8 @@ public class PlayerTeam {
 
     public static class SparkleYunliTingyunHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltSparkle());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltTingyun());
@@ -147,8 +165,8 @@ public class PlayerTeam {
 
     public static class SparkleYunliRobinHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltSparkle());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltRobin());
@@ -159,8 +177,8 @@ public class PlayerTeam {
 
     public static class MarchYunliRobinHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltSwordMarch());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltRobin());
@@ -171,8 +189,8 @@ public class PlayerTeam {
 
     public static class TopazYunliRobinHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltTopaz());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltRobin());
@@ -183,8 +201,8 @@ public class PlayerTeam {
 
     public static class TingyunYunliRobinHuohuoTeam extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltTingyun());
             playerTeam.add(getPrebuiltYunli());
             playerTeam.add(getPrebuiltRobin());
@@ -195,8 +213,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinAventurineTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -207,8 +225,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -219,8 +237,8 @@ public class PlayerTeam {
 
     public static class FeixiaoSparkleAventurineTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltSparkleFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -231,8 +249,8 @@ public class PlayerTeam {
 
     public static class FeixiaoSparkleAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltSparkleFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -243,8 +261,8 @@ public class PlayerTeam {
 
     public static class FeixiaoSparkleAventurineMoze extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltSparkleFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -255,8 +273,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRuanMeiAventurineTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -267,8 +285,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRuanMeiAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -279,8 +297,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRuanMeiAventurineMoze extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -291,8 +309,8 @@ public class PlayerTeam {
 
     public static class PelaFeixiaoAventurineTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltPela());
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -303,8 +321,8 @@ public class PlayerTeam {
 
     public static class PelaFeixiaoAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltPela());
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -315,8 +333,8 @@ public class PlayerTeam {
 
     public static class PelaFeixiaoGallagherMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltPela());
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltGallagher());
@@ -327,8 +345,8 @@ public class PlayerTeam {
 
     public static class FeixiaoTopazAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltTopazSpeed());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -339,8 +357,8 @@ public class PlayerTeam {
 
     public static class FeixiaoMozeAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltMoze());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -351,8 +369,8 @@ public class PlayerTeam {
 
     public static class FeixiaoMozeGallagherMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltMoze());
             playerTeam.add(getPrebuiltGallagher());
@@ -363,8 +381,8 @@ public class PlayerTeam {
 
     public static class FeixiaoHanyaAventurineTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltHanya());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -375,8 +393,8 @@ public class PlayerTeam {
 
     public static class FeixiaoHanyaAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltHanya());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -387,8 +405,8 @@ public class PlayerTeam {
 
     public static class FeixiaoHanyaGallagherMoze extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltHanya());
             playerTeam.add(getPrebuiltGallagher());
@@ -399,8 +417,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRuanMeiGallagherTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltGallagher());
@@ -411,8 +429,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRuanMeiGallagherMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltGallagher());
@@ -423,8 +441,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinGallagherTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltGallagher());
@@ -435,8 +453,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinGallagherMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltGallagher());
@@ -447,8 +465,8 @@ public class PlayerTeam {
 
     public static class FeixiaoHanyaGallagherMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltHanya());
             playerTeam.add(getPrebuiltGallagher());
@@ -459,8 +477,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinTopazFuXuan extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltTopazSpeed());
@@ -471,8 +489,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinMarchFuXuan extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltSwordMarchFei());
@@ -483,8 +501,8 @@ public class PlayerTeam {
 
     public static class AstaFeixiaoAventurineTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltAsta());
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -495,8 +513,8 @@ public class PlayerTeam {
 
     public static class AstaFeixiaoAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltAsta());
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -507,8 +525,8 @@ public class PlayerTeam {
 
     public static class AstaFeixiaoGallagherMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltAsta());
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltGallagher());
@@ -519,8 +537,8 @@ public class PlayerTeam {
 
     public static class FeixiaoBronyaAventurineTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltBronyaFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -531,8 +549,8 @@ public class PlayerTeam {
 
     public static class FeixiaoBronyaAventurineMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltBronyaFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -543,8 +561,8 @@ public class PlayerTeam {
 
     public static class FeixiaoBronyaAventurineMoze extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltBronyaFei());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -555,8 +573,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinGallagherBronya extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltGallagher());
@@ -567,8 +585,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinAventurineMoze extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltAventurineSpeed());
@@ -579,8 +597,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinGallagherMoze extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltGallagher());
@@ -591,8 +609,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinLingshaTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltLingshaCritSupport());
@@ -603,8 +621,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinLingshaMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltLingshaCritSupport());
@@ -615,8 +633,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRobinLingshaMoze extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRobin());
             playerTeam.add(getPrebuiltLingshaCritSupport());
@@ -627,8 +645,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRuanMeiLingshaTopaz extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltLingshaCritSupport());
@@ -639,8 +657,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRuanMeiLingshaMarch extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltLingshaCritSupport());
@@ -651,8 +669,8 @@ public class PlayerTeam {
 
     public static class FeixiaoRuanMeiLingshaMoze extends PlayerTeam {
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
-            ArrayList<AbstractCharacter> playerTeam = new ArrayList<>();
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
             playerTeam.add(getPrebuiltFeixiao());
             playerTeam.add(getPrebuiltRuanMeiCritSupport());
             playerTeam.add(getPrebuiltLingshaCritSupport());
@@ -661,8 +679,8 @@ public class PlayerTeam {
         }
     }
 
-    public static AbstractCharacter getPrebuiltLingshaCritSupport() {
-        AbstractCharacter character = new Lingsha();
+    public static AbstractCharacter<?> getPrebuiltLingshaCritSupport() {
+        AbstractCharacter<?> character = new Lingsha();
         character.EquipLightcone(new WhatIsReal(character));
         character.EquipRelicSet(new ThiefOfShootingMeteor(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -675,8 +693,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltMoze() {
-        AbstractCharacter character = new Moze();
+    public static AbstractCharacter<?> getPrebuiltMoze() {
+        AbstractCharacter<?> character = new Moze();
         character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character));
         character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
@@ -688,8 +706,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltBronyaFei() {
-        AbstractCharacter character = new Bronya();
+    public static AbstractCharacter<?> getPrebuiltBronyaFei() {
+        AbstractCharacter<?> character = new Bronya();
         character.EquipLightcone(new PastAndFuture(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -702,8 +720,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltAsta() {
-        AbstractCharacter character = new Asta();
+    public static AbstractCharacter<?> getPrebuiltAsta() {
+        AbstractCharacter<?> character = new Asta();
         character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new MessengerTraversingHackerspace(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -716,8 +734,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltFuXuan() {
-        AbstractCharacter character = new FuXuan();
+    public static AbstractCharacter<?> getPrebuiltFuXuan() {
+        AbstractCharacter<?> character = new FuXuan();
         character.EquipLightcone(new DayOneOfMyNewLife(character));
         character.EquipRelicSet(new KnightOfPurityPalace(character, false));
         character.EquipRelicSet(new LongevousDisciple(character, false));
@@ -730,8 +748,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltGallagher() {
-        AbstractCharacter character = new Gallagher();
+    public static AbstractCharacter<?> getPrebuiltGallagher() {
+        AbstractCharacter<?> character = new Gallagher();
         character.EquipLightcone(new Multiplication(character));
         character.EquipRelicSet(new ThiefOfShootingMeteor(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -743,8 +761,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltHanya() {
-        AbstractCharacter character = new Hanya();
+    public static AbstractCharacter<?> getPrebuiltHanya() {
+        AbstractCharacter<?> character = new Hanya();
         character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -757,8 +775,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltRuanMeiCritSupport() {
-        AbstractCharacter character = new RuanMei();
+    public static AbstractCharacter<?> getPrebuiltRuanMeiCritSupport() {
+        AbstractCharacter<?> character = new RuanMei();
         character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new ThiefOfShootingMeteor(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -771,8 +789,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltSparkleFei() {
-        AbstractCharacter character = new Sparkle();
+    public static AbstractCharacter<?> getPrebuiltSparkleFei() {
+        AbstractCharacter<?> character = new Sparkle();
         character.EquipLightcone(new PastAndFuture(character));
         character.EquipRelicSet(new PasserbyOfWanderingCloud(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -785,8 +803,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltFeixiao() {
-        AbstractCharacter character = new Feixiao();
+    public static AbstractCharacter<?> getPrebuiltFeixiao() {
+        AbstractCharacter<?> character = new Feixiao();
         character.EquipLightcone(new IVentureForthToHunt(character));
         character.EquipRelicSet(new TheWindSoaringValorous(character));
         character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
@@ -798,8 +816,8 @@ public class PlayerTeam {
         return character;
     }
 
-//    public static AbstractCharacter getPrebuiltFeixiao() {
-//        AbstractCharacter character = new Feixiao();
+//    public static AbstractCharacter<?> getPrebuiltFeixiao() {
+//        AbstractCharacter<?> character = new Feixiao();
 //        character.EquipLightcone(new Swordplay(character));
 //        character.EquipRelicSet(new TheWindSoaringValorous(character));
 //        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
@@ -811,8 +829,8 @@ public class PlayerTeam {
 //        return character;
 //    }
 
-    public static AbstractCharacter getPrebuiltTopazSpeed() {
-        AbstractCharacter character = new Topaz();
+    public static AbstractCharacter<?> getPrebuiltTopazSpeed() {
+        AbstractCharacter<?> character = new Topaz();
         character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character));
         character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
@@ -824,8 +842,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltAventurineSpeed() {
-        AbstractCharacter character = new Aventurine(false);
+    public static AbstractCharacter<?> getPrebuiltAventurineSpeed() {
+        AbstractCharacter<?> character = new Aventurine(false);
         character.EquipLightcone(new ConcertForTwo(character));
         character.EquipRelicSet(new KnightOfPurityPalace(character, false));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character, false));
@@ -839,8 +857,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltAventurine() {
-        AbstractCharacter character = new Aventurine();
+    public static AbstractCharacter<?> getPrebuiltAventurine() {
+        AbstractCharacter<?> character = new Aventurine();
         character.EquipLightcone(new ConcertForTwo(character));
         character.EquipRelicSet(new KnightOfPurityPalace(character, false));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character, false));
@@ -854,8 +872,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltPela() {
-        AbstractCharacter character = new Pela();
+    public static AbstractCharacter<?> getPrebuiltPela() {
+        AbstractCharacter<?> character = new Pela();
         character.EquipLightcone(new ResolutionShinesAsPearlsOfSweat(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -868,8 +886,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltSparkle() {
-        AbstractCharacter character = new Sparkle();
+    public static AbstractCharacter<?> getPrebuiltSparkle() {
+        AbstractCharacter<?> character = new Sparkle();
         character.EquipLightcone(new PastAndFuture(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -882,8 +900,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltSwordMarchFei() {
-        AbstractCharacter character = new SwordMarch();
+    public static AbstractCharacter<?> getPrebuiltSwordMarchFei() {
+        AbstractCharacter<?> character = new SwordMarch();
         character.EquipLightcone(new CruisingInTheStellarSea(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new RutilentArena(character));
@@ -895,8 +913,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltSwordMarch() {
-        AbstractCharacter character = new SwordMarch();
+    public static AbstractCharacter<?> getPrebuiltSwordMarch() {
+        AbstractCharacter<?> character = new SwordMarch();
         character.EquipLightcone(new CruisingInTheStellarSea(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new RutilentArena(character));
@@ -907,8 +925,8 @@ public class PlayerTeam {
         relicStats.equipTo(character);
         return character;
     }
-    public static AbstractCharacter getPrebuiltTopaz() {
-        AbstractCharacter character = new Topaz();
+    public static AbstractCharacter<?> getPrebuiltTopaz() {
+        AbstractCharacter<?> character = new Topaz();
         character.EquipLightcone(new Swordplay(character));
         character.EquipRelicSet(new TheAshblazingGrandDuke(character));
         character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
@@ -919,8 +937,8 @@ public class PlayerTeam {
         relicStats.equipTo(character);
         return character;
     }
-    public static AbstractCharacter getPrebuiltTingyun() {
-        AbstractCharacter character = new Tingyun();
+    public static AbstractCharacter<?> getPrebuiltTingyun() {
+        AbstractCharacter<?> character = new Tingyun();
         character.EquipLightcone(new MemoriesOfThePast(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -933,8 +951,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltRobin() {
-        AbstractCharacter character = new Robin();
+    public static AbstractCharacter<?> getPrebuiltRobin() {
+        AbstractCharacter<?> character = new Robin();
         character.EquipLightcone(new ForTomorrowsJourney(character));
         character.EquipRelicSet(new MusketeerOfWildWheat(character, false));
         character.EquipRelicSet(new TheWindSoaringValorous(character, false));
@@ -948,8 +966,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltHuohuo() {
-        AbstractCharacter character = new Huohuo();
+    public static AbstractCharacter<?> getPrebuiltHuohuo() {
+        AbstractCharacter<?> character = new Huohuo();
         character.EquipLightcone(new PostOpConversation(character));
         character.EquipRelicSet(new PasserbyOfWanderingCloud(character));
         character.EquipRelicSet(new BrokenKeel(character));
@@ -962,8 +980,8 @@ public class PlayerTeam {
         return character;
     }
 
-    public static AbstractCharacter getPrebuiltYunli() {
-        AbstractCharacter character = new Yunli();
+    public static AbstractCharacter<?> getPrebuiltYunli() {
+        AbstractCharacter<?> character = new Yunli();
         character.EquipLightcone(new DanceAtSunset(character));
         character.EquipRelicSet(new TheWindSoaringValorous(character));
         character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
@@ -981,7 +999,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamLightconeCompare(Swordplay::new);
         }
     }
@@ -992,7 +1010,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamLightconeCompare(IVentureForthToHunt::new);
         }
     }
@@ -1003,7 +1021,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamLightconeCompare(WorrisomeBlissful::new);
         }
     }
@@ -1014,7 +1032,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamLightconeCompare(BaptismOfPureThought::new);
         }
     }
@@ -1025,7 +1043,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamLightconeCompare(CruisingInTheStellarSea::new);
         }
     }
@@ -1036,7 +1054,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamLightconeCompare(InTheNight::new);
         }
     }
@@ -1047,13 +1065,13 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamLightconeCompare(SleepLikeTheDead::new);
         }
     }
 
-    public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
-        ArrayList<AbstractCharacter> team = new ArrayList<>();
+    public static ArrayList<AbstractCharacter<?>> FeixiaoTeamLightconeCompare(Function<AbstractCharacter<?>, AbstractLightcone> lightconeSupplier) {
+        ArrayList<AbstractCharacter<?>> team = new ArrayList<>();
         team.add(FeixiaoLightconeCompare(lightconeSupplier));
         team.add(getPrebuiltRobin());
         team.add(getPrebuiltAventurineSpeed());
@@ -1062,8 +1080,8 @@ public class PlayerTeam {
         return team;
     }
 
-//    public static ArrayList<AbstractCharacter> FeixiaoTeamLightconeCompare(Function<AbstractCharacter, AbstractLightcone> lightconeSupplier) {
-//        ArrayList<AbstractCharacter> team = new ArrayList<>();
+//    public static ArrayList<AbstractCharacter<?>> FeixiaoTeamLightconeCompare(Function<AbstractCharacter<?>, AbstractLightcone> lightconeSupplier) {
+//        ArrayList<AbstractCharacter<?>> team = new ArrayList<>();
 //        team.add(getPrebuiltPela());
 //        team.add(FeixiaoLightconeCompare(lightconeSupplier));
 //        team.add(getPrebuiltGallagher());
@@ -1072,8 +1090,8 @@ public class PlayerTeam {
 //        return team;
 //    }
 
-    private static AbstractCharacter FeixiaoLightconeCompare(Function<AbstractCharacter,AbstractLightcone> lightconeSupplier) {
-        AbstractCharacter character = new Feixiao();
+    private static AbstractCharacter<?> FeixiaoLightconeCompare(Function<AbstractCharacter<?>,AbstractLightcone> lightconeSupplier) {
+        AbstractCharacter<?> character = new Feixiao();
         character.EquipLightcone(lightconeSupplier.apply(character));
         character.EquipRelicSet(new TheWindSoaringValorous(character));
         character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
@@ -1092,7 +1110,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(TheWindSoaringValorous::new, DuranDynastyOfRunningWolves::new, null);
         }
     }
@@ -1103,7 +1121,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(TheAshblazingGrandDuke::new, DuranDynastyOfRunningWolves::new, null);
         }
     }
@@ -1114,7 +1132,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(GeniusOfBrilliantStars::new, DuranDynastyOfRunningWolves::new, null);
         }
     }
@@ -1125,7 +1143,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(TheAshblazingGrandDuke::new, DuranDynastyOfRunningWolves::new, MusketeerOfWildWheat::new);
         }
     }
@@ -1136,7 +1154,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(TheAshblazingGrandDuke::new, DuranDynastyOfRunningWolves::new, EagleOfTwilightLine::new);
         }
     }
@@ -1147,7 +1165,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(TheWindSoaringValorous::new, IzumoGenseiAndTakamaDivineRealm::new, null);
         }
     }
@@ -1158,7 +1176,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(TheWindSoaringValorous::new, InertSalsotto::new, null);
         }
     }
@@ -1169,7 +1187,7 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(TheWindSoaringValorous::new, FirmamentFrontlineGlamoth::new, null);
         }
     }
@@ -1180,14 +1198,14 @@ public class PlayerTeam {
             return this.getClass().getSimpleName();
         }
         @Override
-        public ArrayList<AbstractCharacter> getTeam() {
+        public ArrayList<AbstractCharacter<?>> getTeam() {
             return FeixiaoTeamRelicCompare(TheWindSoaringValorous::new, SpaceSealingStation::new, null);
         }
     }
 
 
-//    public static ArrayList<AbstractCharacter> FeixiaoTeamRelicCompare(BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> mainSet, BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> planarSet, BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> halfSet) {
-//        ArrayList<AbstractCharacter> team = new ArrayList<>();
+//    public static ArrayList<AbstractCharacter<?>> FeixiaoTeamRelicCompare(BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> mainSet, BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> planarSet, BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> halfSet) {
+//        ArrayList<AbstractCharacter<?>> team = new ArrayList<>();
 //        team.add(FeixiaoRelicCompare(IVentureForthToHunt::new, mainSet, planarSet, halfSet));
 //        team.add(getPrebuiltRobin());
 //        team.add(getPrebuiltAventurineSpeed());
@@ -1196,8 +1214,8 @@ public class PlayerTeam {
 //        return team;
 //    }
 
-    public static ArrayList<AbstractCharacter> FeixiaoTeamRelicCompare(BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> mainSet, BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> planarSet, BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> halfSet) {
-        ArrayList<AbstractCharacter> team = new ArrayList<>();
+    public static ArrayList<AbstractCharacter<?>> FeixiaoTeamRelicCompare(BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> mainSet, BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> planarSet, BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> halfSet) {
+        ArrayList<AbstractCharacter<?>> team = new ArrayList<>();
         team.add(getPrebuiltPela());
         team.add(FeixiaoRelicCompare(Swordplay::new, mainSet, planarSet, halfSet));
         team.add(getPrebuiltGallagher());
@@ -1206,8 +1224,8 @@ public class PlayerTeam {
         return team;
     }
 
-    private static AbstractCharacter FeixiaoRelicCompare(Function<AbstractCharacter,AbstractLightcone> lightconeSupplier, BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> mainSet, BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> planarSet, BiFunction<AbstractCharacter, Boolean, AbstractRelicSetBonus> halfSet) {
-        AbstractCharacter character = new Feixiao();
+    private static AbstractCharacter<?> FeixiaoRelicCompare(Function<AbstractCharacter<?>,AbstractLightcone> lightconeSupplier, BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> mainSet, BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> planarSet, BiFunction<AbstractCharacter<?>, Boolean, AbstractRelicSetBonus> halfSet) {
+        AbstractCharacter<?> character = new Feixiao();
         character.EquipLightcone(lightconeSupplier.apply(character));
         if (halfSet != null) {
             character.EquipRelicSet(mainSet.apply(character, false));

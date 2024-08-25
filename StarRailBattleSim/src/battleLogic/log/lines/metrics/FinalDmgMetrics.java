@@ -14,7 +14,7 @@ public class FinalDmgMetrics implements Loggable {
 
     public final int totalPlayerDmg;
     public final float actionValueUsed;
-    public final Map<AbstractCharacter, Float> totalDamageDealt;
+    public final Map<AbstractCharacter<?>, Float> totalDamageDealt;
 
     public FinalDmgMetrics(IBattle battle) {
         this.totalPlayerDmg = battle.getTotalPlayerDmg();

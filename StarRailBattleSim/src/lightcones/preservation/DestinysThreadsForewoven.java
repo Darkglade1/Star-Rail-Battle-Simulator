@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DestinysThreadsForewoven extends AbstractLightcone {
 
-    public DestinysThreadsForewoven(AbstractCharacter owner) {
+    public DestinysThreadsForewoven(AbstractCharacter<?> owner) {
         super(953, 370, 463, owner);
     }
 
@@ -28,7 +28,7 @@ public class DestinysThreadsForewoven extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (character != owner) return 0;
             return Math.min((float) (((int) (character.getFinalDefense() / 100)) * 1.2), 48);
         }

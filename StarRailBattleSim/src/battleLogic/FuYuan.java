@@ -1,8 +1,6 @@
 package battleLogic;
 
-import characters.Lingsha;
-
-import java.util.ArrayList;
+import characters.lingsha.Lingsha;
 
 public class FuYuan extends AbstractSummon<Lingsha> {
 

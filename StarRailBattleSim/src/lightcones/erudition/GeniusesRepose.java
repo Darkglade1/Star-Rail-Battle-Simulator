@@ -10,7 +10,7 @@ import powers.PowerStat;
  */
 public class GeniusesRepose extends AbstractLightcone {
 
-    public GeniusesRepose(AbstractCharacter owner) {
+    public GeniusesRepose(AbstractCharacter<?> owner) {
         super(847, 476, 397, owner);
     }
 

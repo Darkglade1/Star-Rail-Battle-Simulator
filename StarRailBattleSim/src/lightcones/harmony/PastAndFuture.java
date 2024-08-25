@@ -12,11 +12,11 @@ import powers.TempPower;
  */
 public class PastAndFuture extends AbstractLightcone {
 
-    public PastAndFuture(AbstractCharacter owner) {
+    public PastAndFuture(AbstractCharacter<?> owner) {
         super(953, 423, 397, owner);
     }
 
-    public void onSpecificTrigger(AbstractCharacter character, AbstractEnemy enemy) {
+    public void onSpecificTrigger(AbstractCharacter<?> character, AbstractEnemy enemy) {
         if (character != null) {
             character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 32, 1, "Past and Future Damage Boost"));
         }

@@ -6,11 +6,11 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class PanCosmicCommercialEnterprise extends AbstractRelicSetBonus {
-    public PanCosmicCommercialEnterprise(AbstractCharacter owner, boolean fullSet) {
+    public PanCosmicCommercialEnterprise(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public PanCosmicCommercialEnterprise(AbstractCharacter owner) {
+    public PanCosmicCommercialEnterprise(AbstractCharacter<?> owner) {
         super(owner);
     }
 

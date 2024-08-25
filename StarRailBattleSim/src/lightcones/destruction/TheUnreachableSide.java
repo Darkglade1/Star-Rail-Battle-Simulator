@@ -10,7 +10,7 @@ import powers.PowerStat;
 import java.util.ArrayList;
 
 public class TheUnreachableSide extends AbstractLightcone {
-    public TheUnreachableSide(AbstractCharacter owner) {
+    public TheUnreachableSide(AbstractCharacter<?> owner) {
         super(1270, 582, 331, owner);
     }
 
@@ -30,7 +30,7 @@ public class TheUnreachableSide extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (this.active) {
                 this.active = false;
                 return 24;
@@ -40,7 +40,7 @@ public class TheUnreachableSide extends AbstractLightcone {
         }
 
         @Override
-        public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+        public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
             this.active = true;
         }
     }

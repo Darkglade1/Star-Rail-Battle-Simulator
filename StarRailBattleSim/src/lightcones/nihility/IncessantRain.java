@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class IncessantRain extends AbstractLightcone {
 
-    public IncessantRain(AbstractCharacter owner) {
+    public IncessantRain(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
     }
 
@@ -24,7 +24,7 @@ public class IncessantRain extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!types.contains(AbstractCharacter.DamageType.BASIC)
                 && !types.contains(AbstractCharacter.DamageType.SKILL)
                 && !types.contains(AbstractCharacter.DamageType.ULTIMATE)) {

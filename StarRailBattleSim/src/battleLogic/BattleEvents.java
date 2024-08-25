@@ -19,7 +19,7 @@ public interface BattleEvents {
      * @param types The types of damage dealt
      * @param energyFromAttacked The energy gained from being attacked
      */
-    default void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {}
+    default void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {}
 
     /**
      * Called from getBattle().getHelper()#PreAttackLogic
@@ -34,7 +34,7 @@ public interface BattleEvents {
      * @param enemiesHit The enemies that were hit
      * @param types The types of damage dealt
      */
-    default void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {}
+    default void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {}
 
     /**
      * Called before an enemy is hit by an attack
@@ -42,7 +42,7 @@ public interface BattleEvents {
      * @param enemy The enemy that is being attacked
      * @param damageTypes The types of damage that will be dealt
      */
-    default void onBeforeHitEnemy(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {}
+    default void onBeforeHitEnemy(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {}
 
     /**
      * Called after enemies have received the onAttack event
@@ -50,7 +50,7 @@ public interface BattleEvents {
      * @param enemiesHit The enemies that were hit
      * @param types The types of damage dealt
      */
-    default void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {}
+    default void afterAttackFinish(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {}
 
     /**
      * Called before AbstractCharacter#takeTurn has been called.
@@ -68,12 +68,27 @@ public interface BattleEvents {
     default void onUseBasic() {}
 
     /**
+     * Called after a character uses a basic attack.
+     */
+    default void afterUseBasic() {}
+
+    /**
      * Called when a character uses a skill, before the skill is executed.
      */
     default void onUseSkill() {}
 
     /**
+     * Called after a character uses a skill.
+     */
+    default void afterUseSkill() {}
+
+    /**
      * Called when a character uses an ultimate, before the ultimate is executed.
      */
     default void onUseUltimate() {}
+
+    /**
+     * Called after a character uses an ultimate.
+     */
+    default void afterUseUltimate() {}
 }

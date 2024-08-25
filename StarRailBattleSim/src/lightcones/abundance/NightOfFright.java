@@ -14,11 +14,11 @@ public class NightOfFright extends AbstractLightcone {
 
     private final int atkStacks;
 
-    public NightOfFright(AbstractCharacter owner) {
+    public NightOfFright(AbstractCharacter<?> owner) {
         this(owner, 5);
     }
 
-    public NightOfFright(AbstractCharacter owner, int atkStacks) {
+    public NightOfFright(AbstractCharacter<?> owner, int atkStacks) {
         super(1164, 476, 529, owner);
         this.atkStacks = Math.min(5, atkStacks);
     }
@@ -44,7 +44,7 @@ public class NightOfFright extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalAtkBonus(AbstractCharacter character) {
+        public float getConditionalAtkBonus(AbstractCharacter<?> character) {
             return 2.4f * atkStacks;
         }
     }

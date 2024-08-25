@@ -7,7 +7,7 @@ import powers.PowerStat;
 
 public class PerfectTiming extends AbstractLightcone {
 
-    public PerfectTiming(AbstractCharacter owner) {
+    public PerfectTiming(AbstractCharacter<?> owner) {
         super(953, 423, 397, owner);
     }
 

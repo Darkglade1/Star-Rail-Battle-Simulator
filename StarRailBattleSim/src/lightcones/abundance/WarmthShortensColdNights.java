@@ -10,7 +10,7 @@ import powers.PowerStat;
  */
 public class WarmthShortensColdNights extends AbstractLightcone {
 
-    public WarmthShortensColdNights(AbstractCharacter owner) {
+    public WarmthShortensColdNights(AbstractCharacter<?> owner) {
         super(1058, 370, 397, owner);
     }
 

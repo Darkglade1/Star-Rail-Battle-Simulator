@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DanceAtSunset extends AbstractLightcone {
 
-    public DanceAtSunset(AbstractCharacter owner) {
+    public DanceAtSunset(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
     }
 
@@ -28,10 +28,6 @@ public class DanceAtSunset extends AbstractLightcone {
         owner.addPower(new DanceAtSunsetDamagePower());
     }
 
-    public String toString() {
-        return this.getClass().getSimpleName();
-    }
-
     public static class DanceAtSunsetDamagePower extends AbstractPower {
         public DanceAtSunsetDamagePower() {
             this.name = this.getClass().getSimpleName();
@@ -39,7 +35,7 @@ public class DanceAtSunset extends AbstractLightcone {
             this.maxStacks = 2;
         }
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             for (AbstractCharacter.DamageType type : damageTypes) {
                 if (type == AbstractCharacter.DamageType.FOLLOW_UP) {
                     return 36 * stacks;

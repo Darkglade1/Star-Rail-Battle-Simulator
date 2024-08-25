@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class SomethingIrreplaceable extends AbstractLightcone {
 
-    public SomethingIrreplaceable(AbstractCharacter owner) {
+    public SomethingIrreplaceable(AbstractCharacter<?> owner) {
         super(1164, 582, 397, owner);
     }
 
@@ -21,7 +21,7 @@ public class SomethingIrreplaceable extends AbstractLightcone {
     }
 
     @Override
-    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+    public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         // TODO: Restore HP
         TempPower power = TempPower.create(PowerStat.DAMAGE_BONUS, 24, 1, "Something Irreplaceable Damage Bonus");
         this.owner.addPower(power);

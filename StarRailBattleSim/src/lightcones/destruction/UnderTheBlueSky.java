@@ -9,11 +9,11 @@ public class UnderTheBlueSky extends AbstractLightcone {
 
     private final float upTime;
 
-    public UnderTheBlueSky(AbstractCharacter owner) {
+    public UnderTheBlueSky(AbstractCharacter<?> owner) {
         this(owner, 1);
     }
 
-    public UnderTheBlueSky(AbstractCharacter owner, float upTime) {
+    public UnderTheBlueSky(AbstractCharacter<?> owner, float upTime) {
         super(953, 476, 331, owner);
         this.upTime = Math.max(0, Math.min(1, upTime));
     }

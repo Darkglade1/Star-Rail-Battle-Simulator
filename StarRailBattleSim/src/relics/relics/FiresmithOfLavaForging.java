@@ -10,11 +10,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class FiresmithOfLavaForging extends AbstractRelicSetBonus {
-    public FiresmithOfLavaForging(AbstractCharacter owner, boolean fullSet) {
+    public FiresmithOfLavaForging(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public FiresmithOfLavaForging(AbstractCharacter owner) {
+    public FiresmithOfLavaForging(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -35,7 +35,7 @@ public class FiresmithOfLavaForging extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (damageTypes.contains(AbstractCharacter.DamageType.SKILL)) {
                 return 12;
             }
@@ -45,7 +45,7 @@ public class FiresmithOfLavaForging extends AbstractRelicSetBonus {
 
         // TODO: onAfterUseUltimate
         @Override
-        public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+        public void afterAttackFinish(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             if (!types.contains(AbstractCharacter.DamageType.ULTIMATE)) return;
 
             this.owner.addPower(TempPower.create(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, 12, 1, "Firesmith of Lave Forging Fire Bonus 4PC Ultimate Bonus"));

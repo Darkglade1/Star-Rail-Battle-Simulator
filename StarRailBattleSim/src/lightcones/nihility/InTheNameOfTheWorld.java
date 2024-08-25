@@ -9,7 +9,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class InTheNameOfTheWorld extends AbstractLightcone {
 
-    public InTheNameOfTheWorld(AbstractCharacter owner) {
+    public InTheNameOfTheWorld(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
 
         throw new NotImplementedException();

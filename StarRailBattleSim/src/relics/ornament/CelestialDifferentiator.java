@@ -9,11 +9,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class CelestialDifferentiator extends AbstractRelicSetBonus {
-    public CelestialDifferentiator(AbstractCharacter owner, boolean fullSet) {
+    public CelestialDifferentiator(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public CelestialDifferentiator(AbstractCharacter owner) {
+    public CelestialDifferentiator(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -34,7 +34,7 @@ public class CelestialDifferentiator extends AbstractRelicSetBonus {
         }
 
         @Override
-        public void afterAttackFinish(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+        public void afterAttackFinish(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             this.owner.removePower(this);
         }
     }

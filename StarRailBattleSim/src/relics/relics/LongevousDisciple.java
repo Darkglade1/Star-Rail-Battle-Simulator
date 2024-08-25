@@ -10,11 +10,11 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class LongevousDisciple extends AbstractRelicSetBonus {
-    public LongevousDisciple(AbstractCharacter owner, boolean fullSet) {
+    public LongevousDisciple(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public LongevousDisciple(AbstractCharacter owner) {
+    public LongevousDisciple(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -24,7 +24,7 @@ public class LongevousDisciple extends AbstractRelicSetBonus {
     }
 
     @Override
-    public void onAttacked(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
+    public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
         if (!this.isFullSet) return;
 
         // Assuming stuff like eating your own/allys HP, would be implemented as attacking them
@@ -39,7 +39,7 @@ public class LongevousDisciple extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritRate(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             return this.stacks * 8;
         }
     }

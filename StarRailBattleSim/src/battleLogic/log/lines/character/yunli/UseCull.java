@@ -3,7 +3,7 @@ package battleLogic.log.lines.character.yunli;
 import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
-import characters.Yunli;
+import characters.yunli.Yunli;
 
 public class UseCull implements Loggable {
 

@@ -10,10 +10,10 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 public class TheWindSoaringValorous extends AbstractRelicSetBonus {
-    public TheWindSoaringValorous(AbstractCharacter owner) {
+    public TheWindSoaringValorous(AbstractCharacter<?> owner) {
         super(owner);
     }
-    public TheWindSoaringValorous(AbstractCharacter owner, boolean isFullSet) {
+    public TheWindSoaringValorous(AbstractCharacter<?> owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 
@@ -48,7 +48,7 @@ public class TheWindSoaringValorous extends AbstractRelicSetBonus {
             this.turnDuration = 1;
         }
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             for (AbstractCharacter.DamageType type : damageTypes) {
                 if (type == AbstractCharacter.DamageType.ULTIMATE) {
                     return 36;

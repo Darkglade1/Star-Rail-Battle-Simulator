@@ -10,7 +10,7 @@ import powers.TempPower;
 import java.util.ArrayList;
 
 public class WhereaboutsShouldDreamsRest extends AbstractLightcone {
-    public WhereaboutsShouldDreamsRest(AbstractCharacter owner) {
+    public WhereaboutsShouldDreamsRest(AbstractCharacter<?> owner) {
         super(1164, 476, 529, owner);
         throw new UnsupportedOperationException("Not implemented, speed debugs not working properly.");
     }
@@ -21,7 +21,7 @@ public class WhereaboutsShouldDreamsRest extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         for (AbstractEnemy enemy : enemiesHit) {
             enemy.addPower(new Routed(this));
         }
@@ -40,7 +40,7 @@ public class WhereaboutsShouldDreamsRest extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageTaken(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageTaken(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.BREAK)) return 0;
             if (character != this.lightcone.owner) return 0;
             return 24;

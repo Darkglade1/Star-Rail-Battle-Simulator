@@ -12,11 +12,11 @@ public class CruisingInTheStellarSea extends AbstractLightcone {
 
     private final float upTime;
 
-    public CruisingInTheStellarSea(AbstractCharacter owner) {
+    public CruisingInTheStellarSea(AbstractCharacter<?> owner) {
         this(owner, 0.5f);
     }
 
-    public CruisingInTheStellarSea(AbstractCharacter owner, float upTime) {
+    public CruisingInTheStellarSea(AbstractCharacter<?> owner, float upTime) {
         super(953, 529, 463, owner);
         this.upTime = Math.max(0, Math.min(1, upTime));
     }

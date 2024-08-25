@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class BeforeTheTutorialMissionStarts extends AbstractLightcone {
 
-    public BeforeTheTutorialMissionStarts(AbstractCharacter owner) {
+    public BeforeTheTutorialMissionStarts(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
@@ -20,7 +20,7 @@ public class BeforeTheTutorialMissionStarts extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (enemiesHit.stream()
                 .anyMatch(e -> e.powerList
                         .stream()

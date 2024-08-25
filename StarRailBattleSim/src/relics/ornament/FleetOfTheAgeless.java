@@ -7,11 +7,11 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class FleetOfTheAgeless extends AbstractRelicSetBonus {
-    public FleetOfTheAgeless(AbstractCharacter owner, boolean fullSet) {
+    public FleetOfTheAgeless(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public FleetOfTheAgeless(AbstractCharacter owner) {
+    public FleetOfTheAgeless(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -31,7 +31,7 @@ public class FleetOfTheAgeless extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalAtkBonus(AbstractCharacter character) {
+        public float getConditionalAtkBonus(AbstractCharacter<?> character) {
             if (FleetOfTheAgeless.this.owner.getFinalSpeed() >= 120) {
                 return 8;
             }

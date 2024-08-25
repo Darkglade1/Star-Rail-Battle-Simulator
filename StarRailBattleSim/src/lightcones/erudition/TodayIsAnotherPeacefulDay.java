@@ -7,7 +7,7 @@ import powers.PowerStat;
 
 public class TodayIsAnotherPeacefulDay extends AbstractLightcone {
 
-    public TodayIsAnotherPeacefulDay(AbstractCharacter owner) {
+    public TodayIsAnotherPeacefulDay(AbstractCharacter<?> owner) {
         super(847, 529, 331, owner);
     }
 

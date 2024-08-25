@@ -13,9 +13,9 @@ public abstract class AbstractLightcone implements BattleEvents,BattleParticipan
     public int baseHP;
     public int baseAtk;
     public int baseDef;
-    public AbstractCharacter owner;
+    public AbstractCharacter<?> owner;
 
-    public AbstractLightcone(int baseHP, int baseAtk, int baseDef, AbstractCharacter owner) {
+    public AbstractLightcone(int baseHP, int baseAtk, int baseDef, AbstractCharacter<?> owner) {
         this.baseHP = baseHP;
         this.baseAtk = baseAtk;
         this.baseDef = baseDef;
@@ -31,7 +31,7 @@ public abstract class AbstractLightcone implements BattleEvents,BattleParticipan
 
     }
 
-    public void onSpecificTrigger(AbstractCharacter character, AbstractEnemy enemy) {
+    public void onSpecificTrigger(AbstractCharacter<?> character, AbstractEnemy enemy) {
 
     }
 

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class PostCombatPlayerMetrics implements Loggable {
 
-    public final AbstractCharacter player;
+    public final AbstractCharacter<?> player;
     public final Map<StatType, Float> finalStats = new HashMap<>();
     public final Map<String, Boolean> relicSets = new HashMap<>();
     public final int turnsTaken;
@@ -21,7 +21,7 @@ public class PostCombatPlayerMetrics implements Loggable {
     public final Map<String, String> characterSpecificMetrics;
     public boolean lessMetrics;
 
-    public PostCombatPlayerMetrics(AbstractCharacter player, boolean lessMetrics) {
+    public PostCombatPlayerMetrics(AbstractCharacter<?> player, boolean lessMetrics) {
         this.player = player;
 
         finalStats.put(StatType.ATK, player.getFinalAttack());

@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * The 4PC 100% boost after inflicting a debug is not working currently
  */
 public class PioneerDiverOfDeadWaters extends AbstractRelicSetBonus {
-    public PioneerDiverOfDeadWaters(AbstractCharacter owner, boolean fullSet) {
+    public PioneerDiverOfDeadWaters(AbstractCharacter<?> owner, boolean fullSet) {
         super(owner, fullSet);
     }
 
-    public PioneerDiverOfDeadWaters(AbstractCharacter owner) {
+    public PioneerDiverOfDeadWaters(AbstractCharacter<?> owner) {
         super(owner);
     }
 
@@ -35,7 +35,7 @@ public class PioneerDiverOfDeadWaters extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (enemy.powerList.stream().anyMatch(p -> p.type == PowerType.DEBUFF)) {
                 return 12;
             }
@@ -53,12 +53,12 @@ public class PioneerDiverOfDeadWaters extends AbstractRelicSetBonus {
         }
 
         @Override
-        public float getConditionalCritRate(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritRate(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             return boosted ? 8 :4;
         }
 
         @Override
-        public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritDamage(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             int debuffs = Math.min(3, (int) enemy.powerList.stream().filter(p -> p.type == PowerType.DEBUFF).count());
             if (debuffs < 2) {
                 return 0;

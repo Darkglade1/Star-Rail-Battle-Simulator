@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class BoundlessChoreo extends AbstractLightcone {
 
-    public BoundlessChoreo(AbstractCharacter owner) {
+    public BoundlessChoreo(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
@@ -26,7 +26,7 @@ public class BoundlessChoreo extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalCritDamage(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalCritDamage(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (enemy.powerList
                     .stream()
                     .noneMatch(p -> (

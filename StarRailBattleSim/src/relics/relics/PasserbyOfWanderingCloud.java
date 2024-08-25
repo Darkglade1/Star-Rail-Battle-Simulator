@@ -7,10 +7,10 @@ import powers.PowerStat;
 import relics.AbstractRelicSetBonus;
 
 public class PasserbyOfWanderingCloud extends AbstractRelicSetBonus {
-    public PasserbyOfWanderingCloud(AbstractCharacter owner) {
+    public PasserbyOfWanderingCloud(AbstractCharacter<?> owner) {
         super(owner);
     }
-    public PasserbyOfWanderingCloud(AbstractCharacter owner, boolean isFullSet) {
+    public PasserbyOfWanderingCloud(AbstractCharacter<?> owner, boolean isFullSet) {
         super(owner, isFullSet);
     }
 

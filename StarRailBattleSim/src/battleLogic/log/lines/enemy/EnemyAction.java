@@ -8,10 +8,10 @@ import enemies.AbstractEnemy;
 public class EnemyAction implements Loggable {
 
     public final AbstractEnemy enemy;
-    public final AbstractCharacter hit;
+    public final AbstractCharacter<?> hit;
     public final AbstractEnemy.EnemyAttackType attackType;
 
-    public EnemyAction(AbstractEnemy enemy, AbstractCharacter hit, AbstractEnemy.EnemyAttackType attackType) {
+    public EnemyAction(AbstractEnemy enemy, AbstractCharacter<?> hit, AbstractEnemy.EnemyAttackType attackType) {
         this.enemy = enemy;
         this.hit = hit;
         this.attackType = attackType;

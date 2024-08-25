@@ -17,7 +17,7 @@ public class FlowingNightglow extends AbstractLightcone {
     // As long as robin has cadenza, everyone has cadenza, so we make this a perm power that we manually add and remove
     private final AbstractPower cadenzaBuff = PermPower.create(PowerStat.DAMAGE_BONUS, 24, "Flowing Nightglow DMG Boost");
 
-    public FlowingNightglow(AbstractCharacter owner) {
+    public FlowingNightglow(AbstractCharacter<?> owner) {
         super(953, 635, 463, owner);
     }
 
@@ -29,7 +29,7 @@ public class FlowingNightglow extends AbstractLightcone {
 
     @Override
     public void onEndTurn() {
-        for (AbstractCharacter character : getBattle().getPlayers()) {
+        for (AbstractCharacter<?> character : getBattle().getPlayers()) {
             if (character.hasPower(cadenzaBuff.name)) {
                 character.removePower(cadenzaBuff);
             }
@@ -59,7 +59,7 @@ public class FlowingNightglow extends AbstractLightcone {
             this.maxStacks = 5;
         }
         @Override
-        public float getConditionalERR(AbstractCharacter character) {
+        public float getConditionalERR(AbstractCharacter<?> character) {
             return 3 * stacks;
         }
     }

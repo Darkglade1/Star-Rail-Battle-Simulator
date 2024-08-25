@@ -7,7 +7,7 @@ import powers.PowerStat;
 
 public class DayOneOfMyNewLife extends AbstractLightcone {
 
-    public DayOneOfMyNewLife(AbstractCharacter owner) {
+    public DayOneOfMyNewLife(AbstractCharacter<?> owner) {
         super(953, 370, 463, owner);
     }
 

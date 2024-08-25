@@ -6,9 +6,9 @@ import characters.AbstractCharacter;
 
 public class UseCounter implements Loggable {
 
-    public final AbstractCharacter character;
+    public final AbstractCharacter<?> character;
 
-    public UseCounter(AbstractCharacter character) {
+    public UseCounter(AbstractCharacter<?> character) {
         this.character = character;
     }
 

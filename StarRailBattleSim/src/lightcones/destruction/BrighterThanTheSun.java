@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class BrighterThanTheSun extends AbstractLightcone {
 
-    public BrighterThanTheSun(AbstractCharacter owner) {
+    public BrighterThanTheSun(AbstractCharacter<?> owner) {
         super(1058, 635, 397, owner);
     }
 
@@ -21,7 +21,7 @@ public class BrighterThanTheSun extends AbstractLightcone {
     }
 
     @Override
-    public void onAttack(AbstractCharacter character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+    public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (types.contains(AbstractCharacter.DamageType.BASIC)) {
             this.owner.addPower(new DragonsCall());
         }
@@ -35,12 +35,12 @@ public class BrighterThanTheSun extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalAtkBonus(AbstractCharacter character) {
+        public float getConditionalAtkBonus(AbstractCharacter<?> character) {
             return 18 * this.stacks;
         }
 
         @Override
-        public float getConditionalERR(AbstractCharacter character) {
+        public float getConditionalERR(AbstractCharacter<?> character) {
             return 6 * this.stacks;
         }
     }

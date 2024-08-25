@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ReforgedRemembrance extends AbstractLightcone {
 
-    public ReforgedRemembrance(AbstractCharacter owner) {
+    public ReforgedRemembrance(AbstractCharacter<?> owner) {
         super(1058, 582, 463, owner);
     }
 
@@ -32,7 +32,7 @@ public class ReforgedRemembrance extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionDefenseIgnore(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionDefenseIgnore(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.DOT)) return 0;
 
             return 7.2f * this.stacks;

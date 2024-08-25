@@ -9,7 +9,7 @@ import powers.TempPower;
 
 public class PastSelfInMirror extends AbstractLightcone {
 
-    public PastSelfInMirror(AbstractCharacter owner) {
+    public PastSelfInMirror(AbstractCharacter<?> owner) {
         super(1058, 529, 529, owner);
     }
 
@@ -27,7 +27,7 @@ public class PastSelfInMirror extends AbstractLightcone {
 
     @Override
     public void onUseUltimate() {
-        for (AbstractCharacter character : getBattle().getPlayers()) {
+        for (AbstractCharacter<?> character : getBattle().getPlayers()) {
             character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 24, 3, "Past Self in Mirror Damage Boost"));
         }
         if (this.owner.getTotalBreakEffect() > 150) {

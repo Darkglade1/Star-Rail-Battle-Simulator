@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class SubscribeForMore extends AbstractLightcone {
 
-    public SubscribeForMore(AbstractCharacter owner) {
+    public SubscribeForMore(AbstractCharacter<?> owner) {
         super(953, 476, 331, owner);
     }
 
@@ -19,7 +19,7 @@ public class SubscribeForMore extends AbstractLightcone {
         }
 
         @Override
-        public float getConditionalDamageBonus(AbstractCharacter character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
+        public float getConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
             if (!damageTypes.contains(AbstractCharacter.DamageType.SKILL) && !damageTypes.contains(AbstractCharacter.DamageType.BASIC)) {
                 return 0;
             }
