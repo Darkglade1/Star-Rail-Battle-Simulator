@@ -1,7 +1,7 @@
 package teams;
 
 import characters.AbstractCharacter;
-import characters.adventurine.Aventurine;
+import characters.aventurine.Aventurine;
 import characters.asta.Asta;
 import characters.bronya.Bronya;
 import characters.feixiao.Feixiao;

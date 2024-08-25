@@ -97,7 +97,7 @@ public class Moze extends AbstractCharacter<Moze> {
         moveHistory.add(MoveType.FOLLOW_UP);
         FUAs++;
         getBattle().addToLog(new DoMove(this, MoveType.FOLLOW_UP));
-        increaseEnergy(10);
+        increaseEnergy(10, FUA_ENERGY_GAIN);
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);
@@ -156,7 +156,7 @@ public class Moze extends AbstractCharacter<Moze> {
 
     public void onCombatStart() {
         getBattle().AdvanceEntity(this, 30);
-        increaseEnergy(20);
+        increaseEnergy(20, "from E1");
     }
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {
@@ -218,7 +218,7 @@ public class Moze extends AbstractCharacter<Moze> {
             if (trigger) {
                 talentProcs++;
                 getBattle().getHelper().additionalDamageHitEnemy(Moze.this, enemy, 0.33f, BattleHelpers.MultiplierStat.ATK);
-                increaseEnergy(2);
+                increaseEnergy(2, TALENT_ENERGY_GAIN);
                 decreaseCharge(1);
             }
         }

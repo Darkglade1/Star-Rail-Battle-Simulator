@@ -86,7 +86,7 @@ public class Feixiao extends AbstractCharacter<Feixiao> {
             wastedStacks += energyGain;
         }
         stackCount = stackCount % stackThreshold;
-        getBattle().addToLog(new GainEnergy(this, initialEnergy, this.currentEnergy, energyGain));
+        getBattle().addToLog(new GainEnergy(this, initialEnergy, this.currentEnergy, energyGain, TALENT_ENERGY_GAIN));
     }
 
     public void useSkill() {

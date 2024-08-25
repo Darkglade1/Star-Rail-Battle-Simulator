@@ -35,7 +35,7 @@ public class FuXuan extends AbstractCharacter<FuXuan> implements SkillCounterTur
 
     public void useSkill() {
         if (skillCounter >= 1) {
-            increaseEnergy(20);
+            increaseEnergy(20, TRACE_ENERGY_GAIN);
         }
         skillCounter = 3;
         for (AbstractCharacter<?> character : getBattle().getPlayers()) {

@@ -79,6 +79,17 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
     protected float TOUGHNESS_DAMAGE_TWO_UNITS = 20;
     protected float TOUGHNESS_DAMAGE_THREE_UNITs = 30;
 
+    public static final String ULT_ENERGY_GAIN = "from using Ultimate";
+    public static final String SKILL_ENERGY_GAIN = "from using Skill";
+    public static final String BASIC_ENERGY_GAIN = "from using Basic";
+    public static final String EBA_ENERGY_GAIN = "from using Enhanced Basic";
+    public static final String FUA_ENERGY_GAIN = "from using Follow up attack";
+    public static final String TALENT_ENERGY_GAIN = "from Talent effect";
+    public static final String TRACE_ENERGY_GAIN = "from Trace effect";
+    public static final String LIGHTCONE_ENERGY_GAIN = "from Lightcone effect";
+    public static final String ATTACKED_ENERGY_GAIN = "from being attacked";
+    public static final String TECHNIQUE_ENERGY_GAIN = "from Technique effect";
+
     private final SortedMap<Integer, UltGoal<C>> ultGoals = new TreeMap<>();
     private final SortedMap<Integer, TurnGoal<C>> turnGoals = new TreeMap<>();
 
@@ -191,7 +202,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         numSkillsMetric++;
         getBattle().addToLog(new DoMove(this, MoveType.SKILL));
         getBattle().useSkillPoint(this, 1);
-        increaseEnergy(skillEnergyGain);
+        increaseEnergy(skillEnergyGain, SKILL_ENERGY_GAIN);
         this.emit(BattleEvents::onUseSkill);
         this.useSkill();
         this.emit(BattleEvents::afterUseSkill);
@@ -202,7 +213,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         numBasicsMetric++;
         getBattle().addToLog(new DoMove(this, MoveType.BASIC));
         getBattle().generateSkillPoint(this, 1);
-        increaseEnergy(basicEnergyGain);
+        increaseEnergy(basicEnergyGain, BASIC_ENERGY_GAIN);
         this.emit(BattleEvents::onUseBasic);
         this.useBasic();
         this.emit(BattleEvents::afterUseBasic);
@@ -214,7 +225,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         float initialEnergy = currentEnergy;
         currentEnergy -= ultCost;
         getBattle().addToLog(new DoMove(this, MoveType.ULTIMATE, initialEnergy, currentEnergy));
-        increaseEnergy(ultEnergyGain);
+        increaseEnergy(ultEnergyGain, ULT_ENERGY_GAIN);
         this.emit(BattleEvents::onUseUltimate);
         this.useUltimate();
         this.emit(BattleEvents::afterUseUltimate);
@@ -225,7 +236,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
     protected abstract void useUltimate();
 
     public void onAttacked(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> types, int energyFromAttacked) {
-        increaseEnergy(energyFromAttacked);
+        increaseEnergy(energyFromAttacked, ATTACKED_ENERGY_GAIN);
     }
 
     public Path getPath() {
@@ -374,7 +385,7 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         return totalWeaknessBreakEff;
     }
 
-    public void increaseEnergy(float amount, boolean ERRAffected) {
+    public void increaseEnergy(float amount, boolean ERRAffected, String source) {
         if (!this.usesEnergy) return;
         float initialEnergy = currentEnergy;
         float totalEnergyRegenBonus = getTotalERR();
@@ -386,11 +397,11 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>>  extends
         if (currentEnergy > maxEnergy) {
             currentEnergy = maxEnergy;
         }
-        getBattle().addToLog(new GainEnergy(this, initialEnergy,this.currentEnergy, energyGained));
+        getBattle().addToLog(new GainEnergy(this, initialEnergy,this.currentEnergy, energyGained, source));
     }
 
-    public void increaseEnergy(float amount) {
-        increaseEnergy(amount, true);
+    public void increaseEnergy(float amount, String source) {
+        increaseEnergy(amount, true, source);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class MemoriesOfThePast extends AbstractLightcone {
     public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         if (!this.canRegen) return;
 
-        this.owner.increaseEnergy(8);
+        this.owner.increaseEnergy(8, AbstractCharacter.LIGHTCONE_ENERGY_GAIN);
         this.canRegen = false;
     }
 }

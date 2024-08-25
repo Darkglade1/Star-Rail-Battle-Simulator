@@ -1,4 +1,4 @@
-package characters.adventurine;
+package characters.aventurine;
 
 import battleLogic.BattleHelpers;
 import battleLogic.log.lines.character.aventurine.UseBlindBet;
@@ -84,7 +84,7 @@ public class Aventurine extends AbstractCharacter<Aventurine> {
         int initialBlindBet = this.blindBetCounter;
         this.blindBetCounter -= BLIND_BET_THRESHOLD;
         getBattle().addToLog(new UseBlindBet(this, initialBlindBet, this.blindBetCounter));
-        increaseEnergy(7);
+        increaseEnergy(7, FUA_ENERGY_GAIN);
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.FOLLOW_UP);

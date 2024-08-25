@@ -134,7 +134,7 @@ public class Topaz extends AbstractSummoner<Topaz> implements SkillFirstTurnGoal
         }
         if (ultCounter > 0) {
             getBattle().getHelper().hitEnemy(this, target, 0.9f, BattleHelpers.MultiplierStat.ATK, types, toughnessDamage);
-            increaseEnergy(10);
+            increaseEnergy(10, "from Enhanced Numby attack");
             ultCounter--;
             if (ultCounter <= 0) {
                 if (types.contains(DamageType.SKILL)) {
@@ -146,7 +146,7 @@ public class Topaz extends AbstractSummoner<Topaz> implements SkillFirstTurnGoal
 
         if (techniqueActive) {
             techniqueActive = false;
-            increaseEnergy(60);
+            increaseEnergy(60, TECHNIQUE_ENERGY_GAIN);
         }
 
         getBattle().getHelper().PostAttackLogic(this, types);

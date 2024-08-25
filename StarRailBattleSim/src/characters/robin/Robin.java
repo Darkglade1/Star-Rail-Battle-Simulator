@@ -133,7 +133,7 @@ public class Robin extends AbstractCharacter<Robin> implements SkillCounterTurnG
     }
 
     public void useTechnique() {
-        increaseEnergy(5);
+        increaseEnergy(5, TECHNIQUE_ENERGY_GAIN);
     }
 
     public void addPower(AbstractPower power) {
@@ -189,7 +189,7 @@ public class Robin extends AbstractCharacter<Robin> implements SkillCounterTurnG
 
         @Override
         public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
-            Robin.this.increaseEnergy(2);
+            Robin.this.increaseEnergy(2, TALENT_ENERGY_GAIN);
             Robin.this.allyAttacksMetric++;
         }
     }

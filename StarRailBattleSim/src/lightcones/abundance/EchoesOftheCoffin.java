@@ -31,6 +31,6 @@ public class EchoesOftheCoffin extends AbstractLightcone {
     @Override
     public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
         int stacks = Math.min(3, enemiesHit.size());
-        this.owner.increaseEnergy(3*stacks);
+        this.owner.increaseEnergy(3 * stacks, AbstractCharacter.LIGHTCONE_ENERGY_GAIN);
     }
 }

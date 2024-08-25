@@ -3,7 +3,7 @@ package battleLogic.log.lines.character.aventurine;
 import battleLogic.log.Loggable;
 import battleLogic.log.Logger;
 import characters.AbstractCharacter;
-import characters.adventurine.Aventurine;
+import characters.aventurine.Aventurine;
 
 public class UseBlindBet implements Loggable {
 

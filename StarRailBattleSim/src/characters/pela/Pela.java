@@ -118,7 +118,7 @@ public class Pela extends AbstractCharacter<Pela> implements SkillFirstTurnGoal.
             for (AbstractEnemy enemy : enemiesHit) {
                 for (AbstractPower power : enemy.powerList) {
                     if (power.type == PowerType.DEBUFF) {
-                        increaseEnergy(11);
+                        increaseEnergy(11, TALENT_ENERGY_GAIN);
                         break;
                     }
                 }

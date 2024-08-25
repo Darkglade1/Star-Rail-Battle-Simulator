@@ -9,18 +9,20 @@ public class GainEnergy implements Loggable {
     public final float initialEnergy;
     public final float currentEnergy;
     public final float energyGained;
+    public final String source;
 
-    public GainEnergy(AbstractCharacter<?> character, float initialEnergy, float currentEnergy, float energyGained) {
+    public GainEnergy(AbstractCharacter<?> character, float initialEnergy, float currentEnergy, float energyGained, String source) {
         this.character = character;
         this.initialEnergy = initialEnergy;
         this.currentEnergy = currentEnergy;
         this.energyGained = energyGained;
+        this.source = source;
     }
 
 
     @Override
     public String asString() {
-        return String.format("%s gained %.3f Energy (%.3f -> %.3f)", this.character.name, energyGained, initialEnergy, currentEnergy);
+        return String.format("%s gained %.3f Energy (%.3f -> %.3f) %s", this.character.name, energyGained, initialEnergy, currentEnergy, source);
     }
 
     @Override

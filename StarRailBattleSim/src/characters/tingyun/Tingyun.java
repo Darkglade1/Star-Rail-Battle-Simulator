@@ -66,7 +66,7 @@ public class Tingyun extends AbstractCharacter<Tingyun> {
     public void useUltimate() {
         for (AbstractCharacter<?> character : getBattle().getPlayers()) {
             if (character.isDPS && character.currentEnergy < character.maxEnergy) {
-                character.increaseEnergy(60, false);
+                character.increaseEnergy(60, false, "from Tingyun Ult");
                 character.addPower(TempPower.create(PowerStat.DAMAGE_BONUS, 56, 2, "Tingyun Ult Damage Bonus"));
                 break;
             }
@@ -74,12 +74,12 @@ public class Tingyun extends AbstractCharacter<Tingyun> {
     }
 
     public void onTurnStart() {
-        increaseEnergy(5);
+        increaseEnergy(5, TRACE_ENERGY_GAIN);
         tryUltimate();
     }
 
     public void useTechnique() {
-        increaseEnergy(maxEnergy, false);
+        increaseEnergy(maxEnergy, false, TECHNIQUE_ENERGY_GAIN);
     }
 
     public void onCombatStart() {

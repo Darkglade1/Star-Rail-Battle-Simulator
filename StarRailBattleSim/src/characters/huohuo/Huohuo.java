@@ -53,7 +53,7 @@ public class Huohuo extends AbstractCharacter<Huohuo> implements SkillCounterTur
     public void useUltimate() {
         for (AbstractCharacter<?> character : getBattle().getPlayers()) {
             if (character != this) {
-                character.increaseEnergy(character.maxEnergy * 0.2f, false);
+                character.increaseEnergy(character.maxEnergy * 0.2f, false, "from Huohuo Ult");
                 character.addPower(TempPower.create(PowerStat.ATK_PERCENT, 40, 2, "Tail Atk Bonus"));
             }
         }
@@ -102,13 +102,13 @@ public class Huohuo extends AbstractCharacter<Huohuo> implements SkillCounterTur
 
         @Override
         public void onTurnStart() {
-            Huohuo.this.increaseEnergy(1);
+            Huohuo.this.increaseEnergy(1, TALENT_ENERGY_GAIN);
             numTalentProcs++;
         }
 
         @Override
         public void onUseUltimate() {
-            Huohuo.this.increaseEnergy(1);
+            Huohuo.this.increaseEnergy(1, TALENT_ENERGY_GAIN);
             numTalentProcs++;
         }
     }

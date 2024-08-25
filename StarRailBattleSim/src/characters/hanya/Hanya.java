@@ -106,7 +106,7 @@ public class Hanya extends AbstractCharacter<Hanya> {
                 if (hitCount >= hitsToTrigger) {
                     triggersLeft--;
                     getBattle().generateSkillPoint(character, 1);
-                    Hanya.this.increaseEnergy(2);
+                    Hanya.this.increaseEnergy(2, TALENT_ENERGY_GAIN);
 
                     TempPower tracePower = TempPower.create(PowerStat.ATK_PERCENT, 10, 1, "Hanya Trace Atk Power");
                     if (getBattle().getCurrentUnit() == character) {

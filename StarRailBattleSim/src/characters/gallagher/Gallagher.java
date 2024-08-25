@@ -73,13 +73,8 @@ public class Gallagher extends AbstractCharacter<Gallagher> {
         getBattle().getHelper().PostAttackLogic(this, types);
     }
 
-    /*public void takeTurn() {
-        super.takeTurn();
-        useBasic();
-    }*/
-
     public void onCombatStart() {
-        increaseEnergy(20);
+        increaseEnergy(20, "from E1");
         PermPower e6buff = new PermPower("Gallagher E6 Buff");
         e6buff.setStat(PowerStat.BREAK_EFFECT, 20);
         e6buff.setStat(PowerStat.WEAKNESS_BREAK_EFF, 20);

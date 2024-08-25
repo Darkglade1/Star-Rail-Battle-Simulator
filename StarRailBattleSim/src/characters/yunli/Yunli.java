@@ -109,7 +109,7 @@ public class Yunli extends AbstractCharacter<Yunli> implements SkillFirstTurnGoa
             getBattle().addToLog(new UseCounter(this));
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.FOLLOW_UP);
-            increaseEnergy(5);
+            increaseEnergy(5, "from Normal Counter");
             getBattle().getHelper().PreAttackLogic(this, types);
 
             int enemyIndex = getBattle().getEnemies().indexOf(enemy);
@@ -122,12 +122,12 @@ public class Yunli extends AbstractCharacter<Yunli> implements SkillFirstTurnGoa
             }
             getBattle().getHelper().PostAttackLogic(this, types);
         }
-        increaseEnergy(15);
+        increaseEnergy(15, TALENT_ENERGY_GAIN);
         super.onAttacked(character, enemy, t, energyFromAttacked);
     }
 
     public void useCull(AbstractEnemy enemy) {
-        increaseEnergy(10);
+        increaseEnergy(10, "from using Cull");
         AbstractPower power = new DanceAtSunset.DanceAtSunsetDamagePower();
         AbstractPower sunsetPower = getPower(power.name);
         if (sunsetPower != null && sunsetPower.stacks == 2) {
@@ -159,7 +159,7 @@ public class Yunli extends AbstractCharacter<Yunli> implements SkillFirstTurnGoa
     }
 
     public void useSlash(AbstractEnemy enemy) {
-        increaseEnergy(10);
+        increaseEnergy(10, "from using Slash");
         numSlashes++;
         getBattle().addToLog(new UseSlash(this));
         ArrayList<DamageType> types = new ArrayList<>();

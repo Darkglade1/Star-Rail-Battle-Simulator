@@ -25,7 +25,7 @@ public class BeforeTheTutorialMissionStarts extends AbstractLightcone {
                 .anyMatch(e -> e.powerList
                         .stream()
                         .anyMatch(p -> p.getStat(PowerStat.DEFENSE_REDUCTION) != 0))) {
-            this.owner.increaseEnergy(8);
+            this.owner.increaseEnergy(8, AbstractCharacter.LIGHTCONE_ENERGY_GAIN);
         }
     }
 

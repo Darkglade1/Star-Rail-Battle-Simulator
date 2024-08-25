@@ -96,7 +96,7 @@ public class SwordMarch extends AbstractCharacter<SwordMarch> implements SkillFi
         moveHistory.add(MoveType.ENHANCED_BASIC);
         numEBA++;
         getBattle().addToLog(new DoMove(this, MoveType.ENHANCED_BASIC));
-        increaseEnergy(30);
+        increaseEnergy(30, EBA_ENERGY_GAIN);
 
         ArrayList<DamageType> types = new ArrayList<>();
         types.add(DamageType.BASIC);
@@ -154,7 +154,7 @@ public class SwordMarch extends AbstractCharacter<SwordMarch> implements SkillFi
             moveHistory.add(MoveType.FOLLOW_UP);
             numFUAs++;
             getBattle().addToLog(new DoMove(this, MoveType.FOLLOW_UP));
-            increaseEnergy(5);
+            increaseEnergy(5, FUA_ENERGY_GAIN);
 
             ArrayList<DamageType> types = new ArrayList<>();
             types.add(DamageType.FOLLOW_UP);
@@ -181,9 +181,8 @@ public class SwordMarch extends AbstractCharacter<SwordMarch> implements SkillFi
     }
 
     public void onTurnStart() {
-        
         FUAReady = true;
-        increaseEnergy(5);
+        increaseEnergy(5, "from E4");
         if (currentEnergy >= ultCost) {
             tryUltimate();
         }
@@ -195,7 +194,7 @@ public class SwordMarch extends AbstractCharacter<SwordMarch> implements SkillFi
 
     public void useTechnique() {
         gainCharge(3);
-        increaseEnergy(30);
+        increaseEnergy(30, TECHNIQUE_ENERGY_GAIN);
     }
 
     public void gainCharge(int amount) {

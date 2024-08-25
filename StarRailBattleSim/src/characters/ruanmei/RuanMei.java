@@ -63,8 +63,7 @@ public class RuanMei extends AbstractCharacter<RuanMei> implements SkillCounterT
     }
 
     public void onTurnStart() {
-        
-        increaseEnergy(5);
+        increaseEnergy(5, TRACE_ENERGY_GAIN);
         if (skillCounter > 0) {
             skillCounter--;
             if (skillCounter <= 0) {

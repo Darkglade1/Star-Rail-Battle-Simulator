@@ -9,9 +9,7 @@ import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -24,19 +22,19 @@ import static teams.PlayerTeam.*;
 public class BattleSim {
 
     public static void main(String[] args) {
-        //debugTeam();
+        debugTeam();
         //generateReportYunli();
         //generateReportFeixiao();
         //generateReportFeixiaoLightconeReport();
         //generateReportFeixiaoRelicReport();
-        ameliasSanityCheck();
+        //ameliasSanityCheck();
     }
 
     public static void debugTeam() {
         Battle battle = new Battle();
         battle.lessMetrics = true;
 
-        battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
+   //     battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new MarchYunliRobinHuohuoTeam().getTeam());
 //       battle.setPlayerTeam(new SparkleYunliRobinHuohuoTeam().getTeam());
@@ -50,7 +48,7 @@ public class BattleSim {
 //        enemyTeam.add(new PhysWeakEnemy(2, 2));
 //        battle.setEnemyTeam(enemyTeam);
 
-        //battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new FeixiaoRobinAventurineTopaz().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRobinAventurineMoze().getTeam());
         //battle.setPlayerTeam(new FeixiaoSparkleAventurineTopaz().getTeam());

@@ -22,6 +22,6 @@ public class QuidProQuo extends AbstractLightcone {
         if (characters.isEmpty()) return;
 
         AbstractCharacter<?> target = characters.get(getBattle().getQpqRng().nextInt(characters.size()));
-        target.increaseEnergy(16);
+        target.increaseEnergy(16, AbstractCharacter.LIGHTCONE_ENERGY_GAIN);
     }
 }

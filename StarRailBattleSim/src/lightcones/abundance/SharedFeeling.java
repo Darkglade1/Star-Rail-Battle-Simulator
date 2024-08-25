@@ -18,6 +18,6 @@ public class SharedFeeling extends AbstractLightcone {
 
     @Override
     public void onUseSkill() {
-        getBattle().getPlayers().forEach(c -> c.increaseEnergy(4));
+        getBattle().getPlayers().forEach(c -> c.increaseEnergy(4, AbstractCharacter.LIGHTCONE_ENERGY_GAIN));
     }
 }
