@@ -32,7 +32,7 @@ public class BattleSim {
 
     public static void debugTeam() {
         Battle battle = new Battle();
-        battle.lessMetrics = true;
+        //battle.lessMetrics = true;
 
    //     battle.setPlayerTeam(new TingyunYunliRobinHuohuoTeam().getTeam());
 //        //battle.setPlayerTeam(new TopazYunliRobinHuohuoTeam().getTeam());

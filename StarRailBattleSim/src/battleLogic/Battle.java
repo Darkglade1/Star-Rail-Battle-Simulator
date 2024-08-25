@@ -277,12 +277,14 @@ public class Battle implements IBattle {
                 entry.setValue(newAV);
             }
 
+
+            currentUnit.emit(BattleEvents::onTurnStart);
+            // need the AV reset to be after onTurnStart is emitted so Robin's AV is set properly after Concerto ends
             if (currentUnit instanceof AbstractEnemy || currentUnit instanceof AbstractCharacter) {
                 if (actionValueMap.get(currentUnit) <= 0) {
                     actionValueMap.put(currentUnit, currentUnit.getBaseAV());
                 }
             }
-            currentUnit.emit(BattleEvents::onTurnStart);
             currentUnit.takeTurn();
             currentUnit.emit(BattleEvents::onEndTurn);
 
