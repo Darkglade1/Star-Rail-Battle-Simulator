@@ -9,7 +9,7 @@ import relics.AbstractRelicSetBonus;
 import java.util.ArrayList;
 
 /**
- * The 4PC 100% boost after inflicting a debug is not working currently
+ * Assumes the character always inflicts a debuff every turn.
  */
 public class PioneerDiverOfDeadWaters extends AbstractRelicSetBonus {
     public PioneerDiverOfDeadWaters(AbstractCharacter<?> owner, boolean fullSet) {
@@ -23,7 +23,6 @@ public class PioneerDiverOfDeadWaters extends AbstractRelicSetBonus {
     @Override
     public void onEquip() {
         this.owner.addPower(new PioneerDiverOfDeadWaters2PC());
-
         if (this.isFullSet) {
             this.owner.addPower(new PioneerDiverOfDeadWaters4PC());
         }
@@ -39,22 +38,20 @@ public class PioneerDiverOfDeadWaters extends AbstractRelicSetBonus {
             if (enemy.powerList.stream().anyMatch(p -> p.type == PowerType.DEBUFF)) {
                 return 12;
             }
-
             return 0;
         }
     }
 
     public static class PioneerDiverOfDeadWaters4PC extends PermPower {
 
-        private boolean boosted = false;
-
         public PioneerDiverOfDeadWaters4PC() {
             this.name = this.getClass().getSimpleName();
+            this.setStat(PowerStat.CRIT_CHANCE, 4);
         }
 
         @Override
         public float getConditionalCritRate(AbstractCharacter<?> character, AbstractEnemy enemy, ArrayList<AbstractCharacter.DamageType> damageTypes) {
-            return boosted ? 8 :4;
+            return 4;
         }
 
         @Override
@@ -63,8 +60,7 @@ public class PioneerDiverOfDeadWaters extends AbstractRelicSetBonus {
             if (debuffs < 2) {
                 return 0;
             }
-            int mul = 4 * debuffs;
-            return boosted ? 2 * mul : mul;
+            return 8 * debuffs;
         }
     }
 
