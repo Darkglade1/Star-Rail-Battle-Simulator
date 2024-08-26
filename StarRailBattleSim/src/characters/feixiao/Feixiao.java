@@ -6,13 +6,7 @@ import battleLogic.log.lines.character.GainEnergy;
 import battleLogic.log.lines.entity.GainCharge;
 import characters.AbstractCharacter;
 import characters.Path;
-import characters.goal.shared.AlwaysSkillGoal;
-import characters.goal.shared.AlwaysUltGoal;
-import characters.goal.shared.BroynaRobinUltGoal;
-import characters.goal.shared.DontUltMissingDebuffGoal;
-import characters.goal.shared.DontUltMissingPowerGoal;
-import characters.goal.shared.DontUltNumby;
-import characters.goal.shared.UltAtEndOfBattle;
+import characters.goal.shared.*;
 import enemies.AbstractEnemy;
 import powers.AbstractPower;
 import powers.PermPower;
@@ -62,7 +56,6 @@ public class Feixiao extends AbstractCharacter<Feixiao> {
         this.registerGoal(50, DontUltMissingPowerGoal.ruanmei(this));
         this.registerGoal(60, DontUltMissingPowerGoal.hanya(this));
         this.registerGoal(70, DontUltMissingDebuffGoal.pela(this));
-        this.registerGoal(80, new DontUltNumby<>(this));
         this.registerGoal(100, new AlwaysUltGoal<>(this));
     }
 
