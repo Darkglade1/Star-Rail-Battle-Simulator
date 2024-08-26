@@ -47,7 +47,7 @@ public class WorrisomeBlissful extends AbstractLightcone {
 
     public static class TameState extends PermPower {
         public TameState() {
-            this.name = this.getClass().getSimpleName();
+            this.name = this.getClass().getSimpleName()+ "-" + owner.name;
             this.maxStacks = 2;
         }
 
