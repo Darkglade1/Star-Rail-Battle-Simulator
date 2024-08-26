@@ -49,6 +49,7 @@ public class WorrisomeBlissful extends AbstractLightcone {
         public TameState() {
             this.name = this.getClass().getSimpleName()+ "-" + WorrisomeBlissful.this.owner.name;
             this.maxStacks = 2;
+            this.type = PowerType.DEBUFF;
         }
 
         @Override
