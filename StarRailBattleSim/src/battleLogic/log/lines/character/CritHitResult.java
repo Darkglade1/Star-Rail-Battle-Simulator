@@ -23,11 +23,11 @@ public class CritHitResult implements Loggable {
     public final double toughnessMultiplier;
     public final double critMultiplier;
     public final double expectedCritMultiplier;
-    private HashMap<String, Float> damageBonusMultiConstituents;
-    private HashMap<String, Float> defenseMultiConstituents;
-    private HashMap<String, Float> resMultiConstituents;
-    private HashMap<String, Float> damageVulnMultiConstituents;
-    private HashMap<String, Float> critDmgMultiConstituents;
+    private final HashMap<String, Float> damageBonusMultiConstituents;
+    private final HashMap<String, Float> defenseMultiConstituents;
+    private final HashMap<String, Float> resMultiConstituents;
+    private final HashMap<String, Float> damageVulnMultiConstituents;
+    private final HashMap<String, Float> critDmgMultiConstituents;
 
     public CritHitResult(AbstractCharacter<?> source, AbstractEnemy target, double calculatedDamage, double baseDamage,
                          double dmgMultiplier, double defMultiplier, double resMultiplier,
@@ -49,11 +49,11 @@ public class CritHitResult implements Loggable {
         this.toughnessMultiplier = toughnessMultiplier;
         this.critMultiplier = critMultiplier;
         this.expectedCritMultiplier = expectedCritMultiplier;
-        this.damageBonusMultiConstituents = damageBonusMultiConstituents;
-        this.defenseMultiConstituents = defenseMultiConstituents;
-        this.resMultiConstituents = resMultiConstituents;
-        this.damageVulnMultiConstituents = damageVulnMultiConstituents;
-        this.critDmgMultiConstituents = critDmgMultiConstituents;
+        this.damageBonusMultiConstituents = new HashMap<>(damageBonusMultiConstituents);
+        this.defenseMultiConstituents = new HashMap<>(defenseMultiConstituents);
+        this.resMultiConstituents = new HashMap<>(resMultiConstituents);
+        this.damageVulnMultiConstituents = new HashMap<>(damageVulnMultiConstituents);
+        this.critDmgMultiConstituents = new HashMap<>(critDmgMultiConstituents);
     }
 
     @Override
