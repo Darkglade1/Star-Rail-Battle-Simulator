@@ -4,6 +4,7 @@ import characters.AbstractCharacter;
 import characters.aventurine.Aventurine;
 import characters.asta.Asta;
 import characters.bronya.Bronya;
+import characters.drRatio.DrRatio;
 import characters.feixiao.Feixiao;
 import characters.fuxuan.FuXuan;
 import characters.gallagher.Gallagher;
@@ -677,6 +678,59 @@ public class PlayerTeam {
             playerTeam.add(getPrebuiltMoze());
             return playerTeam;
         }
+    }
+
+    public static class RatioRobinAventurineTopaz extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
+            playerTeam.add(getPrebuiltRatioRRAT());
+            playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltAventurineRRAT());
+            playerTeam.add(getPrebuiltTopazRRAT());
+            return playerTeam;
+        }
+    }
+
+    public static AbstractCharacter<?> getPrebuiltRatioRRAT() {
+        AbstractCharacter<?> character = new DrRatio();
+        character.EquipLightcone(new BaptismOfPureThought(character));
+        character.EquipRelicSet(new PioneerDiverOfDeadWaters(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 9).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 12).addSubStat(RelicStats.Stats.SPEED, 3);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter<?> getPrebuiltTopazRRAT() {
+        AbstractCharacter<?> character = new Topaz();
+        character.EquipLightcone(new WorrisomeBlissful(character));
+        character.EquipRelicSet(new TheAshblazingGrandDuke(character));
+        character.EquipRelicSet(new DuranDynastyOfRunningWolves(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.CRIT_RATE).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.ELEMENT_DAMAGE).addMainStat(RelicStats.Stats.ATK_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 7).addSubStat(RelicStats.Stats.CRIT_DAMAGE, 17);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter<?> getPrebuiltAventurineRRAT() {
+        AbstractCharacter<?> character = new Aventurine(false);
+        character.EquipLightcone(new ConcertForTwo(character));
+        character.EquipRelicSet(new KnightOfPurityPalace(character, false));
+        character.EquipRelicSet(new TheAshblazingGrandDuke(character, false));
+        character.EquipRelicSet(new BrokenKeel(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.SPEED).
+                addMainStat(RelicStats.Stats.DEF_PER).addMainStat(RelicStats.Stats.DEF_PER);
+        relicStats.addSubStat(RelicStats.Stats.CRIT_RATE, 10).addSubStat(RelicStats.Stats.DEF_PER, 3).
+                addSubStat(RelicStats.Stats.CRIT_DAMAGE, 8).addSubStat(RelicStats.Stats.SPEED, 3);
+        relicStats.equipTo(character);
+        return character;
     }
 
     public static AbstractCharacter<?> getPrebuiltLingshaCritSupport() {

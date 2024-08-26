@@ -33,7 +33,7 @@ public class PreCombatPlayerMetrics implements Loggable {
     @Override
     public String asString() {
         String statsString = "";
-        String gearString = String.format("Metrics for %s \nLightcone: %s \nRelic Set Bonuses: ", player.name, player.lightcone);
+        String gearString = String.format("\nMetrics for %s \nLightcone: %s \nRelic Set Bonuses: ", player.name, player.lightcone);
         gearString += player.relicSetBonus;
         statsString = gearString + String.format("\nOut of combat stats \nAtk: %.3f \nDef: %.3f \nHP: %.3f \nSpeed: %.3f \nSame Element Damage Bonus: %.3f \nCrit Chance: %.3f%% \nCrit Damage: %.3f%% \nBreak Effect: %.3f%%",
                 outOfCombatStats.get(StatType.ATK), outOfCombatStats.get(StatType.DEF), outOfCombatStats.get(StatType.HP), outOfCombatStats.get(StatType.SPD), outOfCombatStats.get(StatType.DMG), outOfCombatStats.get(StatType.CRIT), outOfCombatStats.get(StatType.CRITDMG), outOfCombatStats.get(StatType.BREAK));

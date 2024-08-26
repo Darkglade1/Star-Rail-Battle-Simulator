@@ -35,4 +35,10 @@ public class TempPower extends AbstractPower {
         power.setStat(stat, value);
         return power;
     }
+
+    public static TempPower createDebuff(PowerStat stat, float value, int turns, String name) {
+        TempPower power = create(stat, value, turns, name);
+        power.type = PowerType.DEBUFF;
+        return power;
+    }
 }
