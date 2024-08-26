@@ -41,7 +41,7 @@ public class DrRatio extends AbstractCharacter<DrRatio> {
         AbstractEnemy enemy = getBattle().getMiddleEnemy();
 
         enemy.addPower(TempPower.createDebuff(PowerStat.EFFECT_RES, -10, 2, "RatioEffectResDebuff"));
-        int debuffs = Math.min(5, (int) enemy.powerList.stream().filter(p -> p.type == AbstractPower.PowerType.DEBUFF).count());
+        int debuffs = (int)enemy.powerList.stream().filter(p -> p.type == AbstractPower.PowerType.DEBUFF).count();
         for (int i = 0; i < debuffs; i++) {
             addPower(new Summation());
         }
