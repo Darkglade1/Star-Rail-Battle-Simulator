@@ -4,11 +4,13 @@ import battleLogic.log.DefaultLogger;
 import battleLogic.log.lines.metrics.FinalDmgMetrics;
 import characters.AbstractCharacter;
 import enemies.AbstractEnemy;
+import enemies.AllWeakEnemy;
 import enemies.FireWindImgLightningWeakEnemy;
 import enemies.WindWeakEnemy;
 import report.Report;
 import teams.EnemyTeam;
 import teams.PlayerTeam;
+import teams.TopazTeams;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class BattleSim {
         //generateReportFeixiao();
         //generateReportFeixiaoLightconeReport();
         //generateReportFeixiaoRelicReport();
+        //generateReportTopaz();
         //ameliasSanityCheck();
     }
 
@@ -81,14 +84,36 @@ public class BattleSim {
         //battle.setPlayerTeam(new PelaFeixiaoGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoMozeGallagherMarch().getTeam());
         //battle.setPlayerTeam(new FeixiaoRuanMeiAventurineMarch().getTeam());
-        battle.setPlayerTeam(new RatioRobinAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new TopazTeams.RatioRobinAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new TopazTeams.FeixiaoRobinAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new TopazTeams.MarchRobinAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new TopazTeams.MozeRobinAventurineTopaz().getTeam());
+        battle.setPlayerTeam(new TopazTeams.HuohuoYunliRobinTopaz().getTeam());
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         //enemyTeam.add(new WindWeakEnemy(0, 0));
-        enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
+        //enemyTeam.add(new FireWindImgLightningWeakEnemy(0, 0));
+        enemyTeam.add(new AllWeakEnemy(0, 2));
+        enemyTeam.add(new AllWeakEnemy(1, 2));
         battle.setEnemyTeam(enemyTeam);
 
         battle.Start(550);
+    }
+
+    public static void generateReportTopaz() {
+        PlayerTeam baselineTeam = new TopazTeams.RatioRobinAventurineTopaz();
+        ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
+        otherTeams.add(new TopazTeams.FeixiaoRobinAventurineTopaz());
+        otherTeams.add(new TopazTeams.MarchRobinAventurineTopaz());
+        otherTeams.add(new TopazTeams.MozeRobinAventurineTopaz());
+        otherTeams.add(new TopazTeams.HuohuoYunliRobinTopaz());
+
+        ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
+        enemyTeams.add(new AllWeakEnemies2());
+
+        String notes = "Notes: Topaz and the other DPS are E0S1. Others are E0S0. E6 4 stars. Maxed out traces and levels. Enemies are level 95. Relics are +15 with relatively relatable rolls. Simulations run for 5 cycles.";
+        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 550, notes);
+        report.generateCSV();
     }
 
     public static void generateReportFeixiaoLightconeReport() {

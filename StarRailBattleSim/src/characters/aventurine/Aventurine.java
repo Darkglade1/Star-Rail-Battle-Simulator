@@ -168,7 +168,7 @@ public class Aventurine extends AbstractCharacter<Aventurine> {
         }
 
         @Override
-        public void onAttack(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
+        public void afterAttackFinish(AbstractCharacter<?> character, ArrayList<AbstractEnemy> enemiesHit, ArrayList<AbstractCharacter.DamageType> types) {
             if (character != Aventurine.this && types.contains(DamageType.FOLLOW_UP) && blindBetFollowUpCounter > 0) {
                 increaseBlindBet(1);
                 blindBetFollowUpCounter--;

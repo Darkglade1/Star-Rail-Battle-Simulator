@@ -307,12 +307,12 @@ public class BattleHelpers implements BattleParticipant {
         character.emit(l -> {
             l.onAttack(character, enemiesHit, types);
         });
-        for (AbstractEnemy enemy : enemiesHit) {
+        ArrayList<AbstractEnemy> enemies = new ArrayList<>(enemiesHit); // I really should've implemented an action queue
+        for (AbstractEnemy enemy : enemies) {
             enemy.emit(l -> {
                 l.onAttacked(character, enemy, types, 0);
             });
         }
-
         character.emit(l -> {
             l.afterAttackFinish(character, enemiesHit, types);
         });

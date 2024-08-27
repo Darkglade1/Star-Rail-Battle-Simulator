@@ -42,7 +42,7 @@ public class RelicStats {
         relicBonus.setStat(PowerStat.HEALING, getTotalBonus(Stats.HEALING));
         relicBonus.setStat(PowerStat.ENERGY_REGEN, getTotalBonus(Stats.ERR));
         relicBonus.setStat(PowerStat.SAME_ELEMENT_DAMAGE_BONUS, getTotalBonus(Stats.ELEMENT_DAMAGE));
-        relicBonus.name = "Relic Stats Bonuses";
+        relicBonus.name = "RelicStatsBonuses";
         character.addPower(relicBonus);
     }
 

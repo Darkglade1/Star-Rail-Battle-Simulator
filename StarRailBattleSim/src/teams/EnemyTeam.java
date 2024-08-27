@@ -15,6 +15,19 @@ public class EnemyTeam {
         return description;
     }
 
+    public static class AllWeakEnemies2 extends EnemyTeam {
+        public AllWeakEnemies2() {
+            description = "2 Enemies weak to everything with 150 Speed (Each enemy performs 1.33 attacks per turn)";
+        }
+        @Override
+        public ArrayList<AbstractEnemy> getTeam() {
+            ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
+            enemyTeam.add(new AllWeakEnemy(0, 2));
+            enemyTeam.add(new AllWeakEnemy(1, 2));
+            return enemyTeam;
+        }
+    }
+
     public static class FireWindImgLightningWeakTarget1 extends EnemyTeam {
         public FireWindImgLightningWeakTarget1() {
             description = "1 Fire and Wind and Imaginary and Lightning Weak Enemy with 150 Speed (Performs 2 attacks per turn)";

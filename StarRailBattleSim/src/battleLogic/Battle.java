@@ -263,7 +263,7 @@ public class Battle implements IBattle {
             }
             // TODO: Find a way to remove Yunli logic from here
             // Ideally the battle loop does not care about the specifics of the characters
-            if (yunli != null && currentUnit instanceof AbstractEnemy && yunli.currentEnergy >= yunli.ultCost) {
+            if (yunli != null && yunli.currentEnergy >= yunli.ultCost) {
                 yunli.tryUltimate();
                 if (march != null && march.chargeCount >= march.chargeThreshold) {
                     currentUnit = march;
