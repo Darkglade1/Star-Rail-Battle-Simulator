@@ -75,16 +75,17 @@ public class Main {
 
     public static void darkgladeTestRun() {
         Battle battle = new Battle();
-        battle.setPlayerTeam(new AglaeaTeams.DoubleSpeedAglaeaTeam().getTeam());
+        battle.setPlayerTeam(new AglaeaTeams.DoubleSpeedAglaeaTeam().getTeam()); // 2 rotation ends in 270 AV
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new AllWeakPassiveEnemy(0));
-        //enemyTeam.add(new AllWeakPassiveEnemy(1));
-        //enemyTeam.add(new AllWeakPassiveEnemy(2));
+        enemyTeam.add(new AllWeakPassiveEnemy(1));
+        enemyTeam.add(new AllWeakPassiveEnemy(2));
         battle.setEnemyTeam(enemyTeam);
-        battle.Start(300);
+        battle.Start(270);
 
 //        DmgContributionMetric metric = battle.getMetricRegistry().getMetric("battle-dmg-contribution");
-//        System.out.printf("Total dmg: %,d%n", battle.getTotalPlayerDmg());
+        System.out.printf("Total dmg: %,d%n", battle.getTotalPlayerDmg());
+        System.out.printf("DPAV: %.3f", battle.getTotalPlayerDmg() / battle.initialBattleLength);
 //        System.out.println(metric.representation());
 //        System.out.println();
     }

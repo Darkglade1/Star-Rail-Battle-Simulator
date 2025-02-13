@@ -123,6 +123,8 @@ public class Sunday extends AbstractCharacter<Sunday> {
         this.theBeatifiedTurnsRemaining = 3;
         this.relicSetBonus.forEach(rs -> rs.useOnAlly(target, MoveType.ULTIMATE));
         this.lightcone.useOnAlly(target, MoveType.ULTIMATE);
+
+        increaseEnergy(10, "Test"); // fake hit energy to ensure 3 turn ult
     }
 
     private float ultimateEnergyCharge(AbstractCharacter<?> target) {

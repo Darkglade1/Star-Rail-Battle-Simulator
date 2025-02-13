@@ -8,6 +8,7 @@ import art.ameliah.hsr.characters.ElementType;
 import art.ameliah.hsr.characters.MoveType;
 import art.ameliah.hsr.characters.Path;
 import art.ameliah.hsr.characters.goal.shared.target.enemy.HighestEnemyTargetGoal;
+import art.ameliah.hsr.characters.goal.shared.target.enemy.MiddleEnemyTargetGoal;
 import art.ameliah.hsr.characters.remembrance.Memosprite;
 import art.ameliah.hsr.powers.PermPower;
 import art.ameliah.hsr.powers.PowerStat;
@@ -34,7 +35,7 @@ public class Garmentmaker extends Memosprite<Garmentmaker> {
         this.aglaea = aglaea;
 
         this.registerGoal(10, new GarmentmakerTargetGoal(this));
-        this.registerGoal(0, new HighestEnemyTargetGoal<>(this));
+        this.registerGoal(0, new MiddleEnemyTargetGoal<>(this));
 
         this.addPower(new ABodyBrewedByTears());
     }

@@ -103,6 +103,8 @@ public class Robin extends AbstractCharacter<Robin> implements SkillCounterTurnG
         this.addPower(fixedCritPower);
         getBattle().getActionValueMap().remove(this);
         getBattle().getActionValueMap().put(concerto, concerto.getBaseAV());
+
+        increaseEnergy(20, "Test"); // fake hit energy to ensure ult
     }
 
     public void onCombatStart() {

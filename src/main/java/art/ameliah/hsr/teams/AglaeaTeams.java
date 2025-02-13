@@ -31,7 +31,7 @@ public class AglaeaTeams {
 
     public static AbstractCharacter<?> get134SpeedSunday() {
         AbstractCharacter<?> character = new Sunday();
-        character.EquipLightcone(new AGroundedAscent(character));
+        character.EquipLightcone(new ButTheBattleIsntOver(character));
         character.EquipRelicSet(new SacerdosRelivedOrdeal(character));
         character.EquipRelicSet(new SpringhtlyVonwacq(character));
         RelicStats relicStats = new RelicStats();

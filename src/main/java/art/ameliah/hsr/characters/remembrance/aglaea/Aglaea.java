@@ -9,6 +9,7 @@ import art.ameliah.hsr.characters.ElementType;
 import art.ameliah.hsr.characters.MoveType;
 import art.ameliah.hsr.characters.Path;
 import art.ameliah.hsr.characters.goal.shared.target.enemy.HighestEnemyTargetGoal;
+import art.ameliah.hsr.characters.goal.shared.target.enemy.MiddleEnemyTargetGoal;
 import art.ameliah.hsr.characters.goal.shared.turn.AlwaysBasicGoal;
 import art.ameliah.hsr.characters.goal.shared.turn.SkillIfNoMemo;
 import art.ameliah.hsr.characters.goal.shared.ult.AlwaysUltGoal;
@@ -32,7 +33,7 @@ public class Aglaea extends Memomaster<Aglaea> {
     @Getter
     private final BoolMetric supremeStance = metricRegistry.register("Supreme Stance", BoolMetric.class);
 
-    private final SupremeStanceEntity supremeStanceEntity = new SupremeStanceEntity(this);
+    public final SupremeStanceEntity supremeStanceEntity = new SupremeStanceEntity(this);
     private Garmentmaker garmentmaker;
 
 
@@ -46,16 +47,16 @@ public class Aglaea extends Memomaster<Aglaea> {
                 .setStat(PowerStat.CRIT_CHANCE, 12f)
                 .setStat(PowerStat.DEF_PERCENT, 12f));
 
-        this.registerGoal(100, new UltAtEndOfBattle<>(this));
-        this.registerGoal(10, new DontUltWhenClose<>(this, 0.25f));
-        this.registerGoal(0, new AlwaysUltGoal<>(this));
+        //this.registerGoal(100, new UltAtEndOfBattle<>(this));
+        this.registerGoal(0, new DontUltUnlessCloseToSupremeStance<>(this));
+        this.registerGoal(10, new AlwaysUltGoal<>(this));
         this.registerGoal(10, new SkillIfNoMemo<>(this));
         this.registerGoal(0, new AlwaysBasicGoal<>(this));
 
 
         // Rosy-Fingered is applied before the attacks happens, so Aglaea doesn't have to target for it
         // This is how I'm reading the Talent for now. Feel free to correct me.
-        this.registerGoal(0, new HighestEnemyTargetGoal<>(this));
+        this.registerGoal(0, new MiddleEnemyTargetGoal<>(this));
     }
 
     @Override
@@ -69,6 +70,9 @@ public class Aglaea extends Memomaster<Aglaea> {
     @Override
     protected void summonMemo() {
         this.garmentmaker = new Garmentmaker(this);
+        garmentmaker.addPower(this.getPower("Traces Stat Bonus"));
+        garmentmaker.addPower(this.getPower("RelicStatsBonuses"));
+        garmentmaker.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 16, "The Wondrous Banan Amusement Park CD boost"));
         int idx = getBattle().getPlayers().indexOf(this);
         getBattle().addPlayerAt(this.garmentmaker, idx+1);
         getBattle().AdvanceEntity(this.garmentmaker, 100); // The Speeding Summer
@@ -179,6 +183,8 @@ public class Aglaea extends Memomaster<Aglaea> {
         this.addPower(majorTracePower);
         this.garmentmaker.addPower(majorTracePower);
         getBattle().AdvanceEntity(this, 100);
+
+        increaseEnergy(200, "Test"); // fake energy to ensure ult chaining
     }
 
     public static class TheMyopicsDoom extends PermPower {
