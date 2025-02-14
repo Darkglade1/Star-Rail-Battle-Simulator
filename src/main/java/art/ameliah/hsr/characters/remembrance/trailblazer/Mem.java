@@ -1,8 +1,6 @@
 package art.ameliah.hsr.characters.remembrance.trailblazer;
 
-import art.ameliah.hsr.battleLogic.combat.ally.AttackLogic;
 import art.ameliah.hsr.battleLogic.combat.hit.EnemyHit;
-import art.ameliah.hsr.battleLogic.combat.hit.Hit;
 import art.ameliah.hsr.battleLogic.combat.result.EnemyHitResult;
 import art.ameliah.hsr.battleLogic.combat.result.HitResult;
 import art.ameliah.hsr.battleLogic.log.lines.entity.GainCharge;
@@ -23,18 +21,14 @@ import java.util.List;
 /**
  * Mem currently cannot disappear, "No... Regrets" is not implemented. There is no ally dmg
  */
-public class Mem extends Memosprite<Mem> {
+public class Mem extends Memosprite<Mem, Trailblazer> {
     public static final String NAME = "Mem";
-
-    private final Trailblazer trailblazer;
 
     protected CounterMetric<Integer> charge = metricRegistry.register(CounterMetric.newIntegerCounter("mem-charge"));
 
     public Mem(Trailblazer trailblazer) {
-        super(NAME,
+        super(trailblazer, NAME,
                 (int)(640 + 0.8*trailblazer.getFinalHP()),
-                (int)trailblazer.getFinalAttack(),
-                (int)trailblazer.getFinalDefense(),
                 130,
                 90,
                 ElementType.ICE,
@@ -43,7 +37,6 @@ public class Mem extends Memosprite<Mem> {
                 Path.REMEMBRANCE);
 
         this.usesEnergy = false;
-        this.trailblazer = trailblazer;
 
         this.registerGoal(0, new DpsAllyTargetGoal<>(this));
     }
@@ -69,7 +62,7 @@ public class Mem extends Memosprite<Mem> {
 
     @Override
     public EnemyHitResult hit(EnemyHit hit) {
-        this.trailblazer.increaseEnergy(hit.energy(), ATTACKED_ENERGY_GAIN);
+        super.getMaster().increaseEnergy(hit.energy(), ATTACKED_ENERGY_GAIN);
         return new EnemyHitResult(hit.dmg());
     }
 
@@ -88,11 +81,6 @@ public class Mem extends Memosprite<Mem> {
         this.baddiesTrouble();
     }
 
-    @Override
-    public Trailblazer getMaster() {
-        return this.trailblazer;
-    }
-
     private void lemmeHelpYou() {
         AbstractCharacter<?> ally = this.getAllyTarget();
         if (ally != this) {
@@ -101,7 +89,7 @@ public class Mem extends Memosprite<Mem> {
         ally.addPower(new TrueDmgPower());
 
         if (ally instanceof Memomaster<?> memomaster) {
-            Memosprite<?> memosprite = memomaster.getMemo();
+            Memosprite<?, ?> memosprite = memomaster.getMemo();
             if (memosprite != null) {
                 memosprite.addPower(new TrueDmgPower());
             }
@@ -123,7 +111,7 @@ public class Mem extends Memosprite<Mem> {
                             dl.hit(e, 0.9f, 10));
                 })
                 .afterAttackHook(() -> {
-                    this.trailblazer.increaseEnergy(10, "Mem Baddies! Trouble!");
+                    super.getMaster().increaseEnergy(10, "Mem Baddies! Trouble!");
                     this.increaseCharge(5);
                 })
                 .execute();

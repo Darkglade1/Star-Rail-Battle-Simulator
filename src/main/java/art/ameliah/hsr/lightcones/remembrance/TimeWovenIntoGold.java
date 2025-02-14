@@ -56,7 +56,7 @@ public class TimeWovenIntoGold extends AbstractLightcone {
                     memomaster.getMemo().addPower(new TimeWovenIntoGoldPower());
                 }
             }
-            if (owner instanceof Memosprite<?> memosprite) {
+            if (owner instanceof Memosprite<?, ?> memosprite) {
                 if (memosprite.getMaster() != null) {
                     memosprite.getMaster().addPower(new TimeWovenIntoGoldPower());
                 }
@@ -64,7 +64,7 @@ public class TimeWovenIntoGold extends AbstractLightcone {
         }
 
         @Override
-        public void afterSummon(Memosprite<?> memosprite) {
+        public void afterSummon(Memosprite<?, ?> memosprite) {
             AbstractPower power = new TimeWovenIntoGoldPower();
             power.stacks = this.stacks;
             memosprite.addPower(power);

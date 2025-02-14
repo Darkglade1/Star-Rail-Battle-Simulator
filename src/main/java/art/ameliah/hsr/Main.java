@@ -1,22 +1,16 @@
 package art.ameliah.hsr;
 
 import art.ameliah.hsr.battleLogic.Battle;
-import art.ameliah.hsr.battleLogic.BattleParticipant;
 import art.ameliah.hsr.battleLogic.IBattle;
 import art.ameliah.hsr.battleLogic.log.DefaultLogger;
-import art.ameliah.hsr.battleLogic.log.VoidLogger;
 import art.ameliah.hsr.battleLogic.log.lines.battle.TurnEnd;
 import art.ameliah.hsr.battleLogic.log.lines.battle.TurnStart;
 import art.ameliah.hsr.builder.ConfigLoader;
 import art.ameliah.hsr.characters.AbstractCharacter;
 import art.ameliah.hsr.enemies.AbstractEnemy;
-import art.ameliah.hsr.enemies.AllWeakEnemy;
 import art.ameliah.hsr.enemies.AllWeakPassiveEnemy;
 import art.ameliah.hsr.enemies.FireWindImgLightningWeakEnemy;
 import art.ameliah.hsr.game.moc.ScalegorgeTidalflow11;
-import art.ameliah.hsr.game.pf.technicalityentrapment.EmptyAir;
-import art.ameliah.hsr.game.pf.technicalityentrapment.FalsePromises;
-import art.ameliah.hsr.game.pf.technicalityentrapment.FirstHalf;
 import art.ameliah.hsr.metrics.CounterMetric;
 import art.ameliah.hsr.metrics.DmgContributionMetric;
 import art.ameliah.hsr.teams.AglaeaTeams;
@@ -33,7 +27,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -96,7 +89,10 @@ public class Main {
     public static void ameliasSanityCheck() {
         AtomicInteger length = new AtomicInteger();
 
-        List<Pair<String, ArrayList<AbstractCharacter<?>>>> teams = TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class)
+        var classes = TestHelper.getStaticClassesExtendingA(PlayerTeam.class, PlayerTeam.class);
+        classes.addAll(TestHelper.getStaticClassesExtendingA(AglaeaTeams.class, PlayerTeam.class));
+
+        List<Pair<String, ArrayList<AbstractCharacter<?>>>> teams = classes
                 .stream()
                 .map(c -> new Pair<>(c.getSimpleName(), (ArrayList<AbstractCharacter<?>>) TestHelper.callMethodOnClasses(c, "getTeam")))
                 .sorted(Comparator.comparing(Pair::key))
@@ -118,7 +114,7 @@ public class Main {
             CounterMetric<Float> playerDmg = battle.getMetricRegistry().getMetric("battle-total-player-dmg");
             DmgContributionMetric dmg = battle.getMetricRegistry().getMetric("battle-dmg-contribution");
 
-            System.out.println(dmg.representation() + "\nTotal Dmg: " + String.format("%,.3f", playerDmg.get()) + "\n");
+            System.out.println(dmg.contribution() + "\n" + dmg.overflow() + "\nTotal Dmg: " + String.format("%,.3f", playerDmg.get()) + "\n");
         }
     }
 

@@ -34,7 +34,7 @@ public class Attack extends AbstractAttack<AbstractCharacter<?>, AbstractEnemy, 
 
         this.source.emit(l -> l.beforeAttack(attackLogic));
         if (this.source instanceof Memosprite) {
-            Memosprite<?> memosprite = (Memosprite<?>)source;
+            Memosprite<?, ?> memosprite = (Memosprite<?, ?>)source;
             memosprite.getMaster().emit(l -> l.beforeMemospriteAttack(attackLogic));
         }
         this.targets.forEach(t -> t.emit(l -> l.beforeAttacked(attackLogic)));

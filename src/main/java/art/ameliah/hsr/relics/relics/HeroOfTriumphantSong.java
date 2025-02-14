@@ -40,7 +40,7 @@ public class HeroOfTriumphantSong extends AbstractRelicSetBonus {
         }
 
         @Override
-        public void afterSummon(Memosprite<?> memosprite) {
+        public void afterSummon(Memosprite<?, ?> memosprite) {
             getBattle().IncreaseSpeed(this.owner, this);
         }
 

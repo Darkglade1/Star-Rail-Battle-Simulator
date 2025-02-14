@@ -44,7 +44,24 @@ public class DmgContributionMetric extends AbstractMetric{
 
     @Override
     public String representation() {
-        String log = map.entrySet()
+        return String.format("Damage Contribution: %s \nOverflow damage %s\n%s",
+                this.contribution(), this.overFlowMap, this.characterBreakDown());
+    }
+
+    public String overflow() {
+        return overFlowMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.<BattleParticipant, Float>comparingByValue(Comparator.reverseOrder())
+                        .thenComparing(entry -> entry.getKey().getName()))
+                .map(entry -> {
+                    float percent = entry.getValue() / this.map.get(entry.getKey()) * 100;
+                    return String.format("%s: %,.0f DMG (%.3f%%)", entry.getKey().getName(), entry.getValue(), percent);
+                })
+                .collect(Collectors.joining(" | "));
+    }
+
+    public String contribution() {
+        return map.entrySet()
                 .stream()
                 .sorted(Map.Entry.<BattleParticipant, Float>comparingByValue(Comparator.reverseOrder())
                         .thenComparing(entry -> entry.getKey().getName()))
@@ -53,16 +70,6 @@ public class DmgContributionMetric extends AbstractMetric{
                     return String.format("%s: %,.3f DPAV (%.3f%%)", entry.getKey().getName(), entry.getValue() / this.battle.getActionValueUsed(), percent);
                 })
                 .collect(Collectors.joining(" | "));
-        String overflow = overFlowMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.<BattleParticipant, Float>comparingByValue(Comparator.reverseOrder())
-                                .thenComparing(entry -> entry.getKey().getName()))
-                .map(entry -> {
-                    float percent = entry.getValue() / this.map.get(entry.getKey()) * 100;
-                    return String.format("%s: %,.0f DMG (%.3f%%)", entry.getKey().getName(), entry.getValue(), percent);
-                })
-                .collect(Collectors.joining(" | "));
-        return String.format("Damage Contribution: %s \nOverflow damage %s\n%s", log, overflow, this.characterBreakDown());
     }
 
     private String characterBreakDown() {

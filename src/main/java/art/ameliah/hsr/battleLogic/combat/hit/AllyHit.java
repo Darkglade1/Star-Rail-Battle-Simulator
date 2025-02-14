@@ -4,6 +4,7 @@ import art.ameliah.hsr.battleLogic.BattleParticipant;
 import art.ameliah.hsr.battleLogic.IBattle;
 import art.ameliah.hsr.battleLogic.combat.MultiplierStat;
 import art.ameliah.hsr.battleLogic.combat.ally.AttackLogic;
+import art.ameliah.hsr.battleLogic.log.lines.character.HitInfo;
 import art.ameliah.hsr.characters.AbstractCharacter;
 import art.ameliah.hsr.characters.DamageType;
 import art.ameliah.hsr.characters.ElementType;
@@ -78,6 +79,8 @@ public class AllyHit implements BattleParticipant, HitHolder, Hit {
                 // * dmgMitigationMultiplier
                 * brokenMultiplier;
 
+        getBattle().addToLog(new HitInfo(baseDamage, critMultiplier, dmgBoostMultiplier, defMultiplier,
+                resMultiplier, vulnerabilityMultiplier, brokenMultiplier, calculatedDmg));
         this.computedDmg = calculatedDmg;
         return calculatedDmg;
     }

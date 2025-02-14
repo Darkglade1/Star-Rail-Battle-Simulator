@@ -2,7 +2,6 @@ package art.ameliah.hsr.characters.remembrance.aglaea;
 
 import art.ameliah.hsr.battleLogic.BattleEvents;
 import art.ameliah.hsr.battleLogic.combat.ally.AttackLogic;
-import art.ameliah.hsr.battleLogic.combat.ally.DelayAttack;
 import art.ameliah.hsr.battleLogic.log.lines.character.DoMove;
 import art.ameliah.hsr.characters.DamageType;
 import art.ameliah.hsr.characters.ElementType;
@@ -81,7 +80,7 @@ public class Aglaea extends Memomaster<Aglaea> {
     }
 
     @Override
-    public @Nullable Memosprite<?> getMemo() {
+    public @Nullable Memosprite<?, ?> getMemo() {
         return this.garmentmaker;
     }
 

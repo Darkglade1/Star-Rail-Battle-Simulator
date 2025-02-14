@@ -203,7 +203,7 @@ public interface BattleEvents {
     /**
      * Called after summoning a memosprite
      */
-    default void afterSummon(Memosprite<?> memosprite) {}
+    default void afterSummon(Memosprite<?, ?> memosprite) {}
 
     /**
      * Called after gaining an amount of energy

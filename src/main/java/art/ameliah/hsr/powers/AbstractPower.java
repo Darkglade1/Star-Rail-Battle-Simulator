@@ -60,6 +60,13 @@ public abstract class AbstractPower implements BattleEvents, BattleParticipant {
         return this.name;
     }
 
+    /**
+     * Returns a copy of the stats map
+     */
+    public Map<PowerStat, Float> getStats() {
+        return new HashMap<>(this.stats);
+    }
+
     public void merge(AbstractPower other) {
         if (this.maxStacks > 0) {
             this.stacks = Math.min(this.stacks + 1, this.maxStacks);

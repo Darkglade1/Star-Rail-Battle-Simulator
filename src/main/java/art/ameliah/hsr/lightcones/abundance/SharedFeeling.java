@@ -20,7 +20,7 @@ public class SharedFeeling extends AbstractLightcone {
     @Override
     public void onUseSkill() {
         for (AbstractCharacter<?> character : getBattle().getPlayers()) {
-            if (!(character instanceof Memosprite<?>)) {
+            if (!(character instanceof Memosprite<?, ?>)) {
                 character.increaseEnergy(4, AbstractCharacter.LIGHTCONE_ENERGY_GAIN);
             }
         }

@@ -230,7 +230,8 @@ public abstract class AbstractEnemy extends AbstractEntity {
 
     // TODO: Implement this correctly with buffs etc.
     public float attackDmg() {
-        return this.getFinalAttack();
+        //return this.getFinalAttack();
+        return 0;
     }
 
     public HitResult hit(Hit hit) {

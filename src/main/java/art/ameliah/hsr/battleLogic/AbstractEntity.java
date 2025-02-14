@@ -26,6 +26,9 @@ public abstract class AbstractEntity implements BattleEvents, BattleParticipant 
     @Getter
     protected CounterMetric<Float> currentHp = metricRegistry.register(CounterMetric.newFloatCounter("enemy-hp", "Left over HP"));
 
+    @Getter
+    private Collection<AbstractPower> preCombatPowers;
+
     public List<AbstractPower> powerList = new ArrayList<>();
     public float baseSpeed;
     public int speedPriority = SPEED_PRIORITY_DEFAULT;
@@ -33,6 +36,16 @@ public abstract class AbstractEntity implements BattleEvents, BattleParticipant 
     protected String name;
     @Setter
     private IBattle battle;
+
+    public AbstractEntity() {
+    }
+
+    public void SetPreCombatPowers() {
+        if (this.preCombatPowers != null) {
+            throw new IllegalStateException("PreCombat Powers can only be set once");
+        }
+        this.preCombatPowers = new ArrayList<>(this.powerList);
+    }
 
     @Override
     public IBattle getBattle() {

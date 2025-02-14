@@ -20,7 +20,7 @@ public abstract class Memomaster<C extends Memomaster<C>> extends AbstractCharac
      * @return the memosprite
      */
     @Nullable
-    public abstract Memosprite<?> getMemo();
+    public abstract Memosprite<?, ?> getMemo();
 
     @Override
     public AbstractEntity getSummon() {

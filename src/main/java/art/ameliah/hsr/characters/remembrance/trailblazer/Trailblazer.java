@@ -1,6 +1,5 @@
 package art.ameliah.hsr.characters.remembrance.trailblazer;
 
-import art.ameliah.hsr.battleLogic.log.lines.StringLine;
 import art.ameliah.hsr.characters.AbstractCharacter;
 import art.ameliah.hsr.characters.DamageType;
 import art.ameliah.hsr.characters.ElementType;
@@ -45,7 +44,7 @@ public class Trailblazer extends Memomaster<Trailblazer> implements SkillFirstTu
     }
 
     @Override
-    public @Nullable Memosprite<?> getMemo() {
+    public @Nullable Memosprite<?, ?> getMemo() {
         return this.mem;
     }
 
@@ -181,7 +180,7 @@ public class Trailblazer extends Memomaster<Trailblazer> implements SkillFirstTu
             }
 
 
-            if (this.getOwner() instanceof Memosprite<?> memosprite) {
+            if (this.getOwner() instanceof Memosprite<?, ?> memosprite) {
                 if (Trailblazer.this.mem != null && Trailblazer.this.mem != memosprite) {
                  Trailblazer.this.increaseEnergy(9, "E4");
                 }

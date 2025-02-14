@@ -353,6 +353,7 @@ public class Battle extends RngProvider implements IBattle {
 
         addToLog(new CombatStart());
         this.playerTeam.forEach(c -> addToLog(new PreCombatPlayerMetrics(c)));
+        this.playerTeam.forEach(AbstractCharacter::SetPreCombatPowers);
         this.onStart();
 
         for (AbstractEnemy enemy : enemyTeam) {

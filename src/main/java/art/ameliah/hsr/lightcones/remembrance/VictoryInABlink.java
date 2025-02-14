@@ -21,7 +21,7 @@ public class VictoryInABlink extends AbstractLightcone {
     }
 
     @Override
-    public void afterSummon(Memosprite<?> memosprite) {
+    public void afterSummon(Memosprite<?, ?> memosprite) {
         memosprite.addPower(new VictoryInABlinkListener());
     }
 
