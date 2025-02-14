@@ -34,7 +34,7 @@ public class Robin extends AbstractCharacter<Robin> implements SkillCounterTurnG
     private final PermPower skillPower = PermPower.create(PowerStat.DAMAGE_BONUS, 50, "Robin Skill Power");
     private final RobinUltPower ultPower = new RobinUltPower();
     private final RobinFixedCritPower fixedCritPower = new RobinFixedCritPower();
-    private final Concerto concerto = new Concerto(this);
+    public final Concerto concerto = new Concerto(this);
 
     protected CounterMetric<Integer> allyAttacks = metricRegistry.register(CounterMetric.newIntegerCounter("robin-ally-attacks", "Number of Ally Attacks"));
     protected CounterMetric<Integer> concertoHits = metricRegistry.register(CounterMetric.newIntegerCounter("robin-concerto-hits", "Number of Concerto Hits"));
@@ -53,7 +53,8 @@ public class Robin extends AbstractCharacter<Robin> implements SkillCounterTurnG
 
         this.registerGoal(0, new SkillCounterTurnGoal<>(this));
 
-        this.registerGoal(0, new UltAtEndOfBattle<>(this));
+        this.registerGoal(0, new RobinConcertoUltGoal(this));
+        this.registerGoal(5, new UltAtEndOfBattle<>(this));
         this.registerGoal(10, new Robin0AVUltGoal(this));
         this.registerGoal(20, new DontUltNumby<>(this));
         this.registerGoal(25, new DontWastedAAUltGoal(this));

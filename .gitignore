@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 export/
 export_2/
+csv/
 
 ### IntelliJ IDEA ###
 .idea
