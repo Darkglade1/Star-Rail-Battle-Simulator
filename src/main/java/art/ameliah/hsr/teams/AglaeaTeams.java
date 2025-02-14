@@ -8,6 +8,7 @@ import art.ameliah.hsr.characters.remembrance.aglaea.Aglaea;
 import art.ameliah.hsr.lightcones.abundance.SharedFeeling;
 import art.ameliah.hsr.lightcones.harmony.AGroundedAscent;
 import art.ameliah.hsr.lightcones.harmony.ButTheBattleIsntOver;
+import art.ameliah.hsr.lightcones.harmony.DanceDanceDance;
 import art.ameliah.hsr.lightcones.harmony.PoisedToBloom;
 import art.ameliah.hsr.lightcones.remembrance.TimeWovenIntoGold;
 import art.ameliah.hsr.relics.RelicStats;
@@ -34,19 +35,6 @@ public class AglaeaTeams {
         return character;
     }
 
-    public static AbstractCharacter<?> get134SpeedSunday() {
-        AbstractCharacter<?> character = new Sunday();
-        character.EquipLightcone(new ButTheBattleIsntOver(character));
-        character.EquipRelicSet(new SacerdosRelivedOrdeal(character));
-        character.EquipRelicSet(new SpringhtlyVonwacq(character));
-        RelicStats relicStats = new RelicStats();
-        relicStats.addMainStat(Stats.CRIT_DAMAGE).addMainStat(Stats.SPEED).
-                addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
-        relicStats.addSubStat(Stats.EFFECT_RES, 7).addSubStat(Stats.CRIT_DAMAGE, 10).addSubStat(Stats.SPEED, 3);
-        relicStats.equipTo(character);
-        return character;
-    }
-
     public static AbstractCharacter<?> getFastAglaea() {
         AbstractCharacter<?> character = new Aglaea();
         character.EquipLightcone(new TimeWovenIntoGold(character));
@@ -56,19 +44,6 @@ public class AglaeaTeams {
         relicStats.addMainStat(Stats.CRIT_RATE).addMainStat(Stats.SPEED).
                 addMainStat(Stats.LIGHTNING_DAMAGE).addMainStat(Stats.ERR);
         relicStats.addSubStat(Stats.CRIT_RATE, 11).addSubStat(Stats.CRIT_DAMAGE, 6).addSubStat(Stats.SPEED, 7);
-        relicStats.equipTo(character);
-        return character;
-    }
-
-    public static AbstractCharacter<?> getFastSunday() {
-        AbstractCharacter<?> character = new Sunday();
-        character.EquipLightcone(new ButTheBattleIsntOver(character));
-        character.EquipRelicSet(new SacerdosRelivedOrdeal(character));
-        character.EquipRelicSet(new SpringhtlyVonwacq(character));
-        RelicStats relicStats = new RelicStats();
-        relicStats.addMainStat(Stats.CRIT_DAMAGE).addMainStat(Stats.SPEED).
-                addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
-        relicStats.addSubStat(Stats.EFFECT_RES, 1).addSubStat(Stats.CRIT_DAMAGE, 4).addSubStat(Stats.SPEED, 15);
         relicStats.equipTo(character);
         return character;
     }
@@ -86,19 +61,6 @@ public class AglaeaTeams {
         return character;
     }
 
-    public static AbstractCharacter<?> getHyperFastSunday() {
-        AbstractCharacter<?> character = new Sunday();
-        character.EquipLightcone(new ButTheBattleIsntOver(character));
-        character.EquipRelicSet(new SacerdosRelivedOrdeal(character));
-        character.EquipRelicSet(new SpringhtlyVonwacq(character));
-        RelicStats relicStats = new RelicStats();
-        relicStats.addMainStat(Stats.CRIT_DAMAGE).addMainStat(Stats.SPEED).
-                addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
-        relicStats.addSubStat(Stats.EFFECT_RES, 0).addSubStat(Stats.CRIT_DAMAGE, 1).addSubStat(Stats.SPEED, 19);
-        relicStats.equipTo(character);
-        return character;
-    }
-
     public static AbstractCharacter<?> getVonwaqAglaea() {
         AbstractCharacter<?> character = new Aglaea();
         character.EquipLightcone(new TimeWovenIntoGold(character));
@@ -108,6 +70,45 @@ public class AglaeaTeams {
         relicStats.addMainStat(Stats.CRIT_RATE).addMainStat(Stats.ATK_PER).
                 addMainStat(Stats.LIGHTNING_DAMAGE).addMainStat(Stats.ERR);
         relicStats.addSubStat(Stats.CRIT_RATE, 11).addSubStat(Stats.CRIT_DAMAGE, 9).addSubStat(Stats.SPEED, 4);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter<?> get134SpeedSunday() {
+        AbstractCharacter<?> character = new Sunday();
+        character.EquipLightcone(new ButTheBattleIsntOver(character));
+        character.EquipRelicSet(new SacerdosRelivedOrdeal(character));
+        character.EquipRelicSet(new SpringhtlyVonwacq(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(Stats.CRIT_DAMAGE).addMainStat(Stats.SPEED).
+                addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
+        relicStats.addSubStat(Stats.EFFECT_RES, 7).addSubStat(Stats.CRIT_DAMAGE, 10).addSubStat(Stats.SPEED, 3);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter<?> getFastSunday() {
+        AbstractCharacter<?> character = new Sunday();
+        character.EquipLightcone(new ButTheBattleIsntOver(character));
+        character.EquipRelicSet(new SacerdosRelivedOrdeal(character));
+        character.EquipRelicSet(new SpringhtlyVonwacq(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(Stats.CRIT_DAMAGE).addMainStat(Stats.SPEED).
+                addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
+        relicStats.addSubStat(Stats.EFFECT_RES, 1).addSubStat(Stats.CRIT_DAMAGE, 4).addSubStat(Stats.SPEED, 15);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter<?> getHyperFastSunday() {
+        AbstractCharacter<?> character = new Sunday();
+        character.EquipLightcone(new ButTheBattleIsntOver(character));
+        character.EquipRelicSet(new SacerdosRelivedOrdeal(character));
+        character.EquipRelicSet(new SpringhtlyVonwacq(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(Stats.CRIT_DAMAGE).addMainStat(Stats.SPEED).
+                addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
+        relicStats.addSubStat(Stats.EFFECT_RES, 0).addSubStat(Stats.CRIT_DAMAGE, 1).addSubStat(Stats.SPEED, 19);
         relicStats.equipTo(character);
         return character;
     }

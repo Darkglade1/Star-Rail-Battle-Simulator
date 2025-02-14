@@ -44,8 +44,8 @@ public class Main {
         Locale.setDefault(Locale.UK);
 
         //run();
-        darkgladeTestRun();
-        //generateReportAglaea();
+        //darkgladeTestRun();
+        generateReportAglaea();
 
         //ameliasSanityCheck();
         //WaveTester.MocTest();
