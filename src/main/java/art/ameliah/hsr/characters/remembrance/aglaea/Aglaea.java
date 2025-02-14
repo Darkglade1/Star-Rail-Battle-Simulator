@@ -69,9 +69,6 @@ public class Aglaea extends Memomaster<Aglaea> {
     @Override
     protected void summonMemo() {
         this.garmentmaker = new Garmentmaker(this);
-        garmentmaker.addPower(this.getPower("Traces Stat Bonus"));
-        garmentmaker.addPower(this.getPower("RelicStatsBonuses"));
-        garmentmaker.addPower(PermPower.create(PowerStat.CRIT_DAMAGE, 16, "The Wondrous Banan Amusement Park CD boost"));
         int idx = getBattle().getPlayers().indexOf(this);
         getBattle().addPlayerAt(this.garmentmaker, idx+1);
         getBattle().AdvanceEntity(this.garmentmaker, 100); // The Speeding Summer
