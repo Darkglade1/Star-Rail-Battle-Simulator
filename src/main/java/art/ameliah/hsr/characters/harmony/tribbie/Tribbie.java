@@ -1,5 +1,6 @@
 package art.ameliah.hsr.characters.harmony.tribbie;
 
+import art.ameliah.hsr.battleLogic.AbstractEntity;
 import art.ameliah.hsr.battleLogic.combat.MultiplierStat;
 import art.ameliah.hsr.battleLogic.combat.ally.AttackLogic;
 import art.ameliah.hsr.characters.AbstractCharacter;
@@ -29,7 +30,7 @@ public class Tribbie extends AbstractCharacter<Tribbie> implements SkillCounterT
     private final CounterMetric<Integer> numinosityCountdown = metricRegistry.register(CounterMetric.newIntegerCounter(NAME+"::numinosityCountdown"));
     private final CounterMetric<Integer> zoneCountdown = metricRegistry.register(CounterMetric.newIntegerCounter(NAME+"::zoneCountdown"));
 
-    private final Set<AbstractCharacter<?>> fuaTrigger = new HashSet<>(3); // 3 other ults
+    private final Set<AbstractEntity> fuaTrigger = new HashSet<>(3); // 3 other ults
 
     public Tribbie() {
         super(NAME, 1048, 524, 728, 96, 80, ElementType.QUANTUM, 120, 100, Path.HARMONY);
@@ -67,7 +68,7 @@ public class Tribbie extends AbstractCharacter<Tribbie> implements SkillCounterT
 
     @Override
     public void useTechnique() {
-        getBattle().getPlayers().forEach(player -> player.addPower(new Numinosity()));
+        getBattle().registerForPlayers(player -> player.addPower(new Numinosity()));
         this.numinosityCountdown.set(3);
     }
 
@@ -114,7 +115,7 @@ public class Tribbie extends AbstractCharacter<Tribbie> implements SkillCounterT
 
         public float hpBonus(AbstractCharacter<?> character) {
             double total = getBattle().getPlayers().stream()
-                    .mapToDouble(AbstractCharacter::getFinalHP)
+                    .filter(c -> c != owner).mapToDouble(AbstractCharacter::getFinalHP)
                     .sum();
 
             return (float) (total * 0.09f);
@@ -140,14 +141,10 @@ public class Tribbie extends AbstractCharacter<Tribbie> implements SkillCounterT
 
         @Override
         public void afterUseUltimate() {
-            if (!(this.getOwner() instanceof AbstractCharacter<?>)) {
+            if (Tribbie.this.fuaTrigger.contains(getOwner())) {
                 return;
             }
-
-            if (!Tribbie.this.fuaTrigger.contains(this.getOwner())) {
-                return;
-            }
-            Tribbie.this.fuaTrigger.add((AbstractCharacter<?>) this.getOwner());
+            Tribbie.this.fuaTrigger.add(this.getOwner());
 
             Tribbie.this.doAttack(DamageType.FOLLOW_UP, dl -> {
                 Tribbie.this.addPower(new LambOutsideTheWall());
@@ -156,6 +153,13 @@ public class Tribbie extends AbstractCharacter<Tribbie> implements SkillCounterT
                     al.hit(e, 0.18f, MultiplierStat.HP, 5);
                 });
             });
+        }
+
+        @Override
+        public void afterAttack(AttackLogic attack) {
+            if (attack.getSource() != Tribbie.this) {
+                Tribbie.this.increaseEnergy(1.5f*attack.getTargets().size(), "Pebble at Crossroads Attack energy");
+            }
         }
     }
 
@@ -168,20 +172,20 @@ public class Tribbie extends AbstractCharacter<Tribbie> implements SkillCounterT
 
         @Override
         public void afterAttack(AttackLogic attack) {
-            Tribbie.this.increaseEnergy(1.5f*attack.getTargets().size(), "Lamb Outside the Wall..");
-
-            Tribbie.this.doAttack(DamageType.ADDITIONAL_DAMAGE, dl -> {
-                int count = attack.getTargets().size();
-                for (int i = 0; i < count; i++) {
-                    getBattle().getEnemies().stream()
-                            .max(Comparator.comparing(e -> e.getCurrentHp().get()))
-                            .ifPresent(target -> {
-                                dl.logic(target, al -> {
-                                    al.hit(target, 0.12f, MultiplierStat.HP, 0);
+            if (attack.getSource() != Tribbie.this) {
+                Tribbie.this.doAttack(DamageType.ADDITIONAL_DAMAGE, dl -> {
+                    int count = attack.getTargets().size();
+                    for (int i = 0; i < count; i++) {
+                        getBattle().getEnemies().stream()
+                                .max(Comparator.comparing(e -> e.getCurrentHp().get()))
+                                .ifPresent(target -> {
+                                    dl.logic(target, al -> {
+                                        al.hit(target, 0.12f, MultiplierStat.HP, 0);
+                                    });
                                 });
-                            });
-                }
-            });
+                    }
+                });
+            }
         }
     }
 
@@ -195,8 +199,8 @@ public class Tribbie extends AbstractCharacter<Tribbie> implements SkillCounterT
         }
 
         @Override
-        public float receiveConditionalDamageBonus(AbstractCharacter<?> character, AbstractEnemy enemy, List<DamageType> damageTypes) {
-            return 0.3f;
+        public float getConditionalDamageTaken(AbstractCharacter<?> character, AbstractEnemy enemy, List<DamageType> damageTypes) {
+            return 30;
         }
     }
 

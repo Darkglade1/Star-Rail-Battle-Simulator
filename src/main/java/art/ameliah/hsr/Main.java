@@ -68,9 +68,11 @@ public class Main {
 
     public static void darkgladeTestRun() {
         Battle battle = new Battle();
+
         //battle.setPlayerTeam(new AglaeaTeams.DoubleSpeedAglaeaTeam().getTeam()); // 2 rotation ends in 270 AV
         //battle.setPlayerTeam(new AglaeaTeams.FastAglaeaSundayTeam().getTeam()); // 2 rotation ends in 262 AV
         battle.setPlayerTeam(new AglaeaTeams.SlowAglaeaHyperSundayTeam().getTeam()); // 2 rotation ends in 270 AV
+
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new AllWeakPassiveEnemy(0));
         enemyTeam.add(new AllWeakPassiveEnemy(1));

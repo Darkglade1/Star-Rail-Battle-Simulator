@@ -21,7 +21,8 @@ public class PoetOfMourningCollapse extends AbstractRelicSetBonus {
 
     @Override
     public void onCombatStart() {
-        getBattle().DecreaseSpeed(this.owner, PermPower.create(PowerStat.SPEED_PERCENT, -8, "Poet of Mourning Collapse Speed Reduction"));
+        this.owner.addPower(PermPower.create(PowerStat.SPEED_PERCENT, -8, "Poet of Mourning Collapse Speed Reduction"));
+        getBattle().getActionValueMap().put(this.owner, this.owner.getBaseAV());
 
         if (this.owner.getFinalSpeed() < 95) {
             this.owner.addPower(PermPower.create(PowerStat.CRIT_CHANCE, 32, "Poet of Mourning Collapse Critical Chance"));

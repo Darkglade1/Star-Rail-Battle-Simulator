@@ -120,7 +120,7 @@ public abstract class CounterMetric<T> extends AbstractMetric {
         public Integer decrease(Integer value, Integer min) {
             this.lastValue = this.value;
             this.value = Math.max(this.value - value, min);
-            return Math.abs(this.lastValue - (value + this.value));
+            return this.value;
         }
 
         @Override
