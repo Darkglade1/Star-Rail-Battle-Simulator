@@ -48,7 +48,7 @@ public class AglaeaTeams {
         relicStats.equipTo(character);
         return character;
     }
-    
+
     public static AbstractCharacter<?> getFastAglaea() {
         AbstractCharacter<?> character = new Aglaea();
         character.EquipLightcone(new TimeWovenIntoGold(character));
@@ -106,7 +106,7 @@ public class AglaeaTeams {
         character.EquipRelicSet(new BrokenKeel(character));
         RelicStats relicStats = new RelicStats();
         relicStats.addMainStat(Stats.CRIT_RATE).addMainStat(Stats.HP_PER).
-                addMainStat(Stats.QUANTUM_DAMAGE).addMainStat(Stats.HP_PER);
+                addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
         relicStats.addSubStat(Stats.CRIT_RATE, 6).addSubStat(Stats.CRIT_DAMAGE, 8).
                 addSubStat(Stats.EFFECT_RES, 6).addSubStat(Stats.HP_PER, 4);
         relicStats.equipTo(character);
@@ -157,6 +157,18 @@ public class AglaeaTeams {
         }
     }
 
+    public static class FastAglaeaSundayTribbieTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
+            playerTeam.add(getFastAglaea());
+            playerTeam.add(getFastSunday());
+            playerTeam.add(getPrebuiltTribbie());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
+    }
+
     public static class SlowAglaeaHyperSundayTeam extends PlayerTeam {
         @Override
         public ArrayList<AbstractCharacter<?>> getTeam() {
@@ -164,6 +176,18 @@ public class AglaeaTeams {
             playerTeam.add(getSlowAglaea());
             playerTeam.add(getHyperFastSunday());
             playerTeam.add(getPrebuiltRobin());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
+    }
+
+    public static class SlowAglaeaHyperSundayTribbieTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
+            playerTeam.add(getSlowAglaea());
+            playerTeam.add(getHyperFastSunday());
+            playerTeam.add(getPrebuiltTribbie());
             playerTeam.add(getPrebuiltHuohuo());
             return playerTeam;
         }

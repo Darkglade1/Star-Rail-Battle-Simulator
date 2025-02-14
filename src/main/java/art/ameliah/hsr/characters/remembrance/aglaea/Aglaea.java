@@ -180,7 +180,7 @@ public class Aglaea extends Memomaster<Aglaea> {
         this.garmentmaker.addPower(majorTracePower);
         getBattle().AdvanceEntity(this, 100);
 
-        increaseEnergy(200, "Test"); // fake energy to ensure ult chaining
+        increaseEnergy(250, "Test"); // fake energy to ensure ult chaining
     }
 
     public static class TheMyopicsDoom extends PermPower {

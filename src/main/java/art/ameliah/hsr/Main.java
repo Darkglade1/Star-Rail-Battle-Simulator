@@ -73,6 +73,10 @@ public class Main {
         //battle.setPlayerTeam(new AglaeaTeams.FastAglaeaSundayTeam().getTeam()); // 2 rotation ends in 262 AV
         battle.setPlayerTeam(new AglaeaTeams.SlowAglaeaHyperSundayTeam().getTeam()); // 2 rotation ends in 270 AV
 
+        //battle.setPlayerTeam(new AglaeaTeams.DoubleSpeedAglaeaTribbieTeam().getTeam()); // 2 rotation ends in 270 AV
+        //battle.setPlayerTeam(new AglaeaTeams.FastAglaeaSundayTribbieTeam().getTeam()); // 2 rotation ends in 262 AV
+        //battle.setPlayerTeam(new AglaeaTeams.SlowAglaeaHyperSundayTribbieTeam().getTeam()); // 2 rotation ends in 278 AV
+
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new AllWeakPassiveEnemy(0));
         enemyTeam.add(new AllWeakPassiveEnemy(1));
