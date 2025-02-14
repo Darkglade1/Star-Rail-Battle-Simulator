@@ -13,12 +13,10 @@ import art.ameliah.hsr.lightcones.remembrance.TimeWovenIntoGold;
 import art.ameliah.hsr.relics.RelicStats;
 import art.ameliah.hsr.relics.Stats;
 import art.ameliah.hsr.relics.ornament.BrokenKeel;
+import art.ameliah.hsr.relics.ornament.ForgeOfTheKalpagniLatern;
 import art.ameliah.hsr.relics.ornament.SpringhtlyVonwacq;
 import art.ameliah.hsr.relics.ornament.TheWondrousBananAmusementPark;
-import art.ameliah.hsr.relics.relics.HeroOfTriumphantSong;
-import art.ameliah.hsr.relics.relics.PasserbyOfWanderingCloud;
-import art.ameliah.hsr.relics.relics.PoetOfMourningCollapse;
-import art.ameliah.hsr.relics.relics.SacerdosRelivedOrdeal;
+import art.ameliah.hsr.relics.relics.*;
 
 import java.util.ArrayList;
 
@@ -97,6 +95,34 @@ public class AglaeaTeams {
         relicStats.addMainStat(Stats.CRIT_DAMAGE).addMainStat(Stats.SPEED).
                 addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
         relicStats.addSubStat(Stats.EFFECT_RES, 0).addSubStat(Stats.CRIT_DAMAGE, 1).addSubStat(Stats.SPEED, 19);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter<?> getVonwaqAglaea() {
+        AbstractCharacter<?> character = new Aglaea();
+        character.EquipLightcone(new TimeWovenIntoGold(character));
+        character.EquipRelicSet(new HeroOfTriumphantSong(character));
+        character.EquipRelicSet(new SpringhtlyVonwacq(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(Stats.CRIT_RATE).addMainStat(Stats.ATK_PER).
+                addMainStat(Stats.LIGHTNING_DAMAGE).addMainStat(Stats.ERR);
+        relicStats.addSubStat(Stats.CRIT_RATE, 11).addSubStat(Stats.CRIT_DAMAGE, 9).addSubStat(Stats.SPEED, 4);
+        relicStats.equipTo(character);
+        return character;
+    }
+
+    public static AbstractCharacter<?> get200speedSunday() {
+        AbstractCharacter<?> character = new Sunday();
+        character.EquipLightcone(new ButTheBattleIsntOver(character));
+        character.EquipRelicSet(new SacerdosRelivedOrdeal(character, false));
+        character.EquipRelicSet(new MessengerTraversingHackerspace(character, false));
+        character.EquipRelicSet(new ForgeOfTheKalpagniLatern(character));
+        RelicStats relicStats = new RelicStats();
+        relicStats.addMainStat(Stats.CRIT_DAMAGE).addMainStat(Stats.SPEED).
+                addMainStat(Stats.HP_PER).addMainStat(Stats.ERR);
+        relicStats.addSubStat(Stats.SPEED, 27);
+        relicStats.equipTo(character);
         return character;
     }
     public static AbstractCharacter<?> getPrebuiltTribbie() {
@@ -119,6 +145,18 @@ public class AglaeaTeams {
 
     public static AbstractCharacter<?> getPrebuiltHuohuo() {
         return PlayerTeam.getPrebuiltHuohuo();
+    }
+
+    public static class VonwaqAglaeaTribbieTeam extends PlayerTeam {
+        @Override
+        public ArrayList<AbstractCharacter<?>> getTeam() {
+            ArrayList<AbstractCharacter<?>> playerTeam = new ArrayList<>();
+            playerTeam.add(getVonwaqAglaea());
+            playerTeam.add(get200speedSunday());
+            playerTeam.add(getPrebuiltTribbie());
+            playerTeam.add(getPrebuiltHuohuo());
+            return playerTeam;
+        }
     }
 
     public static class DoubleSpeedAglaeaTribbieTeam extends PlayerTeam {

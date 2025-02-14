@@ -626,10 +626,16 @@ public abstract class AbstractCharacter<C extends AbstractCharacter<C>> extends 
     }
 
     public HashMap<String, String> getCharacterSpecificMetricMap() {
-        return new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
+        map.put(turnsMetric.getKey(), String.valueOf(turnsMetric.get()));
+        map.put(actionMetric.getKey(), String.valueOf(actionMetric.representation()));
+        return map;
     }
 
     public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
-        return new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(turnsMetric.getKey());
+        list.add(actionMetric.getKey());
+        return list;
     }
 }

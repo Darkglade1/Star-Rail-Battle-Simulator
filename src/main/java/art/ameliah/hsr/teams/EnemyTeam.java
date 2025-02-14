@@ -1,11 +1,6 @@
 package art.ameliah.hsr.teams;
 
-import art.ameliah.hsr.enemies.AbstractEnemy;
-import art.ameliah.hsr.enemies.AllWeakEnemy;
-import art.ameliah.hsr.enemies.FireWindImgLightningWeakEnemy;
-import art.ameliah.hsr.enemies.PhysFireWeakEnemy;
-import art.ameliah.hsr.enemies.PhysWeakEnemy;
-import art.ameliah.hsr.enemies.WindWeakEnemy;
+import art.ameliah.hsr.enemies.*;
 
 import java.util.ArrayList;
 
@@ -18,6 +13,21 @@ public class EnemyTeam {
 
     public String toString() {
         return description;
+    }
+
+    public static class AllWeakPassiveEnemies3 extends EnemyTeam {
+        public AllWeakPassiveEnemies3() {
+            description = "3 Passive Enemies weak to everything";
+        }
+
+        @Override
+        public ArrayList<AbstractEnemy> getTeam() {
+            ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
+            enemyTeam.add(new AllWeakPassiveEnemy(0));
+            enemyTeam.add(new AllWeakPassiveEnemy(1));
+            enemyTeam.add(new AllWeakPassiveEnemy(2));
+            return enemyTeam;
+        }
     }
 
     public static class AllWeakEnemies2 extends EnemyTeam {

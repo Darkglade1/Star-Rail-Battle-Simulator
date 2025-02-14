@@ -59,7 +59,7 @@ public class Battle extends RngProvider implements IBattle {
     protected CounterMetric<Integer> currentSkillPoints = metricRegistry.register(CounterMetric.newIntegerCounter("battle-current-skill-points", "Current skill points", INITIAL_SKILL_POINTS));
     protected CounterMetric<Float> avLeftOver = metricRegistry.register(CounterMetric.newFloatCounter("battle-av-left-over", "AV left over"));
     protected CounterMetric<Float> avUsed = metricRegistry.register(CounterMetric.newFloatCounter("battle-av-used", "AV used"));
-    protected DmgContributionMetric dmgContributionMetric = metricRegistry.register(new DmgContributionMetric(this, "battle-dmg-contribution", "Dmg Contributions"));
+    public DmgContributionMetric dmgContributionMetric = metricRegistry.register(new DmgContributionMetric(this, "battle-dmg-contribution", "Dmg Contributions"));
 
     protected final Deque<IAttack> queue = new LinkedList<>();
 
@@ -80,6 +80,7 @@ public class Battle extends RngProvider implements IBattle {
     protected Set<Consumer<AbstractEnemy>> enemyListeners = new HashSet<>();
 
     protected boolean activeAttack = false;
+    public HashMap<AbstractCharacter<?>, Float> damageContributionMapPercent;
 
     @Getter
     private Logger logger;
@@ -351,6 +352,8 @@ public class Battle extends RngProvider implements IBattle {
         this.initialBattleLength = initialLength;
         this.avLeftOver.set(initialLength);
 
+        damageContributionMapPercent = new HashMap<>();
+
         addToLog(new CombatStart());
         this.playerTeam.forEach(c -> addToLog(new PreCombatPlayerMetrics(c)));
         this.playerTeam.forEach(AbstractCharacter::SetPreCombatPowers);
@@ -395,7 +398,22 @@ public class Battle extends RngProvider implements IBattle {
                 break;
             }
         }
+
+        calcPercentContribution();
         this.generateMetrics();
+    }
+
+    public void calcPercentContribution() {
+        for (AbstractCharacter<?> character : playerTeam) {
+            Float damage = dmgContributionMetric.map.get(character);
+            if (damage == null) {
+                dmgContributionMetric.map.put(character, 0.0f);
+                damageContributionMapPercent.put(character, 0.0f);
+            } else {
+                float percent = damage / totalPlayerDamage.get() * 100;
+                damageContributionMapPercent.put(character, percent);
+            }
+        }
     }
 
     private void battleLoop(Yunli yunli, SwordMarch march) {

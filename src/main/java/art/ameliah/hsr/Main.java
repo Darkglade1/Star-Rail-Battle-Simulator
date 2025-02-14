@@ -13,7 +13,9 @@ import art.ameliah.hsr.enemies.FireWindImgLightningWeakEnemy;
 import art.ameliah.hsr.game.moc.ScalegorgeTidalflow11;
 import art.ameliah.hsr.metrics.CounterMetric;
 import art.ameliah.hsr.metrics.DmgContributionMetric;
+import art.ameliah.hsr.report.Report;
 import art.ameliah.hsr.teams.AglaeaTeams;
+import art.ameliah.hsr.teams.EnemyTeam;
 import art.ameliah.hsr.teams.PlayerTeam;
 
 import java.io.File;
@@ -43,6 +45,7 @@ public class Main {
 
         //run();
         darkgladeTestRun();
+        //generateReportAglaea();
 
         //ameliasSanityCheck();
         //WaveTester.MocTest();
@@ -69,13 +72,15 @@ public class Main {
     public static void darkgladeTestRun() {
         Battle battle = new Battle();
 
-        //battle.setPlayerTeam(new AglaeaTeams.DoubleSpeedAglaeaTeam().getTeam()); // 2 rotation ends in 270 AV
+        battle.setPlayerTeam(new AglaeaTeams.DoubleSpeedAglaeaTeam().getTeam()); // 2 rotation ends in 270 AV
         //battle.setPlayerTeam(new AglaeaTeams.FastAglaeaSundayTeam().getTeam()); // 2 rotation ends in 262 AV
-        battle.setPlayerTeam(new AglaeaTeams.SlowAglaeaHyperSundayTeam().getTeam()); // 2 rotation ends in 270 AV
+        //battle.setPlayerTeam(new AglaeaTeams.SlowAglaeaHyperSundayTeam().getTeam()); // 2 rotation ends in 270 AV
 
         //battle.setPlayerTeam(new AglaeaTeams.DoubleSpeedAglaeaTribbieTeam().getTeam()); // 2 rotation ends in 270 AV
         //battle.setPlayerTeam(new AglaeaTeams.FastAglaeaSundayTribbieTeam().getTeam()); // 2 rotation ends in 262 AV
         //battle.setPlayerTeam(new AglaeaTeams.SlowAglaeaHyperSundayTribbieTeam().getTeam()); // 2 rotation ends in 278 AV
+
+        //battle.setPlayerTeam(new AglaeaTeams.VonwaqAglaeaTribbieTeam().getTeam()); // 2 rotation ends in 250 AV
 
         ArrayList<AbstractEnemy> enemyTeam = new ArrayList<>();
         enemyTeam.add(new AllWeakPassiveEnemy(0));
@@ -89,6 +94,24 @@ public class Main {
         System.out.printf("DPAV: %.3f", battle.getTotalPlayerDmg() / battle.initialBattleLength);
 //        System.out.println(metric.representation());
 //        System.out.println();
+    }
+
+    public static void generateReportAglaea() {
+        PlayerTeam baselineTeam = new AglaeaTeams.DoubleSpeedAglaeaTeam();
+        ArrayList<PlayerTeam> otherTeams = new ArrayList<>();
+        otherTeams.add(new AglaeaTeams.FastAglaeaSundayTeam());
+        otherTeams.add(new AglaeaTeams.SlowAglaeaHyperSundayTeam());
+        otherTeams.add(new AglaeaTeams.DoubleSpeedAglaeaTribbieTeam());
+        otherTeams.add(new AglaeaTeams.FastAglaeaSundayTribbieTeam());
+        otherTeams.add(new AglaeaTeams.SlowAglaeaHyperSundayTribbieTeam());
+        otherTeams.add(new AglaeaTeams.VonwaqAglaeaTribbieTeam());
+
+        ArrayList<EnemyTeam> enemyTeams = new ArrayList<>();
+        enemyTeams.add(new EnemyTeam.AllWeakPassiveEnemies3());
+
+        String notes = "Notes: Aglaea is E0S1. Others are E0S0. Assumes you have enough energy to chain Aglaea ultimates.";
+        Report report = new Report(baselineTeam, otherTeams, enemyTeams, 280, notes);
+        report.generateCSV();
     }
 
     @SuppressWarnings("unchecked")

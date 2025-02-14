@@ -497,15 +497,16 @@ public class PlayerTeam {
     }
 
     public String toString() {
-        ArrayList<AbstractCharacter<?>> team = getTeam();
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < team.size(); i++) {
-            result.append(team.get(i).getName());
-            if (i < team.size() - 1) {
-                result.append(" | ");
-            }
-        }
-        return result.toString();
+        return this.getClass().getSimpleName();
+//        ArrayList<AbstractCharacter<?>> team = getTeam();
+//        StringBuilder result = new StringBuilder();
+//        for (int i = 0; i < team.size(); i++) {
+//            result.append(team.get(i).getName());
+//            if (i < team.size() - 1) {
+//                result.append(" | ");
+//            }
+//        }
+//        return result.toString();
     }
 
     public static class PelaYunliRobinHuohuoTeam extends PlayerTeam {

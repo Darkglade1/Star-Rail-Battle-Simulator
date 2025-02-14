@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class DmgContributionMetric extends AbstractMetric{
 
-    private final Map<BattleParticipant, Float> map = new ConcurrentHashMap<>();
+    public final Map<BattleParticipant, Float> map = new ConcurrentHashMap<>();
     private final Map<BattleParticipant, TreeMap<DamageType, Float>> dmgPerType = new ConcurrentHashMap<>();
     private final Map<BattleParticipant, Float> overFlowMap = new ConcurrentHashMap<>();
     private final IBattle battle;

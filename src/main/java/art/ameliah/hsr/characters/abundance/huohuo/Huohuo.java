@@ -16,6 +16,9 @@ import art.ameliah.hsr.powers.PowerStat;
 import art.ameliah.hsr.powers.TempPower;
 import art.ameliah.hsr.powers.TracePower;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Huohuo extends AbstractCharacter<Huohuo> implements SkillCounterTurnGoal.SkillCounterCharacter {
 
     private static final String NAME = "Huohuo";
@@ -96,6 +99,18 @@ public class Huohuo extends AbstractCharacter<Huohuo> implements SkillCounterTur
             }
         }
         tryUltimate();
+    }
+
+    public HashMap<String, String> getCharacterSpecificMetricMap() {
+        HashMap<String, String> map = super.getCharacterSpecificMetricMap();
+        map.put(talentProcs.getKey(), String.valueOf(talentProcs.get()));
+        return map;
+    }
+
+    public ArrayList<String> getOrderedCharacterSpecificMetricsKeys() {
+        ArrayList<String> list = super.getOrderedCharacterSpecificMetricsKeys();
+        list.add(talentProcs.getKey());
+        return list;
     }
 
     @Override
